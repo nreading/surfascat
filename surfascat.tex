@@ -254,7 +254,20 @@
 
 \newcommand{\fakesubsec}[1]{\medskip\noindent\textbf{#1.}}  %unnumbered
 
+%%%%%
+%Greg's preamble stuff
 
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,positioning,fit}
+\tikzstyle{dot} = [fill=black!25,inner sep=0.5mm,circle,draw,minimum size=1mm]
+\tikzstyle{marked}=[inner sep=0.5mm,circle,draw=blue!75!black,fill=blue!50]
+\tikzstyle{lamination}=[green!75!black]
+
+\newenvironment{ex}{\refstepcounter{proposition}\begin{proof}[Example \emph{\thethm}]\renewcommand*{\qedsymbol}{\(\blacksquare\)}}{\end{proof}}
+\newenvironment{rem}{\refstepcounter{proposition}\begin{proof}[Remark \emph{\thethm}]\renewcommand*{\qedsymbol}{\(\blacksquare\)}}{\end{proof}}
+
+%\Greg's preamble stuff
+%%%%%
 
 \title{Scattering diagrams for surfaces}
 \author{Greg Muller, Nathan Reading, and Shira Viel}
@@ -343,7 +356,220 @@ For definiteness, we can always take the $v_i$ for $i\in I_\fr$ to be in $\set{e
 If we do principal coefficients, we can the $v_i$ for $i\in I_\fr$ to be $\set{L_\alpha:\alpha\in T}$\\\hline
 \end{longtable}
 
+\newpage
 
+\section{Miscellaneous lemmas}
+
+\subsection{Inequalities associated to I-beams}
+
+Let $\Delta$ be a triangulation, and let $\gamma$ be a marked arc not in $\Delta$, which we assume intersects the arcs in $\Delta$ minimally. Index the intersection points $1,2,...,n$ consecutively along $\gamma$, and let $S_i$ denote the shear coordinate of the arc containing the $i$th intersection point.
+
+Let us say an interval $[a,b]\subset \{1,2,...,n\}$ is \textbf{admissible} if....
+\begin{itemize}
+	\item $a=1$ or $\gamma$ turns right between intersections $a-1$ and $a$, 
+	\item $b=n$ or $\gamma$ turns left between intersections $b$ and $b+1$, and
+	\item $[a,b]\neq [1,n]$.
+\end{itemize}
+
+\begin{lemma}
+A positive measured lamination $\mu$ is compatible with the I-beam associated to $\gamma$ iff
+\[ \sum_{i=1}^nS_i = 0\text{ and, for every admissible $[a,b]$, }\sum_{i=a}^b S_i \geq 0\]
+\end{lemma}
+
+%\begin{lemma}
+%A positive measured lamination $\mu$ is compatible with $r_{\mathrm{CW}}(\gamma)$ or $r_{\mathrm{CCW}}(\gamma)$ iff, for every admissible $[a,b]\subset \{1,2...,n\}$,
+%\[ \sum_{i=a}^b S_i \geq 0\]
+%Let $S:=\sum_{i=1}^nS_1\geq 0$ and assume the above inequalities hold.
+%\begin{itemize}
+%	\item If $S\geq 0$, then $\mu$ contains $r_{\mathrm{CCW}}(\gamma)$ with measure $S$.
+%	\item If $S\leq 0$, then $\mu$ contains $r_{\mathrm{CW}}(\gamma)$ with measure $-S$.
+%	\item If $S= 0$, compatible with $r_{\mathrm{CW}}(\gamma)$ and $r_{\mathrm{CCW}}(\gamma)$, or equivalently the I-beam corresponding to $\gamma$.
+%\end{itemize}
+%\end{lemma}
+
+\begin{ex}
+Consider $\gamma$ and $\Delta$ as in the first disc, and $\mu$ as in the second disc.
+
+
+%\begin{center}
+%\begin{tikzpicture}[scale=.75]
+%
+%\begin{scope}
+%	\draw[fill=black!10] (0,0) circle (2);
+%	\node[marked] (2) at (0:2) {};
+%	\node[marked] (1) at (60:2) {};
+%	\node[marked] (6) at (120:2) {};
+%	\node[marked] (5) at (180:2) {};
+%	\node[marked] (4) at (240:2) {};
+%	\node[marked] (3) at (300:2) {};
+%	\draw (1) to node[right] {} (3);
+%	\draw (1) to node[above left] {} (4);
+%	\draw (6) to node[left] {} (4);
+%	\draw[red] (2) to node[above left] {$\gamma$} (5); 
+%%	\draw[red,relative,out=15,in=195] (-30:2) to (150:2);
+%\end{scope}
+%\begin{scope}[xshift=6cm]
+%	\draw[fill=black!10] (0,0) circle (2);
+%	\node[marked] (2) at (0:2) {};
+%	\node[marked] (1) at (60:2) {};
+%	\node[marked] (6) at (120:2) {};
+%	\node[marked] (5) at (180:2) {};
+%	\node[marked] (4) at (240:2) {};
+%	\node[marked] (3) at (300:2) {};
+%	\draw (1) to node[right] {} (3);
+%	\draw (1) to node[above left] {} (4);
+%	\draw (6) to node[left] {} (4);
+%	\draw[lamination,relative,out=15,in=195] (140:2) to node[above] {$a$} (30:2);
+%	\draw[lamination,relative,out=15,in=195] (160:2) to node[above] {$b$} (-20:2);
+%	\draw[lamination,relative,out=15,in=195] (210:2) to node[above] {$c$} (-40:2);
+%\end{scope}
+%\begin{scope}[xshift=12cm]
+%	\draw[fill=black!10] (0,0) circle (2);
+%	\node[marked] (2) at (0:2) {};
+%	\node[marked] (1) at (60:2) {};
+%	\node[marked] (6) at (120:2) {};
+%	\node[marked] (5) at (180:2) {};
+%	\node[marked] (4) at (240:2) {};
+%	\node[marked] (3) at (300:2) {};
+%	\draw (1) to node[below] {$\scriptstyle S_3=-b-c$} (3);
+%	\draw (1) to node[above ] {$\scriptstyle S_2=a+b+c$} (4);
+%	\draw (6) to node[below] {$\scriptstyle S_1=-a-b$} (4);
+%\end{scope}
+%\begin{scope}[xshift=6cm,yshift=-6cm]
+%	\draw[fill=black!10] (0,0) circle (2);
+%	\node[marked] (2) at (0:2) {};
+%	\node[marked] (1) at (60:2) {};
+%	\node[marked] (6) at (120:2) {};
+%	\node[marked] (5) at (180:2) {};
+%	\node[marked] (4) at (240:2) {};
+%	\node[marked] (3) at (300:2) {};
+%	\draw (1) to node[right] {} (3);
+%	\draw (6) to node[above left] {} (3);
+%	\draw (6) to node[left] {} (4);
+%	\draw[lamination,relative,out=15,in=195] (140:2) to node[above] {$a$} (30:2);
+%	\draw[lamination,relative,out=15,in=195] (160:2) to node[above] {$b$} (-20:2);
+%	\draw[lamination,relative,out=15,in=195] (210:2) to node[above] {$c$} (-40:2);
+%\end{scope}
+%\begin{scope}[xshift=12cm,yshift=-6cm]
+%	\draw[fill=black!10] (0,0) circle (2);
+%	\node[marked] (2) at (0:2) {};
+%	\node[marked] (1) at (60:2) {};
+%	\node[marked] (6) at (120:2) {};
+%	\node[marked] (5) at (180:2) {};
+%	\node[marked] (4) at (240:2) {};
+%	\node[marked] (3) at (300:2) {};
+%	\draw (1) to node[below] {$\scriptstyle S_3=a$} (3);
+%	\draw (6) to node[above ] {$\scriptstyle S_2=-a-b-c$} (3);
+%	\draw (6) to node[below] {$\scriptstyle S_1=c$} (4);
+%\end{scope}
+%\end{tikzpicture}
+%\end{center}
+
+
+\begin{center}
+\begin{tikzpicture}[scale=1]
+\begin{scope}[xshift=0cm]
+	\draw[fill=black!10] (0,0) circle (2);
+	\node[marked] (1) at (90:2) {};
+	\node[marked] (2) at (45:2) {};
+	\node[marked] (3) at (0:2) {};
+	\node[marked] (4) at (-45:2) {};
+	\node[marked] (5) at (-90:2) {};
+	\node[marked] (6) at (-135:2) {};
+	\node[marked] (7) at (-180:2) {};
+	\node[marked] (8) at (135:2) {};
+	\draw (8) to node[below] {} (6);
+	\draw (6) to node[below] {} (1);
+	\draw (1) to node[below] {} (5);
+	\draw (1) to node[below] {} (4);
+	\draw (4) to node[below] {} (2);
+	\draw[red] (7) to node[below right] {$\gamma$} (3);
+\end{scope}
+\begin{scope}[xshift=6cm]
+	\draw[fill=black!10] (0,0) circle (2);
+	\node[marked] (1) at (90:2) {};
+	\node[marked] (2) at (45:2) {};
+	\node[marked] (3) at (0:2) {};
+	\node[marked] (4) at (-45:2) {};
+	\node[marked] (5) at (-90:2) {};
+	\node[marked] (6) at (-135:2) {};
+	\node[marked] (7) at (-180:2) {};
+	\node[marked] (8) at (135:2) {};
+	\draw (8) to node[below] {} (6);
+	\draw (6) to node[below] {} (1);
+	\draw (1) to node[below] {} (5);
+	\draw (1) to node[below] {} (4);
+	\draw (4) to node[below] {} (2);
+	\draw[lamination,relative,out=-15,in=195] (150:2) to node[below left] {$a$} (60:2);
+	\draw[lamination,relative,out=-15,in=195] (165:2) to node[below left] {$b$} (30:2);
+%	\draw[lamination,relative] (195:2) to node[below right] {$c$} (15:2);
+	\draw[lamination,relative,out=15,in=165] (210:2) to node[below left] {$c$} (-15:2);
+	\draw[lamination,relative,out=15,in=165] (240:2) to node[below right] {$d$} (-30:2);
+\end{scope}
+%\begin{scope}[xshift=12cm]
+%	\draw[fill=black!10] (0,0) circle (2);
+%	\node[marked] (1) at (90:2) {};
+%	\node[marked] (2) at (45:2) {};
+%	\node[marked] (3) at (0:2) {};
+%	\node[marked] (4) at (-45:2) {};
+%	\node[marked] (5) at (-90:2) {};
+%	\node[marked] (6) at (-135:2) {};
+%	\node[marked] (7) at (-180:2) {};
+%	\node[marked] (8) at (135:2) {};
+%	\draw (8) to node[above] {$\scriptstyle -b$} (6);
+%	\draw (6) to node[below] {$\scriptstyle b+c+d$} (1);
+%	\draw (1) to node[above] {$\scriptstyle -d$} (5);
+%	\draw (1) to node[below] {$\scriptstyle -a-b-c$} (4);
+%	\draw (4) to node[above] {$\scriptstyle a+b$} (2);
+%\end{scope}
+%\begin{scope}[xshift=18cm]
+%	\draw[fill=black!10] (0,0) circle (2);
+%	\node[marked] (1) at (90:2) {};
+%	\node[marked] (2) at (45:2) {};
+%	\node[marked] (3) at (0:2) {};
+%	\node[marked] (4) at (-45:2) {};
+%	\node[marked] (5) at (-90:2) {};
+%	\node[marked] (6) at (-135:2) {};
+%	\node[marked] (7) at (-180:2) {};
+%	\node[marked] (8) at (135:2) {};
+%	\draw (8) to node[above] {$\scriptstyle -b-x$} (6);
+%	\draw (6) to node[below left] {$\scriptstyle b+c+d+x+y$} (1);
+%	\draw (1) to node[above] {$\scriptstyle -d$} (5);
+%	\draw (1) to node[below right] {$\scriptstyle -a-b-c-x-y$} (4);
+%	\draw (4) to node[above] {$\scriptstyle a+b+y$} (2);
+%\end{scope}
+\end{tikzpicture}
+\end{center}
+Read left to right, the non-boundary shear coordinates are as follows.
+\[ S_1 = -a-b,\;\;\; S_2 = a+b+c,\;\;\; S_3 = d,\;\;\; S_4 = -b-c-d,\;\;\; S_5 = b\]
+The admissible $a$ are $\{1,2,5\}$ and the admissible $b$ are $\{2,4,5\}$.
+\[\begin{array}{|c|ccc|}
+\hline 
+\sum & 2 & 3 & 5 \\
+\hline
+1 & c  & c+d & 0 \\
+2 & a+b+c & a+b+c+d & a+b \\
+5 & 0 & 0 & b \\
+\hline
+\end{array} \]
+The lemma asserts that the above sums are non-negative, and $\sum_1^5$ must be $0$.
+\end{ex}
+
+Consequently, the wall in $\mathbb{R}^\Delta$ associated to the I-beam defined by $\gamma$ is
+\[ W_\gamma:= \left\{ v\in \mathbb{R}^\Delta : \sum_{i=1}^n S_i =0 \text{ and }\forall \text{ admissible }[a,b], \sum_{i=a}^b S_i \geq 0\right\} \]
+
+\begin{rem}
+These inequalities were reverse engineered from Bridgeland's work.
+The marked arc $\gamma$ determines an $A_n$-quiver (the mutable quiver of the universal cover of the local neighborhood of $\gamma$), and this quiver has a unique irrep whose dimension vector is all $1$s. The admissible intervals are precisely the proper subreps of this representation, and the inequality is the stability condition.
+\end{rem}
+
+%\begin{proof}[Proof of Lemma \ref{lemma: inequalities}]
+%We prove the lemma by induction on $n$ (the number of intersections between $\gamma$ and $\Delta$). Since $\gamma$ is not in $\Delta$, the base case is $n=1$. If $n=1$, then the first half of the lemma is trivial and the second half is the definition of the shear coordinate.
+%
+%Now, assume $\gamma$ and $\Delta$ intersect $n>1$ times, and assume the inductive hypothesis. Let $\gamma_1$ and $\gamma_2$ be the marked arcs such that
+%\end{proof}
+
+\newpage
 
 \begin{thebibliography}{27}
 \bibitem{GHKK}
