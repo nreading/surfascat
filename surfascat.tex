@@ -571,13 +571,104 @@ The marked arc $\gamma$ determines an $A_n$-quiver (the mutable quiver of the un
 
 \newpage
 
+\section{I-beams}
+\label{ibeams sec}
+
+In this section we introduce a new combinatorial object on triangulated marked surfaces, the I-beam. 
+Our goal is to construct a scattering diagram $\D_I(B(\Delta))$ 
+with walls indexed by I-beams in $(\S, \M)$ with triangulation $\Delta$, and then show that 
+$\D_I(B(\Delta)) = \Scat^T(B(\Delta))$, the transposed cluster scattering diagram for $B(\Delta)$.
+
+Roughly speaking, an I-beam can be thought of as corresponding to a collection of facets in the rational quasi-lamination fan which share a common normal vector. Thus, an I-beam either corresponds to a collection of pairs of ``exchangeable" allowable curves 
+\margin[SV]{i.e., allowable curves arising as the image, under $\kappa$ (see \cite[Section~5]{unisurface}), of exchangeable tagged arcs)}
+ which each intersect in the same way, or it corresponds to an allowable closed curve which may be completed to a quasi-lamination of co-dimension 1. Such allowable closed curves are referred to as non-shielding.
+ 
+ 
+\begin{definition}
+An allowable closed curve $\lambda$ is \newword{non-shielding} if every component of $\S \setminus \lambda$ contains at least one marked point.
+\end{definition}
+
+\begin{example}
+The curve $\lambda$ in the dread torus which is parallel to the boundary is a shielding loop. Triangulations of the dread torus consist of 5 arcs, but quasi-laminations containing $\lambda$ are only of size 3. 
+\end{example}
+
+
+\begin{definition}
+\label{def: ibeam}
+Given an (ordinary, untagged) triangulation $\Delta$ of $(\S, \M)$, an \newword{I-beam} $I$ is a non-self-intersecting (branching) curve
+ in $\S$ considered up to isotopy relative to $\M$. We require that $I$ is disjoint from the boundary of $\S$, except possibly at its endpoints, and is either 
+\begin{enumerate}
+\item a non-shielding allowable closed curve, or
+\item a (branching) curve with two branch points 
+\margin[SV]{Is this a misuse of `branching'? maybe `forked' is better?}
+in $\S \setminus \Delta$
+such that:
+\begin{enumerate}
+\item If 
+a branch point lies inside a self-folded triangle,
+then extend $I$ with a single branch terminating at the puncture on the fold, and tag that end of $I$ either plain or notched.
+\item If a branch point lies inside a non-self-folded triangle,
+then $I$ intersected one of its arcs transversely immediately before reaching the branch point. In this case, extend $I$ with two branches, terminating at unmarked points on each of the remaining two arcs.
+ \item If both branch points lie in triangles of the same type (self-folded or non-self-folded), then these triangles must be distinct.
+\end{enumerate}
+\end{enumerate}
+\end{definition}
+
+\begin{remark}
+Each non-closed I-beam maps naturally to either an ordinary arc (if both branch points lie in non-self-folded triangles), or to a tagged arc with at least one endpoint at a puncture which is not in the initial triangulation $\Delta$. The map is as follows: instead of extending a branch point in a non-self-folded triangle with two branches terminating at unmarked points on adjacent arcs, extend with a single branch terminating at the marked point the two arcs share.
+\end{remark}
+
+\begin{remark}
+There is a choice to be made in whether to define I-beams with respect to a tagged triangulation or an ordinary triangulation. The advantage of the ordinary triangulation, which we use for now, is that it is easier to see how an I-beam encodes different ways of interacting with a self-folded triangle. Tagged triangulations offer the advantage of a more natural definition of the intersection vector (see Definition~\ref{def: intersection vector}), without appealing to the map $\tau$.\end{remark}
+
+To define the wall $(\d_I, f_{\d_I})$ associated to an I-beam $I$, we first define the vector $n_I \in N^+$ which is normal to the codimension-1 rational cone $\d_I$. \margin[SV]{May need to check that $n_I$ is primitive}. 
+
+Recall there is a map $\tau$ from ordinary arcs to tagged arcs that sends each arc which does not bound a once-punctured monogon to the same curve, with both endpoints tagged plain, and sends any arc which does bound a once-punctured monogon to the arc, in the monogon, tagged notched at the puncture and plain at its other end. (See, e.g., \cite[Definition~3.3]{unisurface}.)
+
+\begin{definition}
+\label{def: intersection vector}
+Given an (ordinary, untagged) triangulation $\Delta$ of $(\S, \M)$ and an I-beam $I$, for each arc $\gamma \in T$ we define a scalar $c_{I \gamma} \in \integers_{\geq 0}$ as follows. 
+If $\gamma$ is an arc in a self-folded triangle and $I$ has an endpoint at the puncture on the fold, then $c_{I \gamma}=0$ if the taggings on $\tau(\gamma)$ and $I$ agree and $1$ if they do not. 
+Otherwise, $c_{I \gamma}$ is the number of times $I$ and $\gamma$ intersect transversely.
+The \newword{intersection vector} $\mathbf{n}_I$ is the formal sum 
+\begin{equation}
+\mathbf{n}_I = \sum_{\gamma \in T} c_{I \gamma} \gamma \in N^+
+\end{equation} 
+Alternatively, $\mathbf{n}_I$ may be thought of as the vector $\mathbf{n}_I = ( I(\gamma) : \gamma \in T) \in \integers_{\geq 0}^{|\Delta|}$. 
+Note that the definition of an I-vector ensures that $\mathbf{n}_I$ is nonzero.
+\end{definition}
+
+\begin{conj}
+Each non-closed I-beam can be extended to a pair of allowable curves which intersect exactly once. (Two curves which are compatible except for opposite spiral directions at a shared endpoint are considered to only intersect once.)
+Further, if $\lambda$ is an allowable curve which is compatible with both, then its shear coordinate vector $\textbf{b}(T, \lambda)$ is orthogonal to $\mathbf{n}_I$.
+\end{conj}
+
+\begin{remark}
+The tagging on an I-beam terminating at a puncture in a self-folded triangle determines how it can be extended to two ``exchangeable" allowable curves. 
+\end{remark}
+
+\begin{remark}
+There may be some subtlety here which we won't be able to tease out until we write the scattering diagram proof. 
+There appear to be some pairs of exchangeable allowable curves which don't correspond to any I-beams as we've defined them. However, the corresponding facet in the lamination fan (consisting of a collection of pairwise compatible allowable curves which form a maximal lamination with either) does have a normal vector given by one of our I-beams.
+
+\includegraphics[scale=.2]{new_ibeam.jpg}
+\end{remark}
+
+\begin{figure}
+\caption{Some simple examples}
+\includegraphics[scale=.25]{ibeam_examples.jpg}
+\end{figure}
+
 \begin{thebibliography}{27}
 \bibitem{GHKK}
 M. Gross, P. Hacking, S. Keel, and M. Kontsevich,
 \textit{Canonical bases for cluster algebras.}
 Preprint, 2014. \texttt{arXiv:1411.1394}
 
-
+\bibitem{unisurface}
+N. Reading,
+\textit{Universal geometric cluster algebras from surfaces. }
+Trans. Amer. Math. Soc. \textbf{366} no. 12 (2014), 6647--6685.
 
 \end{thebibliography}
 
