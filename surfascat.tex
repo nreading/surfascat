@@ -356,218 +356,218 @@ For definiteness, we can always take the $v_i$ for $i\in I_\fr$ to be in $\set{e
 If we do principal coefficients, we can the $v_i$ for $i\in I_\fr$ to be $\set{L_\alpha:\alpha\in T}$\\\hline
 \end{longtable}
 
-\newpage
-
-\section{Miscellaneous lemmas}
-
-\subsection{Inequalities associated to I-beams}
-
-Let $\Delta$ be a triangulation, and let $\gamma$ be a marked arc not in $\Delta$, which we assume intersects the arcs in $\Delta$ minimally. Index the intersection points $1,2,...,n$ consecutively along $\gamma$, and let $S_i$ denote the shear coordinate of the arc containing the $i$th intersection point.
-
-Let us say an interval $[a,b]\subset \{1,2,...,n\}$ is \textbf{admissible} if....
-\begin{itemize}
-	\item $a=1$ or $\gamma$ turns right between intersections $a-1$ and $a$, 
-	\item $b=n$ or $\gamma$ turns left between intersections $b$ and $b+1$, and
-	\item $[a,b]\neq [1,n]$.
-\end{itemize}
-
-\begin{lemma}
-A positive measured lamination $\mu$ is compatible with the I-beam associated to $\gamma$ iff
-\[ \sum_{i=1}^nS_i = 0\text{ and, for every admissible $[a,b]$, }\sum_{i=a}^b S_i \geq 0\]
-\end{lemma}
-
-%\begin{lemma}
-%A positive measured lamination $\mu$ is compatible with $r_{\mathrm{CW}}(\gamma)$ or $r_{\mathrm{CCW}}(\gamma)$ iff, for every admissible $[a,b]\subset \{1,2...,n\}$,
-%\[ \sum_{i=a}^b S_i \geq 0\]
-%Let $S:=\sum_{i=1}^nS_1\geq 0$ and assume the above inequalities hold.
-%\begin{itemize}
-%	\item If $S\geq 0$, then $\mu$ contains $r_{\mathrm{CCW}}(\gamma)$ with measure $S$.
-%	\item If $S\leq 0$, then $\mu$ contains $r_{\mathrm{CW}}(\gamma)$ with measure $-S$.
-%	\item If $S= 0$, compatible with $r_{\mathrm{CW}}(\gamma)$ and $r_{\mathrm{CCW}}(\gamma)$, or equivalently the I-beam corresponding to $\gamma$.
-%\end{itemize}
-%\end{lemma}
-
-\begin{ex}
-Consider $\gamma$ and $\Delta$ as in the first disc, and $\mu$ as in the second disc.
-
-
-%\begin{center}
-%\begin{tikzpicture}[scale=.75]
+%\newpage
 %
-%\begin{scope}
+%\section{Miscellaneous lemmas}
+%
+%\subsection{Inequalities associated to I-beams}
+%
+%Let $\Delta$ be a triangulation, and let $\gamma$ be a marked arc not in $\Delta$, which we assume intersects the arcs in $\Delta$ minimally. Index the intersection points $1,2,...,n$ consecutively along $\gamma$, and let $S_i$ denote the shear coordinate of the arc containing the $i$th intersection point.
+%
+%Let us say an interval $[a,b]\subset \{1,2,...,n\}$ is \textbf{admissible} if....
+%\begin{itemize}
+%	\item $a=1$ or $\gamma$ turns right between intersections $a-1$ and $a$, 
+%	\item $b=n$ or $\gamma$ turns left between intersections $b$ and $b+1$, and
+%	\item $[a,b]\neq [1,n]$.
+%\end{itemize}
+%
+%\begin{lemma}
+%A positive measured lamination $\mu$ is compatible with the I-beam associated to $\gamma$ iff
+%\[ \sum_{i=1}^nS_i = 0\text{ and, for every admissible $[a,b]$, }\sum_{i=a}^b S_i \geq 0\]
+%\end{lemma}
+%
+%%\begin{lemma}
+%%A positive measured lamination $\mu$ is compatible with $r_{\mathrm{CW}}(\gamma)$ or $r_{\mathrm{CCW}}(\gamma)$ iff, for every admissible $[a,b]\subset \{1,2...,n\}$,
+%%\[ \sum_{i=a}^b S_i \geq 0\]
+%%Let $S:=\sum_{i=1}^nS_1\geq 0$ and assume the above inequalities hold.
+%%\begin{itemize}
+%%	\item If $S\geq 0$, then $\mu$ contains $r_{\mathrm{CCW}}(\gamma)$ with measure $S$.
+%%	\item If $S\leq 0$, then $\mu$ contains $r_{\mathrm{CW}}(\gamma)$ with measure $-S$.
+%%	\item If $S= 0$, compatible with $r_{\mathrm{CW}}(\gamma)$ and $r_{\mathrm{CCW}}(\gamma)$, or equivalently the I-beam corresponding to $\gamma$.
+%%\end{itemize}
+%%\end{lemma}
+%
+%\begin{ex}
+%Consider $\gamma$ and $\Delta$ as in the first disc, and $\mu$ as in the second disc.
+%
+%
+%%\begin{center}
+%%\begin{tikzpicture}[scale=.75]
+%%
+%%\begin{scope}
+%%	\draw[fill=black!10] (0,0) circle (2);
+%%	\node[marked] (2) at (0:2) {};
+%%	\node[marked] (1) at (60:2) {};
+%%	\node[marked] (6) at (120:2) {};
+%%	\node[marked] (5) at (180:2) {};
+%%	\node[marked] (4) at (240:2) {};
+%%	\node[marked] (3) at (300:2) {};
+%%	\draw (1) to node[right] {} (3);
+%%	\draw (1) to node[above left] {} (4);
+%%	\draw (6) to node[left] {} (4);
+%%	\draw[red] (2) to node[above left] {$\gamma$} (5); 
+%%%	\draw[red,relative,out=15,in=195] (-30:2) to (150:2);
+%%\end{scope}
+%%\begin{scope}[xshift=6cm]
+%%	\draw[fill=black!10] (0,0) circle (2);
+%%	\node[marked] (2) at (0:2) {};
+%%	\node[marked] (1) at (60:2) {};
+%%	\node[marked] (6) at (120:2) {};
+%%	\node[marked] (5) at (180:2) {};
+%%	\node[marked] (4) at (240:2) {};
+%%	\node[marked] (3) at (300:2) {};
+%%	\draw (1) to node[right] {} (3);
+%%	\draw (1) to node[above left] {} (4);
+%%	\draw (6) to node[left] {} (4);
+%%	\draw[lamination,relative,out=15,in=195] (140:2) to node[above] {$a$} (30:2);
+%%	\draw[lamination,relative,out=15,in=195] (160:2) to node[above] {$b$} (-20:2);
+%%	\draw[lamination,relative,out=15,in=195] (210:2) to node[above] {$c$} (-40:2);
+%%\end{scope}
+%%\begin{scope}[xshift=12cm]
+%%	\draw[fill=black!10] (0,0) circle (2);
+%%	\node[marked] (2) at (0:2) {};
+%%	\node[marked] (1) at (60:2) {};
+%%	\node[marked] (6) at (120:2) {};
+%%	\node[marked] (5) at (180:2) {};
+%%	\node[marked] (4) at (240:2) {};
+%%	\node[marked] (3) at (300:2) {};
+%%	\draw (1) to node[below] {$\scriptstyle S_3=-b-c$} (3);
+%%	\draw (1) to node[above ] {$\scriptstyle S_2=a+b+c$} (4);
+%%	\draw (6) to node[below] {$\scriptstyle S_1=-a-b$} (4);
+%%\end{scope}
+%%\begin{scope}[xshift=6cm,yshift=-6cm]
+%%	\draw[fill=black!10] (0,0) circle (2);
+%%	\node[marked] (2) at (0:2) {};
+%%	\node[marked] (1) at (60:2) {};
+%%	\node[marked] (6) at (120:2) {};
+%%	\node[marked] (5) at (180:2) {};
+%%	\node[marked] (4) at (240:2) {};
+%%	\node[marked] (3) at (300:2) {};
+%%	\draw (1) to node[right] {} (3);
+%%	\draw (6) to node[above left] {} (3);
+%%	\draw (6) to node[left] {} (4);
+%%	\draw[lamination,relative,out=15,in=195] (140:2) to node[above] {$a$} (30:2);
+%%	\draw[lamination,relative,out=15,in=195] (160:2) to node[above] {$b$} (-20:2);
+%%	\draw[lamination,relative,out=15,in=195] (210:2) to node[above] {$c$} (-40:2);
+%%\end{scope}
+%%\begin{scope}[xshift=12cm,yshift=-6cm]
+%%	\draw[fill=black!10] (0,0) circle (2);
+%%	\node[marked] (2) at (0:2) {};
+%%	\node[marked] (1) at (60:2) {};
+%%	\node[marked] (6) at (120:2) {};
+%%	\node[marked] (5) at (180:2) {};
+%%	\node[marked] (4) at (240:2) {};
+%%	\node[marked] (3) at (300:2) {};
+%%	\draw (1) to node[below] {$\scriptstyle S_3=a$} (3);
+%%	\draw (6) to node[above ] {$\scriptstyle S_2=-a-b-c$} (3);
+%%	\draw (6) to node[below] {$\scriptstyle S_1=c$} (4);
+%%\end{scope}
+%%\end{tikzpicture}
+%%\end{center}
+%
+%
+%\begin{center}
+%\begin{tikzpicture}[scale=1]
+%\begin{scope}[xshift=0cm]
 %	\draw[fill=black!10] (0,0) circle (2);
-%	\node[marked] (2) at (0:2) {};
-%	\node[marked] (1) at (60:2) {};
-%	\node[marked] (6) at (120:2) {};
-%	\node[marked] (5) at (180:2) {};
-%	\node[marked] (4) at (240:2) {};
-%	\node[marked] (3) at (300:2) {};
-%	\draw (1) to node[right] {} (3);
-%	\draw (1) to node[above left] {} (4);
-%	\draw (6) to node[left] {} (4);
-%	\draw[red] (2) to node[above left] {$\gamma$} (5); 
-%%	\draw[red,relative,out=15,in=195] (-30:2) to (150:2);
+%	\node[marked] (1) at (90:2) {};
+%	\node[marked] (2) at (45:2) {};
+%	\node[marked] (3) at (0:2) {};
+%	\node[marked] (4) at (-45:2) {};
+%	\node[marked] (5) at (-90:2) {};
+%	\node[marked] (6) at (-135:2) {};
+%	\node[marked] (7) at (-180:2) {};
+%	\node[marked] (8) at (135:2) {};
+%	\draw (8) to node[below] {} (6);
+%	\draw (6) to node[below] {} (1);
+%	\draw (1) to node[below] {} (5);
+%	\draw (1) to node[below] {} (4);
+%	\draw (4) to node[below] {} (2);
+%	\draw[red] (7) to node[below right] {$\gamma$} (3);
 %\end{scope}
 %\begin{scope}[xshift=6cm]
 %	\draw[fill=black!10] (0,0) circle (2);
-%	\node[marked] (2) at (0:2) {};
-%	\node[marked] (1) at (60:2) {};
-%	\node[marked] (6) at (120:2) {};
-%	\node[marked] (5) at (180:2) {};
-%	\node[marked] (4) at (240:2) {};
-%	\node[marked] (3) at (300:2) {};
-%	\draw (1) to node[right] {} (3);
-%	\draw (1) to node[above left] {} (4);
-%	\draw (6) to node[left] {} (4);
-%	\draw[lamination,relative,out=15,in=195] (140:2) to node[above] {$a$} (30:2);
-%	\draw[lamination,relative,out=15,in=195] (160:2) to node[above] {$b$} (-20:2);
-%	\draw[lamination,relative,out=15,in=195] (210:2) to node[above] {$c$} (-40:2);
+%	\node[marked] (1) at (90:2) {};
+%	\node[marked] (2) at (45:2) {};
+%	\node[marked] (3) at (0:2) {};
+%	\node[marked] (4) at (-45:2) {};
+%	\node[marked] (5) at (-90:2) {};
+%	\node[marked] (6) at (-135:2) {};
+%	\node[marked] (7) at (-180:2) {};
+%	\node[marked] (8) at (135:2) {};
+%	\draw (8) to node[below] {} (6);
+%	\draw (6) to node[below] {} (1);
+%	\draw (1) to node[below] {} (5);
+%	\draw (1) to node[below] {} (4);
+%	\draw (4) to node[below] {} (2);
+%	\draw[lamination,relative,out=-15,in=195] (150:2) to node[below left] {$a$} (60:2);
+%	\draw[lamination,relative,out=-15,in=195] (165:2) to node[below left] {$b$} (30:2);
+%%	\draw[lamination,relative] (195:2) to node[below right] {$c$} (15:2);
+%	\draw[lamination,relative,out=15,in=165] (210:2) to node[below left] {$c$} (-15:2);
+%	\draw[lamination,relative,out=15,in=165] (240:2) to node[below right] {$d$} (-30:2);
 %\end{scope}
-%\begin{scope}[xshift=12cm]
-%	\draw[fill=black!10] (0,0) circle (2);
-%	\node[marked] (2) at (0:2) {};
-%	\node[marked] (1) at (60:2) {};
-%	\node[marked] (6) at (120:2) {};
-%	\node[marked] (5) at (180:2) {};
-%	\node[marked] (4) at (240:2) {};
-%	\node[marked] (3) at (300:2) {};
-%	\draw (1) to node[below] {$\scriptstyle S_3=-b-c$} (3);
-%	\draw (1) to node[above ] {$\scriptstyle S_2=a+b+c$} (4);
-%	\draw (6) to node[below] {$\scriptstyle S_1=-a-b$} (4);
-%\end{scope}
-%\begin{scope}[xshift=6cm,yshift=-6cm]
-%	\draw[fill=black!10] (0,0) circle (2);
-%	\node[marked] (2) at (0:2) {};
-%	\node[marked] (1) at (60:2) {};
-%	\node[marked] (6) at (120:2) {};
-%	\node[marked] (5) at (180:2) {};
-%	\node[marked] (4) at (240:2) {};
-%	\node[marked] (3) at (300:2) {};
-%	\draw (1) to node[right] {} (3);
-%	\draw (6) to node[above left] {} (3);
-%	\draw (6) to node[left] {} (4);
-%	\draw[lamination,relative,out=15,in=195] (140:2) to node[above] {$a$} (30:2);
-%	\draw[lamination,relative,out=15,in=195] (160:2) to node[above] {$b$} (-20:2);
-%	\draw[lamination,relative,out=15,in=195] (210:2) to node[above] {$c$} (-40:2);
-%\end{scope}
-%\begin{scope}[xshift=12cm,yshift=-6cm]
-%	\draw[fill=black!10] (0,0) circle (2);
-%	\node[marked] (2) at (0:2) {};
-%	\node[marked] (1) at (60:2) {};
-%	\node[marked] (6) at (120:2) {};
-%	\node[marked] (5) at (180:2) {};
-%	\node[marked] (4) at (240:2) {};
-%	\node[marked] (3) at (300:2) {};
-%	\draw (1) to node[below] {$\scriptstyle S_3=a$} (3);
-%	\draw (6) to node[above ] {$\scriptstyle S_2=-a-b-c$} (3);
-%	\draw (6) to node[below] {$\scriptstyle S_1=c$} (4);
-%\end{scope}
+%%\begin{scope}[xshift=12cm]
+%%	\draw[fill=black!10] (0,0) circle (2);
+%%	\node[marked] (1) at (90:2) {};
+%%	\node[marked] (2) at (45:2) {};
+%%	\node[marked] (3) at (0:2) {};
+%%	\node[marked] (4) at (-45:2) {};
+%%	\node[marked] (5) at (-90:2) {};
+%%	\node[marked] (6) at (-135:2) {};
+%%	\node[marked] (7) at (-180:2) {};
+%%	\node[marked] (8) at (135:2) {};
+%%	\draw (8) to node[above] {$\scriptstyle -b$} (6);
+%%	\draw (6) to node[below] {$\scriptstyle b+c+d$} (1);
+%%	\draw (1) to node[above] {$\scriptstyle -d$} (5);
+%%	\draw (1) to node[below] {$\scriptstyle -a-b-c$} (4);
+%%	\draw (4) to node[above] {$\scriptstyle a+b$} (2);
+%%\end{scope}
+%%\begin{scope}[xshift=18cm]
+%%	\draw[fill=black!10] (0,0) circle (2);
+%%	\node[marked] (1) at (90:2) {};
+%%	\node[marked] (2) at (45:2) {};
+%%	\node[marked] (3) at (0:2) {};
+%%	\node[marked] (4) at (-45:2) {};
+%%	\node[marked] (5) at (-90:2) {};
+%%	\node[marked] (6) at (-135:2) {};
+%%	\node[marked] (7) at (-180:2) {};
+%%	\node[marked] (8) at (135:2) {};
+%%	\draw (8) to node[above] {$\scriptstyle -b-x$} (6);
+%%	\draw (6) to node[below left] {$\scriptstyle b+c+d+x+y$} (1);
+%%	\draw (1) to node[above] {$\scriptstyle -d$} (5);
+%%	\draw (1) to node[below right] {$\scriptstyle -a-b-c-x-y$} (4);
+%%	\draw (4) to node[above] {$\scriptstyle a+b+y$} (2);
+%%\end{scope}
 %\end{tikzpicture}
 %\end{center}
-
-
-\begin{center}
-\begin{tikzpicture}[scale=1]
-\begin{scope}[xshift=0cm]
-	\draw[fill=black!10] (0,0) circle (2);
-	\node[marked] (1) at (90:2) {};
-	\node[marked] (2) at (45:2) {};
-	\node[marked] (3) at (0:2) {};
-	\node[marked] (4) at (-45:2) {};
-	\node[marked] (5) at (-90:2) {};
-	\node[marked] (6) at (-135:2) {};
-	\node[marked] (7) at (-180:2) {};
-	\node[marked] (8) at (135:2) {};
-	\draw (8) to node[below] {} (6);
-	\draw (6) to node[below] {} (1);
-	\draw (1) to node[below] {} (5);
-	\draw (1) to node[below] {} (4);
-	\draw (4) to node[below] {} (2);
-	\draw[red] (7) to node[below right] {$\gamma$} (3);
-\end{scope}
-\begin{scope}[xshift=6cm]
-	\draw[fill=black!10] (0,0) circle (2);
-	\node[marked] (1) at (90:2) {};
-	\node[marked] (2) at (45:2) {};
-	\node[marked] (3) at (0:2) {};
-	\node[marked] (4) at (-45:2) {};
-	\node[marked] (5) at (-90:2) {};
-	\node[marked] (6) at (-135:2) {};
-	\node[marked] (7) at (-180:2) {};
-	\node[marked] (8) at (135:2) {};
-	\draw (8) to node[below] {} (6);
-	\draw (6) to node[below] {} (1);
-	\draw (1) to node[below] {} (5);
-	\draw (1) to node[below] {} (4);
-	\draw (4) to node[below] {} (2);
-	\draw[lamination,relative,out=-15,in=195] (150:2) to node[below left] {$a$} (60:2);
-	\draw[lamination,relative,out=-15,in=195] (165:2) to node[below left] {$b$} (30:2);
-%	\draw[lamination,relative] (195:2) to node[below right] {$c$} (15:2);
-	\draw[lamination,relative,out=15,in=165] (210:2) to node[below left] {$c$} (-15:2);
-	\draw[lamination,relative,out=15,in=165] (240:2) to node[below right] {$d$} (-30:2);
-\end{scope}
-%\begin{scope}[xshift=12cm]
-%	\draw[fill=black!10] (0,0) circle (2);
-%	\node[marked] (1) at (90:2) {};
-%	\node[marked] (2) at (45:2) {};
-%	\node[marked] (3) at (0:2) {};
-%	\node[marked] (4) at (-45:2) {};
-%	\node[marked] (5) at (-90:2) {};
-%	\node[marked] (6) at (-135:2) {};
-%	\node[marked] (7) at (-180:2) {};
-%	\node[marked] (8) at (135:2) {};
-%	\draw (8) to node[above] {$\scriptstyle -b$} (6);
-%	\draw (6) to node[below] {$\scriptstyle b+c+d$} (1);
-%	\draw (1) to node[above] {$\scriptstyle -d$} (5);
-%	\draw (1) to node[below] {$\scriptstyle -a-b-c$} (4);
-%	\draw (4) to node[above] {$\scriptstyle a+b$} (2);
-%\end{scope}
-%\begin{scope}[xshift=18cm]
-%	\draw[fill=black!10] (0,0) circle (2);
-%	\node[marked] (1) at (90:2) {};
-%	\node[marked] (2) at (45:2) {};
-%	\node[marked] (3) at (0:2) {};
-%	\node[marked] (4) at (-45:2) {};
-%	\node[marked] (5) at (-90:2) {};
-%	\node[marked] (6) at (-135:2) {};
-%	\node[marked] (7) at (-180:2) {};
-%	\node[marked] (8) at (135:2) {};
-%	\draw (8) to node[above] {$\scriptstyle -b-x$} (6);
-%	\draw (6) to node[below left] {$\scriptstyle b+c+d+x+y$} (1);
-%	\draw (1) to node[above] {$\scriptstyle -d$} (5);
-%	\draw (1) to node[below right] {$\scriptstyle -a-b-c-x-y$} (4);
-%	\draw (4) to node[above] {$\scriptstyle a+b+y$} (2);
-%\end{scope}
-\end{tikzpicture}
-\end{center}
-Read left to right, the non-boundary shear coordinates are as follows.
-\[ S_1 = -a-b,\;\;\; S_2 = a+b+c,\;\;\; S_3 = d,\;\;\; S_4 = -b-c-d,\;\;\; S_5 = b\]
-The admissible $a$ are $\{1,2,5\}$ and the admissible $b$ are $\{2,4,5\}$.
-\[\begin{array}{|c|ccc|}
-\hline 
-\sum & 2 & 3 & 5 \\
-\hline
-1 & c  & c+d & 0 \\
-2 & a+b+c & a+b+c+d & a+b \\
-5 & 0 & 0 & b \\
-\hline
-\end{array} \]
-The lemma asserts that the above sums are non-negative, and $\sum_1^5$ must be $0$.
-\end{ex}
-
-Consequently, the wall in $\mathbb{R}^\Delta$ associated to the I-beam defined by $\gamma$ is
-\[ W_\gamma:= \left\{ v\in \mathbb{R}^\Delta : \sum_{i=1}^n S_i =0 \text{ and }\forall \text{ admissible }[a,b], \sum_{i=a}^b S_i \geq 0\right\} \]
-
-\begin{rem}
-These inequalities were reverse engineered from Bridgeland's work.
-The marked arc $\gamma$ determines an $A_n$-quiver (the mutable quiver of the universal cover of the local neighborhood of $\gamma$), and this quiver has a unique irrep whose dimension vector is all $1$s. The admissible intervals are precisely the proper subreps of this representation, and the inequality is the stability condition.
-\end{rem}
-
-%\begin{proof}[Proof of Lemma \ref{lemma: inequalities}]
-%We prove the lemma by induction on $n$ (the number of intersections between $\gamma$ and $\Delta$). Since $\gamma$ is not in $\Delta$, the base case is $n=1$. If $n=1$, then the first half of the lemma is trivial and the second half is the definition of the shear coordinate.
+%Read left to right, the non-boundary shear coordinates are as follows.
+%\[ S_1 = -a-b,\;\;\; S_2 = a+b+c,\;\;\; S_3 = d,\;\;\; S_4 = -b-c-d,\;\;\; S_5 = b\]
+%The admissible $a$ are $\{1,2,5\}$ and the admissible $b$ are $\{2,4,5\}$.
+%\[\begin{array}{|c|ccc|}
+%\hline 
+%\sum & 2 & 3 & 5 \\
+%\hline
+%1 & c  & c+d & 0 \\
+%2 & a+b+c & a+b+c+d & a+b \\
+%5 & 0 & 0 & b \\
+%\hline
+%\end{array} \]
+%The lemma asserts that the above sums are non-negative, and $\sum_1^5$ must be $0$.
+%\end{ex}
 %
-%Now, assume $\gamma$ and $\Delta$ intersect $n>1$ times, and assume the inductive hypothesis. Let $\gamma_1$ and $\gamma_2$ be the marked arcs such that
-%\end{proof}
+%Consequently, the wall in $\mathbb{R}^\Delta$ associated to the I-beam defined by $\gamma$ is
+%\[ W_\gamma:= \left\{ v\in \mathbb{R}^\Delta : \sum_{i=1}^n S_i =0 \text{ and }\forall \text{ admissible }[a,b], \sum_{i=a}^b S_i \geq 0\right\} \]
+%
+%\begin{rem}
+%These inequalities were reverse engineered from Bridgeland's work.
+%The marked arc $\gamma$ determines an $A_n$-quiver (the mutable quiver of the universal cover of the local neighborhood of $\gamma$), and this quiver has a unique irrep whose dimension vector is all $1$s. The admissible intervals are precisely the proper subreps of this representation, and the inequality is the stability condition.
+%\end{rem}
+%
+%%\begin{proof}[Proof of Lemma \ref{lemma: inequalities}]
+%%We prove the lemma by induction on $n$ (the number of intersections between $\gamma$ and $\Delta$). Since $\gamma$ is not in $\Delta$, the base case is $n=1$. If $n=1$, then the first half of the lemma is trivial and the second half is the definition of the shear coordinate.
+%%
+%%Now, assume $\gamma$ and $\Delta$ intersect $n>1$ times, and assume the inductive hypothesis. Let $\gamma_1$ and $\gamma_2$ be the marked arcs such that
+%%\end{proof}
 
 \newpage
 
@@ -672,6 +672,200 @@ Trans. Amer. Math. Soc. \textbf{366} no. 12 (2014), 6647--6685.
 
 \end{thebibliography}
 
+\newpage
+
+\section{A possible alternative to I-beams and joints}
+
+\begin{definition}
+Given a triangulation $\Delta$ of unpunctured\margin[GM]{I haven't attempted punctured surfaces yet.} $(\S,\M)$, a \newword{barricade} $B$ in $\Delta$ is given by a topological graph embedded in $\S$, such that, when restricted to the neighborhood of a triangle in $\Delta$, the connected components are isotopic to one of the pictures in Figure \ref{fig: local barricade}.
+%\begin{itemize}
+%	\item each degree $1$ vertex lie in the interiors of arcs of $\Delta$ (or in punctures), and
+%	\item each degree $3$ vertex lies in the interior of a triangle and the adjacent edges 
+%\end{itemize}
+%
+%when restricted to the neighborhood of a triangle in $\Delta$, the connected components are isotopic to one of pictures in Figure \ref{fig: local I-beams}.
+\end{definition}
+
+\begin{figure}[h!t]
+\begin{tikzpicture}[scale=1]
+\begin{scope}[xshift=0cm]
+	\draw[fill=black!10, dashed] (0,0) circle (1);
+	\node[marked] (1) at (90:1) {};
+	\node[marked] (2) at (-30:1) {};
+	\node[marked] (3) at (210:1) {};
+	\draw (1) to node[below] {} (2);
+	\draw (2) to node[below] {} (3);
+	\draw (3) to node[below] {} (1);
+	\draw[red,out=210,in=-30] (30:1) to (150:1);
+\end{scope}
+\begin{scope}[xshift=3cm]
+	\draw[fill=black!10, dashed] (0,0) circle (1);
+	\node[marked] (1) at (90:1) {};
+	\node[marked] (2) at (-30:1) {};
+	\node[marked] (3) at (210:1) {};
+	\draw (1) to node[below] {} (2);
+	\draw (2) to node[below] {} (3);
+	\draw (3) to node[below] {} (1);
+	\draw[red] (150:1) to (0,0);
+	\draw[red] (0,0) to (30:1);
+	\draw[red] (0,0) to (270:1);
+\end{scope}
+\begin{scope}[xshift=6cm]
+	\draw[fill=black!10, dashed] (0,0) circle (1);
+	\node[marked] (1) at (90:1) {};
+	\node[marked] (2) at (-30:1) {};
+	\node[marked] (3) at (210:1) {};
+	\draw (1) to node[below] {} (2);
+	\draw (2) to node[below] {} (3);
+	\draw (3) to node[below] {} (1);
+	\node[inner sep=0.5mm,circle,draw=red] (b) at (270:.5) {};
+	\draw[red] (150:1) to (0,0);
+	\draw[red] (0,0) to (30:1);
+	\draw[red] (0,0) to (b);
+\end{scope}
+\begin{scope}[xshift=9cm]
+	\draw[fill=black!10, dashed] (0,0) circle (1);
+	\node[marked] (1) at (90:1) {};
+	\node[marked] (2) at (-30:1) {};
+	\node[marked] (3) at (210:1) {};
+	\draw (1) to node[below] {} (2);
+	\draw (2) to node[below] {} (3);
+	\draw (3) to node[below] {} (1);
+	\node[inner sep=0.5mm,circle,draw=red] (a) at (30:.5) {};
+	\node[inner sep=0.5mm,circle,draw=red] (b) at (270:.5) {};
+	\draw[red] (150:1) to (0,0);
+	\draw[red] (0,0) to (a);
+	\draw[red] (0,0) to (b);
+\end{scope}
+\begin{scope}[xshift=12cm]
+	\draw[fill=black!10, dashed] (0,0) circle (1);
+	\node[marked] (1) at (90:1) {};
+	\node[marked] (2) at (-30:1) {};
+	\node[marked] (3) at (210:1) {};
+	\draw (1) to node[below] {} (2);
+	\draw (2) to node[below] {} (3);
+	\draw (3) to node[below] {} (1);
+	\node[inner sep=0.5mm,circle,draw=red] (a) at (30:.5) {};
+	\draw[red,out=210,in=-30] (a) to (150:1);
+\end{scope}
+\end{tikzpicture}
+\caption{Local pictures of barricades (up to rotation and reflection)}
+\label{fig: local barricade}
+\end{figure}
+
+A \newword{long leaf}\margin[GM]{I can't decide if we want to allow long leaves in the definition. They make the proof of Prop. \ref{prop: inequalities} easier, but they don't appear in barricades related to the scattering diagram.} is a leaf whose adjacent vertex is not in the adjacent triangle (the fifth local picture in Figure 
+\ref{fig: local barricade}).
+A measured lamination $\mu$ is \newword{compatible} with a barricade $B$ if there is an equivalent lamination $\mu$ which does not intersect $B$.  Two barricades are \newword{equivalent} if they are compatible with the same set of measured laminations. %Equivalence between barricades includes isotopy within the class of barricades (so degree $1$ vertices must remain on arcs in $\Delta$), as well as deleting components which do not cross any arcs in $\Delta$.
+
+%\begin{lemma}
+%Let $P$ be a proscribed graph which is connected, has no degree $3$ vertices, two degree $1$ vertices, and 
+%\end{lemma}
+
+\begin{prop}\label{prop: inequalities}
+Given a barricade $B$, a measured lamination $\mu$ is compatible with $B$ iff the following inequalities hold.
+\begin{itemize}
+	\item For each path in $B$ which begins with a right turn and ends with a left turn,
+	\[ S_{1}(\mu) + S_{2}(\mu) + ... + S_{n}(\mu) \geq 0\]
+	where $S_1, S_2,...,S_n$ are the shear coordinates of the arcs in $\Delta$ crossed by $B$.
+	\item For each path in $B$ which begins with a left turn and ends with a right turn, 
+	\[ S_{1}(\mu) + S_{2}(\mu) + ... + S_{n}(\mu) \leq 0\]
+	where $S_1, S_2,...,S_n$ are the shear coordinates of the arcs in $\Delta$ crossed by $B$.
+\end{itemize}
+\end{prop}
+
+\begin{corollary}
+As a subset of $\mathbb{R}^\Delta$, the set of measured laminations which are compatible with $B$ is a closed cone. \end{corollary}
+
+\begin{definition}
+The \newword{codimension} of a barricade is the codimension of (the span of) the compatible cone. A barricade is \newword{minimal} if it has no sub-barricades of the same codimension.
+\end{definition}
+
+Easy observation: a minimal barricade has no long leaves, since they can be cut off without increasing the codimension.
+
+%If $B$ has no loops, the span of the compatible cone has codimension equal to the number of edges in $B$ whose endpoints are degree $3$ vertices.
+
+\begin{prop}[I-beams]
+The minimal barricades of codimension $1$ are:
+\begin{itemize}
+	\item Trees with $4$ leaves (none long).
+	%which are locally isomorphic to the pictures in Figure \ref{fig: local I-beams}.
+	\item Non-shielding loops.
+\end{itemize}
+\end{prop}
+
+%\begin{definition}
+%Given an (ordinary, untagged) triangulation $\Delta$ of $(\S,\M)$, an \newword{I-beam} is a graph $I$ embedded in $\S$, such that, when restricted to the neighborhood of a triangle in $\Delta$, the connected components are isotopic to one of pictures in Figure \ref{fig: local I-beams}.
+%\end{definition}
+
+%\begin{figure}[h!t]
+%\begin{tikzpicture}[scale=1]
+%\begin{scope}[xshift=0cm]
+%	\draw[fill=black!10, dashed] (0,0) circle (1);
+%	\node[marked] (1) at (90:1) {};
+%	\node[marked] (2) at (-30:1) {};
+%	\node[marked] (3) at (210:1) {};
+%	\draw (1) to node[below] {} (2);
+%	\draw (2) to node[below] {} (3);
+%	\draw (3) to node[below] {} (1);
+%	\draw[red,out=210,in=-30] (30:1) to (150:1);
+%\end{scope}
+%\begin{scope}[xshift=3cm]
+%	\draw[fill=black!10, dashed] (0,0) circle (1);
+%	\node[marked] (1) at (90:1) {};
+%	\node[marked] (2) at (-30:1) {};
+%	\node[marked] (3) at (210:1) {};
+%	\draw (1) to node[below] {} (2);
+%	\draw (2) to node[below] {} (3);
+%	\draw (3) to node[below] {} (1);
+%	\node[inner sep=0.5mm,circle,draw=red] (a) at (30:.5) {};
+%	\node[inner sep=0.5mm,circle,draw=red] (b) at (270:.5) {};
+%	\draw[red] (150:1) to (0,0);
+%	\draw[red] (0,0) to (a);
+%	\draw[red] (0,0) to (b);
+%\end{scope}
+%%\begin{scope}[xshift=6cm]
+%%	\draw[fill=black!10, dashed] (0,0) circle (1);
+%%	\node[marked] (1) at (90:1) {};
+%%	\node[marked] (2) at (270:1) {};
+%%	\node[marked] (3) at (0,0) {};
+%%	\draw[out=-15,in=15] (1) to (2);
+%%	\draw[out=195,in=165] (1) to (2);
+%%	\draw[out=-60,in=60] (1) to (3);
+%%	\draw[out=-120,in=120] (1) to (3);
+%%	\draw[red] (3) to (0,-.5);
+%%	\draw[red,out=-30,in=210] (0,.-.5) to (0:1);
+%%	\draw[red,out=210,in=-30] (0,.-.5) to (180:1);
+%%\end{scope}
+%%\begin{scope}[xshift=9cm]
+%%	\draw[fill=black!10, dashed] (0,0) circle (1);
+%%	\node[marked] (1) at (90:1) {};
+%%	\node[marked] (2) at (270:1) {};
+%%	\node[marked] (3) at (0,0) {};
+%%	\draw[out=-15,in=15] (1) to (2);
+%%	\draw[out=195,in=165] (1) to (2);
+%%	\draw[out=-60,in=60] (1) to (3);
+%%	\draw[out=-120,in=120] (1) to (3);
+%%	\draw[red] (3) to (0,-.5);
+%%	\draw[red,out=-30,in=210] (0,.-.5) to (0:1);
+%%	\draw[red,out=210,in=-30] (0,.-.5) to (180:1);
+%%\end{scope}
+%\end{tikzpicture}
+%\caption{Local pictures of I-beams (no punctures)}
+%\label{fig: local I-beams}
+%\end{figure}
+
+\begin{prop}[Joints]
+The minimal barricades of codimension $2$ are:
+\begin{itemize}
+	\item Trees with $5$ leaves (none long).
+	\item Connected graphs with $1$ non-shielding cycle and $2$ leaves (none long).
+	\item Disjoint unions of $2$ minimal barricades of codimension $1$.
+\end{itemize}
+\end{prop}
+
+\begin{thm}
+The scattering diagram of $(\S,\M)$ in $\mathbb{R}^\Delta$ has a wall for each minimal barricade of codimension $1$ (supported on the compatible cone), and a joint for each minimal barricade of codimension $2$ (supported on the compatible cone).
+\end{thm}
 
 
 \end{document}  
