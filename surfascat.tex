@@ -263,10 +263,6 @@
 \tikzstyle{marked}=[inner sep=0.5mm,circle,draw=blue!75!black,fill=blue!50]
 \tikzstyle{lamination}=[green!75!black]
 \tikzstyle{barricade}=[line width=4pt,decorate,decoration={markings,mark=between positions 0 and 1 step 6pt
-%	with { 
-%		\fill[yellow] (-3pt,-1pt) -- (0pt,-1pt) -- (3pt,1pt) -- (0pt,1pt) -- (-3pt,-1pt);
-%		\fill[black] (0pt,-1pt) -- (3pt,-1pt) -- (6pt,1pt) -- (3pt,1pt) -- (0pt,-1pt);
-%	}}
 	with { 
 		\fill[yellow] (-2pt,-1pt) -- (1pt,-1pt) -- (2pt,1pt) -- (-1pt,1pt) -- (-2pt,-1pt);
 		\fill[black] (1pt,-1pt) -- (4pt,-1pt) -- (5pt,1pt) -- (2pt,1pt) -- (1pt,-1pt);
@@ -693,8 +689,6 @@ Given a triangulation $\Delta$ of unpunctured\margin[GM]{I haven't attempted pun
 %	\item each degree $1$ vertex lie in the interiors of arcs of $\Delta$ (or in punctures), and
 %	\item each degree $3$ vertex lies in the interior of a triangle and the adjacent edges 
 %\end{itemize}
-%
-%when restricted to the neighborhood of a triangle in $\Delta$, the connected components are isotopic to one of pictures in Figure \ref{fig: local I-beams}.
 \end{definition}
 
 \begin{figure}[h!t]
@@ -771,11 +765,8 @@ Given a triangulation $\Delta$ of unpunctured\margin[GM]{I haven't attempted pun
 
 A \newword{long leaf}\margin[GM]{I can't decide if we want to allow long leaves in the definition. They make the proof of Prop. \ref{prop: inequalities} easier, but they don't appear in barricades related to the scattering diagram.} is a leaf whose adjacent vertex is not in the adjacent triangle (the fifth local picture in Figure 
 \ref{fig: local barricade}).
-A measured lamination $\mu$ is \newword{compatible} with a barricade $B$ if there is an equivalent lamination $\mu$ which does not intersect $B$.  Two barricades are \newword{equivalent} if they are compatible with the same set of measured laminations. %Equivalence between barricades includes isotopy within the class of barricades (so degree $1$ vertices must remain on arcs in $\Delta$), as well as deleting components which do not cross any arcs in $\Delta$.
-
-%\begin{lemma}
-%Let $P$ be a proscribed graph which is connected, has no degree $3$ vertices, two degree $1$ vertices, and 
-%\end{lemma}
+Barricades are considered up to isotopy within the set of barricades (so leaves must remain on arcs in $\Delta$). 
+A measured lamination $\mu$ is \newword{compatible} with a barricade $B$ if there is are equivalent $\mu'$ and $B'$ such that $\mu'$ intersects $\Delta$ minimally and $\mu'$ and $B'$ do not intersect.%\margin[GM]{`Compatible' is a bit fiddly to define, since we need to be able to move the barricade around, but not 
 
 \begin{prop}\label{prop: inequalities}
 Given a barricade $B$, a measured lamination $\mu$ is compatible with $B$ iff the following inequalities hold.
@@ -785,6 +776,9 @@ Given a barricade $B$, a measured lamination $\mu$ is compatible with $B$ iff th
 	where $S_1, S_2,...,S_n$ are the shear coordinates of the arcs in $\Delta$ crossed by $P$.
 	\item For each path in $B$ which begins with a left turn and ends with a right turn, 
 	\[ S_{1}(\mu) + S_{2}(\mu) + ... + S_{n}(\mu) \leq 0\]
+	where $S_1, S_2,...,S_n$ are the shear coordinates of the arcs in $\Delta$ crossed by $P$.
+	\item For each cycle in $B$, 
+	\[ S_{1}(\mu) + S_{2}(\mu) + ... + S_{n}(\mu) = 0\]
 	where $S_1, S_2,...,S_n$ are the shear coordinates of the arcs in $\Delta$ crossed by $P$.
 \end{itemize}
 \end{prop}
@@ -805,7 +799,7 @@ The minimal barricades of codimension $1$ are:
 \begin{itemize}
 	\item Trees with $4$ leaves (none long).
 	%which are locally isomorphic to the pictures in Figure \ref{fig: local I-beams}.
-	\item Non-shielding loops.
+	\item A non-shielding cycle with $0$ leaves.
 \end{itemize}
 \end{prop}
 
@@ -874,7 +868,7 @@ The minimal barricades of codimension $1$ are:
 The minimal barricades of codimension $2$ are:
 \begin{itemize}
 	\item Trees with $5$ leaves (none long).
-	\item Connected graphs with $1$ non-shielding cycle and $2$ leaves (none long).
+	\item A non-shielding cycle with $2$ leaves (none long).
 	\item Disjoint unions of $2$ minimal barricades of codimension $1$.
 \end{itemize}
 \end{prop}
@@ -882,6 +876,52 @@ The minimal barricades of codimension $2$ are:
 \begin{thm}
 The scattering diagram of $(\S,\M)$ in $\mathbb{R}^\Delta$ has a wall for each minimal barricade of codimension $1$ (supported on the compatible cone), and a joint for each minimal barricade of codimension $2$ (supported on the compatible cone).
 \end{thm}
+
+%\newpage
+
+\section{Proof of Proposition \ref{prop: inequalities}}
+
+Let us collectively refer to the inequalities in Proposition \ref{prop: inequalities} as the \newword{compatibility inequalities} for $B$ and $\mu$. 
+
+A barricade is \newword{simple} if it is connected and has no degree $3$ vertices. We start by proving a stronger version of Proposition \ref{prop: inequalities} in the case of a simple barricades.
+
+\begin{lemma}\label{lemma: simplebarricade}
+Let $B$ be a simple barricade in $\Delta$. A measured lamination $\mu$ is compatible with $B$ iff it satisfies the compatibility inequalities. 
+
+Furthermore, if the longest path in $B$ begins with a right turn and ends with a left turn, then 
+\[ S_1(\mu) + S_2(\mu) + ... + S_n(\mu)\]
+is the total measure of $B$ in $\mu$. Similarly, if the longest path in $B$ begins with a left turn and ends with a right turn, then 
+\[ -S_1(\mu) - S_2(\mu) - ... - S_n(\mu)\]
+\end{lemma}
+
+\begin{proof}[Proof idea]
+Induction, I hope. I don't know about loops, though.
+\end{proof}
+
+\begin{lemma}\label{lemma: simplesub}
+A measured lamination $\mu$ is compatible with a barricade $B$ iff $\mu$ is compatible with every simple sub-barricade of $B$.
+\end{lemma}
+
+\begin{proof}[Proof idea]
+If they are incompatible, there should be some unmarked curve that is crossed.
+\end{proof}
+
+\begin{proof}[Proof of Proposition \ref{prop: inequalities}]
+Assume $\mu$ is compatible with $B$. For any path or cycle in $B$, there is a simple sub-barricade $B'$ containing that path or cycle which is also compatible with $\mu$, and so the associated compatibility inequality holds by Lemma \ref{lemma: simplebarricade}.
+
+Assume the compatibility inequalities hold for $\mu$ and $B$. Then they also hold for any simple sub-barricade of $B$, and so by Lemma \ref{lemma: simplebarricade} $\mu$ is compatible with each of them. By Lemma \ref{lemma: simplesub}, $\mu$ is compatible with $B$.
+\end{proof}
+
+\section{Minimal barricades}
+
+\begin{conj}
+The codimension of a barricade $B$ is 
+\begin{align*}
+\#&\text{ of edges in $B$ with a branch at each endpoint} \\
+&+ \#\text{ of loops (i.e. cycles without branches)} \\
+&+ \text{total genus of components of $\S\smallsetminus B$ that don't contain marked points}\\
+\end{align*}
+\end{conj}
 
 
 \end{document}  
