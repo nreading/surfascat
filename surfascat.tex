@@ -258,10 +258,21 @@
 %Greg's preamble stuff
 
 \usepackage{tikz}
-\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,positioning,fit}
+\usetikzlibrary{arrows,decorations.pathmorphing,decorations.markings,backgrounds,positioning,fit}
 \tikzstyle{dot} = [fill=black!25,inner sep=0.5mm,circle,draw,minimum size=1mm]
 \tikzstyle{marked}=[inner sep=0.5mm,circle,draw=blue!75!black,fill=blue!50]
 \tikzstyle{lamination}=[green!75!black]
+\tikzstyle{barricade}=[line width=4pt,decorate,decoration={markings,mark=between positions 0 and 1 step 6pt
+%	with { 
+%		\fill[yellow] (-3pt,-1pt) -- (0pt,-1pt) -- (3pt,1pt) -- (0pt,1pt) -- (-3pt,-1pt);
+%		\fill[black] (0pt,-1pt) -- (3pt,-1pt) -- (6pt,1pt) -- (3pt,1pt) -- (0pt,-1pt);
+%	}}
+	with { 
+		\fill[yellow] (-2pt,-1pt) -- (1pt,-1pt) -- (2pt,1pt) -- (-1pt,1pt) -- (-2pt,-1pt);
+		\fill[black] (1pt,-1pt) -- (4pt,-1pt) -- (5pt,1pt) -- (2pt,1pt) -- (1pt,-1pt);
+	}}
+]
+\tikzstyle{barricade vertex}=[inner sep=0.6mm,thick,circle,draw=black,fill=yellow]
 
 \newenvironment{ex}{\refstepcounter{proposition}\begin{proof}[Example \emph{\thethm}]\renewcommand*{\qedsymbol}{\(\blacksquare\)}}{\end{proof}}
 \newenvironment{rem}{\refstepcounter{proposition}\begin{proof}[Remark \emph{\thethm}]\renewcommand*{\qedsymbol}{\(\blacksquare\)}}{\end{proof}}
@@ -689,64 +700,69 @@ Given a triangulation $\Delta$ of unpunctured\margin[GM]{I haven't attempted pun
 \begin{figure}[h!t]
 \begin{tikzpicture}[scale=1]
 \begin{scope}[xshift=0cm]
-	\draw[fill=black!10, dashed] (0,0) circle (1);
+	\path[fill=black!10] (0,0) circle (1);
 	\node[marked] (1) at (90:1) {};
 	\node[marked] (2) at (-30:1) {};
 	\node[marked] (3) at (210:1) {};
 	\draw (1) to node[below] {} (2);
 	\draw (2) to node[below] {} (3);
 	\draw (3) to node[below] {} (1);
-	\draw[red,out=210,in=-30] (30:1) to (150:1);
+	\clip (0,0) circle (1);
+	\draw[barricade,out=210,in=-30] (30:1) to (150:1);
 \end{scope}
 \begin{scope}[xshift=3cm]
-	\draw[fill=black!10, dashed] (0,0) circle (1);
+	\path[fill=black!10] (0,0) circle (1);
 	\node[marked] (1) at (90:1) {};
 	\node[marked] (2) at (-30:1) {};
 	\node[marked] (3) at (210:1) {};
 	\draw (1) to node[below] {} (2);
 	\draw (2) to node[below] {} (3);
 	\draw (3) to node[below] {} (1);
-	\draw[red] (150:1) to (0,0);
-	\draw[red] (0,0) to (30:1);
-	\draw[red] (0,0) to (270:1);
+	\clip (0,0) circle (1);
+	\draw[barricade] (150:1) to (0,0);
+	\draw[barricade] (0,0) to (30:1);
+	\draw[barricade] (0,0) to (270:1);
 \end{scope}
 \begin{scope}[xshift=6cm]
-	\draw[fill=black!10, dashed] (0,0) circle (1);
+	\path[fill=black!10] (0,0) circle (1);
 	\node[marked] (1) at (90:1) {};
 	\node[marked] (2) at (-30:1) {};
 	\node[marked] (3) at (210:1) {};
 	\draw (1) to node[below] {} (2);
 	\draw (2) to node[below] {} (3);
 	\draw (3) to node[below] {} (1);
-	\node[inner sep=0.5mm,circle,draw=red] (b) at (270:.5) {};
-	\draw[red] (150:1) to (0,0);
-	\draw[red] (0,0) to (30:1);
-	\draw[red] (0,0) to (b);
+	\clip (0,0) circle (1);
+	\draw[barricade] (150:1) to (0,0);
+	\draw[barricade] (0,0) to (30:1);
+	\draw[barricade] (0,0) to (270:.5);
+	\node[barricade vertex] (b) at (270:.5) {};
 \end{scope}
 \begin{scope}[xshift=9cm]
-	\draw[fill=black!10, dashed] (0,0) circle (1);
+	\path[fill=black!10] (0,0) circle (1);
 	\node[marked] (1) at (90:1) {};
 	\node[marked] (2) at (-30:1) {};
 	\node[marked] (3) at (210:1) {};
 	\draw (1) to node[below] {} (2);
 	\draw (2) to node[below] {} (3);
 	\draw (3) to node[below] {} (1);
-	\node[inner sep=0.5mm,circle,draw=red] (a) at (30:.5) {};
-	\node[inner sep=0.5mm,circle,draw=red] (b) at (270:.5) {};
-	\draw[red] (150:1) to (0,0);
-	\draw[red] (0,0) to (a);
-	\draw[red] (0,0) to (b);
+	\clip (0,0) circle (1);
+	\draw[barricade] (150:1) to (0,0);
+	\draw[barricade] (0,0) to (30:.5);
+	\draw[barricade] (0,0) to (270:.5);
+	\node[barricade vertex] (a) at (30:.5) {};
+	\node[barricade vertex] (b) at (270:.5) {};
 \end{scope}
 \begin{scope}[xshift=12cm]
-	\draw[fill=black!10, dashed] (0,0) circle (1);
+	\path[fill=black!10] (0,0) circle (1);
 	\node[marked] (1) at (90:1) {};
 	\node[marked] (2) at (-30:1) {};
 	\node[marked] (3) at (210:1) {};
 	\draw (1) to node[below] {} (2);
 	\draw (2) to node[below] {} (3);
 	\draw (3) to node[below] {} (1);
-	\node[inner sep=0.5mm,circle,draw=red] (a) at (30:.5) {};
-	\draw[red,out=210,in=-30] (a) to (150:1);
+	\clip (0,0) circle (1);
+	\draw[barricade,out=210,in=-30] (30:.5) to (150:1);
+	\node[barricade vertex] (a) at (30:.5) {};
 \end{scope}
 \end{tikzpicture}
 \caption{Local pictures of barricades (up to rotation and reflection)}
@@ -766,10 +782,10 @@ Given a barricade $B$, a measured lamination $\mu$ is compatible with $B$ iff th
 \begin{itemize}
 	\item For each path in $B$ which begins with a right turn and ends with a left turn,
 	\[ S_{1}(\mu) + S_{2}(\mu) + ... + S_{n}(\mu) \geq 0\]
-	where $S_1, S_2,...,S_n$ are the shear coordinates of the arcs in $\Delta$ crossed by $B$.
+	where $S_1, S_2,...,S_n$ are the shear coordinates of the arcs in $\Delta$ crossed by $P$.
 	\item For each path in $B$ which begins with a left turn and ends with a right turn, 
 	\[ S_{1}(\mu) + S_{2}(\mu) + ... + S_{n}(\mu) \leq 0\]
-	where $S_1, S_2,...,S_n$ are the shear coordinates of the arcs in $\Delta$ crossed by $B$.
+	where $S_1, S_2,...,S_n$ are the shear coordinates of the arcs in $\Delta$ crossed by $P$.
 \end{itemize}
 \end{prop}
 
