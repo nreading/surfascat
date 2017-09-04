@@ -886,18 +886,13 @@ Let us collectively refer to the inequalities in Proposition \ref{prop: inequali
 A barricade is \newword{simple} if it is connected and has no degree $3$ vertices. We start by proving a stronger version of Proposition \ref{prop: inequalities} in the case of a simple barricades.
 
 \begin{lemma}\label{lemma: simplebarricade}
-Let $B$ be a simple barricade in $\Delta$. A measured lamination $\mu$ is compatible with $B$ iff it satisfies the compatibility inequalities. 
-
-Furthermore, if the longest path in $B$ begins with a right turn and ends with a left turn, then 
-\[ S_1(\mu) + S_2(\mu) + ... + S_n(\mu)\]
-is the total measure of $B$ in $\mu$. Similarly, if the longest path in $B$ begins with a left turn and ends with a right turn, then 
-\[ -S_1(\mu) - S_2(\mu) - ... - S_n(\mu)\]
+Let $B$ be a simple barricade in $\Delta$. A measured lamination $\mu$ is compatible with $B$ iff it satisfies the compatibility inequalities.
 \end{lemma}
 
 \begin{proof}[Proof idea]
 Induction, I hope. I don't know about loops, though.
 \end{proof}
-
+	
 \begin{lemma}\label{lemma: simplesub}
 A measured lamination $\mu$ is compatible with a barricade $B$ iff $\mu$ is compatible with every simple sub-barricade of $B$.
 \end{lemma}
@@ -917,9 +912,10 @@ Assume the compatibility inequalities hold for $\mu$ and $B$. Then they also hol
 \begin{conj}
 The codimension of a barricade $B$ is 
 \begin{align*}
-\#&\text{ of edges in $B$ with a branch at each endpoint} \\
-&+ \#\text{ of loops (i.e. cycles without branches)} \\
-&+ \text{total genus of components of $\S\smallsetminus B$ that don't contain marked points}\\
+&\frac{3(\text{$\#$ of branches}) - \text{$\#$ of leaves}}{2} + (\text{$\#$ of loops})
+%\#&\text{ of edges in $B$ with a branch at each endpoint} \\
+%&+ \#\text{ of loops (i.e. cycles without branches)} \\
+%&+ \text{total genus of components of $\S\smallsetminus B$ that don't contain marked points}\\
 \end{align*}
 \end{conj}
 
