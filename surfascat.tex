@@ -763,8 +763,9 @@ Given a triangulation $\Delta$ of unpunctured\margin[GM]{I haven't attempted pun
 \label{fig: local barricade}
 \end{figure}
 
-A \newword{long leaf}\margin[GM]{I can't decide if we want to allow long leaves in the definition. They make the proof of Prop. \ref{prop: inequalities} easier, but they don't appear in barricades related to the scattering diagram.} is a leaf whose adjacent vertex is not in the adjacent triangle (the fifth local picture in Figure 
-\ref{fig: local barricade}).
+A \newword{short leaf}\margin[GM]{I can't decide if we want to allow non-short leaves in the definition. They make the proof of Prop. \ref{prop: inequalities} easier, but they don't appear in barricades related to the scattering diagram.} is a leaf whose adjacent vertex is in the adjacent triangle (e.g. the third and fourth local picture in Figure 
+\ref{fig: local barricade}). A \newword{long leaf} is a leaf on the boundary of $\S$.
+
 Barricades are considered up to isotopy within the set of barricades (so leaves must remain on arcs in $\Delta$). 
 A measured lamination $\mu$ is \newword{compatible} with a barricade $B$ if there is are equivalent $\mu'$ and $B'$ such that $\mu'$ intersects $\Delta$ minimally and $\mu'$ and $B'$ do not intersect.%\margin[GM]{`Compatible' is a bit fiddly to define, since we need to be able to move the barricade around, but not 
 
@@ -783,25 +784,13 @@ Given a barricade $B$, a measured lamination $\mu$ is compatible with $B$ iff th
 \end{itemize}
 \end{prop}
 
+%Given a barricade $B$, let $C_B\subset \mathbb{R}^\Delta$ be the set of measured laminations which are compatible with $B$.
+
 \begin{corollary}
-As a subset of $\mathbb{R}^\Delta$, the set of measured laminations which are compatible with $B$ is a closed cone. \end{corollary}
+Given a barricade $B$, the set $C_B\subset \mathbb{R}^\Delta$ of measured laminations which are compatible with $B$ is a closed cone. 
+\end{corollary}
 
-\begin{definition}
-The \newword{codimension} of a barricade is the codimension of (the span of) the compatible cone. A barricade is \newword{minimal} if it has no sub-barricades of the same codimension.
-\end{definition}
 
-Easy observation: a minimal barricade has no long leaves, since they can be cut off without increasing the codimension.
-
-%If $B$ has no loops, the span of the compatible cone has codimension equal to the number of edges in $B$ whose endpoints are degree $3$ vertices.
-
-\begin{prop}[I-beams]
-The minimal barricades of codimension $1$ are:
-\begin{itemize}
-	\item Trees with $4$ leaves (none long).
-	%which are locally isomorphic to the pictures in Figure \ref{fig: local I-beams}.
-	\item A non-shielding cycle with $0$ leaves.
-\end{itemize}
-\end{prop}
 
 %\begin{definition}
 %Given an (ordinary, untagged) triangulation $\Delta$ of $(\S,\M)$, an \newword{I-beam} is a graph $I$ embedded in $\S$, such that, when restricted to the neighborhood of a triangle in $\Delta$, the connected components are isotopic to one of pictures in Figure \ref{fig: local I-beams}.
@@ -864,18 +853,39 @@ The minimal barricades of codimension $1$ are:
 %\label{fig: local I-beams}
 %\end{figure}
 
-\begin{prop}[Joints]
-The minimal barricades of codimension $2$ are:
-\begin{itemize}
-	\item Trees with $5$ leaves (none long).
-	\item A non-shielding cycle with $2$ leaves (none long).
-	\item Disjoint unions of $2$ minimal barricades of codimension $1$.
-\end{itemize}
-\end{prop}
 
-\begin{thm}
-The scattering diagram of $(\S,\M)$ in $\mathbb{R}^\Delta$ has a wall for each minimal barricade of codimension $1$ (supported on the compatible cone), and a joint for each minimal barricade of codimension $2$ (supported on the compatible cone).
-\end{thm}
+
+%\begin{thm}
+%The scattering diagram of $(\S,\M)$ in $\mathbb{R}^\Delta$ has a wall for each minimal barricade of codimension $1$ (supported on the compatible cone), and a joint for each minimal barricade of codimension $2$ (supported on the compatible cone).
+%\end{thm}
+
+%\begin{ex}
+%
+%Consider the following barricade.
+%
+%\begin{center}
+%\begin{tikzpicture}
+%\begin{scope}[scale=.5]
+%	\draw[fill=black!10] (0,0) circle (2);
+%	\node[marked] (1) at (90:2) {};
+%	\node[marked] (2) at (18:2) {};
+%	\node[marked] (3) at (306:2) {};
+%	\node[marked] (4) at (234:2) {};
+%	\node[marked] (5) at (162:2) {};	
+%%	\draw (1) to (2);
+%%	\draw (2) to (3);
+%%	\draw (3) to (4);
+%%	\draw (4) to (5);
+%%	\draw (5) to (1);
+%	\draw (1) to (3);
+%	\draw (1) to (4);
+%	\draw[barricade] (54:2) to (-78:2);
+%	
+%\end{scope}
+%\end{tikzpicture}
+%\end{center}
+%
+%\end{ex}
 
 %\newpage
 
@@ -909,15 +919,86 @@ Assume the compatibility inequalities hold for $\mu$ and $B$. Then they also hol
 
 \section{Minimal barricades}
 
+%\begin{prop}
+%If a measured lamination $\mu$ is compatible with a barricade $B$, 
+%\end{prop}
+
+\begin{definition}
+The \newword{codimension} of a barricade is the codimension of (the span of) the compatible cone. A barricade is \newword{minimal} if it has no sub-barricades of the same codimension.
+\end{definition}
+
+Easy observation: all leaves in a minimal barricade are short, since they can be cut off without increasing the codimension.
+
+%If $B$ has no loops, the span of the compatible cone has codimension equal to the number of edges in $B$ whose endpoints are degree $3$ vertices.
+
+
+
 \begin{conj}
 The codimension of a barricade $B$ is 
-\begin{align*}
-&\frac{3(\text{$\#$ of branches}) - \text{$\#$ of leaves}}{2} + (\text{$\#$ of loops})
-%\#&\text{ of edges in $B$ with a branch at each endpoint} \\
-%&+ \#\text{ of loops (i.e. cycles without branches)} \\
-%&+ \text{total genus of components of $\S\smallsetminus B$ that don't contain marked points}\\
-\end{align*}
+\[ (\text{$\#$ of edges between trivalent vertices}) + (\text{$\#$ of loops without leaves}) \]
 \end{conj}
 
+\begin{corollary}
+The minimal barricades of codimension $1$ are:
+\begin{itemize}
+	\item Trees with $4$ leaves, all short.
+	%which are locally isomorphic to the pictures in Figure \ref{fig: local I-beams}.
+	\item A cycle with $0$ leaves.
+\end{itemize}
+\end{corollary}
+
+\begin{corollary}
+The minimal barricades of codimension $2$ are:
+\begin{itemize}
+	\item Trees with $5$ leaves, all short.
+	\item A cycle with $2$ leaves, all short.
+	\item Disjoint unions of $2$ minimal barricades of codimension $1$.
+\end{itemize}
+\end{corollary}
+
+\begin{lemma}
+If $B$ and $B'$ are minimal barricades, then 
+\[ C_B\cap C_{B'} = \bigcup _i C_{B_i} \]
+where each of the $B_i$ are minimal barricades. 
+\end{lemma}
+
+%\begin{conj}
+%The codimension of a barricade $B$ is 
+%\begin{align*}
+%&\frac{3(\text{$\#$ of branches}) - \text{$\#$ of leaves}}{2} + (\text{$\#$ of components without branches})
+%%\#&\text{ of edges in $B$ with a branch at each endpoint} \\
+%%&+ \#\text{ of loops (i.e. cycles without branches)} \\
+%%&+ \text{total genus of components of $\S\smallsetminus B$ that don't contain marked points}\\
+%\end{align*}
+%\end{conj}
+
+\section{The scattering diagram of $(\S,\M)$}
+
+We fix a triangulation $\Delta$ of $(\S,\M)$, and we use the language of barricades to construct a scattering diagram in $\mathbb{R}^\Delta$. We distinguish two kinds of minimal barricades of codimension $1$.
+Construct a scattering diagram $\mathfrak{D}$ in $\mathbb{R}^\Delta$ as follows.
+\begin{itemize}
+	\item A \newword{I-beam} is a tree with $4$ short leaves. For each {I-beam} $B$, $\mathfrak{D}$ has a wall
+	\[ (C_B, 1+x^{\mathsf{B}n} )\]
+	where $n\in\mathbb{N}^\Delta$ counts the transverse crossings of $B$ and the arcs in $\Delta$.
+	\item A \newword{non-shielding loop} is a cycle with $0$ leaves, such that each component of the complement contains a marked point. For each {non-shielding loop} $B$, $\mathfrak{D}$ has a wall
+	\[ \left(C_B, (1-x^{\mathsf{B}n})^{-2} \right)\]
+	where $n\in\mathbb{N}^\Delta$ counts the transverse crossings of $B$ and the arcs in $\Delta$.
+\end{itemize}
+
+\begin{theorem}\label{thm: consistent}
+The scattering diagram $\mathfrak{D}$ is consistent, and is the GHKK scattering diagram of the seed $\Delta$ in the cluster algebra associated to $(\S,\M)$.
+\end{theorem}
+
+\subsection{Proof of Theorem \ref{thm: consistent}}
+
+\begin{lemma}
+The joints of $\mathfrak{D}$ are as follows.%are $C_B$, as $B$ runs over the minimal barricades of codimension $2$.
+\begin{itemize}
+	\item If $B$ is a tree with 5 short leaves, then $C_B$ is a joint which is contained in the 3 walls; specifically, the 3 I-beams contained in $B$.
+	\item If $B$ is a cycle with 2 short leaves on the same side, then $C_B$ is a joint which is contained in 2 or 3 walls; specifically, the 2 I-beams contained in $B$, and the cycle (if it is non-shielding).
+	\item If $B$ is a cycle with 2 short leaves on different sides, then $C_B$ is a joint which is contained in infinitely many walls; specifically, the infinitely-many I-beams contained in $B$, and the cycle.\footnote{Note that the cycle in this case must be non-shielding.}
+	\item If $B$ is a disjoint union of $2$ I-beams or non-shielding loops, then $C_B$ is a joint contained in 2 walls.
+\end{itemize}
+\end{lemma}
 
 \end{document}  
