@@ -491,7 +491,7 @@ $z_L$&indeterminates indexed by $\L$\\\hline
 %\end{cases}$\\\hline
 $z^v$&$\displaystyle\prod_{\alpha\in T}z_\alpha^{c_\alpha}\prod_{L\in\L}z_L^{c_L}$ for $\displaystyle v=\sum_{\alpha\in T}c_\alpha\alpha^*+\sum_{L\in\L}c_LL^*\in M$\\\hline
 $(\zeta_i:i\in T\cup\L)$&$\zeta_i=z^{v_i}$\\\hline
-$\zeta^v$&$\displaystyle\prod_{\alpha\in T}\zeta_\alpha^{c_\alpha}\prod_{L\in\L}\zeta_L^{c_L}$ for $\displaystyle v=\sum_{\alpha\in T}c_\alpha\alpha+\sum_{L\in\L}c_LL\in N$\\\hline
+$\zeta^u$&$\displaystyle\prod_{\alpha\in T}\zeta_\alpha^{c_\alpha}\prod_{L\in\L}\zeta_L^{c_L}$ for $\displaystyle u=\sum_{\alpha\in T}c_\alpha\alpha+\sum_{L\in\L}c_LL\in N$\\\hline
 $\k$&field of characteristic zero\\\hline
 $\k[[\zeta]]$&$\k[[\zeta_i:i\in T\cup\L]]$, ring of formal power series in the $\zeta_i$\\\hline
 $\m$&ideal in $\k[[\zeta]]$ consisting of series in $\k[[\zeta_\alpha:\alpha\in T]]$ with constant term zero\\\hline
@@ -512,77 +512,55 @@ If we do principal coefficients, we can the $v_L$ for $L\in\L$ to be $\set{\alph
 \marginN{We may want a separate discussion of principal coefficients somewhere}  
 \end{remark}
 
-EVERYTHING BELOW HERE IS UNPROCESSED CUT/PASTE FROM scatfan.
-
-
-
-
-The algebraic setting for the scattering diagram is the multivariate formal power series ring $\k[[\zeta]]$ or the quotient $\k[[\zeta]]/\m^{k+1}$ for $k\ge0$.
-We will introduce scattering diagrams in both settings simultaneously, for two reasons:
-first, because the definitions are the same, except for working modulo $\m^{k+1}$; and second, because working modulo $\m^{k+1}$ is essential to the construction in the setting of $\k[[\zeta]]$.
-(Both of these settings fit into a broader level of generality discussed in \cite[Remark~1.7]{GHKK}).
-Working modulo $\m^{k+1}$ amounts to setting to zero all monomials in $\set{\zeta_i:\in I_\uf}$ of total degree greater than $k$.
-
-A \newword{wall} is a pair $(\d,f_\d)$, where $\d$ is a codimension-$1$ rational cone in $V^*$, contained in $n_0^\perp$ for some \emph{primitive} $n_0\in N^+$, and $f_\d$ is $1+\sum_{\ell\ge1}c_\ell\bigl(z^{p^*(n_0)}\bigr)^\ell$ with coefficients $c_k$ in $\k$, considered modulo $\m^{k+1}$ when appropriate.
-By definition, $f_\d$ is a univariate formal power series in $z^{p^*(n_0)}$, but also since $n_0\in N^+$, the term $z^{p^*(n_0)}=\zeta^{n_0}$ is a monomial in the $\zeta_i$, and thus $f_\d$ is in $\k[[\zeta]]$.
-It will sometimes be convenient to write $f_\d=f_\d(\zeta^{n_0})$ as a way to name the normal vector $n_0$ explicitly.
-
-We call a wall $(\d,f_\d)$ \newword{incoming} if $p^*(n_0)\in\d\oplus\Span_\integers(f_i:i\in I_\fr)$.  
-Otherwise $(\d,f_\d)$ is \newword{outgoing}.
+\begin{definition}[\emph{Wall}]\label{wall def}
+A \newword{wall} is a pair $(\d,f_\d)$ such that $\d$ is a codimension-$1$ rational cone in $V^*$ with normal vector $u=\sum_{\gamma\in T}c_\gamma\gamma\in N^+$, required to be \newword{primitive} (meaning ${\gcd_{\gamma\in T}c_\gamma=1}$), and $f_\d$ is $1+\sum_{i\ge1}a_i(\zeta^u)^i$ with coefficients $a_i$ in $\k$.
+Notice that $f_\d$ is in $\k[[\zeta]]$ and is also a univariate formal power series in $\zeta^u$.
+Notice also that $\zeta^u=z^{p^*(u)}$.
+%It will sometimes be convenient to write $f_\d=f_\d(\zeta^u)$ as a way to name the normal vector $u$ explicitly.
+The wall is \newword{incoming} if $p^*(u)\in\d\oplus\Span_\integers\set{L^*:L\in\L}$.  
+(That is, $p^*(u)$ is a vector in $\d$ plus a vector in $M_\fr$.)
+Otherwise $(\d,f_\d)$ is \newword{outgoing}.  
 Say that two walls are \newword{parallel} if they are contained in the same hyperplane.
+\end{definition}
 
-A \newword{scattering diagram} is a collection $\D$ of walls, satisfying a finiteness condition that we now explain.
-Write $\D_k$ for the set of walls $(\d,f_\d)\in\D$ such that $f_\d\not\equiv 1$ modulo $\m^{k+1}$.
-The condition is that $\D_k$ is a finite set for all $k\ge 1$.
-In particular, $\D=\bigcup_{k\ge1}\D_k$ is a countable collection of walls.
+\begin{definition}[\emph{Scattering diagram}]\label{scat def}
+A \newword{scattering diagram} is a collection $\D$ of walls.
+There may be infinitely many walls, but if so, for each $k$ we require that only finitely many walls $(\d,f_\d)\in\D$ have $f_\d\not\equiv 1$ modulo $\m^{k+1}$.
+Less formally, there are only finitely many walls $(\d,f_\d)$ such that $f_\d$ has a non-constant term of total degree $\le k$.
 The \newword{support} $\Supp(\D)$ of $\D$ is the union of all the walls of $\D$.
-
-If we are working modulo $\m^{\ell+1}$, then the finiteness condition amounts to requiring that $\D$ has finitely many walls.
-Indeed, each $\D_k$ should be understood by projecting each function $f_\d$ to the quotient $\k[[\zeta]]/\m^{k+1}$ of $\k[[\zeta]]/\m^{\ell+1}$.
-In particular, $\D_k$ equals $\D$ for $k\ge\ell$ (keeping in mind that $\D_k$ should still be understood modulo $\m^{\ell+1}$).
-In either case, each $\D_k$ is also a scattering diagram.
+\end{definition}
 
 \begin{remark}\label{useless dimensions}
-We construct the scattering diagram in $V^*$ (the real span of the set $\set{e_i^*:i\in I_\uf}$), while \cite{GHKK} constructs the scattering diagram in the larger space $M\otimes\reals$ (the real span of $\set{e_i^*:i\in I}$).
-Each wall in a scattering diagram (here and in \cite{GHKK}) is contained in a hyperplane perpendicular to a vector in $N^+\subset N_\uf$, and each such hyperplane contains the real span of $\set{e_i^*:i\in I_\fr}$.
-It is an easy matter to check that each wall in a \emph{consistent} scattering diagram, as defined below, is the direct product of a cone in $V^*$ with the real span of $\set{e_i^*:i\in I_\fr}$.
-(This is true up to \emph{equivalence}, also defined below, and can be seen using simple arguments similar to the proof of Lemma~\ref{bare point}.)
-Since we only care about consistent scattering diagrams, making the construction in $V^*$ is a matter of modding out by unnecessary dimensions.
-We make simple modifications in the remaining definitions to account for the loss of these dimensions.
+In \cite{GHKK}, scattering diagrams are constructed in the larger vector space $M\otimes_\integers\reals$.
+The difference is not meaningful in our context:  
+To recover such a scattering diagram from the scattering diagram defined here, one replaces every $(\d,f_\d)$ with $(\d\oplus\Span_\reals\set{L^*:L\in\L},f_\d)$.
+See \cite[Cite specific remark!!]{scatfan}.
 \end{remark}
 
-Suppose $\D$ is a scattering diagram.
-A piecewise differentiable path $\gamma:[0,1]\to V^*$ is \newword{generic} for $\D$ if it satisfies the following conditions:
+\begin{definition}[\emph{Generic path}]\label{generic def}
+A \newword{generic} path for a scattering diagram $\D$ is a piecewise differentiable path $\gamma:[0,1]\to V^*$ that
 \begin{itemize}
-\item $\gamma$ does not pass through the intersection of any two non-parallel walls of $\D$.
-\item $\gamma$ does not pass through the relative boundary of any wall (its boundary in the hyperplane it spans).
-\item Neither $\gamma(0)$ nor $\gamma(1)$ is contained in a wall of $\D$.
-\item When $\gamma$ intersects a wall, it crosses the wall transversely.  (Since $\gamma$ is only piecewise differentiable, it may not be differentiable where it intersects the wall, but there is a well-defined direction in which the wall is crossed.)
+\item does not pass through the intersection of any two non-parallel walls of $\D$,
+\item does not pass through the relative boundary of any wall (its boundary in the hyperplane it spans),
+\item has $\set{\gamma(0),\gamma(1)}\cap\Supp(\D)=\emptyset$, and
+\item crosses walls transversely wherever it intersects walls.
 \end{itemize}
+\end{definition}
 
-\begin{prop}\label{generic exists}
-For any $p,q\in V^*\setminus\Supp(\D)$, there exists a generic path from $p$ to $q$.
-\end{prop}
-\begin{proof}
-Since each wall of $\D$ is in $n_0^\perp$ for some $n_0\in N^+$, there is no wall of $\D$ contained in a hyperplane that intersects the interior of the positive cone in $V^*$ (the full-dimensional cone spanned by the $e^*_i$ for $i\in I_\uf$).
-
-We observe that there exists a point $r$ in the interior of the positive cone such that the straight line segment $\seg{pr}$ is a generic path.
-Indeed, if the line segment fails to be generic, then either (1) it passes through the intersection of nonparallel walls or the relative boundary of a wall, or (2) it is contained in the hyperplane containing some wall.
-But (2) can't happen when $r$ is in the interior of the positive cone.
-We can rule out (1) by choosing $r$ not contained in any of the countably many proper affine subspaces of $V^*$ formed as the affine span of $p$ and an intersection of nonparallel walls or the affine span of $p$ and a proper face of a wall.
-Similarly, we find a generic line segment $\seg{r'q}$ for some $r'$ in the positive cone.
-The concatenation of the paths $\seg{pr}$, $\seg{rr'}$, and $\seg{r'q}$ is the desired path.
-\end{proof}
-
-Suppose $\gamma$ is a generic path for $\D$.
-If $\gamma$ crosses a wall $\d\subseteq n_0^\perp$, specifically with $\gamma(t)$ contained in the wall, the \newword{wall-crossing automorphism} $\p_{\gamma,\d}$ of $\k[[\zeta]]$ is
+\begin{definition}[\emph{Wall-crossing automorphism}]\label{wall crossing def}
+Suppose $\gamma$ is a generic path for $\D$ and $(\d,f_\d)$ is a wall such that $\gamma(t)\in\d$ for some $t\in(0,1)$.
+The \newword{wall-crossing automorphism} $\p_{\gamma,t,\d}$ \marginN{It occured to me that $t$ should be in this notation, because the wall might be crossed multiple times, so I put $t$ in the subscript.  I think this simplifies the following too}
+of $\k[[\zeta]]$ is
 \begin{equation}\label{p def}
-\p_{\gamma,\d}(\zeta_i)=\zeta_if_\d^\br{v_i,\pm n'_0},
+\p_{\gamma,t,\d}(\zeta_i)=\zeta_if_\d^\br{v_i,\pm u},
 \end{equation}
-where $n_0'$ is the normal vector to $\d$ that is contained in $N^+$ and is primitive in $N^\circ$.
-We take $+n_0'$ in the formula when $\br{\gamma'(t),n_0}<0$ or we take $-n_0'$ when ${\br{\gamma'(t),n_0}>0}$.
-Even if $\gamma$ is not differentiable at $t$, there is still a well-defined direction in which $\gamma$ crosses the wall.  
-In this case, we are abusing notation by describing that direction with an inequality between $\br{\gamma'(t),n_0}$ and~$0$.
+where $u\in N^+$ is the primitive normal vector to $\d$ and the sign of $\pm u$ is chosen to \emph{oppose} the direction in which $\gamma$ crosses the wall.
+(This direction is well-defined by the transversality requirement in Definition~\ref{generic def}.)
+\end{definition}
+
+*****BELOW HERE, to Greg and Shira's stuff, is unprocessed cut-and-paste...
+
+*****WARN the reader that we have removed the subtlety in the definition of wall-crossing that allows skew-symmetrizable stuff to work.
 
 A few comments on wall-crossing automorphisms are in order.
 First, and most importantly, we emphasize a subtlety in the definition of $\p_{\gamma,\d}$:
@@ -597,43 +575,6 @@ Indeed, if $t_1=t_2=\cdots=t_\ell$, then $\p_{\gamma,d_\ell}\circ\cdots\circ\p_{
 (This is verified by an argument similar to the argument above on the inverse of $\p_{\gamma,\d}$.)
 We define the \newword{path-ordered product} $\p_{\gamma,\D}:\k[[\zeta]]\to\k[[\zeta]]$ to be the limit of $\p_{\gamma,\D_k}$ as $k\to\infty$.
 A scattering diagram $\D$ is \newword{consistent} if each path-ordered product $\p_{\gamma,\D}$ depends only on the endpoints $\gamma(0)$ and $\gamma(1)$.
-
-We make some useful observations about consistency.
-The first observation is that, when $\D$ is consistent, in light of Proposition~\ref{generic exists}, one can define $\p_{p,q,\D}$ for any $p,q\in V^*\setminus\Supp(\D)$ to be $\p_{\gamma,\D}$ for any generic path from $p$ to $q$.
-If $p,q,r\in V^*\setminus\Supp(\D)$, then $\p_{q,r,\D}\circ\p_{p,q,\D}=\p_{p,r,\D}$.
-
-The second observation is the following proposition, which makes it slightly easier to compute path-ordered products in consistent scattering diagrams.
-\begin{prop}\label{easier limit}
-Suppose $\D$ is a consistent scattering diagram and suppose $p$ and $q$ are in $V^*\setminus\Supp(\D)$.
-Suppose for each $k\ge 1$ that $\gamma_k$ is a path from $p$ to $q$ that is generic in $\D_k$.
-Then $\p_{p,q,\D}$ agrees, modulo $\m^{k+1}$, with $\p_{\gamma_k,\D_k}$.
-Thus $\p_{p,q,\D}$ is the limit, as $k\to\infty$, of $\p_{\gamma_k,\D_k}$.
-\end{prop}
-When we say that $\p_{p,q,\D}$ and $\p_{\gamma_k,\D_k}$ agree modulo $\m^{k+1}$, we mean that $\p_{p,q,\D}$ descends to a function $\k[[\zeta]]/{\m^{k+1}}\to\k[[\zeta]]/{\m^{k+1}}$ that coincides with $\p_{\gamma_k,\D_k}$.
-The statement is true by definition if each $\gamma_k$ is generic for $\D$.
-The point of the proposition is to allow us to merely check genericity of $\gamma_k$ for $\D_k$.
-\begin{proof}
-Each path $\gamma_k$ crosses some sequence of walls of $\D_k$ (possibly crossing some parallel walls simultaneously).
-Choose points $p_0,\ldots,p_\ell$ on $\gamma_k$ and in $V^*\setminus\Supp(\D)$ between all distinct intersection points of $\gamma_k$ with walls of $\D_k$, taking $p_0=p$ and $p_\ell=q$.
-Then $\p_{p,q,\D}=\p_{p_{\ell-1},p_\ell,\D}\circ\cdots\circ\p_{p_0,p_1,\D}$.
-This agrees modulo $\m^{k+1}$ with $\p_{p,q,\D_k}=\p_{p_{\ell-1},p_\ell,\D_k}\circ\cdots\circ\p_{p_0,p_1,\D_k}$.
-But by cutting $\gamma_k$ into shorter paths from $p_{i-1}$ to $q_i$ for each $i=1,\ldots,\ell$, we see that $\p_{p,q,\D_k}=\p_{\gamma_k,\D_k}$, and we conclude that $\p_{p,q,\D}$ and $\p_{\gamma_k,\D_k}$ agree modulo $\m^{k+1}$ for all $k\ge1$.
-\end{proof}
-
-The third observation is the following proposition, which uses the previous proposition to connect the consistency of $\D$ to the consistency of each $\D_k$.
-\begin{prop}\label{Dk consist}
-A scattering diagram $\D$ is consistent if and only if each $\D_k$ is consistent.
-\end{prop}
-\begin{proof}
-Suppose $\D$ is consistent and suppose $\gamma_k$ is a path from $p$ to $q$, generic in $\D_k$.
-If $p,q\not\in\Supp(\D)$, then Proposition~\ref{easier limit} says that $\p_{\gamma_k,\D_k}=\p_{p,q,\D}$ modulo $\m^{k+1}$, so in particular  $\p_{\gamma_k,\D_k}$ depends only on $p$ and $q$.
-If $p$ and/or $q$ is in $\Supp(\D)$, then since $\D_k$ is finite, by taking $p'$ and/or $q'$ in small enough balls about $p$ and/or $q$, we can extend $\gamma_k$ by pre-appending a path from $p'$ to $p$ and post-appending a path from $q$ to $q'$ without changing $\p_{\gamma_k,\D_k}$.
-Then we apply Proposition~\ref{easier limit} as above.
-
-Conversely, if each $\D_k$ is consistent, then in the definition of $\p_{\gamma,\D}$, each $\p_{\gamma,\D_k}$ depends only on the endpoints of $\gamma$, so $\D$ is consistent.
-\end{proof}
-
-The fourth and final observation is the following proposition.
 
 \begin{prop}\label{just z's}    \margin{I'm worried about whether this is true or not.  It seems like the whole reason we need to choose a full set of linearly independent $v_i$'s is precisely so that we have enough in the FPS ring to distinguish different path-ordered products.  On the other hand, maybe this is OK.  The extra $v_i$'s serve to make sure that $\set{v_i:i\in I}$ spans the whole space, including $V^*$.}
 A path-ordered product $\p_{\gamma,\d}$ is determined entirely by its values $\p_{\gamma,\d}(z_i)$ for $i\in I_\uf$, or equivalently by its values $\p_{\gamma,\d}(z^m)$ for $m\in M^\circ\cap V^*$.
@@ -808,163 +749,7 @@ The requirements on $\tB$ are that it must have integer entries, that it must ha
 If the $d_i$ exist, then they are uniquely determined by $\tB$ and the requirement that $\gcd_{i\in I}(d_i)=1$.
 The square submatrix ${B=[\ep_{ij}]_{i,j\in I_\uf}}$ is called an \newword{exchange matrix} and $\tB$ is called an \newword{extended exchange matrix}.
 
-%\margin{Added this as part of the refinement example (edge erasing) so I could erase it if that doesn't pan out.}
-%The following characterization of the finite scattering diagrams associated to $\Scat(\tB,s)$ will be useful.
-%\begin{prop}\label{clusscat k}
-%For each $k\ge1$, the finite scattering diagram $\Scat(\tB,\s)_k$ is the unique (up to equivalence modulo $\m^{k+1}$) consistent (modulo $\m^{k+1}$) scattering diagram containing $\set{(e_i^\perp,1+\zeta_i):i\in I_\uf}$, all of whose other walls $(\d,f_\d)$ are outgoing and have $f_\d\not\equiv 1$ modulo $\m^{k+1}$.
-%\end{prop}
-%\begin{proof}
-%Consistency of $\Scat(\tB,\s)_k$ holds by Proposition~\ref{Dk consist}.
-%Each function $1+\zeta_i$ is not equivalent to $1$ modulo $\m^{k+1}$ for $k\ge 1$, and thus $\Scat(\tB,\s)_k$ contains $\set{(e_i^\perp,1+\zeta_i):i\in I_\uf}$.
-%Since $\Scat(\tB,\s)_k$ is a subset of $\Scat(\tB,\s)$, all other walls are outgoing.
-%By definition each wall $(\d,f_\d)$ of $\Scat(\tB,\s)_k$ has $f_\d\not\equiv 1$ modulo $\m^{k+1}$.
-%We need to show that $\Scat(\tB,\s)_k$ is unique up to equivalence with respect to these properties.
-%
-%Since $\Scat(\tB,\s)_k$ is finite, we may as well assume that it consists of walls whose intersections have codimension at least $2$.
-%(For example, we could replace the walls with the set of all codimension-$1$ (in $V^*$) intersections of walls, and label each such intersection with the product of the functions labeling the walls that intersect there.)
-%If $\D$ is another consistent scattering diagram 
-%
-%???????
-%
-%
-%\end{proof}
 
-The crucial operation on exchange matrices is \newword{mutation}.
-We define mutation on any matrix $[b_{ij}]_{i\in R,j\in C}$ such that $I_\uf\subseteq R$ and $I_\uf\subseteq C$.
-For any $k\in I_\uf$, define $\mu_k([b_{ij}])$ to be the matrix $[b'_{ij}]_{i\in R,j\in C}$ with
-\begin{equation}\label{b mut}
-b_{ij}'=\left\lbrace\!\!\begin{array}{ll}
--b_{ij}&\mbox{if }i=k\mbox{ or }j=k;\\
-b_{ij}+\sgn(b_{kj})\,[b_{ik}b_{kj}]_+&\mbox{otherwise.}
-\end{array}\right.
-\end{equation}
-Here $\sgn(b)=\frac{b}{|b|}$ if $b\neq0$, or $\sgn(b)=0$ if $b=0$.
-
-The map $\mu_k$ is an involution.
-Furthermore, when we apply $\mu_k$ to $\tB$ to obtain $\mu_k(\tB)=[\ep'_{ij}]_{i\in I_\uf,j\in I}$, the integers $(d_i:i\in I_\uf)$ still have the property that $d_i\ep'_{ij}=-d_j\ep'_{ji}$ for all $i,j\in I_\uf$.
-
-Given a finite sequence $\ks=k_q,\ldots,k_1$ of indices in~$[n]$, we define $\mu_\ks$ to be $\mu_{k_q}\circ\mu_{k_{q-1}}\circ\cdots\circ\mu_{k_1}$.
-We emphasize that the sequence $\ks$ is indexed so that the first entry in the sequence is on the right.
-
-A natural and crucial question is:  What happens to the cluster scattering diagram when we mutate $\tB$?
-But there are at least two ways to interpret the question.
-One interpretation assumes that we mutate $\tB$ but fix all of the initial data that does not depend on the basis $\s$ (the ``fixed data'').
-That is, when we mutate by the sequence $\ks$, we replace $\s$ by a new basis $\mu_\ks(\s)$ such that $(\mu_\ks(\tB),\mu_\ks(\s))$ defines the same lattice $N$ and pairing $\set{\,\cdot\,,\,\cdot\,}$ as $(\tB,\s)$.
-Another interpretation assumes that we mutate $\tB$ and fix the basis $\s$, thus fixing the lattice $N$ but changing the form $\set{\,\cdot\,,\,\cdot\,}$.
-
-The question was answered, under the first interpretation, as \cite[Theorem~1.24]{GHKK}, and we will show below how \cite[Theorem~1.24]{GHKK} easily leads to an answer to the question under the second interpretation.
-(In the skew-symmetric case, this was already done as \cite[Lemma~5.2.1]{Muller} and in the rank-$2$ case it was done in \cite[Section~3]{CGMMRSW}.)
-We are interested in the second interpretation for two reasons.
-First, we want to think of the scattering diagram as depending only on $\tB$, so we take away the choice of basis by fixing $\s$ once and for all.
-Second, the transformation from $\Scat(\tB,\s)$ to $\Scat(\mu_k(\tB),\s)$ is given by the piecewise linear map identified in \mbox{\cite[(7.18)]{ca4}} as describing initial-seed mutation of $\g$-vectors and used in \cite{universal} to understand universal geometric coefficients.
-
-We now describe the operation that takes $\Scat(\tB,\s)$ to $\Scat(\mu_k(\tB),\s)$.
-We have borrowed notational conventions from \cite{NZ} and borrowed elements of the description of the map from \cite[Lemma~5.2.1]{Muller}.
-
-Define $J_k$ to be the square matrix, indexed by $I_\uf$, that agrees with the identity matrix except that the $kk$ entry is $-1$.
-For any matrix $A$, define $A^{k\bullet}$ to be the matrix that agrees with $A$ in row $k$ and has zeroes everywhere else.
-We will use these matrices to define some linear maps on $V$ and on $V^*$.
-We treat vectors in $V$ as column vectors giving coordinates with respect to the $e_i$, so that matrices act on $V$ from the left, and we treat vectors in $V^*$ as row vectors giving coordinates with respect to the $f_i$, so that matrices act on $V^*$ from the right.
-
-Since we want a map on \emph{equivalence classes} of scattering diagrams, we can assume up to equivalence that the hyperplane $e_k^\perp$ intersects the interior of no other wall of $\D$.
-(If the interior of some wall $(\d,f_\d)$ intersects $e_k^\perp$, replace that wall by two walls $(\d_+,f_\d)$ and $(\d_-,f_\d)$, where $\d_\pm=\set{p\in\d:\pm\br{p,e_k}\ge0}$.)
-We define a map $M_k$ on walls that fixes any walls contained in $e_k^\perp$ and otherwise has
-\begin{equation}
-M_k(\d,f_\d)=\begin{cases}
-M_k^-(\d,f_\d)&\text{if }\d\subseteq \set{p\in V^*:\br{p,e_k}\le0},\text{ or}\\
-M_k^+(\d,f_\d)&\text{if }\d\subseteq \set{p\in V^*:\br{p,e_k}\ge0},\\
-\end{cases}
-\end{equation}
-where 
-\begin{align}  
-M_k^-\bigl(\d,f_\d(\zeta^{n_0})\bigr)&=\bigl(\d(J_k+[-B^{k\bullet}]_+),f_\d(\zeta^{(J_k+[(B^T)^{k\bullet}]_+)n_0})\bigr)\\
-M_k^+\bigl(\d,f_\d(\zeta^{n_0})\bigr)&= \bigl(\d(J_k+[B^{k\bullet}]_+),f_\d(\zeta^{(J_k+[(-B^T)^{k\bullet}]_+)n_0})\bigr).
-\end{align}
-Here $f_\d(a)$ means the result of replacing $\zeta^{n_0}$ by $a$ in the formal power series $f_\d(\zeta^{n_0})$.
-
-We reuse the symbol $M_k$ for a map on scattering diagrams by defining 
-\begin{equation}
-M_k(\D)=\set{M_k(\d,f_d):(\d,f_d)\in\D}.
-\end{equation}
-
-\begin{thm}\label{mut thm}
-$\Scat(\mu_k(\tB),\s)$ is equivalent to $M_k(\Scat(\tB,\s))$ for any extended exchange matrix~$\tB$ and any $k\in I_\uf$.
-\end{thm}
-
-Theorem~\ref{mut thm} will follow by simple (piecewise) linear algebra from \cite[Theorem~1.24]{GHKK}, which we quote below.
-For each $k\in I_\uf$, we construct a scattering diagram $T_k(\Scat(\tB,\s))$ as follows:
-The wall $(e_k^\perp,1+\zeta_k)$ is replaced by $(e_k^\perp,1+\zeta_k^{-1})$.
-As in the definition of $M_k$, we can assume that $e_k^\perp$ intersects the interior of no other wall of $\Scat(\tB,\s)$.
-If $\br{m,e_k}\le0$ for all points $m\in\d$, then $(\d,f_\d(\zeta^{n_0}))$ is fixed.
-If $\br{m,e_k}\ge0$ for all points $m\in\d$, then $(\d,f_\d(\zeta^{n_0}))$ is replaced by $(\d',f_\d(\zeta^{n_0+\br{p^*(n_0),d_ke_k}e_k}))$, where $\d'$ is the image of $\d$ under the linear map $m\mapsto m+v_k\br{m,d_ke_k}$.
-(To compare this with \cite[(1.23)]{GHKK}, it is useful to notice that $p^*(n_0+\br{p^*(n_0),d_ke_k}e_k)=p^*(n_0)+v_k\br{p^*(n_0),d_ke_k}$.)
-
-Define $\mu_k(\s)=(e_i':i\in I)$ by
-\[e'_i=\begin{cases}
-e_i+[\epsilon_{ik}]_+e_k&\text{if }i\neq k,\text{ or}\\
--e_k&\text{if }i=k,
-\end{cases}\]
-where, as usual $[a]_+$ means $\max(a,0)$.
-The following is \cite[Theorem~1.24]{GHKK}.
-
-\begin{thm}\label{mut GHKK}
-$\Scat(\mu_k(\tB),\mu_k(\s))$ is equivalent to $T_k(\Scat(\tB,\s))$ for any extended exchange matrix~$\tB$ and any $k\in I_\uf$.
-\end{thm}
-
-\begin{proof}[Proof of Theorem~\ref{mut thm}]
-An easy computation shows that (as pointed out in \cite[Section~2]{GHK}), the basis $(d_i^{-1}(e'_i)^*,i\in I)$ for $M^\circ$ is $(f_i':i\in I)$, where 
-\[f'_i=\begin{cases}
-f_i&\text{if }i\neq k,\text{ or}\\
--f_k+\sum_{j\in I}[-\epsilon_{kj}]_+f_j&\text{if }i=k.
-\end{cases}\]
-Theorem~\ref{mut GHKK} tells us how to write the cluster scattering diagram in terms of the basis $\mu_k(\s)=(e_i':i\in I)$ when $\set{\,\cdot\,,\,\cdot\,}$ is described in the basis $\mu_k(\s)$ by the matrix $\mu_k(\tB)$.
-To get the scattering diagram $\Scat(\mu_k(\tB),\s)$, we need to rewrite this in terms of the basis $\s$ by applying the linear map $L_f$ that sends each $f_i'$ to $f_i$ and applying the corresponding map to monomials.
-In the basis of the $f_i$, this map fixes $f_i$ for $i\neq k$ and sends $f_k$ to $-f_k+\sum_{j\in I}[-\epsilon_{kj}]_+f_j$.
-The map on monomials sends each $\zeta^{e'_i}$ to $\zeta^{e_i}$ and thus sends $\zeta^{e_k}$ to $\zeta^{-e_k}$ and $\zeta^{e_i}$ to $\zeta^{e_i+[\ep_{ik}]_+e_k}$ for $i\neq k$. 
-
-The wall $(e_k^\perp,1+\zeta_k)$ is sent by $T_k$ to $(e_k^\perp,1+\zeta_k^{-1})$ and the basis change restores it to $(e_k^\perp,1+\zeta_k)$.
-In what remains, take $(\d,f_\d)$  to be a different wall in $\Scat(\tB,\s)$.
-
-If $\br{m,e_k}\le0$ for all points in $\d$, then $T_k(\d,f_\d)=(\d,f_\d)$.
-The basis change sends this to $(\d',f_{\d'})$, where $\d'$ is the image of $\d$ under the map $m\mapsto m+\br{m,d_ke_k}{(-2f_k+\sum_{i\in I}[-\epsilon_{ki}]_+f_i)}$ and $f_{\d'}$ is obtained from $\d$ by replacing each monomial $\zeta^n$ by $\zeta^{n'}$, where $n'=n +(-2\br{e^*_k,n}+\sum_{i\in I}\br{e^*_i,n}[\epsilon_{ik}]_+)e_k$.
-
-If $\br{m,e_k}\ge0$ for all points in $\d$, then the wall in $T_k(\d,f_\d)$ is the image of $\d$ under the map $m\mapsto m+v_k\br{m,d_ke_k}$.
-Since $v_k=p^*(e_k)=\sum_{i\in I}\ep_{ki}f_i$, this map is $m\mapsto m+\br{m,d_ke_k}\sum_{i\in I}\ep_{ki}f_i$.
-The change of basis sends this to a wall $\d'$ that is the image of $\d$ under the map $m\mapsto m+\br{m,d_ke_k}(-2f_k+\sum_{i\in I}[\ep_{ki}]_+f_i)$.
-The function on $T_k(\d,f_\d)$ is obtained from $f_\d$ by replacing each $\zeta^{e_i}$ by $\zeta^{e_i+\br{p^*(e_i),d_ke_k}e_k}=\zeta^{e_i+\ep_{ik}e_k}$.
-After the basis change, this sends $\zeta^{e_k}$ to $\zeta^{-e_k}$ and for $i\neq k$ sends $\zeta^{e_i}$ to $\zeta^{e_i+[-\ep_{ik}]_+e_k}$.
-\end{proof}
-
-We can also think of $M_k$ as a piecewise linear map on $V^*$:
-\begin{equation}
-M_k(p)=\begin{cases}
-M_k^-(p)=p(J_k+[-B^{k\bullet}]_+)&\text{if }\br{p,e_k}\le0,\text{ or}\\
-M_k^+(p)=p(J_k+[B^{k\bullet}]_+)&\text{if }\br{p,e_k}\ge0.\\
-\end{cases}
-\end{equation}
-This geometric action of $M_k$ can be described in terms of matrix mutation.
-As before, write $B$ for the exchange matrix${[\ep_{ij}]_{i,j\in I_\uf}}$.
-Given an integer vector $\a$ indexed by $I_\uf$, let $\mathring{B}$ be obtained from $B$ by adjoining $\a$ as an additional row below $B$.
-We define $\eta_k^B(\a)$ to be the coefficient row of $\mu_k(\mathring{B})$.
-By \eqref{b mut}, $\eta_k^B(\a)=(a_i':i\in I_\uf)$, where, for each $j\in I_\uf$:  
-\begin{equation}\label{mutation map def}
-a'_j=\left\lbrace\begin{array}{ll}
--a_k&\mbox{if }j=k;\\
-a_j+a_kb_{kj}&\mbox{if $j\neq k$, $a_k\ge 0$ and $b_{kj}\ge 0$};\\
-a_j-a_kb_{kj}&\mbox{if $j\neq k$, $a_k\le 0$ and $b_{kj}\le 0$};\\
-a_j&\mbox{otherwise.}
-\end{array}\right.
-\end{equation}
-The maps $\eta_k^B$ (and more generally maps defined by a sequence of mutations) are called \newword{mutation maps}.
-
-The geometric action of $M_k$ on walls, when written in the basis of the $f_i$, coincides with the mutation map $\eta^B_k$.
-Write $\ScatFan(\tB,\s)$ for $\Fan(\Scat(\tB,\s))$.
-Since the hyperplane $e_k^\perp$ is a wall of $\Scat(\tB,\s)$, the action of $\eta^B_k$ is linear on all cones of $\ScatFan(\tB,\s)$.
-We record the following immediate corollary to Theorem~\ref{mut thm}.
-
-\begin{cor}\label{mut scat fan}
-For any extended exchange matrix~$\tB$ and any $k\in I_\uf$, the mutation map $\eta^B_k$ (or equivalently the map $M_k$) is a piecewise-linear isomorphism from $\ScatFan(\tB,\s)$ to $\ScatFan(\mu_k(\tB),\s)$.
-\end{cor}
 
 By definition, each hyperplane $e_i^\perp$ in $V^*$ is a wall of $\Scat(\tB,\s)$.
 Since each wall of $\Scat(\tB,\s)$ is in the hyperplane perpendicular to a vector in $N^+$, no wall intersects the interior of the cone $\C_\s^+=\set{p\in V^*:\br{p,e_i}\ge0\,\forall i\in I_\uf}$.
@@ -977,11 +762,7 @@ By induction, we see that every cone transitively adjacent to $\C_\s^+$ in $\Sca
 Let the \newword{cluster fan} $\ClusFan(\tB,\s)$ be the subfan of $\ScatFan(\tB,\s)$ consisting of maximal cones that are transitively adjacent to $\C_\s^+$, together with all of their faces.
 This fan is simplicial, and by \cite[Theorem~0.8]{GHKK}, it coincides with the fan of Fock-Goncharov cluster chambers and is isomorphic to the cluster complex associated to $\tB$.
 
-As a further consequence of Corollary~\ref{mut scat fan}, we have the following.
 
-\begin{cor}\label{mut clus fan}
-For any extended exchange matrix~$\tB$ and any $k\in I_\uf$, the mutation map $\eta^B_k$ (or equivalently the map $M_k$) is a piecewise-linear isomorphism from $\ClusFan(\tB,\s)$ to $\ClusFan(\mu_k(\tB),\s)$.
-\end{cor}
 
 
 
