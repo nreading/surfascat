@@ -92,9 +92,7 @@
 %  \renewcommand{\marginnum}{}
 %  For final versions of a paper, it's probably best to remove all the \margin
 %  commands.  Much to my annoyance, they mess up the typesetting.
-\newcommand{\marginN}[1]{\margin[NR]{#1}}
-\newcommand{\marginS}[1]{\margin[SV]{#1}}
-\newcommand{\marginG}[1]{\margin[GM]{#1}}
+
 
 
 % This is for setting off words we define in a separate typeface.
@@ -136,11 +134,7 @@
 \newcommand{\ufs}{\mathrm{ufs}}
 \newcommand{\covers}{{\,\,\,\cdot\!\!\!\! >\,\,}}
 \newcommand{\covered}{{\,\,<\!\!\!\!\cdot\,\,\,}}
-\newcommand{\set}[1]{{\lbrace #1 \rbrace}}
-\newcommand{\sett}[1]{{\bigl\lbrace #1 \bigr\rbrace}}
-\newcommand{\settt}[1]{{\Bigl\lbrace #1 \Bigr\rbrace}}
-\newcommand{\setttt}[1]{{\biggl\lbrace #1 \biggr\rbrace}}
-\newcommand{\settttt}[1]{{\Biggl\lbrace #1 \Biggr\rbrace}}
+\newcommand{\set}[1]{{\left\lbrace #1 \right\rbrace}}
 \newcommand{\pidown}{\pi_\downarrow}
 \newcommand{\piup}{\pi^\uparrow}
 \newcommand{\br}[1]{{\langle #1 \rangle}}
@@ -301,154 +295,15 @@
 %\tableofcontents
 %
 
-\section{Introduction}\label{intro sec}  
-
-%\marginN{Of course, it's not time to write this yet, but I'm recording some decisions explicitly, so that we can follow through with them (and mention them explicitly in the paper) or change them.}
+%\section{Introduction}\label{intro sec}  
 
 
 
-\section{Triangulated marked surfaces}\label{surface sec}
-In this section, we quote background material on the triangulated marked surfaces model from \cite{cats1,cats2}, with some modifications as in \cite{unisurface}.
 
+Here, I am making an attempt to fill in the initial data for a scattering diagram in the surfaces case.
+I'm trying to follow the table of data in the ``Scattering fans'' manuscript for easy comparison.---Nathan
 
-\begin{definition}[\emph{Marked surface}]\label{S M def}
-A \newword{marked surface} is a pair $(\S,\M)$ such that $\S$ is a compact, connected, oriented surface whose boundary is a (possibly empty) union of disjoint circles and $\M$ is a nonempty, finite collection of points in $\S$ called \newword{marked points}.
-The circles forming the boundary of $\S$ are called \newword{boundary components}, and we require that there is at least one marked point in each boundary component.
-Marked points that lie in the interior of $\S$ are called \newword{punctures}.
-A \newword{boundary segment} is a curve contained in the boundary of $\S$ whose endpoints are in $\M$, with no points of $\M$ in the interior of the curve.
-If $\S$ is a disk with three or fewer marked points on its boundary, then $(\S,\M)$ must have at least one puncture.
-If $\S$ is a disk with only one marked point on its boundary (a monogon), then it must have at least two punctures.
-If $\S$ is a sphere, then it must have at least $4$ punctures.  
-(It is harmless, and sometimes convenient as in \cite{dominance}, to allow $\S$ to be disconnected and/or to allow once-punctured monogons, but there is no need here.)
-\end{definition}
-
-\begin{definition}[\emph{Arcs and triangulations}]\label{tri def}
-An \newword{arc} in $(\S,\M)$ is a curve in $\S$ with endpoints in $\M$.
-The arc may not intersect itself and, except at its endpoints, must be contained in the interior of $\S\setminus\M$.
-The arc may not bound an unpunctured monogon and may not define, together with a boundary segment connecting the endpoints, an unpunctured digon.
-Throughout, we consider arcs up to isotopy equivalence.
-
-Two arcs are \newword{compatible} is there is an isotopy representative of each such that the representatives do not intersect, except possibly at their endpoints.
-A \newword{triangulation} $T$ is a maximal collection of distinct pairwise compatible arcs.
-The connected components of $\S\setminus\cup T$ are \newword{triangles}, which have one, two or three distinct vertices (in $\M$) and two or three distinct sides (in $T$).
-A triangle is called \newword{self-folded} if it has only two distinct sides.
-The arc that defines two different sides of the triangle is the \newword{fold edge}.
-\marginN{for now, I don't think we need to discuss flips}
-\end{definition}
-
-\begin{definition}[\emph{Signed adjacency matrix}]\label{B(T) def}
-Given a triangulation $T$, we define a skew-symmetric integer matrix $B(T)=[b_{\alpha\beta}]_{\alpha,\beta\in T}$.
-To do so we define a map $\pi_T$ on the arcs of $T$ sending the fold edge of each self-folded triangle in $T$ to the other edge of the same triangle, and fixing all other arcs.
-We define $b_{\alpha\beta}$ to be the sum $\sum_\Delta b^\Delta_{\alpha\beta}$, over all \emph{non-self-folded} triangles $\Delta$ of $T$, where 
-\[b^\Delta_{\alpha\beta}=
-\begin{cases} 
-\,\,\,\,\,1&\text{if $\Delta$ has sides $\pi_T(\alpha)$ and $\pi_T(\beta)$ such that $\pi_T(\alpha)$} \\[-2pt]&\quad\text{is immediately followed by $\pi_T(\beta)$ in \emph{clockwise} order.}\\[3pt]
-\,-1&\text{if $\Delta$ has sides $\pi_T(\alpha)$ and $\pi_T(\beta)$ such that $\pi_T(\alpha)$} \\[-2pt]&\quad\text{is immediately followed by $\pi_T(\beta)$ in \emph{counterclockwise} order.}\\[3pt]
-\,\,\,\,\,0&\text{otherwise.}
-\end{cases}
-\]
-\end{definition}
-
-\begin{definition}[\emph{Allowable curve}]\label{allowable def}
-An \newword{allowable curve} in $(\S,\M)$ is  
-\begin{itemize}
-\item a closed curve,
-\item a curve whose two endpoints are unmarked boundary points,
-\item a curve having one endpoint an unmarked boundary point, with the other end spiraling (clockwise or counterclockwise) into a puncture, or
-\item a curve spiraling into (not necessarily distinct) punctures at both ends,
-\end{itemize}
-that
-\begin{itemize}
-\item has no self-intersections,
-\item is not contractible in $\S\setminus\M$,
-\item is not a closed curve contractible in $\S\setminus\M$ to a puncture,
-\item is not contractible (by an isotopy fixing its endpoints) to a portion of the boundary containing zero or one marked points,
-\item does not have both endpoints on the same boundary segment and, together with the portion of the boundary between its endpoints, cut out a once-punctured disk, and 
-\item does not spiral at both ends into the same marked point and cut out an unpunctured or once-punctured disk.
-\end{itemize}
-\end{definition}
-
-
-\begin{definition}[\emph{Quasi-laminations}]\label{quasilam def}
-Two allowable curves are \newword{compatible} if 
-\begin{itemize}
-\item
-they are nonintersecting, or 
-\item they are identical except that, at exactly one end of the curve, they spiral opposite directions into the same marked point.
-\end{itemize}
-A \newword{(rational) quasi-lamination} $L$ in $(\S,\M)$ is a collection of pairwise compatible allowable curves in $\S$, distinct up to isotopy, with each curve $\lambda\in L$ carrying a positive rational weight $w_\lambda$.
-A \newword{multi-lamination} is a finite collection $\L$ of laminations.
-\end{definition}
-
-\begin{definition}[\emph{Shear coordinates}]\label{shear def}
-Given a quasi-lamination $L$, a triangulation $T$, and an arc $\gamma\in T$,  we define the \newword{shear coordinate} $b_\gamma(T,L)$ of $L$ at $\gamma$ (with respect to $T$).
-This is $b_\gamma(T,L)=\sum_{\lambda\in L}w_\lambda b_\gamma(T,\lambda)$, a weighted sum over curves $\lambda$ in $L$ of quantities $b_\gamma(T,\lambda)$ that we now define.
-First, if $\gamma$ is \emph{not} the fold edge of a self-folded triangle of $T$, then it is contained in a quadrilateral.
-(Possibly, the edges of this quadrilateral are fewer than four distinct arcs of $T$.)
-We choose an isotopy representative of $\lambda$ that minimize the number of intersection points of the curve with $\gamma$ and we reuse the symbol $\lambda$ for the representative.
-Each intersection of $\lambda$ with $\gamma$ contributes $-1$, $0$, or $1$ to $b_\gamma(T,\lambda)$.
-The contribution is $0$ unless $\lambda$ intersects the triangles containing $\gamma$ in one of the ways shown in Figure~\ref{shear fig}, in which case the contribution is $1$ or $-1$ as shown.
-(In the figure, $\gamma$ is the diagonal of the quadrilateral shown, and $\lambda$ is a vertical or horizontal dashed line.)
-\begin{figure}[ht]
-\raisebox{42 pt}{$+1$}\,\,\includegraphics{shearplus}\qquad\qquad\includegraphics{shearminus}\,\,\raisebox{42 pt}{$-1$}
-\caption{Computing shear coordinates}
-\label{shear fig}
-\end{figure}
-If $\gamma$ \emph{is} the fold edge of a self-folded triangle of $T$, then $\gamma$ is inside a once-punctured monogon in $T$.
-Let $p$ be punctured in that monogon, let $\gamma'$ be the other edge of that self-folded triangle, and let $\lambda'$ be the allowable curve obtained from $\lambda$ by reversing the direction of all spirals (if any) at  $p$.
-Then define $b_\gamma(T,\lambda)$ to be $b_{\gamma'}(T,\lambda')$.
-\end{definition}
-
-\marginN{commented out here:  the theorem on laminations in bijection with rational vectors.  May want to quote this later when we set up the vector spaces, or maybe even later when we need it.}
-%\begin{theorem}\label{q-lam bij}
-%Fix a tagged triangulation $T$.
-%Then the map $L\mapsto\b(T,L)$ is a bijection between integral (resp. rational) quasi-laminations and $\integers^n$ (resp.~$\rationals^n$).
-%\end{theorem}
-
-
-\marginN{commented out here is the definition of $\kappa$.  We will probably need it.}
-%Given a tagged arc $\alpha$ in $(\S,\M)$, we define (up to isotopy) a curve $\kappa(\alpha)$.
-%The curve $\kappa(\alpha)$ coincides with $\alpha$ except within a small ball around the endpoints of $\alpha$.
-%Within each ball around an endpoint $p$, the behavior of $\kappa(\alpha)$ is as follows:
-%If $p$ is on a boundary component, then $\kappa(\alpha)$ ends at a point $x$ on the same boundary component such the path along the boundary from $p$ to $x$, keeping $\S$ on the left, does not leave the small ball.
-%If $p$ is a puncture, then $\kappa(\alpha)$ spirals into $p$, clockwise if $\alpha$ is tagged plain at $p$ and counterclockwise if $\alpha$ is tagged notched at $p$.
-%The map $\kappa$ is similar to the map considered in \cite[Definition~17.2]{cats2}, but with the opposite orientation throughout.
-%
-
-\begin{remark}\label{comparison to cats1-2}
-In \cite{cats1,cats2}, the interior of $\S\setminus\M$ is given the structure of Riemann surface, but the metric structure is not needed here.  \marginN{as far as I know now}
-What we are calling triangles and triangulations are called ideal triangles and ideal triangulations in \cite{cats1,cats2} because their vertices are at infinity in the Riemannian metric.
-In some papers, the term ``ideal triangulation'' is used to distinguish triangulations from ``tagged triangulations,'' which we will not need here.  \marginN{I think}
-(Every tagged triangulation also has a signed adjacency matrix, but the definition is such that in every case, there is an ordinary triangulation with the same signed adjacency matrix \cite[Definition~9.18]{cats1}.)
-The notion of a quasi-lamination is a slight variation (from \cite{unisurface}) on the laminations occurring in \cite{cats2}.
-The point of the variation is that non-closed allowable curves correspond to tagged arcs.
-\end{remark}
-
-\section{Scattering diagrams}\label{scat sec}
-The goal of this paper is to construct the cluster scattering diagram associated to a triangulated marked surface.
-In this section, we review the background on scattering diagrams, but specifically in the context of a triangulated surface.
-We have largely followed \cite{GHK,GHKK}, with some small changes, following~\cite{scatfan}.
-
-In what follows, we fix a marked surface $(\S,\M)$, a \marginN{ordinary, here.  Can we get by entirely without tagged triangulations?  Would be nice.}
-triangulation $T$ and a multi-lamination $\L$. 
-The signed adjacency matrix $B(T)$ is in particular an exchange matrix.
-(In general, an \newword{exchange matrix} is a skew-symmetrizable integer matrix.
-The matrix $B(T)$ is more special:  It is skew-symmetric.)
-
-The initial data defining a cluster scattering diagram amounts to an \newword{extended exchange matrix}.
-There are two different conventions in the cluster algebras literature on extending an exchange matrix.
-Here, we follow \cite{GHKK} in extending exchange matrices by adding columns of integer vectors.
-(Switching from our \emph{wide} extended exchange matrices to the \emph{tall} extended exchange matrices of \cite{ca4} amounts to  transposing (or equivalently in the skew-symmetric case, negating) the exchange matrix.)
-
-\begin{definition}[\emph{Extended exchange matrix for $T$ and $\L$}]\label{tB(T,L) def}
-The extended exchange matrix $\tB(T,L)$ defined by $(\S,\M)$, $T$, and $\L$ has rows indexed by $T$ and columns indexed by $T\cup\L$.
-Its entries $b_{\alpha\beta}$ for $\alpha,\beta\in T$ are the entries of the signed adjacency matrix $B(T)$ defined in Definition~\ref{B(T) def} and its entry $b_{\alpha L}$ for $\alpha\in T$ and $L\in\L$ is $b_\alpha(T,L)$ as in Definition~\ref{shear def}.
-\end{definition}
-
-Starting with $T$ and $\L$, we define the following objects.
-(The extended exchange matrix $B(T,\L)$ appears as the bilinear form $\set{\,\cdot\,,\,\cdot\,}$.
-\marginN{I've rethought a few of the ideas that were in the table before.  (Feel free to disagree.)  The main change is that I set up the dual lattice and vector space in terms of formal duals of the arcs in $T$ instead of as laminations.  We will still use laminations, of course, but I think this is cleaner.  Not sure if I like the table approach, but maybe it's not so bad, especially since the table got shorter. }
-
+I fix $(\S,\M)$, a tagged triangulation $T$ and a multi-lamination $\L$. \margin{maybe it matches better with other papers to call the individual laminations $L$, not $\Lambda$}
 
 
 \renewcommand*{\arraystretch}{1.4}
@@ -467,179 +322,46 @@ Notation&Description/requirements\\\hline\hline\hline
 %\endfoot
 %\caption{(continued)}\\
 %\endlastfoot
-$N=N_\uf\oplus N_\fr$\linebreak %\hspace*{40pt} 
-(a lattice) &
-$\begin{aligned}N_\uf&=\textstyle\sett{\sum_{\gamma\in T}c_\gamma\gamma:\text{ each }c_\gamma\in\integers} \text{ (formal sums)}\\\
-N_\fr&=\textstyle\sett{\sum_{L\in\L}c_LL:\text{ each }c_\gamma\in\integers}\end{aligned}$
+$N$&$N_\uf\oplus N_\fr$\linebreak
+$N_\uf$ is formal sums of tagged arcs of $T$ with integer coefficients.\linebreak
+$N_\fr$ is formal sums of laminations in $\L$ with integer coefficients.
 \\\hline
-$\begin{aligned}M&=\Hom(N,\integers)\\&=M_\uf\oplus M_\fr\end{aligned}$\linebreak %\hspace*{40pt} 
-(dual lattice) 
-&
-$\begin{aligned}M_\uf&=\textstyle\sett{\sum_{\gamma\in T}c_\gamma\gamma^*:\text{ each }c_\gamma\in\integers}\\
-M_\fr&=\textstyle\sett{\sum_{L\in\L}c_LL^*:\text{ each }c_\gamma\in\integers}\end{aligned}$\linebreak
-for dual vectors $\gamma^*$ for $\gamma\in T$ and $L^*$ for $L\in\L$
+$M=\Hom(N,\integers)$&$M_\uf\oplus M_\fr$\linebreak
+$M_\uf$ nonnegative integer-weighted quasi-laminations.\linebreak
+$M_\fr$ formal sums of coefficients $(y_\Lambda:\Lambda\in\L)$ with integer coefficients.  \\\hline
+$V$&formal sums of tagged arcs of $T$ with real coefficients. \\\hline
+$I$&$T\cup\L$\\\hline
+$I_\uf\subseteq I$&$T$\\\hline
+$I_\fr\subseteq I$&$\L$\\\hline
+$\set{\,\cdot\,,\,\cdot\,}:N\times N\to\rationals$&$\set{\alpha,\gamma}$ is signed adjacency $b_{\alpha_\gamma}$ with the usual convention.\linebreak
+$\set{\alpha,\Lambda}$ is shear coordinate $b_\alpha(T,\Lambda)$ with the usual convention giving positive coordinate when a curve sees $\alpha$ on its right when entering the rectangle.\linebreak
+$\set{\Lambda,\alpha}$ is $-b_\alpha(T,\Lambda)$\linebreak
+But we need to think carefully about this convention:  This is set up so that the shear coordinates give coefficients in the \textbf{wide} matrices sense.  I think that's right because it matches what GHKK do, but I might be wrong, or we might have the freedom to choose either way.  Tall matrices would be nicer for universal coefficients, at least psychologically.
 \\\hline
-$V=N_\uf\otimes_\integers\reals$&$V=\sett{\sum_{\gamma\in T}c_\gamma\gamma:\text{ each }c_\gamma\in\reals}$ \\\hline
-$V^*=M_\uf\otimes_\integers\reals$\linebreak
-(dual vector space)&
-$V=\sett{\sum_{\gamma\in T}c_\gamma\gamma^*:\text{ each }c_\gamma\in\reals}$
+$N^\circ\subseteq N$&$N^\circ=N$, so we're requiring that $\set{\,\cdot\,,\,\cdot\,}$ actually maps $N\times N$ to the integers.\\\hline
+$M^\circ=\Hom(N^\circ,\integers)$&$M^\circ=M$\\\hline
+$d_i$&$d_i=1$ for all $i$\\\hline
+$\s=(e_i:i\in I)$&$T\cup\L$\\\hline
+$N^+=N^+_\s$& nonzero formal sums of tagged arcs of $T$ with \textbf{nonnegative} integer coefficients\\\hline
+$[\,\cdot\,,\,\cdot\,]_\s:N\times N\to\rationals$&$[e_i,e_j]_\s=\set{e_i,e_j}$\\\hline
+$\ep_{ij}$&$\set{e_i,e_j}$, entries of the $B$-matrix, extended in both directions, but we never need to care about entries indexed by two laminations\\\hline
+$\set{e^*_i:i\in I}$&$\set{\text{elementary laminations }L_\alpha:\alpha\in T}\cup\set{y_\Lambda:\Lambda\in\L}$\\\hline
+$\set{f_i:i\in I}$&$f_i=e_i$\\\hline
+$V^*$&``real quasi-laminations" = closure of set of real-weighted quasi-laminations. \linebreak
+Alternatively, we could just take $V^*$ to be formal sums of elementary laminations with integer coefficients.  In some contexts below (e.g.\ $p^*$), that makes more sense anyway.  (Maybe it makes sense to have both realizations of $V^*$.  The only real point is that every formal rational sum of elementary laminations is actually a lamination.)\\\hline
+$\br{\,\cdot\,,\,\cdot\,}:V^*\times V\to\reals$& sum of shear coordinates (or limit of such sums)\newline
+Alternatively, weighted sum of shear coordinates of elementary laminations.  \\\hline
+$\br{\,\cdot\,,\,\cdot\,}:M^\circ\times N\to\rationals$&sum of shear coordinates on $M_\uf\times N_\uf$, also $\br{y_\Lambda,\Pi}=\delta_{\Lambda\Pi}$ and zero otherwise.
 \\\hline
-$\br{\,\cdot\,,\,\cdot\,}:V^*\times V\to\reals$\linebreak
-$\br{\,\cdot\,,\,\cdot\,}:M\times N\to\rationals$\linebreak
-(the usual pairing)& 
-$\br{\alpha^*,\gamma}=\delta_{\alpha\gamma}$ (Kronecker delta) for $\alpha,\gamma\in T$\linebreak
-$\br{L^*,M}=\delta_{LM}$ (Kronecker delta) for $L,M\in\L$\linebreak
-$\br{\alpha^*,L}=\br{L^*,\alpha}=0$ for $\alpha\in T$ and $L\in\L$
-\\\hline
-$\set{\,\cdot\,,\,\cdot\,}:N\times N\to\integers$\linebreak
-(bilinear form)&$\set{\alpha,\gamma}=b_{\alpha_\gamma}$ (entry of $B(T)$) for $\alpha,\gamma\in T$\linebreak
-$\set{\alpha,L}=b_\alpha(T,L)$ (shear coordinate) for $\alpha\in T$, $L\in\L$\linebreak
-$\set{L,\alpha}=-b_\alpha(T,L)$\linebreak
-$\set{L,L'}$ unspecified for $L,L'\in\L$
-\\\hline
-$N^+$& nonzero elements of $N_\uf$ with \textbf{nonnegative} coefficients\\\hline
-$p^*:N_\uf\to M$&
-$p^*(\alpha)=\sum_{\gamma\in T}b_{\alpha\gamma}\gamma^*+\sum_{L\in\L}b_\alpha(T,L)L^*$\\\hline
-$(v_i:i\in T\cup\L)$&$v_\alpha=p^*(\alpha)$ for $\alpha\in T$ and
-$v_L\in M$ for $L\in\L$ chosen to make $(v_i:i\in T\cup\L)$ linearly independent
-\\\hline
-$z_\alpha$&indeterminates indexed by $T$\\\hline
-$z_L$&indeterminates indexed by $\L$\\\hline
-%$z_i:i\in T\cup\L$&$=\begin{cases}
-%x_\alpha&\text{if }i=\alpha\in T\\
-%y_L&\text{if }i=L\in\L
-%\end{cases}$\\\hline
-$z^v$&$\displaystyle\prod_{\alpha\in T}z_\alpha^{c_\alpha}\prod_{L\in\L}z_L^{c_L}$ for $\displaystyle v=\sum_{\alpha\in T}c_\alpha\alpha^*+\sum_{L\in\L}c_LL^*\in M$\\\hline
-$(\zeta_\alpha:\alpha\in T)$&$\zeta_\alpha=z^{v_\alpha}$\\\hline
-$\zeta^u$&$\displaystyle\prod_{\alpha\in T}\zeta_\alpha^{c_\alpha}=z^{p^*(u)}$ for $\displaystyle u=\sum_{\alpha\in T}c_\alpha\alpha\in N_\uf$\\\hline
-$\k$&field of characteristic zero\\\hline
-$\k[[\zeta]]$&$\k[[\zeta_i:i\in T\cup\L]]$, ring of formal power series in the $\zeta_i$\\\hline
-$\m$&ideal in $\k[[\zeta]]$ consisting of series in $\k[[\zeta_\alpha:\alpha\in T]]$ with constant term zero\\\hline
+$p^*:N_\uf\to M^\circ$&
+$p^*(\alpha)=\sum_{\beta\in T}b_{\alpha\beta}L_\beta+\sum_{\Lambda\in\L}b_\alpha(T,\Lambda)y_\Lambda$\linebreak
+A good reason to keep the definition of $\set{\,\cdot\,,\,\cdot\,}$ as it is above:  If I switch it, I get a minus sign between the two sums defining $p^*(\alpha)$, which doesn't seem nice.\newline 
+$(p^*(e_i):i\in I_\uf)$ required to be linearly independent\\\hline
+$(v_i:i\in I)$&$v_i=p^*(e_i)$ (as above) for $i\in I_\uf$ and
+$v_i\in M^\circ$ for $i\in I_\fr$ chosen to make $(v_i:i\in I)$ linearly independent\newline
+For definiteness, we can always take the $v_i$ for $i\in I_\fr$ to be in $\set{e^*_i:i\in I}=\set{L_\alpha:\alpha\in T}\cup\set{y_\Lambda:\Lambda\in\L}$.\newline
+If we do principal coefficients, we can the $v_i$ for $i\in I_\fr$ to be $\set{L_\alpha:\alpha\in T}$\\\hline
 \end{longtable}
-
-\begin{remark}\label{compare GHKK}
-Here are some details that may be useful in comparing Table~\ref{init data} with \cite{GHK,GHKK}.
-The indexing sets $I_\uf$, $I_\fr$, and $I$ appearing in \cite{GHK,GHKK} are $T$, $\L$, and $T\cup\L$, respectively. 
-The set $T\cup\L$ also coincides with the basis $\s$ of $N$.
-The sublattice $N^\circ$ of $N$ that appears in \cite{GHK,GHKK} coincides with $N$ (because $B(T)$ is skew-symmetric).
-Therefore $M^\circ=M$ as well, and the bases $\set{f_i:i\in I}$ and $\set{e^*_i:i\in I}$ for $M$ coincide with each other and with $\set{\gamma^*:\gamma\in T}\cup\set{L^*:L\in\L}$.
-For the same reason, the integers $d_i$ are all $1$ and the bilinear form $[\,\cdot\,,\,\cdot\,]_\s$ coincides with $\set{\,\cdot\,,\,\cdot\,}$.
-The values $\set{L,L'}$ for $L,L'\in\L$, left unspecified above, will not matter to what follows. 
-We leave them unspecified (rather than, say, setting them equal to zero) in anticipation that they will matter in other contexts.
-\marginN{For definiteness, we can always take the $v_L$ for $L\in\L$ to be in $\\set{\alpha^*:\alpha\in T}\cup\set{L^*:L\in\L}$.
-Not sure if this is worth saying.
-If we do principal coefficients, we can the $v_L$ for $L\in\L$ to be $\set{\alpha^*:\alpha\in T}$}
-\marginN{We may want a separate discussion of principal coefficients somewhere} 
-The quantities $\zeta_i$ are not defined in \cite{GHKK}.
-\end{remark}
-
-\begin{definition}[\emph{Wall}]\label{wall def}
-A \newword{wall} is a pair $(\d,f_\d)$ such that $\d$ is a codimension-$1$ rational cone in $V^*$ with normal vector $u=\sum_{\gamma\in T}c_\gamma\gamma\in N_\uf$, required to be \newword{positive} (meaning $u\in N^+$) and \newword{primitive} (meaning ${\gcd_{\gamma\in T}c_\gamma=1}$), and $f_\d$ is $1+\sum_{i\ge1}a_i(\zeta^u)^i$ with coefficients $a_i$ in $\k$.
-Notice that $f_\d$ is in $\k[[\zeta]]$ and is also a univariate formal power series in $\zeta^u$.
-Notice also that $\zeta^u=z^{p^*(u)}$.
-%It will sometimes be convenient to write $f_\d=f_\d(\zeta^u)$ as a way to name the normal vector $u$ explicitly.
-The wall is \newword{incoming} if $p^*(u)\in\d\oplus\Span_\integers\set{L^*:L\in\L}$.  
-(That is, $p^*(u)$ is a vector in $\d$ plus a vector in $M_\fr$.)
-Otherwise $(\d,f_\d)$ is \newword{outgoing}.  
-Say that two walls are \newword{parallel} if they are contained in the same hyperplane.
-The \newword{degree} of $(\d,f_\d)$ is the smallest $k$ such that $f_\d\not\equiv 1$ modulo $\m^{k+1}$, if $f_\d\neq1$.
-If $f_\d=1$, the degree of $(\d,f_\d)$ is $0$.  
-(We will see that such a wall is formally irrelevant in what follows.)
-Thus, if $f_\d\neq1$, then the degree of $(\d,f_\d)$ is the smallest total degree of a nonconstant term of $f_\d$.
-\end{definition}
-
-\begin{definition}[\emph{Scattering diagram}]\label{scat def}
-A \newword{scattering diagram} is a collection $\D$ of walls, with only finitely many walls of degree $k$ for each $k\ge1$.
-The \newword{support} $\Supp(\D)$ of $\D$ is the union of all the walls of $\D$.
-\end{definition}
-
-\begin{remark}\label{useless dimensions}
-In \cite{GHKK}, scattering diagrams are constructed in the larger vector space $M\otimes_\integers\reals$.
-The difference is not meaningful in our context:  
-To recover such a scattering diagram from the scattering diagram defined here, one replaces every $(\d,f_\d)$ with $(\d\oplus\Span_\reals\set{L^*:L\in\L},f_\d)$.
-See \cite[Cite specific remark!!]{scatfan}.
-\end{remark}
-
-\begin{definition}[\emph{Generic path}]\label{generic def}
-A \newword{generic} path for a scattering diagram $\D$ is a piecewise differentiable path $\gamma:[0,1]\to V^*$ that
-\begin{itemize}
-\item does not pass through the intersection of any two non-parallel walls of $\D$,
-\item does not pass through the relative boundary of any wall (its boundary in the hyperplane it spans),
-\item has $\set{\gamma(0),\gamma(1)}\cap\Supp(\D)=\emptyset$, and
-\item crosses walls transversely wherever it intersects walls.
-\end{itemize}
-\end{definition}
-
-\begin{definition}[\emph{Wall-crossing automorphism}]\label{wall crossing def}
-Suppose $\gamma$ is a generic path for $\D$ and $(\d,f_\d)$ is a wall such that $\gamma(t)\in\d$ for some $t\in(0,1)$.
-The \newword{wall-crossing automorphism} $\p_{\gamma,t,\d}$ \marginN{It occured to me that $t$ should be in this notation, because the wall might be crossed multiple times, so I put $t$ in the subscript.  I think this simplifies the following too}
-sends $z_i$ to $z_if_\d^\br{i^*,\pm u}$ for $i\in T\cup\L$, or more transparently,
-\begin{align}
-\label{wc alpha}
-\p_{\gamma,t,\d}(z_\alpha)&=z_\alpha f_\d^\br{\alpha^*,\pm u},\text{ for }\alpha\in T,\text{ and}\\
-\label{wc L}
-\p_{\gamma,t,\d}(z_L)&=z_L\text{ for }L\in\L,
-\end{align}
-where $u\in N^+$ is the primitive normal vector to $\d$ and the sign of $\pm u$ is chosen to \emph{oppose} the direction in which $\gamma$ crosses the wall.
-(This direction is well-defined by the transversality requirement in Definition~\ref{generic def}.)
-We extend (\ref{wc alpha}--\ref{wc L}) multiplicatively to apply $\p_{\gamma,t,\d}$ to all Laurent monomials in the $z_\alpha$ and $z_L$:
-\begin{equation}\label{p def extend}
-\p_{\gamma,t,\d}(z^v)=z^vf_\d^\br{v,\pm u},\text{ for }v\in M.
-\end{equation}
-In particular, we see that
-\begin{equation}\label{p def zeta}
-\p_{\gamma,t,\d}(\zeta_i)=\zeta_if_\d^\br{v_i,\pm u}.
-\end{equation}
-The name wall-crossing \emph{automorphism} arises because \eqref{p def zeta} extends linearly to an automorphism of $\k[[\zeta]]$, with inverse given by $\zeta_i\mapsto \zeta_if_\d^{-\br{v_i,\pm u}}$, the wall-crossing automorphism for crossing the wall in the opposite direction.
-\end{definition}
-
-\begin{remark}\label{skew sym remark}
-We remind the reader that we are defining scattering diagrams specifically in the context of surfaces.
-In particular, since $B(T)$ is skew-symmetric, rather than merely skew-symmetrizable, we have removed the subtlety in Definition~\ref{wall crossing def} that makes the non-skew-symmetric case work.
-\end{remark}
-
-\begin{definition}[\emph{Path-ordered product, consistency, and equivalence}]\label{pop def}
-Let $\gamma$ be a generic path for $\D$.
-For each ${k\ge 1}$, consider the composition $\p_{\gamma,t_\ell,d_\ell}\circ\cdots\circ\p_{\gamma,t_1,\d_1}$ of wall-crossing automorphisms for \emph{all} walls of degree $\le k$ crossed by $\gamma$, with $t_1\le t_2\le\cdots\le t_\ell$ (so that the composition is made in the order that walls are crossed).
-Since $\gamma$ is generic, if $t_i=t_{i+1}$, then $\d_i$ and $\d_{i+1}$ are parallel.
-This composition is well-defined because if $t_i=t_{i+1}$, then $\p_{\gamma,\d_i}$ and $\p_{\gamma,\d_{i+1}}$ commute.
-(The key to checking commutativity is the following observation, where $u$ is the positive, primitive normal to $\d$:
-Because $f_\d$ is a formal power series in $\zeta^u=z^{p^*(u)}$ and because $\br{p^*(u),\pm u}=0$ by the skew-symmetry of $B(T)$, the power series $f_\d$ is fixed by any wall-crossing automorphism $\p_{\gamma,t,\d}$.)
-The \newword{path-ordered product} $\p_{\gamma,\D}$ is the limit of these compositions as $k\to\infty$.
-A scattering diagram $\D$ is \newword{consistent} if each path-ordered product $\p_{\gamma,\D}$ depends only on the endpoints $\gamma(0)$ and $\gamma(1)$.
-Scattering diagrams $\D$ and $\D'$ are \newword{equivalent} if and only if, whenever $\gamma$ is generic for both $\D$ and $\D'$, the path-ordered products $\p_{\gamma,\D}$ and $\p_{\gamma,\D'}$ coincide.
-In checking consistency or equivalence, it is useful to keep in mind that, by (\ref{wc alpha}--\ref{wc L}), a path-ordered product is determined entirely by the values it takes on $z_\alpha$ for $\alpha\in T$.
-\end{definition}
-
-\marginN{This would be a good place to define minimal support and then the scattering fan, if we end up discussing them in the paper. 
-Alternately, we could keep the main line of the paper more clear, and define the extra things in a separate section on scattering fans.}
-
-We now define the cluster scattering diagram associated to $(\S,\M)$, $T$, and~$\L$.
-In \cite{GHKK}, most of the data described in Table~\ref{init data} is considered fixed, and the cluster scattering diagram is written $\D_\s$, where $\s$ is a basis for $N$.
-(In our case, $\s$ is $T\cup\L$.)
-Following the notation of \cite{scatfan}, we would write $\Scat(\tB(T,\L),T\cup\L)$ for the cluster scattering fan, but here we shorten the notation to $\Scat(T,\L)$.
-
-The \newword{cluster scattering diagram} $\Scat(T,\L)$ is the unique (up to equivalence) consistent scattering diagram having a wall $(\alpha^\perp,1+\zeta_\alpha)$ for each $\alpha\in T$, such that every other wall is outgoing.
-The existence and uniqueness of the cluster scattering diagram is the fundamental result of \cite{GHKK} (specifically \cite[Theorem~1.12]{GHKK}).
-
-\marginN{We might give the theorem showing cluster monomials in terms of path-ordered products.
-This gives a formula a cluster monomial in terms of any sequence of flips that makes it an initial cluster monomial, and I'm really curious to see what that formula is.}
-
-\section{Nathan's attempt at barricades}
-\marginN{I'm trying to allow punctures, and I'm thinking of ``bars'' and ``rings'' in the barricade instead of ``simple barricades.''
-I'm also having fewer vertices and thus longer edges.
-Finally, thinking about I-beams that end in self-folded triangles at both ends has made me see that we don't want to have the graph go into a vertex and either tag it or not.  
-Instead, we need to tag the edge (the one not going to a leaf) as twisted or untwisted whenever it's incident to a self-folded triangle.
-(Other edges are automatically twisted).
-And then we have to allow multiple edges, if they are a twisted one and an untwisted one.
-This is why I wanted fewer vertices and longer edges. \\\\
-
-This comment probably doesn't make much sense yet, but I'll try to flesh it out.
-}
-
-
-
-
 
 %\newpage
 %
@@ -862,8 +584,7 @@ This comment probably doesn't make much sense yet, but I'll try to flesh it out.
 In this section we introduce a new combinatorial object on triangulated marked surfaces, the I-beam. 
 Our goal is to construct a scattering diagram $\D_I(B(\Delta))$ 
 with walls indexed by I-beams in $(\S, \M)$ with triangulation $\Delta$, and then show that 
-$\D_I(B(\Delta)) = \Scat^T(B(\Delta))$, \marginN{Actually, we want the non-transposed scattering diagram I think.  That is the one that corresponds to the mutation fan.}
-the transposed cluster scattering diagram for $B(\Delta)$.
+$\D_I(B(\Delta)) = \Scat^T(B(\Delta))$, the transposed cluster scattering diagram for $B(\Delta)$.
 
 Roughly speaking, an I-beam can be thought of as corresponding to a collection of facets in the rational quasi-lamination fan which share a common normal vector. Thus, an I-beam either corresponds to a collection of pairs of ``exchangeable" allowable curves 
 \margin[SV]{i.e., allowable curves arising as the image, under $\kappa$ (see \cite[Section~5]{unisurface}), of exchangeable tagged arcs)}
@@ -887,8 +608,7 @@ Given an (ordinary, untagged) triangulation $\Delta$ of $(\S, \M)$, an \newword{
 \item a non-shielding allowable closed curve, or
 \item a (branching) curve with two branch points 
 \margin[SV]{Is this a misuse of `branching'? maybe `forked' is better?}
-in \marginN{If we add "in two different triangles of" here, we can get rid of requirement (2c), right?}
-$\S \setminus \Delta$
+in $\S \setminus \Delta$
 such that:
 \begin{enumerate}
 \item If 
@@ -908,8 +628,8 @@ Each non-closed I-beam maps naturally to either an ordinary arc (if both branch 
 \begin{remark}
 There is a choice to be made in whether to define I-beams with respect to a tagged triangulation or an ordinary triangulation. The advantage of the ordinary triangulation, which we use for now, is that it is easier to see how an I-beam encodes different ways of interacting with a self-folded triangle. Tagged triangulations offer the advantage of a more natural definition of the intersection vector (see Definition~\ref{def: intersection vector}), without appealing to the map $\tau$.\end{remark}
 
-To define the wall $(\d_I, f_{\d_I})$ associated to an I-beam $I$, we first define the vector $n_I \in N^+$ which is normal to the codimension-1 rational cone $\d_I$. \margin[SV]{May need to check that $n_I$ is primitive.}
-\marginN{Something important to record about Shira's comment:  "May need to check that $n_I$ is primitive."  If we show that we have constructed the cluster scattering diagram then we'll know that every "ordinary" wall (associated to a flip) has scattering term $1+\zeta^{\text{something primitive}}$, so we can \emph{conclude} that our $n_I$ was primitive.  From there, I think we can also argue that our monomial for the closed curve walls must also have been primitive.}
+To define the wall $(\d_I, f_{\d_I})$ associated to an I-beam $I$, we first define the vector $n_I \in N^+$ which is normal to the codimension-1 rational cone $\d_I$. \margin[SV]{May need to check that $n_I$ is primitive}. 
+
 Recall there is a map $\tau$ from ordinary arcs to tagged arcs that sends each arc which does not bound a once-punctured monogon to the same curve, with both endpoints tagged plain, and sends any arc which does bound a once-punctured monogon to the arc, in the monogon, tagged notched at the puncture and plain at its other end. (See, e.g., \cite[Definition~3.3]{unisurface}.)
 
 \begin{definition}
@@ -946,6 +666,18 @@ There appear to be some pairs of exchangeable allowable curves which don't corre
 \includegraphics[scale=.25]{ibeam_examples.jpg}
 \end{figure}
 
+\begin{thebibliography}{27}
+\bibitem{GHKK}
+M. Gross, P. Hacking, S. Keel, and M. Kontsevich,
+\textit{Canonical bases for cluster algebras.}
+Preprint, 2014. \texttt{arXiv:1411.1394}
+
+\bibitem{unisurface}
+N. Reading,
+\textit{Universal geometric cluster algebras from surfaces. }
+Trans. Amer. Math. Soc. \textbf{366} no. 12 (2014), 6647--6685.
+
+\end{thebibliography}
 
 \newpage
 
@@ -1268,51 +1000,5 @@ The joints of $\mathfrak{D}$ are as follows.%are $C_B$, as $B$ runs over the min
 	\item If $B$ is a disjoint union of $2$ I-beams or non-shielding loops, then $C_B$ is a joint contained in 2 walls.
 \end{itemize}
 \end{lemma}
-
-\begin{thebibliography}{27}
-
-\bibitem{cats1}
-S. Fomin, M. Shapiro, and D. Thurston,
-\textit{Cluster algebras and triangulated surfaces. I. Cluster complexes.}
-Acta Math. \textbf{201} (2008), no. 1, 83--146. 
-
-\bibitem{cats2}
-S. Fomin and D. Thurston,
-\textit{Cluster algebras and triangulated surfaces. Part II: Lambda lengths.}
-Preprint, 2008.
-(arXiv:1210.5569)
-
-\bibitem{ca4}
-S. Fomin and A. Zelevinsky,
-\textit{Cluster Algebras IV: Coefficients.}
-Compositio Mathematica \textbf{143} (2007), 112--164.
-
-\bibitem{GHK}
-M. Gross, P. Hacking, and S. Keel,
-\textit{Birational geometry of cluster algebras.}
-Algebraic Geometry \textbf{2} (2015) 137--175.
-
-\bibitem{GHKK}
-M. Gross, P. Hacking, S. Keel, and M. Kontsevich,
-\textit{Canonical bases for cluster algebras.}
-Preprint, 2014. \texttt{arXiv:1411.1394}
-
-\bibitem{unisurface}
-N. Reading,
-\textit{Universal geometric cluster algebras from surfaces. }
-Trans. Amer. Math. Soc. \textbf{366} no. 12 (2014), 6647--6685.
-
-\bibitem{scatfan}
-N. Reading, 
-\textit{Scattering fans}. 
-In preparation.
-
-\bibitem{dominance}
-N. Reading, 
-\textit{Dominance phenomena: Mutation, scattering and cluster algebras}. 
-In preparation.
-
-\end{thebibliography}
-
 
 \end{document}  
