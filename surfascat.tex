@@ -381,10 +381,10 @@ A \newword{multi-lamination} is a finite collection $\L$ of laminations.
 \begin{definition}[\emph{Shear coordinates}]\label{shear def}
 Given a quasi-lamination $L$, a triangulation $T$, and an arc $\gamma\in T$,  we define the \newword{shear coordinate} $b_\gamma(T,L)$ of $L$ at $\gamma$ (with respect to $T$).
 This is $b_\gamma(T,L)=\sum_{\lambda\in L}w_\lambda b_\gamma(T,\lambda)$, a weighted sum over curves $\lambda$ in $L$ of quantities $b_\gamma(T,\lambda)$ that we now define.
-First, if $\gamma$ is \emph{not} the fold edge of a self-folded triangle, then it is contained in a quadrilateral.
+First, if $\gamma$ is \emph{not} the fold edge of a self-folded triangle of $T$, then it is contained in a quadrilateral.
 (Possibly, the edges of this quadrilateral are fewer than four distinct arcs of $T$.)
 We choose an isotopy representative of $\lambda$ that minimize the number of intersection points of the curve with $\gamma$ and we reuse the symbol $\lambda$ for the representative.
-Each intersection of $\lambda$ with $\gamma$ contributes $-1$, $0$, or $1$ to $b_\gamma(T',\lambda')$.
+Each intersection of $\lambda$ with $\gamma$ contributes $-1$, $0$, or $1$ to $b_\gamma(T,\lambda)$.
 The contribution is $0$ unless $\lambda$ intersects the triangles containing $\gamma$ in one of the ways shown in Figure~\ref{shear fig}, in which case the contribution is $1$ or $-1$ as shown.
 (In the figure, $\gamma$ is the diagonal of the quadrilateral shown, and $\lambda$ is a vertical or horizontal dashed line.)
 \begin{figure}[ht]
@@ -392,6 +392,9 @@ The contribution is $0$ unless $\lambda$ intersects the triangles containing $\g
 \caption{Computing shear coordinates}
 \label{shear fig}
 \end{figure}
+If $\gamma$ \emph{is} the fold edge of a self-folded triangle of $T$, then $\gamma$ is inside a once-punctured monogon in $T$.
+Let $p$ be punctured in that monogon, let $\gamma'$ be the other edge of that self-folded triangle, and let $\lambda'$ be the allowable curve obtained from $\lambda$ by reversing the direction of all spirals (if any) at  $p$.
+Then define $b_\gamma(T,\lambda)$ to be $b_{\gamma'}(T,\lambda')$.
 \end{definition}
 
 \marginN{commented out here:  the theorem on laminations in bijection with rational vectors.  May want to quote this later when we set up the vector spaces, or maybe even later when we need it.}
@@ -426,7 +429,22 @@ We have largely followed \cite{GHK,GHKK}, with some small changes, following~\ci
 
 In what follows, we fix a marked surface $(\S,\M)$, a \marginN{ordinary, here.  Can we get by entirely without tagged triangulations?  Would be nice.}
 triangulation $T$ and a multi-lamination $\L$. 
-We define the following notation.
+The signed adjacency matrix $B(T)$ is in particular an exchange matrix.
+(In general, an \newword{exchange matrix} is a skew-symmetrizable integer matrix.
+The matrix $B(T)$ is more special:  It is skew-symmetric.)
+
+The initial data defining a cluster scattering diagram amounts to an \newword{extended exchange matrix}.
+There are two different conventions in the cluster algebras literature on extending an exchange matrix.
+Here, we follow \cite{GHKK} in extending exchange matrices by adding columns of integer vectors.
+(Switching from our \emph{wide} extended exchange matrices to the \emph{tall} extended exchange matrices of \cite{ca4} amounts to  transposing (or equivalently in the skew-symmetric case, negating) the exchange matrix.)
+
+\begin{definition}[\emph{Extended exchange matrix for $T$ and $\L$}]\label{tB(T,L) def}
+The extended exchange matrix $\tB(T,L)$ defined by $(\S,\M)$, $T$, and $\L$ has rows indexed by $T$ and columns indexed by $T\cup\L$.
+Its entries $b_{\alpha\beta}$ for $\alpha,\beta\in T$ are the entries of the signed adjacency matrix $B(T)$ defined in Definition~\ref{B(T) def} and its entry $b_{\alpha L}$ for $\alpha\in T$ and $L\in\L$ is $b_\alpha(T,L)$ as in Definition~\ref{shear def}.
+\end{definition}
+
+Starting with $T$ and $\L$, we define the following objects.
+(The extended exchange matrix $B(T,\L)$ appears as the bilinear form $\set{\,\cdot\,,\,\cdot\,}$.
 \marginN{I've rethought a few of the ideas that were in the table before.  (Feel free to disagree.)  The main change is that I set up the dual lattice and vector space in terms of formal duals of the arcs in $T$ instead of as laminations.  We will still use laminations, of course, but I think this is cleaner.  Not sure if I like the table approach, but maybe it's not so bad, especially since the table got shorter. }
 
 
@@ -490,8 +508,8 @@ $z_L$&indeterminates indexed by $\L$\\\hline
 %y_L&\text{if }i=L\in\L
 %\end{cases}$\\\hline
 $z^v$&$\displaystyle\prod_{\alpha\in T}z_\alpha^{c_\alpha}\prod_{L\in\L}z_L^{c_L}$ for $\displaystyle v=\sum_{\alpha\in T}c_\alpha\alpha^*+\sum_{L\in\L}c_LL^*\in M$\\\hline
-$(\zeta_i:i\in T\cup\L)$&$\zeta_i=z^{v_i}$\\\hline
-$\zeta^u$&$\displaystyle\prod_{\alpha\in T}\zeta_\alpha^{c_\alpha}\prod_{L\in\L}\zeta_L^{c_L}$ for $\displaystyle u=\sum_{\alpha\in T}c_\alpha\alpha+\sum_{L\in\L}c_LL\in N$\\\hline
+$(\zeta_\alpha:\alpha\in T)$&$\zeta_\alpha=z^{v_\alpha}$\\\hline
+$\zeta^u$&$\displaystyle\prod_{\alpha\in T}\zeta_\alpha^{c_\alpha}=z^{p^*(u)}$ for $\displaystyle u=\sum_{\alpha\in T}c_\alpha\alpha\in N_\uf$\\\hline
 $\k$&field of characteristic zero\\\hline
 $\k[[\zeta]]$&$\k[[\zeta_i:i\in T\cup\L]]$, ring of formal power series in the $\zeta_i$\\\hline
 $\m$&ideal in $\k[[\zeta]]$ consisting of series in $\k[[\zeta_\alpha:\alpha\in T]]$ with constant term zero\\\hline
@@ -513,7 +531,7 @@ If we do principal coefficients, we can the $v_L$ for $L\in\L$ to be $\set{\alph
 \end{remark}
 
 \begin{definition}[\emph{Wall}]\label{wall def}
-A \newword{wall} is a pair $(\d,f_\d)$ such that $\d$ is a codimension-$1$ rational cone in $V^*$ with normal vector $u=\sum_{\gamma\in T}c_\gamma\gamma\in N^+$, required to be \newword{primitive} (meaning ${\gcd_{\gamma\in T}c_\gamma=1}$), and $f_\d$ is $1+\sum_{i\ge1}a_i(\zeta^u)^i$ with coefficients $a_i$ in $\k$.
+A \newword{wall} is a pair $(\d,f_\d)$ such that $\d$ is a codimension-$1$ rational cone in $V^*$ with normal vector $u=\sum_{\gamma\in T}c_\gamma\gamma\in N_\uf$, required to be \newword{positive} (meaning $u\in N^+$) and \newword{primitive} (meaning ${\gcd_{\gamma\in T}c_\gamma=1}$), and $f_\d$ is $1+\sum_{i\ge1}a_i(\zeta^u)^i$ with coefficients $a_i$ in $\k$.
 Notice that $f_\d$ is in $\k[[\zeta]]$ and is also a univariate formal power series in $\zeta^u$.
 Notice also that $\zeta^u=z^{p^*(u)}$.
 %It will sometimes be convenient to write $f_\d=f_\d(\zeta^u)$ as a way to name the normal vector $u$ explicitly.
@@ -521,12 +539,14 @@ The wall is \newword{incoming} if $p^*(u)\in\d\oplus\Span_\integers\set{L^*:L\in
 (That is, $p^*(u)$ is a vector in $\d$ plus a vector in $M_\fr$.)
 Otherwise $(\d,f_\d)$ is \newword{outgoing}.  
 Say that two walls are \newword{parallel} if they are contained in the same hyperplane.
+The \newword{degree} of $(\d,f_\d)$ is the smallest $k$ such that $f_\d\not\equiv 1$ modulo $\m^{k+1}$, if $f_\d\neq1$.
+If $f_\d=1$, the degree of $(\d,f_\d)$ is $0$.  
+(We will see that such a wall is formally irrelevant in what follows.)
+Thus, if $f_\d\neq1$, then the degree of $(\d,f_\d)$ is the smallest total degree of a nonconstant term of $f_\d$.
 \end{definition}
 
 \begin{definition}[\emph{Scattering diagram}]\label{scat def}
-A \newword{scattering diagram} is a collection $\D$ of walls.
-There may be infinitely many walls, but if so, for each $k$ we require that only finitely many walls $(\d,f_\d)\in\D$ have $f_\d\not\equiv 1$ modulo $\m^{k+1}$.
-Less formally, there are only finitely many walls $(\d,f_\d)$ such that $f_\d$ has a non-constant term of total degree $\le k$.
+A \newword{scattering diagram} is a collection $\D$ of walls, with only finitely many walls of degree $k$ for each $k\ge1$.
 The \newword{support} $\Supp(\D)$ of $\D$ is the union of all the walls of $\D$.
 \end{definition}
 
@@ -550,327 +570,57 @@ A \newword{generic} path for a scattering diagram $\D$ is a piecewise differenti
 \begin{definition}[\emph{Wall-crossing automorphism}]\label{wall crossing def}
 Suppose $\gamma$ is a generic path for $\D$ and $(\d,f_\d)$ is a wall such that $\gamma(t)\in\d$ for some $t\in(0,1)$.
 The \newword{wall-crossing automorphism} $\p_{\gamma,t,\d}$ \marginN{It occured to me that $t$ should be in this notation, because the wall might be crossed multiple times, so I put $t$ in the subscript.  I think this simplifies the following too}
-of $\k[[\zeta]]$ is
-\begin{equation}\label{p def}
-\p_{\gamma,t,\d}(\zeta_i)=\zeta_if_\d^\br{v_i,\pm u},
-\end{equation}
+sends $z_i$ to $z_if_\d^\br{i^*,\pm u}$ for $i\in T\cup\L$, or more transparently,
+\begin{align}
+\label{wc alpha}
+\p_{\gamma,t,\d}(z_\alpha)&=z_\alpha f_\d^\br{\alpha^*,\pm u},\text{ for }\alpha\in T,\text{ and}\\
+\label{wc L}
+\p_{\gamma,t,\d}(z_L)&=z_L\text{ for }L\in\L,
+\end{align}
 where $u\in N^+$ is the primitive normal vector to $\d$ and the sign of $\pm u$ is chosen to \emph{oppose} the direction in which $\gamma$ crosses the wall.
 (This direction is well-defined by the transversality requirement in Definition~\ref{generic def}.)
+We extend (\ref{wc alpha}--\ref{wc L}) multiplicatively to apply $\p_{\gamma,t,\d}$ to all Laurent monomials in the $z_\alpha$ and $z_L$:
+\begin{equation}\label{p def extend}
+\p_{\gamma,t,\d}(z^v)=z^vf_\d^\br{v,\pm u},\text{ for }v\in M.
+\end{equation}
+In particular, we see that
+\begin{equation}\label{p def zeta}
+\p_{\gamma,t,\d}(\zeta_i)=\zeta_if_\d^\br{v_i,\pm u}.
+\end{equation}
+The name wall-crossing \emph{automorphism} arises because \eqref{p def zeta} extends linearly to an automorphism of $\k[[\zeta]]$, with inverse given by $\zeta_i\mapsto \zeta_if_\d^{-\br{v_i,\pm u}}$, the wall-crossing automorphism for crossing the wall in the opposite direction.
 \end{definition}
 
-*****BELOW HERE, to Greg and Shira's stuff, is unprocessed cut-and-paste...
+\begin{remark}\label{skew sym remark}
+We remind the reader that we are defining scattering diagrams specifically in the context of surfaces.
+In particular, since $B(T)$ is skew-symmetric, rather than merely skew-symmetrizable, we have removed the subtlety in Definition~\ref{wall crossing def} that makes the non-skew-symmetric case work.
+\end{remark}
 
-*****WARN the reader that we have removed the subtlety in the definition of wall-crossing that allows skew-symmetrizable stuff to work.
-
-A few comments on wall-crossing automorphisms are in order.
-First, and most importantly, we emphasize a subtlety in the definition of $\p_{\gamma,\d}$:
-Even though the function $f_\d$ is a formal power series in $z^{n_0}$, where $n_0\in N^+$ is primitive in $N$, the exponent on $f_\d$ in the formula depends on $n_0'$, a positive integer multiple of $n_0$ which is primitive in $N^\circ$.
-This is precisely where, later on when we consider the cluster scattering diagram associated to an exchange matrix $B$, the theory allows $B$ to be \emph{skew-symmetrizable}, rather than requiring that $B$ be \emph{skew-symmetric}.
-Second, $\p_{\gamma,\d}$ is indeed an automorphism, with inverse given by $\zeta_i\mapsto \zeta_if_\d^{-\br{v_i,\pm n'_0}}$, which is the wall-crossing homomorphism associated to crossing the wall in the opposite direction.
-We see that this inverse map sends $\zeta_if_\d^\br{v_i,\pm n'_0}$ to $\zeta_i$ as required because $f_\d$ is a sum of powers of $\zeta^{n_0}=z^{p^*(n_0)}$ and $\br{p^*(n_0),n_0'}=\set{n_0,n_0'}=0$ by the skew-symmetry of $\set{\,\cdot\,,\,\cdot\,}$.
-
-For each $k\ge 1$, we write $\p_{\gamma,\D_k}$ for the automorphism $\p_{\gamma,d_\ell}\circ\cdots\circ\p_{\gamma,\d_1}$ of $\k[[\zeta]]$ such that $\gamma$ crosses walls of $\D_k$ exactly at times $t_1\le t_2\le\cdots\le t_k$, crossing wall $\d_i$ at time $t_i$.
-This is well-defined because if $t_i=t_{i+1}$, the functions $\p_{\gamma,\d_i}$ and $\p_{\gamma,\d_{i+1}}$ commute.
-Indeed, if $t_1=t_2=\cdots=t_\ell$, then $\p_{\gamma,d_\ell}\circ\cdots\circ\p_{\gamma,\d_1}$ sends $\zeta_i$ to $\zeta_i\bigl(\prod_{i=1}^\ell f_{\d_i}\bigr)^\br{v_i,\pm n'_0}$.
-(This is verified by an argument similar to the argument above on the inverse of $\p_{\gamma,\d}$.)
-We define the \newword{path-ordered product} $\p_{\gamma,\D}:\k[[\zeta]]\to\k[[\zeta]]$ to be the limit of $\p_{\gamma,\D_k}$ as $k\to\infty$.
+\begin{definition}[\emph{Path-ordered product, consistency, and equivalence}]\label{pop def}
+Let $\gamma$ be a generic path for $\D$.
+For each ${k\ge 1}$, consider the composition $\p_{\gamma,t_\ell,d_\ell}\circ\cdots\circ\p_{\gamma,t_1,\d_1}$ of wall-crossing automorphisms for \emph{all} walls of degree $\le k$ crossed by $\gamma$, with $t_1\le t_2\le\cdots\le t_\ell$ (so that the composition is made in the order that walls are crossed).
+Since $\gamma$ is generic, if $t_i=t_{i+1}$, then $\d_i$ and $\d_{i+1}$ are parallel.
+This composition is well-defined because if $t_i=t_{i+1}$, then $\p_{\gamma,\d_i}$ and $\p_{\gamma,\d_{i+1}}$ commute.
+(The key to checking commutativity is the following observation, where $u$ is the positive, primitive normal to $\d$:
+Because $f_\d$ is a formal power series in $\zeta^u=z^{p^*(u)}$ and because $\br{p^*(u),\pm u}=0$ by the skew-symmetry of $B(T)$, the power series $f_\d$ is fixed by any wall-crossing automorphism $\p_{\gamma,t,\d}$.)
+The \newword{path-ordered product} $\p_{\gamma,\D}$ is the limit of these compositions as $k\to\infty$.
 A scattering diagram $\D$ is \newword{consistent} if each path-ordered product $\p_{\gamma,\D}$ depends only on the endpoints $\gamma(0)$ and $\gamma(1)$.
+Scattering diagrams $\D$ and $\D'$ are \newword{equivalent} if and only if, whenever $\gamma$ is generic for both $\D$ and $\D'$, the path-ordered products $\p_{\gamma,\D}$ and $\p_{\gamma,\D'}$ coincide.
+In checking consistency or equivalence, it is useful to keep in mind that, by (\ref{wc alpha}--\ref{wc L}), a path-ordered product is determined entirely by the values it takes on $z_\alpha$ for $\alpha\in T$.
+\end{definition}
 
-\begin{prop}\label{just z's}    \margin{I'm worried about whether this is true or not.  It seems like the whole reason we need to choose a full set of linearly independent $v_i$'s is precisely so that we have enough in the FPS ring to distinguish different path-ordered products.  On the other hand, maybe this is OK.  The extra $v_i$'s serve to make sure that $\set{v_i:i\in I}$ spans the whole space, including $V^*$.}
-A path-ordered product $\p_{\gamma,\d}$ is determined entirely by its values $\p_{\gamma,\d}(z_i)$ for $i\in I_\uf$, or equivalently by its values $\p_{\gamma,\d}(z^m)$ for $m\in M^\circ\cap V^*$.
-Specifically, the action of $\p_{\gamma,\d}$ on $\k[[\zeta]]$ agrees with the action on Laurent monomials in the $z_i$'s where crossing a wall $(\d,f_\d(\zeta^{n_0})$ fixes $z_i$ for $i\in I_\fr$ and for $m\in M^\circ\cap V^*$, sends $z^m$ to $z^mf_\d^\br{m,\pm n_0'}$ (with $n_0'$ and the choice of sign for $\pm n_0'$ as in the definition).
-\end{prop}
+\marginN{This would be a good place to define minimal support and then the scattering fan, if we end up discussing them in the paper. 
+Alternately, we could keep the main line of the paper more clear, and define the extra things in a separate section on scattering fans.}
 
-\begin{proof}
-The second assertion is immediate from the definitions.
-Both actions are linear on exponent sequences of monomials, so both are determined by their values on the $z_i$.
-\end{proof}
+We now define the cluster scattering diagram associated to $(\S,\M)$, $T$, and~$\L$.
+In \cite{GHKK}, most of the data described in Table~\ref{init data} is considered fixed, and the cluster scattering diagram is written $\D_\s$, where $\s$ is a basis for $N$.
+(In our case, $\s$ is $T\cup\L$.)
+Following the notation of \cite{scatfan}, we would write $\Scat(\tB(T,\L),T\cup\L)$ for the cluster scattering fan, but here we shorten the notation to $\Scat(T,\L)$.
 
+The \newword{cluster scattering diagram} $\Scat(T,\L)$ is the unique (up to equivalence) consistent scattering diagram having a wall $(\alpha^\perp,1+\zeta_\alpha)$ for each $\alpha\in T$, such that every other wall is outgoing.
+The existence and uniqueness of the cluster scattering diagram is the fundamental result of \cite{GHKK} (specifically \cite[Theorem~1.12]{GHKK}).
 
-
-
-
-Two scattering diagrams $\D$ and $\D'$ are \newword{equivalent} if and only if for each path $\gamma$ that is generic for both $\D$ and $\D'$, the path-ordered products $\p_{\gamma,\D}$ and $\p_{\gamma,\D'}$ coincide.
-A point $p\in V^*$ is \newword{general} if there is at most one $n_0\in N^+$ such that $p\in n_0^\perp$.
-A scattering diagram $\D$ defines a function $p\mapsto f_p(\D)=\prod_{\d\ni p}f_\d\in\k[[\zeta]]$ on general points $p$.
-The following is \cite[Lemma~1.9]{GHKK}.  \margin{GHKK say that one "checks this easily" and I agree.  I could write up a proof if I decide to try to everything from scratch here.}
-\begin{lemma}\label{lem1.9}
-Two scattering diagrams $\D$ and $\D'$ are equivalent if and only if $f_p(\D)=f_p(\D')$ for all general points $p$.
-\end{lemma}
-
-\margin{Added this as part of the refinement example (edge erasing) so I could erase it if that doesn't pan out.  For now, I'm keeping it, because it seems like a useful thing in general.}
-As a consequence of Lemma~\ref{lem1.9}, we have the following useful fact.
-\begin{lemma}\label{equiv k}
-Two scattering diagrams $\D$ and $D'$ are equivalent if and only if $\D_k$ and $\D'_k$ are equivalent modulo $\m^{k+1}$ for every $k\ge0$.
-\end{lemma}
-\begin{proof}
-By Lemma~\ref{lem1.9}, $\D$ and $\D'$ are equivalent if and only if $f_p(\D)=f_p(\D')$ for all general points $p$.
-This is if and only if $f_p(\D)$ and $f_p(\D')$ agree modulo $\m^{k+1}$ for all general points $p$ and all $k$.
-This in turn is if and only if $f_p(\D_k)=f_p(\D'_k)$ modulo $\m^{k+1}$ for all general points $p$ and all $k$.
-Applying Lemma~\ref{lem1.9} to $\D_k$ and $\D'_k$, we see that the latter is if and only if $\D_k$ and $\D'_k$ are equivalent modulo $\m^{k+1}$ for every $k$.
-\end{proof}
-
-
-
-It is possible for a scattering diagram $\D$ to have walls, or parts of walls, that are irrelevant.
-For example, a wall $(\d,f_\d)$ may have $f_\d=1$, so that the wall can be ignored in all computations of path-ordered products.
-More subtly, two parallel walls $(\d_1,f_{\d_1})$ and $(\d_2,f_{\d_2})$ with overlapping relative interiors might have $f_{\d_1}f_{\d_2}=1$, so that any path through their intersection would not ``see'' them.
-Even more subtly, a collection $\set{(\d_i,f_i):i\ge1}$ of parallel walls with $\bigcap_{i\ge1}\d\neq\emptyset$ can also be invisible to paths through the intersection even if no $f_i$ is~$1$.
-As a concrete example, if all of these walls are in $n_0^\perp$, inductively choose $f_i$ so that $f_1\cdots f_i=1+\zeta^{in_0}$ and thus $\prod_{i\ge1}f_i=1$.
-To avoid such complications, and to get a scattering diagram with the ``right'' support, we will consider scattering diagrams with minimal support.
-A scattering diagram $\D$ has \newword{minimal support} if no scattering diagram $\D'$ equivalent to $\D$ has $\Supp(\D')\subsetneq\Supp(\D)$.
-
-\begin{prop}\label{min sup}
-Every consistent scattering diagram $\D$ is equivalent to a scattering diagram $\D'$ with minimal support and with the property that each $\D'_k$ has minimal support.
-All scattering diagrams equivalent to $\D$ and having minimal support have the same support.
-\end{prop}
-\begin{proof}  
-We will construct a scattering diagram $\D'$ equivalent to $\D$ such that, for each $k\ge1$, $\Supp(\D'_k)$ is the closure of the set of general points $p$ such that $f_p(\D)\neq1$ modulo $\m^{k+1}$.
-We begin by taking $\D'_0$ to be the empty scattering diagram.
-Now for each $k$, suppose that $\D'_{k-1}$ has been defined to be equivalent to $\D_{k-1}$ and has $\Supp(\D'_{k-1})$ as desired.
-Then the function $p\mapsto f_p(\D_k)-f_p(\D'_{k-1})$ modulo $\m^{k+1}$ on general points $p$ is determined by finitely many walls (the walls of $\D_k$ and the walls of $\D'_{k-1}$.
-Thus we can add finitely many walls to $\D'_{k-1}$ to define $\D'_k$ with support as desired.
-The union over $k\ge1$ of the $\D'_k$ is the desired $\D'$.
-This is equivalent to $\D$ because it is equivalent modulo $\m^{k+1}$ for every $k$.
-If $\D''$ is equivalent to $\D$ and has minimal support, then Lemma~\ref{lem1.9} says that $f_p(\D'')=f_p(\D)$ for all general points.
-In particular, $\Supp(\D''_k)$ contains all points where $f_p(\D)\neq1$ modulo $\m^{k+1}$, and thus $\Supp(\D''_k)$ contains $\Supp(\D'_k)$.
-Therefore $\Supp(\D'')$ contains $\Supp(\D')$.
-\end{proof}
-
-%In the proof of Proposition~\ref{min sup}, we see that $\D'$ can be constructed such that every $f_\d$ is of the form $1+c\zeta^{kn_0}$ for some $c\neq0$, $k\ge1$, and $n_0\in N^+$ primitive in $N$ and furthermore such that distinct parallel walls of $\D$ with functions of the form $1+c_1\zeta^{kn_0}$ and $1+c_2\zeta^{kn_0}$ have disjoint relative interiors.
-%A similar but different result is \cite[Theorem~1.13]{GHKK}, but the latter result only applies to a special class of scattering diagrams (the ``cluster scattering diagrams'' considered later, beginning in Section~\ref{clus scat sec}.)
-%
-We will need the following technical lemmas.
-Given a scattering diagram $\D$ and $n_0\in N^+$, the \newword{rampart} of~$\D$ associated to $n_0$ is the union of all walls of $\D$ contained in $n_0^\perp$.
-Note that we do not assume consistency in the following lemma.
-
-\begin{lemma}\label{tech lem}
-Suppose $\D$ has minimal support, that each $\D_k$ has minimal support, and that $\gamma$ is a generic path in $\D$ that crosses no rampart of $\D$ more than once.
-Then $\p_{\gamma,\D}$ is the identity if and only if $\gamma$ crosses no wall in $\D$.
-\end{lemma}
-\begin{proof}
-The ``if'' direction holds by definition.
-To prove the ``only if'' direction, suppose $\gamma$ crosses a wall of $\D$.
-Let $k$ be minimal such that $\gamma$ crosses a wall of $\D_k$.
-Then $\gamma$ crosses (necessarily all at the same time) some collection of parallel walls such that the product $f$ of the functions on the wall is $1+c\zeta^{n_0}$ plus higher-order terms in $\zeta^{n_0}$ for some $c\neq 0$ and $n_0\in N^+$ such that the total degree of $\zeta^{n_0}$ is $k$.
-
-For each $i\in I$, we have $\p_{\gamma,\d}(\zeta_i)=\zeta_if_\d^{\br{v_i,\pm n_0}}$, with the sign in $\pm n_0$ chosen as explained in the definition.
-Since the $v_i$ are linearly independent, we can choose $i\in I$ such that $\br{v_i,\pm n_0}\neq0$, so that $\p_{\gamma,\d}(\zeta_i)=\zeta_i(1+a\zeta^{n_0}+\cdots)$, where $a$ is $c\br{v_i,\pm n_0}\neq0$ and the ``$\cdots$'' represent higher-order terms in $\zeta^{n_0}$.
-
-We partially order $N^+\cup\set{0}$ componentwise according to the basis $\set{e_i:i\in I_\uf}$ and consider the closed interval $[0,n_0]$ in this order.
-We observe that $\zeta_i^{-1}\p_{\gamma,\D_k}(\zeta_i)\in \k[[\zeta]]$ and consider for which vectors $n_1\in[0,n_0]$ the monomial $\zeta^{n_1}$ appears with nonzero coefficient in each step in evaluating $\zeta_i^{-1}\p_{\gamma,\D_k}(\zeta_i)$.
-As we have mentioned, we start with only $\zeta^0$, and then the first change that occurs is to insert the monomial $a\zeta^{n_0}$.
-This monomial could be immediately removed if $\gamma$ again crossed a wall in $n_0^\perp$, but since $\gamma$ does not cross any rampart of $\D$ twice, that does not happen.
-The only change that can occur next is to pick up a term $\zeta^{n_1}$ for some $n_1$ strictly between $0$ and $n_0$.
-Once we have this new term, it is possible to lose the term $\zeta^{n_0}$.
-However, continuing onward, we consider the smaller interval $[0,n_1]$, first noticing that the next change cannot be to lose the term $\zeta^{n_1}$.
-Proceeding in this manner, we conclude that $\zeta_i^{-1}\p_{\gamma,\D_k}(\zeta_i)\neq 1$, so that $\p_{\gamma,\D_k}$ is not the identity map on $\k[[\zeta]]/\m^{k+1}$.
-But $\p_{\gamma,\D_k}$ agrees with $\p_{\gamma,\D}$ modulo $\m^{k+1}$, so $\p_{\gamma,\D}$ is not the identity.
-\end{proof}
-
-In the special case of Lemma~\ref{tech lem} where $\gamma$ is a straight line segment, we need a slightly more detailed statement about the action described in Proposition~\ref{just z's}.
-\begin{lemma}\label{tech lem detailed}
-Suppose $\D$ has minimal support, that each $\D_k$ has minimal support, and that $\gamma$ is a generic path in $\D$ that is a line segment.
-If $\gamma$ crosses a wall contained in $n_0^\perp$ for some $n_0\in N^+$ and if $m\in M^\circ\setminus n_0^\perp$, then $\p_{\gamma,\D}(z^m)\neq z^m$.
-\end{lemma}
-\begin{proof}
-In the proof of Lemma~\ref{tech lem}, consider $z^{-m}\p_{\gamma,\D_k}(z^m)$ instead of $\zeta_i^{-1}\p_{\gamma,\D_k}(\zeta_i)\in \k[[\zeta]]$ and conclude that it is not equal to $1$.
-\end{proof}
-
-
-\begin{lemma}\label{bare point}
-Suppose that $\D$ is a consistent scattering diagram with minimal support, that $p$ is a point in a rampart $R$ of $\D$, and that $v\in V^*$ has the property that $p+\ep v\not\in R$ for all $\ep>0$.
-Then $p$ is contained in some wall of $\D$ whose hyperplane does not contain $p+v$.
-\end{lemma}
-\begin{proof}
-By Proposition~\ref{min sup}, up to equivalence and without changing the support of~$\D$, we assume that each $\D_k$ also has minimal support.
-
-Suppose for the sake of contradiction that every wall containing $p$ is in a hyperplane containing $p+v$.
-Since $p\in R$, there exists $k$ such that $p$ is in a wall of $\D_k$.
-Since $\D_k$ is finite, we can choose small enough $\ep>0$ so that the $\ep$-ball $\B$ about $p$ does not intersect any wall of $\D_k$ not containing $p$.
-Because $p$ is in a wall $\d$ of $\D_k$ contained in $R$, the ball $\B$ contains a point $q$ in $\relint(\d)$ not contained in any wall of $\D_k$ not parallel to $\d$ and not contained in the relative boundary of any wall of $\D_k$ parallel to $\d$.
-Since $\D_k$ has minimal support, the product $f=\prod_{\d'}f_\d$ over all $\d'$ containing $q$ has $f\neq 1$.
-Because $p$ is not in the relative interior of $R$, the ball $\B$ also contains a point $r\in H\setminus R$, where $H$ is the hyperplane containing $R$.
-Furthermore, since every wall intersecting $\B$ is in a hyperplane containing $p+v$, we can choose $r$ such that the segment $\seg{qr}$ does not cross any walls not in $H$.
-Now consider a loop $\gamma$ contained in $\B$ that passes through $H$ at $q$ and $r$ and that stays close enough to $\seg{qr}$ that it passes through no walls of $\D_k$ not contained in $H$.
-There is exactly one non-identity contribution to $\p_{\gamma,\D_k}$, namely at $q$, so $\p_{\gamma,\D_k}$ is not the identity.
-This contradicts the the consistency of $\D_k$ and thus (by Proposition~\ref{Dk consist}) the consistency of $\D$.
-This contradiction proves that $p$ is contained in some wall of $\D$ whose hyperplane does not contain $p+v$.
-\end{proof}
-
-%\begin{lemma}\label{boundary def wall}
-%Suppose that $\D$ is a consistent scattering diagram with minimal support, that $\R$ is a set of ramparts of $\D$, and that $p$ is a point in the relative boundary of $\cap\R$.
-%Then $p$ is contained in some wall of $\D$ whose hyperplane does not contain $\cap\R$.
-%\end{lemma}
-%
-%\begin{proof}
-%Suppose for the sake of contradiction that every wall of $\D$ containing $p$ has $\cap\R$ contained in its hyperplane.
-%Since $p$ is in the relative boundary of $\cap\R$, there exists $v$ in the linear span of $\cap\R$ such that $p+\ep v\not\in R$ for all $\ep>0$.
-%Lemma~\ref{bare point} says that there exists a wall containing $p$ whose hyperplane does not contain $p+v$.
-%In particular, this hyperplane does not contain $\cap\R$.
-%\end{proof}
-
-
-
-
-\section{Cluster scattering diagrams}\label{clus scat sec}
-In this section, we quote from \cite{GHKK} the definition of a cluster scattering diagram, a special scattering diagram completely determined by the initial data.
-(The definition is nonconstructive.)
-We also quote results which connect cluster scattering diagrams to cluster algebras and recast a result on mutation of scattering diagrams.
-
-\subsection{Cluster scattering diagrams, exchange matrices, and mutation}\label{ex mat sec}
-The initial data for a cluster scattering diagram, described in Section~\ref{diag fan sec}, essentially amounts to the choice of $I$, $I_\uf$, a basis $\s=(e_i:i\in I_\uf)$ for a real vector space $V$ and the matrix ${\tB=[\ep_{ij}]_{i\in I_\uf,j\in I}}$.
-(We say ``essentially'' here because the quantities $\ep_{ij}$ are not determined for $i,j\in I_\fr$.
-However, these quantities are irrelevant to the construction.) 
-The requirements on $\tB$ are that it must have integer entries, that it must have rank $|I_\uf|$ and that there must exist positive integers $(d_i:i\in I_\uf)$ with $d_i\ep_{ij}=-d_j\ep_{ji}$ for all $i,j\in I_\uf$.
-If the $d_i$ exist, then they are uniquely determined by $\tB$ and the requirement that $\gcd_{i\in I}(d_i)=1$.
-The square submatrix ${B=[\ep_{ij}]_{i,j\in I_\uf}}$ is called an \newword{exchange matrix} and $\tB$ is called an \newword{extended exchange matrix}.
-
-
-The \newword{cluster scattering diagram} associated to the extended exchange matrix $\tB$ and the basis $\s$ is the scattering diagram $\Scat(\tB,\s)$ whose existence and (up to equivalence) uniqueness is guaranteed in the following theorem \cite[Theorem~1.12]{GHKK}.
-
-\begin{theorem}\label{key scat}  
-There exists a consistent scattering diagram $\Scat(\tB,\s)$ containing $\set{(e_i^\perp,1+\zeta_i):i\in I_\uf}$ such that $\Scat(\tB,\s)\setminus\set{(e_i^\perp,1+\zeta_i):i\in I_\uf}$ consists only of outgoing walls.
-These conditions uniquely define $\Scat(\tB,\s)$ up to equivalence.
-\end{theorem}
-
-\begin{remark}\label{wide matrices}
-Two conventions have developed on extended exchange matrices in the cluster algebras literature.
-In this section, we follow \cite{GHKK} (and thus indirectly \cite{FGDilog}) in extending exchange matrices by making them \emph{wide} (i.e.\ by adding columns).
-The other convention, arising in \cite{ca4}, features \emph{tall} extended exchange matrices.
-Switching conventions is equivalent to transposing the exchange matrix, and later in the paper (Section~\ref{transp sec}), when we wish to work with tall extended exchange matrices, we will introduce an explicit transpose.
-Much sooner in the paper (in Corollary~\ref{clus mon pop}), we will see the essential nature of the duality between wide matrices and tall matrices, as we define ``mutation maps'' using tall matrices in order to understand mutation of scattering diagrams in the wide-matrices setup.
-\end{remark}
-
-The initial data for a cluster scattering diagram, described in Section~\ref{diag fan sec}, essentially amounts to the choice of $I$, $I_\uf$, a basis $\s=(e_i:i\in I_\uf)$ for a real vector space $V$ and the matrix ${\tB=[\ep_{ij}]_{i\in I_\uf,j\in I}}$.
-(We say ``essentially'' here because the quantities $\ep_{ij}$ are not determined for $i,j\in I_\fr$.
-However, these quantities are irrelevant to the construction.) 
-The requirements on $\tB$ are that it must have integer entries, that it must have rank $|I_\uf|$ and that there must exist positive integers $(d_i:i\in I_\uf)$ with $d_i\ep_{ij}=-d_j\ep_{ji}$ for all $i,j\in I_\uf$.
-If the $d_i$ exist, then they are uniquely determined by $\tB$ and the requirement that $\gcd_{i\in I}(d_i)=1$.
-The square submatrix ${B=[\ep_{ij}]_{i,j\in I_\uf}}$ is called an \newword{exchange matrix} and $\tB$ is called an \newword{extended exchange matrix}.
-
-
-
-By definition, each hyperplane $e_i^\perp$ in $V^*$ is a wall of $\Scat(\tB,\s)$.
-Since each wall of $\Scat(\tB,\s)$ is in the hyperplane perpendicular to a vector in $N^+$, no wall intersects the interior of the cone $\C_\s^+=\set{p\in V^*:\br{p,e_i}\ge0\,\forall i\in I_\uf}$.
-Therefore $\C_\s^+$ is a cone in $\ScatFan(\tB,\s)$.
-Corollary~\ref{mut scat fan} says that for each $k\in I_\uf$, the map $\eta_k^B$ is a piecewise-linear isomorphism from $\ScatFan(\tB,\s)$ to $\ScatFan(\mu_k(\tB),\s)$.
-Since $\C_\s^+$ is also a cone of $\ScatFan(\mu_k(\tB),\s)$ and since $\eta_k^B$ fixes the facet of $\C_\s^+$ contained in $e_k^\perp$, we conclude that $\C_\s^+$ shares this facet with another full-dimensional cone of $\ScatFan(\tB,\s)$.
-
-Two full-dimensional cones are \newword{adjacent} if they share a facet and \newword{transitively adjacent} if they are related in the transitive closure of the adjacency relation.
-By induction, we see that every cone transitively adjacent to $\C_\s^+$ in $\ScatFan(\tB,\s)$ shares each of its facets with another cone of $\ScatFan(\tB,\s)$.
-Let the \newword{cluster fan} $\ClusFan(\tB,\s)$ be the subfan of $\ScatFan(\tB,\s)$ consisting of maximal cones that are transitively adjacent to $\C_\s^+$, together with all of their faces.
-This fan is simplicial, and by \cite[Theorem~0.8]{GHKK}, it coincides with the fan of Fock-Goncharov cluster chambers and is isomorphic to the cluster complex associated to $\tB$.
-
-
-
-
-
-The following theorem is an easy consequence of results of \cite{GHKK}.
-(This is not stated explicitly in \cite{GHKK}, but is alluded to in a comment in \cite[Construction~4.1]{GHKK}.)
-
-\begin{theorem}\label{clus easy}
-Suppose $F$ and $G$ are adjacent maximal cones of $\ClusFan(\tB,\s)$ and $n_0$ is the primitive normal to $F\cap G$ in $N^+$.
-Then $f_p(\Scat(\tB,\s))=1+\zeta^{n_0}$ for every general point $p$ in $F\cap G$.
-\end{theorem}
-\begin{proof}
-Let $\ell(F)$ be the smallest $\ell$ such that there exists a sequence $F_0,F_1,\ldots,F_\ell$ with $F_0=\C_\s^+$ and $F_\ell=F$, such that $F_{i-1}$ and $F_i$ are adjacent for all $i=1,\ldots,\ell$.
-We argue by induction on $\min(\ell(F),\ell(G))$.
-
-In the base case, where this minimum is zero, the assertion is that, for each $i\in I_\uf$, that $f_p(\Scat(\tB,\s))=1+\zeta_i$ for every general point $p$ in $\C_\s^+\cap e_i^\perp$.
-This follows from \cite[Theorem~1.28]{GHKK}, as explained in \cite[Remark~1.29]{GHKK}.
-
-If $\min(\ell(F),\ell(G))>0$, then without loss of generality, this minimum equals $\ell(F)$.
-Let $\C_\s^+=F_0,F_1,\ldots,F_{\ell(F)}=F$ have $F_{i-1}$ and $F_i$ adjacent for all $i=1,\ldots,\ell$.
-Then $F_0\cap F_1$ is contained in $\e_k^\perp$ for some $k\in I_\uf$, and Corollary~\ref{mut scat fan} implies that $M_k(F_1)$ is the cone $\C_\s^+$.
-By induction, the assertion holds for $M_k(F)$ and $M_k(G)$, which are cones in $\ClusFan(\mu_k(\tB),\s)$, and then Theorem~\ref{mut thm} implies the assertion for $F$ and~$G$.
-\end{proof}
-
-\subsection{Cluster monomials}\label{broken sec}
-We now discuss how cluster monomials can be described in terms of a combinatorial construction called broken lines and in terms of path-ordered products.
-
-Suppose $\D$ is a scattering diagram, take $m_0\in M^\circ\setminus\set{0}$, and take $Q\in V^*\setminus\Supp(\D)$.
-A \newword{broken line} for $m_0$ with endpoint $Q$ is a piecewise linear path $\gamma:(-\infty,0]\to V^*$ with a finite number of domains of linearity, with each domain $L$ of linearity marked with a monomial $c_Lz^{m_L}$ with $c_L\in\k$ and $m_L\in M^\circ$, satisfying the following properties:
-\begin{enumerate}[(i)]
-\item $\gamma(0)=Q$.
-\item \label{brok generic}
-$\gamma$ does not intersect the relative boundary of any wall and does not intersect any two non-parallel walls at the same point. 
-\item For each domain $L$ of linearity, if $m_L=\sum_{i\in I}a_if_i$, then $\gamma'$ is constantly equal to $-\sum_{i\in I_\uf}a_if_i$ in $L$.
-(Notice the difference in indexing sets for the sums.)
-\item If $L$ is the unbounded domain of linearity of $\gamma$, then $c_L=1$ and $m_L=m_0$.
-\item Suppose $t\in(-\infty,0)$ is a point where $\gamma$ is not linear and $L$ is the domain of linearity consisting of values just smaller that $t$ while $L'$ is the domain of linearity consisting of values just larger than $t$.
-By \eqref{brok generic}, there exists $n$ primitive in $N^\circ\cap N_\uf$ such that all walls containing $\gamma(t)$ are in $n^\perp$ and such that $\br{m_L,n}>0$.
-Let $f$ be the product of the functions $f_\d$ for all walls $(\d,f_\d)$ with $\gamma(t)\in\d$.
-Then $c_{L'}z^{m_{L'}}$ equals $c_Lz^{m_L}$ times a term in the formal power series $f^{\br{m_L,n}}$.
-\end{enumerate}
-Write $c_\gamma z^{m_\gamma}$ for the monomial on the domain of linearity containing $0$ and define the \newword{theta function} $\thet_{Q,m_0}$ to be the sum of the $c_\gamma z^{m_\gamma}$, over all broken lines $\gamma$ for $m_0$ with endpoint $Q$.
-This may be an infinite sum, but makes sense as an element of $z^{m_0}\k[[\zeta]]$, as verified in \cite[Proposition~3.4]{GHKK}.
-
-Say a point $Q\in V^*$ is \newword{generic} if it is not contained in any hyperplane $n^\perp$ for $n\in N_\uf$.
-Write $M^\circ_\uf$ for the saturated sublattice of $M^\circ$ given by the $\integers$-linear span of $\set{f_i:i\in I_\uf}$.
-For $m_0\in M_\uf^\circ$, we will write $m_0\in\ClusFan(\tB,\s)$ to mean that $m_0$ is contained in some cone in $\ClusFan(\tB,\s)$.
-The following is \cite[Theorem~4.9]{GHKK}.
-
-\begin{theorem}\label{clus mon thm}
-Let $Q$ be a fixed generic point in $\C_\s^+$.
-Then the set of theta functions $\bigl\lbrace\thet_{Q,m_0}:m_0\in M_\uf^\circ\cap\ClusFan(\tB,\s)\bigr\rbrace$ is the set of cluster monomials in the cluster algebra defined by $\tB$, written as polynomials in the initial cluster variables $z_i:i\in I$.
-\end{theorem}
-
-\begin{remark}\label{what are clus mons}
-Given a vector $m\in M^\circ$, write $m=\sum_{i\in I}a_if_i$ and define $m_\uf=\sum_{i\in I_uf}a_if_i$ and $m_\fr=m-m_\uf$.
-Then for all $m\in M^\circ$, we have $\thet_{Q,m}=z^{m_\fr}\thet_{Q,m_\uf}$.
-Since the frozen variables separate out in this inert manner, in quoting Theorem~\ref{clus mon thm}, we have defined the cluster monomials to exclude frozen variables.
-\end{remark}
-
-\begin{remark}\label{froz clus mon}
-In \cite{GHKK}, the algebra $\can(\tB,\s)$ of $\k$-linear combinations of functions $\thet_{Q,\m_0}$ (for fixed generic $Q\in\C_\s^+$) is defined.
-Under certain circumstances, explored at length in \cite{GHKK}, the algebra $\can(\tB,\s)$ coincides with the upper cluster algebra, or even with the cluster algebra.
-Writing $\k[z^\pm_\fr]$ for the Laurent polynomial ring $\k[z_i^\pm:i\in I_\fr]$, the algebra $\can(\tB,\s)$ is the set of $\k[z^\pm_\fr]$-linear combinations of theta functions $\thet_{Q,m_0}$ with $m_0\in M^\circ_\uf$.
-There are advantages and disadvantages in different settings to inverting the frozen variables $\set{z_i:i\in I_\fr}$.
-In settings where we wish not to invert the frozen variables, we can instead write $\k[z_\fr]$ for the polynomial ring $\k[z_i:i\in I_\fr]$ and consider the algebra of $\k[z_\fr]$-linear combinations of theta functions $\thet_{Q,m_0}$ such that $m_0\in M^\circ_\uf$.
-\end{remark}
-
-\begin{remark}\label{useless dimensions broken lines}
-The definition of broken lines here differs from that in \cite[Definition~3.1]{GHKK} because, as explained in Remark~\ref{useless dimensions}, we have defined our scattering diagrams in a lower-dimensional vector space.
-It is easy to verify that there is a bijection between the broken lines defined here and broken lines in the larger space in the sense of \cite[Definition~3.1]{GHKK} and that both definitions define the same functions $\thet_{Q,m_0}$.
-\end{remark}
-
-We now give a description of the cluster monomials in terms of path-ordered products.
-This description follows easily from results of \cite{GHKK}.
-%While this result has apparently not been stated before, it is implicit in \cite[Remark~3.10]{CGMMRSW}.
-While this result has apparently not been stated before, it seems to have been known, for example in \cite{CGMMRSW}.
-
-
-\begin{theorem}\label{clus mon pop}
-Fix $Q$ generic in $\C_\s^+$.
-If $m_0\in M_\uf^\circ\cap\ClusFan(\tB,\s)$, then the cluster monomial $\thet_{Q,m_0}$ is $\p_{Q',Q,\Scat(\tB,\s)}(z^{m_0})$, where $Q'$ is any point in the interior of a maximal cone $F$ of $\ClusFan(\tB,\s)$ with $m_0\in F$.
-\end{theorem}
-
-Theorem~\ref{clus mon pop} follows easily by combining two results from \cite[Section~3]{GHKK} that we now quote.
-The first is \cite[Theorem~3.5]{GHKK}.
-
-\begin{theorem}\label{change of basepoint}
-Suppose $\D$ is a consistent scattering diagram, $m_0\in M^\circ$, and $Q$ and $Q'$ are generic points in $V^*$.
-Let $\gamma$ be a generic path from $Q'$ to $Q$.
-Then $\thet_{Q,m_0}=\p_{\gamma,\D}(\thet_{Q',m_0})$.
-\end{theorem}
-
-The next is \cite[Corollary~3.9]{GHKK}.
-
-\begin{theorem}\label{easy theta}
-Suppose $F$ is a maximal cone in $\ClusFan(\tB,\s)$ and suppose $Q$ is in the interior of $F$ and $m\in M^\circ_\uf$ is in $F$.
-Then $\thet_{Q,m}=z^m$.
-\end{theorem}
-
-\begin{proof}[Proof of Theorem~\ref{clus mon pop}]
-Choose a maximal cone $F$ of $\ClusFan(\tB,\s)$ with $m_0\in F$, a point $Q'$ in the interior of $F$, and a generic path $\gamma$ from $Q'$ to $Q$.
-Since $\Scat(\tB,\s)$ is consistent, $\p_{Q,Q',\Scat(\tB,\s)}(x^{m_0})$ is independent of the choice of $Q'$ (within the interior of $F$), so we may as well take $Q'$ generic.
-For  any generic path $\gamma$ from $Q$ to $Q'$, Theorems~\ref{change of basepoint} and~\ref{easy theta} yield $\thet_{Q,m_0}=\p_{\gamma,\Scat(\tB,\s)}(\thet_{Q',m_0})=\p_{\gamma,\Scat(\tB,\s)}(z^{m_0})$.
-\end{proof}
-
-Because of Theorem~\ref{clus mon thm}, we are interested in theta functions for $Q\in\C_\s^+$ generic.
-Theorem~\ref{change of basepoint} implies that $\thet_{Q,m_0}$ is independent of the choice of generic $Q\in\C_\s^+$.
-Thus we can safely assume that generic $Q\in\C_\s^+$ has been chosen and suppress $Q$ from the notation, writing $\thet_{m_0}$ for $\thet_{Q,m_0}$.
+\marginN{We might give the theorem showing cluster monomials in terms of path-ordered products.
+This gives a formula a cluster monomial in terms of any sequence of flips that makes it an initial cluster monomial, and I'm really curious to see what that formula is.}
 
 
 
@@ -1512,6 +1262,11 @@ S. Fomin and D. Thurston,
 \textit{Cluster algebras and triangulated surfaces. Part II: Lambda lengths.}
 Preprint, 2008.
 (arXiv:1210.5569)
+
+\bibitem{ca4}
+S. Fomin and A. Zelevinsky,
+\textit{Cluster Algebras IV: Coefficients.}
+Compositio Mathematica \textbf{143} (2007), 112--164.
 
 \bibitem{GHK}
 M. Gross, P. Hacking, and S. Keel,
