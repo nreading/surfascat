@@ -226,7 +226,7 @@
 \newcommand{\ZP}{\mathbb{ZP}}
 \newcommand{\C}{\mathcal{C}}
 \newcommand{\B}{\mathcal{B}}
-\newcommand{\M}{\mathcal{M}}
+\newcommand{\M}{\mathbf{M}}
 \newcommand{\R}{\mathcal{R}}
 \renewcommand{\L}{\mathbf{L}}
 \newcommand{\V}{\mathcal{V}}
@@ -619,13 +619,16 @@ In \cite{GHKK}, most of the data described in Table~\ref{init data} is considere
 (In our case, $\s$ is $T\cup\L$.)
 Following the notation of \cite{scatfan}, we would write $\Scat(\tB(T,\L),T\cup\L)$ for the cluster scattering fan, but here we shorten the notation to $\Scat(T,\L)$.
 
+\begin{definition}[\emph{Cluster scattering diagram}]\label{clus scat def}
 The \newword{cluster scattering diagram} $\Scat(T,\L)$ is the unique (up to equivalence) consistent scattering diagram having a wall $(\alpha^\perp,1+\zeta_\alpha)$ for each $\alpha\in T$, such that every other wall is outgoing.
 The existence and uniqueness of the cluster scattering diagram is the fundamental result of \cite{GHKK} (specifically \cite[Theorem~1.12]{GHKK}).
+\end{definition}
 
 \marginN{We might give the theorem showing cluster monomials in terms of path-ordered products.
-This gives a formula a cluster monomial in terms of any sequence of flips that makes it an initial cluster monomial, and I'm really curious to see what that formula is.}
+This gives a formula a cluster monomial in terms of any sequence of flips that relates it to an initial cluster monomial, and I'm really curious to see what that formula is.}
 
 \section{Nathan's attempt at barricades}
+\reversemarginpar
 \marginN{I'm trying to allow punctures, and I'm thinking of ``bars'' and ``rings'' in the barricade instead of ``simple barricades.''
 I'm also having fewer vertices and thus longer edges.
 Finally, thinking about I-beams that end in self-folded triangles at both ends has made me see that we don't want to have the graph go into a vertex and either tag it or not.  
@@ -637,9 +640,25 @@ This is why I wanted fewer vertices and longer edges. \\\\
 This comment probably doesn't make much sense yet, but I'll try to flesh it out.
 }
 
+\normalmarginpar
+\begin{definition}[\emph{Barricade}]\label{barricade def}
+Let $(\S,\M)$ be a marked surface with triangulation $T$.
+A \newword{barricade} in $(\S,\M)$ with respect to $T$ is a subset of $\S$ each of whose connected components is either a \emph{closed allowable curve} or an \emph{embedded edge-labeled graph} in $\S\setminus\M$ such that:
+\begin{itemize}
+\item Every embedded edge intersects the relative interior of at least one arc in $T$ or boundary segment. 
+\item No embedded edge crosses the same arc of $T$ twice without crossing a different arc of $T$ in between;  \marginN{this is the "minimal intersection" requirement}
+\item Embedded edges are disjoint from each other except at their endpoints and disjoint from $\partial\S$ except at leaves;
+\item Every non-leaf has degree $3$,  $4$, $5$, or $6$ and is in the interior of a triangle of~$T$; \marginN{Alternately, we could make all of these degrees $3$ and get rid of multiple edges if we have three edge labels, crossed, uncrossed, or both.  That makes some things tidier but may make some things messier.}
+\item Every leaf is in the relative interior of a boundary segment or an arc of $T$ and is connected by an edge to a vertex in the interior of a triangle containing the boundary segment or arc;
+\item Every vertex of degree $\ge4$ is incident to exactly $3$ classes of edges under isotopy in $\S\setminus\M$;
+\item Each edge is labeled ``crossed'' or ``uncrossed'';
+\item An edge labeled uncrossed must connect two non-leaves, at least one of which is in the interior of a \emph{self-folded} triangle; and
+\item If two edges are isotopy equivalent in $\S\setminus\M$, then one must be crossed and one must be uncrossed.
+\item If the endpoints of an edge coincide, then the embedded edge must be a closed allowable curve.
+\end{itemize}
 
-
-
+\end{definition}
+\includegraphics[]{cyclicA2tilde_stereo.ps}
 
 %\newpage
 %
@@ -1032,7 +1051,7 @@ Given a triangulation $\Delta$ of unpunctured\margin[GM]{I haven't attempted pun
 \end{figure}
 
 A \newword{short leaf}\margin[GM]{I can't decide if we want to allow non-short leaves in the definition. They make the proof of Prop. \ref{prop: inequalities} easier, but they don't appear in barricades related to the scattering diagram.} is a leaf whose adjacent vertex is in the adjacent triangle (e.g. the third and fourth local picture in Figure 
-\ref{fig: local barricade}). A \newword{long leaf} is a leaf on the boundary of $\S$.
+\ref{fig: local barricade}). A \newword{long leaf} is a leaf on the boundary of $\S$. \marginN{The definition of long leaf doesn't seem to be used.}
 
 Barricades are considered up to isotopy within the set of barricades (so leaves must remain on arcs in $\Delta$). 
 A measured lamination $\mu$ is \newword{compatible} with a barricade $B$ if there is are equivalent $\mu'$ and $B'$ such that $\mu'$ intersects $\Delta$ minimally and $\mu'$ and $B'$ do not intersect.%\margin[GM]{`Compatible' is a bit fiddly to define, since we need to be able to move the barricade around, but not 
