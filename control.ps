@@ -1,0 +1,69 @@
+%--------------------------------------------
+%  Begin definitions for control.ps
+%--------------------------------------------
+
+%  Some routines for more sophisticated control structures.
+
+%---------------------------------------------------
+%  Definitions of user procedures for plane.ps
+%---------------------------------------------------
+
+%  Defines a mechanism for cases, in order to 
+%  eliminate an ugly bunch on nested calls on ifelse.
+%  param is a parameter whose value will be used to
+%  decide which case is used.  Each CaseI is an array
+%  [decision result].  Here result is the procedure 
+%  that will be executed in this case, and decision
+%  is a procedure that expects to find param on the 
+%  top of the stack and returns true or false.
+%  This control structure will try each decision until
+%  one is true, and then execute the corresponding result
+%  and stop.  In particular, if no decision returns true
+%  then nothing will happen.  To get an "else" case at 
+%  the end, the last case should be [true result].
+%  Example:  i [[{3 gt} proc1] [{2 lt} proc2] [else proc3]]
+%  will execute proc1 if i>3, execute proc2 if i<2 and 
+%  proc3 otherwise.
+%  Before a result is executed, param and [Case1 ... CaseN]
+%  are removed from the stack.
+
+%  Syntax:  param [Case1 ... CaseN] cases
+/cases
+{
+{				% stack: param CaseI 
+aload pop 			% stack: param decisionI resultI
+3 -1 roll dup 4 1 roll		% stack: param decisionI resultI param
+3 -1 roll			% stack: param resultI param decisionI
+exec				% stack: param resultI boolean
+{exch pop exec exit}
+{pop}
+ifelse
+}
+forall
+}
+def
+
+
+%---------------------------------------------------
+%  Definitions of user procedures for plane.ps
+%---------------------------------------------------
+
+% An "else" for /cases
+% Makes the case automatically succeed.
+% To use this, put the case [else result] in /cases.
+/else
+{{pop true}}
+def
+
+% An automatic failure for /cases.
+% Mostly useful for programming and debugging.
+% Makes the case always fail.
+% To use this, put the case [failcase result] in /cases.
+/failcase
+{{pop false}}
+def
+
+%--------------------------------------------
+%  End definitions for control.ps
+%--------------------------------------------
+

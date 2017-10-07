@@ -1,0 +1,196 @@
+%--------------------------------------------
+%  Begin definitions for labels.ps
+%--------------------------------------------
+
+%  functionality to show strings.
+%
+%  User procedures:
+%  
+%  Helper procedures: 
+%  
+%  Other names used:
+
+%--------------------------------------------
+%  Definitions of user procedures for labels.ps
+%--------------------------------------------
+
+%  Uses rmoveto to change the current point so as to 
+%  center the label.  A current point must already be set.
+%  The label stays on the stack.
+%  For example 10 10 moveto (label) labelcenter show
+%  would write the string (label) centered about the point (10,10)
+/labelcenter
+{
+labelbbox		%stack: (label) llx lly urx ury
+3 -1 roll sub -2 div 3 1 roll
+sub 2 div exch rmoveto
+}
+def
+
+%  Uses rmoveto to change the current point so as to 
+%  center the label, but only centers in the left-right direction.
+%  A current point must already be set.
+%  The label stays on the stack.
+/labellrcenter
+{
+labelbbox		%stack: (label) llx lly urx ury
+pop exch pop		%stack: (label) llx urx
+sub 2 div 0 rmoveto
+}
+def
+
+%  Uses rmoveto to change the current point so as to 
+%  center the label, but only centers in the up-down direction.
+%  A current point must already be set.
+%  The label stays on the stack.
+/labeludcenter
+{
+labelbbox		%stack: (label) llx lly urx ury
+exch pop sub -2 div exch pop 0 exch rmoveto
+}
+def
+
+%  resets the clipping path to protect the label from being written over.
+%  If you don't want this to be permanent then you should gsave or clipsave 
+%  before and then (respectively) grestore or cliprestore to undo.
+%  The protected rectangle is determined as the bounding rectangle 
+%  of the label, with an extra border (of horizontal size "xextra"
+%  and vertical size "yextra".)
+%  The label string DOES NOT remain on the stack.
+%  usage:  (label) xextra yextra labelprotect
+/labelprotect
+{
+currentpoint					%stack:  (label) xextra yextra cx cy
+gsave
+newpath 			
+clippath pathbbox newpath			%stack:  (label) xextra yextra cx cy llx lly urx ury
+2 copy moveto				
+3 -1 roll sub dup neg 0 exch rlineto 3 1 roll	%stack:  (label) xextra yextra cx cy ury-lly llx urx
+sub dup 0 rlineto				%stack:  (label) xextra yextra cx cy ury-lly llx-urx
+exch 0 exch rlineto				%stack:  (label) xextra yextra cx cy
+neg 0 rlineto closepath				%stack:  (label) xextra yextra cx cy
+moveto 						%stack:  (label) xextra yextra
+labelrect					%stack:  (label)
+false upath
+grestore
+false upath newpath
+exch uappend eoclip
+newpath uappend
+pop
+}
+def
+
+% Writes the label using show, but leaves the current path (and in particular the 
+% current point) unchanged.  This is helpful is you want to then protect the label.
+% You must first have set a current point.
+% The label string remains on the stack.
+% usage (label) labelwrite
+/labelwrite
+{
+gsave
+dup
+show
+grestore
+}
+def
+
+% strokes a rectangle around the label, but leaves the current path (and in particular the 
+% current point) unchanged.
+% The rectangle is determined as the bounding rectangle 
+% of the label, with an extra border (of horizontal size "xextra"
+% and vertical size "yextra".)
+% The label string remains on the stack.
+% usage:  (label) xextra yextra labelrectstroke
+/labelrectstroke
+{
+gsave
+3 -1 roll dup 4 2 roll
+labelrect
+stroke
+grestore
+}
+def
+
+% fills a rectangle around the label, but leaves the current path (and in particular the 
+% current point) unchanged.
+% The rectangle is determined as the bounding rectangle 
+% of the label, with an extra border (of horizontal size "xextra"
+% and vertical size "yextra".)
+% The label string remains on the stack.
+% usage:  (label) xextra yextra labelrectfill
+/labelrectfill
+{
+gsave
+3 -1 roll dup 4 2 roll
+labelrect
+fill
+grestore
+}
+def
+
+
+
+%--------------------------------------------
+%  Definitions of helper procedures for labels.ps
+%--------------------------------------------
+
+%  This constructs a path for a rectangle around the label.
+%  The path is appended to the current path.
+%  You must have already set a current point.
+%  The rectangle is determined as the bounding rectangle 
+%  of the label, with an extra border (of horizontal size "xextra"
+%  and vertical size "yextra".)
+%  The label string remains on the stack.
+%  usage:  (label) xextra yextra labelrect
+/labelrect
+{
+3 -1 roll labelbbox 7 -2 roll	%stack: (label) llx lly urx ury xextra yextra
+2 copy neg exch neg exch rmoveto
+6 -2 roll 2 copy rmoveto	%stack: (label) urx ury xextra yextra llx lly
+5 -1 roll exch sub		%stack: (label) urx xextra yextra llx ury-lly
+3 -1 roll 2 mul add		%stack: (label) urx xextra llx ury-lly+2yextra
+dup 0 exch rlineto 4 1 roll	%stack: (label) ury-lly+2yextra urx xextra llx
+exch 2 mul 3 1 roll sub add	%stack: (label) ury-lly+2yextra 2xextra+urx-llx
+dup 0 rlineto exch 0 exch neg rlineto
+neg 0 rlineto
+}
+def
+
+%  This gives the bounding box of the rectangle bounding the label,
+%  as the label would be drawn at 0,0 with trivial transformation matrix.
+%  The label string remains on the stack, followed by coordinates llx lly
+%  of the lower left corner then urx and ury for the upperr right corner.
+%  usage:  (label) labelbbox
+/labelbbox
+{
+gsave
+initmatrix
+newpath
+0 0 moveto
+dup false charpath pathbbox
+grestore
+}
+def
+
+%--------------------------------------------
+%  End definitions for labels.ps
+%--------------------------------------------
+
+
+
+
+%--------------------------------------------
+%  Example
+%--------------------------------------------
+%/Times findfont 100 scalefont
+%setfont
+
+
+%  Note, if you protect first, it may prevent you from writing the label...
+
+%300 300 moveto 
+%(moo) labelcenter 1 0 0 setrgbcolor 20 20 labelrectfill 0 setgray 30 30 labelrectstroke labelwrite %10 10 labelprotect pop
+
+%0 0 moveto 1000 1000 lineto stroke
+
+

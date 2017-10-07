@@ -1,0 +1,740 @@
+(vector.ps) run
+(control.ps) run
+
+%--------------------------------------------
+%  Begin definitions for plane.ps
+%--------------------------------------------
+
+%  Some routines for plane geometry.
+
+%---------------------------------------------------
+%  Definitions of user procedures for plane.ps
+%---------------------------------------------------
+
+%  In the comments, points are described as single letters,
+%  e.g. "A".  Postscript must receive a 2-vector, e.g. [34, 25.4]/
+
+%---------------------------------------------------
+%  Points
+%---------------------------------------------------
+
+% draws a filled dot at A with radius r.
+% Syntax: A r dot 
+/dot
+{circle fill}
+def
+
+% Sets the current point to the given 2-vector.
+% This is a redefinition of the operator 
+% procedure moveto which overloads the name.
+% If this is applied to a 2-vector, it will perform
+% {aload pop moveto}.  Otherwise, the usual moveto
+% (which assumes a pair of numbers) is executed.
+
+% Syntax:  A move
+/move
+{aload pop moveto}  
+def
+
+% Sets the current point to the currentpoint plus
+% the given 2-vector.
+% This is a redefinition of the operator 
+% procedure rmoveto which overloads the name.
+% If this is applied to a 2-vector, it will perform
+% {aload pop rmoveto}.  Otherwise, the usual rmoveto
+% (which assumes a pair of numbers) is executed.
+
+% Syntax:  A rmoveto
+/rmoveto
+{
+dup type /arraytype eq
+{aload pop //rmoveto}  
+{//rmoveto} 
+ifelse
+}
+bind
+def
+
+% Takes a point and returns both coordinates
+/coords
+{aload pop}
+def
+
+% Takes a point and returns the x coordinate
+/xcoord
+{aload pop pop}
+def
+
+% Takes a point and returns the y coordinate
+/ycoord
+{aload pop exch pop}
+def
+
+% Finds the midpoint of two points.
+% Syntax:  A B midpoint
+/midpoint
+{addvec 2 scalardiv}
+def
+
+
+
+%---------------------------------------------------
+%  Segments
+%---------------------------------------------------
+
+% Constructs a line segment from the current point to the 
+% given 2-vector.
+% This is a redefinition of the operator 
+% procedure lineto which overloads the name.
+% If this is applied to a 2-vector, it will perform
+% {aload pop lineto}.  Otherwise, the usual lineto
+% (which assumes a pair of numbers) is executed.
+% Syntax:  A lineto
+/lineto 
+{
+dup type /arraytype eq
+{aload pop //lineto}  
+{//lineto} 
+ifelse
+}
+bind
+def
+
+% Constructs a line segment from the current point to the 
+% current point plus the given 2-vector.
+% This is a redefinition of the operator 
+% procedure rlineto which overloads the name.
+% If this is applied to a 2-vector, it will perform
+% {aload pop rlineto}.  Otherwise, the usual rlineto
+% (which assumes a pair of numbers) is executed.
+% Syntax:  A rlineto
+/rlineto 
+{
+dup type /arraytype eq
+{aload pop //rlineto}  
+{//rlineto} 
+ifelse
+}
+bind
+def
+
+%---------------------------------------------------
+%  Rays
+%---------------------------------------------------
+
+%  Constructs the ray from A through B
+%  Syntax:  A B ray
+/ray
+{
+exch dup 3 1 roll
+subvec
+rray
+}
+def
+
+%  Constructs the ray from A in the direction B
+%  Syntax:  A B rray
+/rray
+{
+exch dup clipdistance		% stack: B A clipdist
+maxlength add 3 1 roll		% stack: m B A
+move
+unit
+scalarmul
+rlineto
+}
+def
+
+%---------------------------------------------------
+%  Lines
+%---------------------------------------------------
+
+%  Constructs the line containing A and B
+%  Syntax:  A B line
+/line
+{
+exch dup 3 1 roll
+subvec
+rline
+}
+def
+
+%  Constructs the line containing A and parallel to B.
+%  Syntax:  A B rline
+/rline
+{
+2 copy
+-1 exch scalarmul
+rray
+rray
+}
+def
+
+%---------------------------------------------------
+%  Angles
+%---------------------------------------------------
+
+% Finds the (unsigned) measure of angle ABC, between 0 and 180.
+% A, B and C are points, represented as 2-vectors
+% Syntax: A B C angle
+/angle
+{
+exch dup 3 1 roll subvec	%stack: A B C-B
+3 1 roll subvec			%stack: C-B A-B
+dup veclength dup 0 eq 
+	{pop pop pop /undefined} 
+	{
+	scalardiv exch
+	dup veclength dup 0 eq 
+		{pop pop pop /undefined} 	
+		{
+		scalardiv
+		2 copy coords 3 -1 roll coords
+		4 1 roll mul 3 1 roll mul sub abs 3 1 roll
+		dotprod 
+		atan
+		}
+	ifelse
+	}
+ifelse
+}
+def
+
+% Finds the (signed) measure of angle ABC, less than 
+% or equal to 180, strictly greater than -180.
+% The sign gives the direction of rotation from
+% ray BA to ray BC in the usual sense.
+% A, B and C are points, represented as 2-vectors
+% Syntax: A B C angle
+/signedangle
+{
+exch dup 3 1 roll subvec	%stack: A B C-B
+3 1 roll subvec			%stack: C-B A-B
+dup veclength dup 0 eq 
+	{pop pop pop /undefined} 
+	{
+	scalardiv exch
+	dup veclength dup 0 eq 
+		{pop pop pop /undefined} 	
+		{
+		scalardiv
+		2 copy aload pop 3 -1 roll aload pop
+		4 1 roll mul 3 1 roll mul sub 3 1 roll
+		dotprod 
+		atan
+		dup 180 gt
+			{360 sub}
+		if
+		}
+	ifelse
+	}
+ifelse
+}
+def
+
+%---------------------------------------------------
+%  Circles
+%---------------------------------------------------
+
+% constructs (as a path) a circle 
+% at A with radius r.
+% The circle will start and end at the point farthest 
+% right of A.
+% Syntax: A r circle
+/circle
+{
+exch aload aload pop moveto	% Stack: r x y
+3 -1 roll		% Stack: x y r
+dup 0 rmoveto		% Stack: x y r
+0 360 arc
+}
+def
+
+% constructs (as a path) a circle 
+% at A with radius r.
+% The circle will start and end at the point farthest 
+% right of A.
+% It will be traced in the reverse direction.
+% Syntax: A r revcircle
+/revcircle
+{
+exch aload move		% Stack: r x y
+3 -1 roll		% Stack: x y r
+dup 0 rmoveto		% Stack: x y r
+0 360 arcn
+}
+def
+
+
+
+% This is a flag that programs can change to make arcleft and 
+% related programs fail quietly when the radius is too small.
+% by default, it is turned to false, so that these cause an error
+% when the radius is too small.
+/safearcs false def
+
+% Draws an arc from the currentpoint to A radius r so that,
+% as one moves from currentpoint to A, the arc curves left.
+% Takes the shorter of the two possibilities.
+% Gives an error if r is less than half the distance
+% from currentpoint to A.  (Puts "radius_too_small_in_arcleft" 
+% on stack and Postscript gives the error 
+% "/rangecheck in --sqrt--")
+% Syntax: A r arcleft
+/arcleft
+{
+1 dict begin
+/left true def
+arcleftright
+end
+}
+def
+
+% Draws an arc from the currentpoint to A radius r so that,
+% as one moves from currentpoint to A, the arc curves right.
+% Takes the shorter of the two possibilities.
+% Gives an error if r is less than half the distance
+% from currentpoint to A.  (Puts "radius_too_small_in_arcright" 
+% on stack and Postscript gives the error 
+% "/rangecheck in --sqrt--")
+% Syntax: A r arcright
+/arcright
+{
+1 dict begin
+/left false def
+arcleftright
+end
+}
+def
+
+% Draws an arc from the currentpoint to A radius r so that,
+% as one moves from currentpoint to A, the arc curves left.
+% Takes the LONGER of the two possibilities.
+% Gives an error if r is less than half the distance
+% from currentpoint to A.  (Puts "radius_too_small_in_longarcleft" 
+% on stack and Postscript gives the error 
+% "/rangecheck in --sqrt--")
+% Syntax: A r longarcleft
+/longarcleft
+{
+1 dict begin
+/left true def
+longarcleftright
+end
+}
+def
+
+
+% Draws an arc from the currentpoint to A radius r so that,
+% as one moves from currentpoint to A, the arc curves right.
+% Takes the LONGER of the two possibilities.
+% Gives an error if r is less than half the distance
+% from currentpoint to A.  (Puts "radius_too_small_in_longarcright" 
+% on stack and Postscript gives the error 
+% "/rangecheck in --sqrt--")
+% Syntax: A r longarcright
+/longarcright
+{
+1 dict begin
+/left false def
+longarcleftright
+end
+}
+def
+
+
+
+%  Draws the unique circle containing A, B and C.
+%  Syntax: A B C circumcircle
+%  If that circle is degenerate, draws the appropriate line.
+/circumcircle
+{
+3 copy 3 -1 roll move arctowards	% stack: A B C
+3 -1 roll dup 4 1 roll			% stack: A B C A
+arctowards
+arctowards
+}
+def
+
+
+% Draws the unique circular arc from the currentpoint
+% through A to B.  
+% If the points are collinear with A between currentpoint
+% and B, draws a line segment from currentpoint to B.
+% If the points are collinear with A not between currentpoint 
+% and B, draws two "rays to infinity," the correct
+% limiting case.
+% Syntax: A B arcthrough
+/arcthrough
+{
+[ currentpoint ] 3 1 roll dup		% stack: oldcurrentpoint A B B
+3 1 roll arctowards			% stack: oldcurrentpoint B
+exch arctowards
+}
+def
+
+% Draws the arc from currentpoint to A contained in the circle defined by
+% currentpoint, A and B.
+% Uses the law of sines to find the radius and then uses
+% arcright or arcleft, perhaps twice.
+% This will give unsatisfactory results if you change the clipping path 
+% between creating this arc and stroking or filling.
+% (In fact, only if you clipsave then clip then make the arc then 
+% cliprestore and then stroke or fill.  I'm counting on you not 
+% to accidentally do that!)
+% Syntax: A B arctowards
+/arctowards
+{
+[ currentpoint ] 3 1 roll
+3 copy exch signedangle dup	% the angle calculated is currentpoint-B-A
+[				% stack available to each case: curr A B angle
+	[{/undefined eq} {pop pop pop pop}]  % If A and B or currentpoint and B coincide, do nothing
+	[{-90 lt} 
+		{
+		exch pop			% stack: curr A angle
+		sin neg	3 1 roll 2 copy		% stack: sine curr A curr A
+		distance 4 -1 roll		% stack: curr A |A-curr| sine
+		div 2 div 3 1 roll		% stack: r curr A
+		2 copy clipcenter dup 3 1 roll	% stack: r curr A curr cen A cen
+		distance 3 1 roll distance max	% stack: r curr A max(|A-cen|,|curr-cen|)
+		maxlength add			% stack: r curr A m
+		4 -1 roll exch 2 copy gt% stack: curr A r m (r>m)
+			{
+			% If r is really big, longarcright will be
+			% slow or may crash.  So we chop off a large
+			% part of the circle we don't need.
+			1 dict begin
+			/left false def
+			longarcleftrightchopped
+			end
+			}
+			{
+			% If r is not too big, we just need 
+			% a longarcright to A.
+			pop 3 -1 roll pop
+			longarcright
+			}
+		ifelse
+		}
+	]
+	[{abs 0.0001 lt} {pop pop lineto pop}]
+	[{0 lt} 
+		{
+		sin neg exch pop 3 1 roll dup 4 1 roll	% stack: A sine curr A
+		subvec veclength 			% stack: A sine |curr-A|
+		exch div 2 div				% stack: A r
+		arcright
+		}
+	]
+	[{90 le}
+		{
+		sin exch pop 3 1 roll dup 4 1 roll	% stack: A sine curr A
+		subvec veclength 			% stack: A sine |curr-A|
+		exch div 2 div				% stack: A r
+		arcleft
+		}
+	]
+	[{180 lt}
+		{
+		exch pop			% stack: curr A angle
+		sin 3 1 roll 2 copy		% stack: sine curr A curr A
+		distance 4 -1 roll		% stack: curr A |A-curr| sine
+		div 2 div 3 1 roll		% stack: r curr A
+		2 copy clipcenter dup 3 1 roll	% stack: r curr A curr cen A cen
+		distance 3 1 roll distance max	% stack: r curr A max(|A-cen|,|curr-cen|)
+		maxlength add			% stack: r curr A m
+		4 -1 roll exch 2 copy gt% stack: curr A r m (r>m)
+			{
+			% If r is really big, longarcright will be
+			% slow or may crash.  So we chop off a large
+			% part of the circle we don't need.
+			1 dict begin
+			/left true def
+			longarcleftrightchopped
+			end
+			}
+			{
+			% If r is not too big, we just need 
+			% a longarcright to A.
+			pop 3 -1 roll pop
+			longarcleft
+			}
+		ifelse
+		}
+	]
+	[{180 eq} 
+		{
+		pop pop					% stack: currentpoint A
+		2 copy subvec dup 4 -1 roll exch	% stack: A (curr-A) curr (curr-A)
+		rray 					% stack: A (curr-A)
+		-1 exch scalarmul rray
+		}
+	]
+] cases
+}
+def
+
+
+%---------------------------------------------------
+%  Definitions of helper procedures for plane.ps
+%---------------------------------------------------
+
+
+
+% a helper that lets us more efficiently draw curves 
+% out to infinity.
+% maxlength will be the longest line you'll ever need 
+% to draw.
+/maxlength
+{
+gsave
+newpath
+clippath 
+pathbbox 
+3 -1 roll sub dup mul
+3 1 roll sub dup mul add
+sqrt
+grestore
+}
+def
+
+% another helper that lets us more efficiently draw curves 
+% out to infinity.
+% clipcenter is the center of the bounding box of the clipping
+% path.  If is a 2-vector.  
+/clipcenter
+{
+gsave
+newpath
+clippath 
+pathbbox
+3 -1 roll add 2 div 3 1 roll
+add 2 div exch 
+[ 3 1 roll ]
+grestore
+}
+def
+
+% another helper that lets us more efficiently draw curves 
+% out to infinity.
+% the clipdistance of A is the distance of A from clipcenter.
+% Syntax: A clipdistance
+/clipdistance
+{
+clipcenter
+distance
+}
+def
+
+%  A helper for arcleft and arcright.
+%  These two procedures should be almost identical.
+%  This procedure serves for both, doing slightly different things at different times
+%  depending on the value of the boolean "left."
+%  Note that since /arcleft and /arcright start new dictionaries,
+%  the definitions made here (as well as the definition of /left) 
+%  are local.
+/arcleftright
+{			% Note that internally, the currentpoint is 
+			% called A and the arc is drawn to a point B.
+6 dict begin
+/r exch def
+/B exch def
+/A [ currentpoint ] def
+/AminusB A B subvec def
+/h AminusB veclength 2 div def
+[] 
+[
+	[{pop h maxlength div 0.00001 lt} {}]
+	[{pop h r gt}
+		{
+		safearcs not
+			{
+			left
+			{(radius_too_small_in_arcleft)  cvn}
+			{(radius_too_small_in_arcright)  cvn}
+			ifelse
+			r dup mul h dup mul sub sqrt
+			}
+		if
+		}
+	]
+	[{pop h r eq}
+		{
+		% A vector of length h=r perpendicular to A-B,
+		% pointing to the right as one looks from A to B.
+		/v AminusB 2 scalardiv [exch coords 
+		left
+		{neg exch}
+		{exch neg}
+		ifelse
+		] def
+		A v addvec coords
+		A B addvec 2 scalardiv v addvec coords
+		r arct
+		B v addvec coords
+		B coords
+		r arct
+		}
+	]
+	[{pop h r 2 div gt}
+		{
+		A B midpoint
+		r dup dup mul h dup mul sub sqrt sub
+		AminusB unit scalarmul
+		[ exch coords 
+		left
+		{neg exch}
+		{exch neg}
+		ifelse
+		]
+		addvec r arcleftright B r arcleftright
+		}
+	]
+	[else
+		{
+		%  Finds the next point for arct
+		A B addvec 2 scalardiv 
+		h 2 div r dup mul h dup mul sub sqrt div
+		AminusB scalarmul 
+		[ exch coords 
+		left
+		{neg exch}
+		{exch neg}
+		ifelse
+		]
+		addvec coords
+		% then the next point for arct
+		B coords
+		r arct 
+		}
+	]
+] cases
+end
+}
+def
+
+% Finds the maximum of two numbers
+% Syntax: a b max
+/max
+{
+2 copy gt
+{exch pop}
+{pop}
+ifelse
+}
+def
+
+%  A helper for longarcleft and longarcright.
+%  These two procedures should be almost identical.
+%  This procedure serves for both, doing slightly different things at different times
+%  depending on the value of the boolean "left."
+/longarcleftright
+{			
+[currentpoint] 3 -1 roll		%stack: r curr A
+2 copy subvec dup veclength 2 div	%stack: r curr A curr-A h
+dup 6 -1 roll dup 3 1 roll		%stack: curr A curr-A h r h r
+sub					%stack: curr A curr-A h r h-r
+[					%stack: curr A curr-A h r				
+	[{0 lt} 
+		{
+		5 3 roll 2 copy midpoint%stack: curr-A h r curr A mid(curr,A)
+		6 -1 roll unit 	
+		[ exch coords 
+		left
+		{neg exch}
+		{exch neg}
+		ifelse
+		]			%stack: h r curr A mid(curr,A) v
+		6 -2 roll 2 copy	%stack: curr A mid(curr,A) v h r h r
+		dup mul exch dup mul sub%stack: curr A mid(curr,A) v h r r^2-h^2
+		sqrt exch dup 		%stack: curr A mid(curr,A) v h sqrt(r^2-h^2) r r
+		3 1 roll add		%stack: curr A mid(curr,A) v h r sqrt(r^2-h^2)+r
+		4 -1 roll scalarmul	%stack: curr A mid(curr,A) h r newv
+		4 -1 roll addvec	%stack: curr A h r P
+		3 -1 roll pop		%stack: curr A r P
+		exch dup 3 1 roll	%stack: curr A r P r
+		arcleftright arcleftright
+		pop
+		}
+	]
+	[{0 eq} {exch pop exch pop 3 -1 roll pop arcleftright}]
+	[{0 gt} 
+		{
+		safearcs not
+			{
+			5 2 roll pop pop pop
+			left
+			{(radius_too_small_in_longarcleft)}
+			{(radius_too_small_in_longarcright)}
+			cvn 3 1 roll
+			dup mul exch dup mul sub sqrt
+			}
+			if
+		}
+	]
+] cases
+}
+def
+
+% A version of longarcleftright that chops off a large part of the circle
+% that is outside the clipping path
+/longarcleftrightchopped
+{
+6 dict begin
+/m exch def
+/r exch def
+/A exch def
+/curr exch def
+curr A midpoint
+m curr A subvec unit scalarmul
+[ exch coords
+left
+{neg exch}
+{exch neg}
+ifelse
+]
+addvec /P exch def
+r dup mul dup
+curr A subvec veclength 2 div dup mul
+sub sqrt
+m sub dup mul
+sub sqrt
+curr A subvec unit
+scalarmul dup 
+P addvec r arcleftright
+P exch subvec lineto
+A r arcleftright
+end
+}
+def
+
+% a helper that solves the system:
+% ax + by = e
+% cx + dy = f
+% puts x then y on the stack
+% Syntax:  a b c d e f solve2
+/solve2
+{
+6 2 roll 4 copy			%stack: e f a b c d a b c d
+4 -1 roll mul 3 1 roll mul sub	%stack: e f a b c d det 
+dup 0 eq
+{pop pop pop pop pop pop pop /nosolution}
+{
+dup 8 2 roll			%stack: det det e f a b c d
+6 -2 roll 2 copy 8 2 roll	%stack: det det e f a b c d e f 
+5 -1 roll mul 3 1 roll mul	%stack: det det e f a c fb de
+exch sub			%stack: det det e f a c ed-bf
+7 -1 roll div 6 1 roll		%stack: x det e f a c
+4 1 roll mul 3 1 roll mul sub	%stack: x det af-ec
+exch div			%stack: x y
+}
+ifelse
+}
+def
+
+
+
+%--------------------------------------------
+%  End definitions for plane.ps
+%--------------------------------------------
+
