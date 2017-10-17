@@ -4,7 +4,7 @@
 \documentclass{amsart}
 \usepackage{array}
 \newcolumntype{P}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
-\usepackage{graphicx,verbatim, amsmath, amssymb, amsthm, amsfonts, epsfig, amsxtra,ifthen,mathtools,epstopdf,caption,enumerate,hyperref,hhline,bbm,capt-of,longtable}	
+\usepackage{graphicx,verbatim, amsmath, amssymb, amsthm, amsfonts, epsfig, amsxtra,ifthen,mathtools,epstopdf,caption,enumerate,hyperref,hhline,bbm,capt-of,longtable,enumerate}	
 \DeclareFontFamily{U}{mathx}{\hyphenchar\font45}
 \DeclareFontShape{U}{mathx}{m}{n}{<-> mathx10}{}
 \DeclareSymbolFont{mathx}{U}{mathx}{m}{n}
@@ -258,6 +258,8 @@
 \newcommand{\seg}[1]{\overline{#1}}
 \newcommand{\hy}{\hat{y}}
 \newcommand{\notch}{^{\scalebox{0.6}{\raisebox{-3pt}{$\mathrel \blacktriangleright \joinrel \mathrel \blacktriangleleft$}}}}
+\newcommand{\Wall}{\operatorname{Wall}}
+
 
 \newcommand{\fakesubsec}[1]{\medskip\noindent\textbf{#1.}}  %unnumbered
 
@@ -321,10 +323,12 @@ If $\S$ is a disk with three or fewer marked points on its boundary, then $(\S,\
 If $\S$ is a disk with only one marked point on its boundary (a monogon), then it must have at least two punctures.
 If $\S$ is a sphere, then it must have at least $4$ punctures.  
 (It is harmless, and sometimes convenient as in \cite{dominance}, to allow $\S$ to be disconnected and/or to allow once-punctured monogons, but there is no need here.)
+For convenience (and specifically to allow us to consider only well-behaved curves in $\S$), we assume that $\S$ has the has a differentiable structure.  \marginN{Thoughts on this?}
 \end{definition}
 
 \begin{definition}[\emph{Arcs and triangulations}]\label{tri def}
-An \newword{arc} in $(\S,\M)$ is a curve in $\S$ with endpoints in $\M$.
+An \newword{arc} in $(\S,\M)$ is a differentiable \marginN{I am putting in the assumption of differentiability here.  This must surely be implicit in cats1 and cats2, or else one curve could fill $\S$ and thus would be a triangulation.  Thoughts?}
+curve in $\S$ with endpoints in $\M$.
 The arc may not intersect itself and, except at its endpoints, must be contained in the interior of $\S\setminus\M$.
 The arc may not bound an unpunctured monogon and may not define, together with a boundary segment connecting the endpoints, an unpunctured digon.
 Throughout, we consider arcs up to isotopy equivalence.
@@ -367,6 +371,8 @@ that
 \item does not have both endpoints on the same boundary segment and, together with the portion of the boundary between its endpoints, cut out a once-punctured disk, and 
 \item does not spiral at both ends into the same marked point and cut out an unpunctured or once-punctured disk.
 \end{itemize}
+%The requirement that an allowable curve is honest is not made in \cite{unisurface} or in the analogous definition in \cite{cats2}.  
+%However, we may as well require honesty because when defining shear coordinates of an allowable curve $\lambda$ (as below in Definition~\ref{shear def}), one passes to a curve isotopic to $\lambda$ that is honest.
 \end{definition}
 
 \begin{definition}[\emph{Quasi-laminations}]\label{quasilam def}
@@ -377,24 +383,20 @@ they are nonintersecting, or
 \item they are identical except that, at exactly one end of the curve, they spiral opposite directions into the same marked point.
 \end{itemize}
 A \newword{(rational) quasi-lamination} $L$ in $(\S,\M)$ is a collection of pairwise compatible allowable curves in $\S$, distinct up to isotopy, with each curve $\lambda\in L$ carrying a positive rational weight $w_\lambda$.
-A \newword{multi-lamination} is a finite collection $\L$ of laminations.
+A \newword{multi-lamination} is a finite collection $\L$ of quasi-laminations.
 \end{definition}
 
-\begin{definition}[\emph{Honest embedding}]\label{honest def}  \marginN{Unless I'm mistaken, this condition on an allowable curve is exactly the condition of minimizing the number of intersections with the arcs of $T$.  This way of saying it seems so much more clear to me.}
-An embedding of a curve or circle in $\S\setminus\M$ is \newword{honest} \marginN{I like this term, but am not married to it.  If you hate it we can change it.}
-if each intersection of the embedded curve with an arc of $T$ is transverse, and if the embedded curve never crosses an arc of $T$ and then crosses the same arc again \emph{in the opposite direction} without crossing a different arc of $T$ in between.
-(The caveat about opposite directions is present in order to allow honest embeddings of allowable curves with spirals.
-An allowable curve that spirals into the puncture in a self-folded triangle crosses the fold edge of the triangle infinitely many times in succession, but can be embedded honestly, because these crossings can be all in the same direction.)
-
-We also extend the definition to curves that are disjoint from $\M$ except for having an endpoint at the puncture inside a self-folded triangle.
-To be honest, these must pass from the puncture to the interior of the self-folded triangle and be honest in the above sense elsewhere.
+\begin{definition}[\emph{Honest curve}]\label{honest def}  
+Given $(\S,\M)$ and a triangulation $T$, a (closed or non closed) curve in $\S$ is \newword{honest} if: \marginN{I like this term, but am not married to it.  If you hate it we can change it.}
+\begin{itemize}
+\item the curve is differentiable;
+\item the curve is disjoint from $\partial \S$ and from $\M$ except possibly at endpoints of the curve;
+\item each intersection of the curve with an arc of $T$ is either transverse or is an endpoint of the curve;
+\item the curve never crosses an arc of $T$ and then crosses the same arc again \emph{in the opposite direction} without crossing a different arc of $T$ in between;
+\item if the curve has an endpoint at a marked point $p$, then its next intersection with an arc of $T$ or with $\partial S$ must be in the relative interior of a side of some triangle of $T$ that is opposite $p$ in the triangle.
+\end{itemize}
+There is no requirement that the curve not have self-intersections.
 \end{definition}
-
-\begin{remark}\label{honest curve}
-An honestly embedded allowable curve determines a sequence of arcs of $T$ (infinite if the curve spirals at one end or indexed by $\integers$ if it spirals at both ends).
-The sequence is the same (up to reversing) for every honest embedding, and the allowable curve is uniquely determined by the sequence.
-\end{remark}
-
 
 \begin{definition}[\emph{Shear coordinates}]\label{shear def}
 Given a quasi-lamination $L$, a triangulation $T$, and an arc $\gamma\in T$,  we define the \newword{shear coordinate} $b_\gamma(T,L)$ of $L$ at $\gamma$ (with respect to $T$).
@@ -402,6 +404,9 @@ This is $b_\gamma(T,L)=\sum_{\lambda\in L}w_\lambda b_\gamma(T,\lambda)$, a weig
 First, if $\gamma$ is \emph{not} the fold edge of a self-folded triangle of $T$, then it is contained in a quadrilateral.
 (Possibly, the edges of this quadrilateral are fewer than four distinct arcs of $T$.)
 We choose an honest isotopy representative of $\lambda$ (in the sense of Definition~\ref{honest def}) and we reuse the symbol $\lambda$ for the representative.
+\marginN{Unless I'm mistaken, this condition on an allowable curve is exactly the condition of minimizing the number of intersections with the arcs of $T$.  This way of saying it seems so much more clear to me.}
+(The caveat in Definition~\ref{honest def} about opposite directions is present in order to allow honest embeddings of allowable curves with spirals:
+An allowable curve that spirals into the puncture in a self-folded triangle crosses the fold edge of the triangle infinitely many times in succession, but can be embedded honestly, because these crossings can be all in the same direction.)
 Each intersection of $\lambda$ with $\gamma$ contributes $-1$, $0$, or $1$ to $b_\gamma(T,\lambda)$.
 The contribution is $0$ unless $\lambda$ intersects the triangles containing $\gamma$ in one of the ways shown in Figure~\ref{shear fig}, in which case the contribution is $1$ or $-1$ as shown.
 (In the figure, $\gamma$ is the diagonal of the quadrilateral shown, and $\lambda$ is a vertical or horizontal dashed line.)
@@ -415,11 +420,16 @@ Let $p$ be punctured in that monogon, let $\gamma'$ be the other edge of that se
 Then define $b_\gamma(T,\lambda)$ to be $b_{\gamma'}(T,\lambda')$.
 \end{definition}
 
-\marginN{commented out here:  the theorem on laminations in bijection with rational vectors.  May want to quote this later when we set up the vector spaces, or maybe even later when we need it.}
-%\begin{theorem}\label{q-lam bij}
-%Fix a tagged triangulation $T$.
-%Then the map $L\mapsto\b(T,L)$ is a bijection between integral (resp. rational) quasi-laminations and $\integers^n$ (resp.~$\rationals^n$).
-%\end{theorem}
+\begin{remark}\label{honest remark}
+An honestly embedded allowable curve determines a sequence of arcs of $T$ (infinite if the curve spirals at one end or indexed by $\integers$ if it spirals at both ends).
+The sequence is the same (up to reversing) for every honest embedding, and the allowable curve is uniquely determined by the sequence.
+\end{remark}
+
+The following is a special case of \cite[Theorem~4.4]{unisurface}, which is an easy modification of \cite[Theorem~13.6]{cats2}.
+\begin{theorem}\label{q-lam bij}
+Fix a triangulation $T$.
+Then the map $L\mapsto\b(T,L)$ is a bijection between integral (resp. rational) quasi-laminations and $\integers^n$ (resp.~$\rationals^n$).
+\end{theorem}
 
 
 \marginN{commented out here is the definition of $\kappa$.  We will probably need it.}
@@ -641,11 +651,11 @@ The existence and uniqueness of the cluster scattering diagram is the fundamenta
 \end{definition}
 
 \marginN{We might give the theorem showing cluster monomials in terms of path-ordered products.
-This gives a formula a cluster monomial in terms of any sequence of flips that relates it to an initial cluster monomial, and I'm really curious to see what that formula is.}
+This gives a formula for a cluster monomial in terms of any sequence of flips that relates it to an initial cluster monomial, and I'm really curious to see what that formula is.}
 
 \section{I-beams and rings}
 In this section, we will consider certain subsets of $\S\setminus\M$ that locally look like curves, except that at some points they ``branch.''
-Each set determined a set of laminations, and we will see that the shear coordinates of this set of laminations constitute a codimension-$1$ rational cone.
+Each set determines a set of quasi-laminations, and we will see that the shear coordinates of this set of quasi-laminations constitute a codimension-$1$ rational cone.
 These cones will eventually be the walls of the scattering diagram.
 \marginN{I came to see that my "crossing or uncrossing edges" were NOT really the right thing.  I think the right thing was taggings as we discussed before.  But also trying to do barricades was rapidly getting confusing.  I'm going to try to do the I-beams story with complete proofs.}
 
@@ -662,7 +672,7 @@ Triangulations of $(\S,\M)$ consist of five arcs, but quasi-laminations containi
 \end{example}
 
 \begin{definition}[\emph{Rings}]\label{ring def}
-A \newword{ring} in $(\S,\M)$ is an \emph{honestly} embedded \emph{non-sheilding} closed allowable curve in the sense of Definitions~\ref{allowable def}.
+A \newword{ring} in $(\S,\M)$ is an \emph{honest} \emph{non-sheilding} closed allowable curve in the sense of Definitions~\ref{allowable def}.
 We consider rings up to isotopy equivalence (in $\S\setminus\M$).
 \end{definition}
 
@@ -673,7 +683,7 @@ Let $(\S,\M)$ be a marked surface with triangulation $T$.
 \marginN{Note that we do not have the case of edges connecting self-folded triangles to each other.  Turns out that those are lower-dimensional!}
 An \newword{I-beam} in $(\S,\M)$ is an embedded tree with either $2$ non-leaves or $1$ non-leaf, satisfying conditions and possibly having markings as follows.
 \begin{itemize}
-\item Every edge is embedded honestly.
+\item Every edge is an honest, non-self-intersecting curve.
 \item Embedded edges are disjoint from each other except possibly at shared endpoints and disjoint from $\partial\S$ except possibly at leaves.
 \item Every non-leaf  has degree $3$ and is in the interior of a non-self-folded triangle of~$T$.
 Two sides of the triangle contain leaves connected to this non-leaf.
@@ -693,36 +703,61 @@ Pentagon and/or punctured digon as in Shira's pictures?
 And/or once-punctured triangles with and/or without a self-folded triangle?
 \end{example}
 
-\begin{definition}[\emph{Compatibility of laminations with I-beams and rings}]\label{ibeam compat def}
-An allowable curve $\lambda$ is \newword{compatible} with a given \emph{non-degenerate} I-beam or a ring if and only if there is an \emph{honestly embedded} isotopy representative of $\lambda$ that does not intersect the I-beam/ring.
+Each I-beam or ring, as a set, is a finite union of curves that we will call bars.
 
-In the case of a \emph{degenerate} I-beam, $\lambda$ is again compatible if it satisfies this non-intersection condition, but under special conditions, $\lambda$ can be compatible with the degenerate I-beam even when they intersect.  
+\begin{definition}[\emph{Bars}]\label{bar def}
+A \newword{bar} in $(\S,\M)$ is an \emph{honest} curve $\gamma:[0,1]\to\S$ each of whose endpoints is on an arc of $T$ or a boundary segment of $(\S,\M)$ or is the puncture in a self-folded triangle.
+The \newword{relative interior} of $\gamma$ is the restriction of $\gamma$ to $(0,1)$.  \marginN{Greg:  I'm really starting to appreciate why you wanted to work with barricades.  I have to make the same definitions about bars as for I-beams, rings, etc., so yes, they really should all be special cases of the same thing.  But I got too confused trying to work out what that thing should be.} 
+We consider bars up to isotopy equivalences (in $\S\setminus\M$) that don't change which arc of $T$ contains each endpoint.
+We will be most interested in bars contained in some I-beam or ring.
+
+Following a bar in some direction, we say the bar makes a \newword{right (left) turn} if it enters the interior of a triangle through some side and then exits through the side to the right (turn).
+In particular, a bar with an endpoint at the puncture inside a self-folded triangle makes \emph{both} a right turn \emph{and} a left turn inside that triangle on its way to or from the puncture.
+Reversing the direction that we follow the bar reverses left and right.
+Thus, for example, a bar that starts with a right turn is also a bar that ends with a left turn.
+\end{definition}
+
+
+\begin{definition}[\emph{Blocking of allowable curves by subsets of $\S$}]\label{block def}  \marginN{Since compatibility is going to have something to do with the tagging on the I-beam, I thought we should have a different name for the basic "doesn't intersect" version of compatibility.}
+A subset $U$ of $\S$ is \newword{non-blocking} for an allowable curve $\lambda$ if there is an \emph{honest} isotopy representative of $\lambda$ that does not intersect $U$.
+Otherwise $U$ \newword{blocks} $\lambda$.
+\end{definition}
+
+%\begin{lemma}\label{block lem}
+%Suppose $U$ is a finite union of honest curves in $\S$ and $\lambda$ is an allowable curve.
+%Then $
+%
+%
+%\end{lemma}
+
+
+\begin{definition}[\emph{Compatibility of quasi-laminations with I-beams and rings}]\label{ibeam compat def}
+An allowable curve $\lambda$ is \newword{compatible} with a given \emph{non-degenerate} I-beam or ring $U$ if and only if $U$ is non-blocking for $\lambda$.
+
+In the case of a \emph{degenerate} I-beam $U$, the curve $\lambda$ is again compatible with $U$ if $U$ is non-blocking, but under special conditions, $\lambda$ can be compatible with the degenerate I-beam even when $U$ is blocking.  
 The degenerate leaf is at a puncture inside a self-folded triangle that is in turn inside a once-punctured digon.  \marginN{Gonna need pictures here.}
 The fold edge and the degenerate edge cut the digon into two pieces.
 (Possibly the entire I-beam is inside the digon, in which case, the fold edge and the I-beam cut the digon into three pieces, one of which we can ignore.)
-If the degenerate edge is tagged plain and some honestly embedded representative of $\lambda$ spirals clockwise into the puncture (but otherwise doesn't intersect the I-beam), the $\lambda$ is compatible with the I-beam if and only if it enters the digon on the right (from the perspective of someone walking along the fold edge and then the degenerate edge).
+If the degenerate edge is tagged plain and some honest isotopy representative of $\lambda$ spirals clockwise into the puncture (but otherwise doesn't intersect the I-beam), then $\lambda$ is compatible with the I-beam if and only if it enters the digon on the right (from the perspective of someone walking along the fold edge and then the degenerate edge).
 If instead $\lambda$ spirals counterclockwise, then the compatibility condition is that $\lambda$ must enter from the left.
 If the degenerate edge is tagged notched, then the compatibility conditions are reversed.
 (Compatibility occurs for a counterclockwise spiral entering from the right or a clockwise spiral entering from the left.)
 
-A lamination is \newword{compatible} with an I-beam or ring if and only if every curve in the lamination is compatible with the I-beam/ring.
+A quasi-lamination is \newword{compatible} with an I-beam or ring if and only if every curve in the quasi-lamination is compatible with the I-beam/ring.
 \end{definition}
 
+The bars in the I-beam or ring determine inequalities on the shear coordinates of compatible quasi-laminations as follows.
 
-\begin{definition}[\emph{Bars}]\label{bar def}
-A \newword{bar} in $(\S,\M)$ is an \emph{honestly} embedded curve $\gamma$ in $\S$ each of whose endpoints is on an arc of $T$ or a boundary segment of $(\S,\M)$ or is the puncture in a self-folded triangle.
-The \newword{relative interior} of a bar is the bar minus its endpoints.  \marginN{Greg:  I'm really starting to appreciate why you wanted to work with barricades.  I have to make the same definitions about bars as for I-beams, rings, etc., so yes, they really should all be special cases of the same thing.  But I got too confused trying to work out what that thing should be.} 
-We consider bars up to isotopy equivalences (in $\S\setminus\M$) that don't change which arc of $T$ contains each endpoint.
-
-Following a bar in some direction, we say the bar makes a \newword{right (left) turn} if it enters the interior of a triangle through some side and then exits through the side to the right (turn).
-In particular, a bar with an endpoint at the puncture inside a self-folded triangle makes \emph{both} a right turn \emph{and} a left turn inside that triangle on its way to or from the puncture.
-\end{definition}
-
-Each I-beam or ring, as a set, is a finite union of bars.
-The bars in the I-beam or ring determine inequalities on the shear coordinates of compatible laminations as follows.
-
-\begin{prop}\label{prop: inequalities}
+\begin{prop}\label{prop: ineqs}
 Given an I-beam or ring $U$, tagged plain if it is degenerate, a quasi-lamination $L$ is compatible with $U$ if and only if the following inequalities hold.
+%\begin{itemize}
+%\item For each bar $B$ in $U$ that begins with a right turn and ends with a left turn,
+%\begin{equation}\label{rt lft ineq} b_{\alpha_1}(T,L) + b_{\alpha_2}(T,L) + ... + b_{\alpha_k}(T,L) \geq 0,\end{equation}
+%where $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the relative interior of~$B$.
+%\item For each bar $B$ in $U$ that begins with a left turn and ends with a right turn,
+%\begin{equation}\label{lft rt ineq} b_{\alpha_1}(T,L) + b_{\alpha_2}(T,L) + ... + b_{\alpha_k}(T,L) \leq 0,\end{equation}
+%where $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the relative interior of~$B$.
+%\end{itemize}
 \begin{itemize}
 \item For each bar $B$ in $U$ that begins with a right turn and ends with a left turn,
 \[ b_{\alpha_1}(T,L) + b_{\alpha_2}(T,L) + ... + b_{\alpha_k}(T,L) \geq 0,\]
@@ -732,45 +767,113 @@ where $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the 
 where $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the relative interior of~$B$.
 \end{itemize}
 In particular, 
+%\begin{equation}\label{sum eq} b_{\alpha_1}(T,L) + b_{\alpha_2}(T,L) + ... + b_{\alpha_k}(T,L) =0,\end{equation}
 \[ b_{\alpha_1}(T,L) + b_{\alpha_2}(T,L) + ... + b_{\alpha_k}(T,L) =0,\]
 where $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the relative interior of~$U$.
 
 Suppose $B$ is a degenerate I-beam tagged notched, suppose $\alpha$ and $\alpha'$ are the two edges of the self-folded triangle containing the degenerate leaf of $B$, and suppose $L'$ is the quasi-lamination obtained from $L$ by reversing all spiral directions at the degenerate leaf. 
 Then $L$ is compatible with $U$ if and only if the above (in)equalities hold with $L$ replaced by $L'$ and swapping $\alpha$ and $\alpha'$ throughout.
 \end{prop}
+The sequence $\alpha_1, \alpha_2,\ldots,\alpha_k$, each time it appears in the statement of Proposition~\ref{prop: ineqs}, may contain the same arc more that once.
 
-To help with the main case of the proof, we prove the following lemma.
-We extend the definition to say that an allowable curve $\lambda$ is compatible with a bar if and only if there is an honestly embedded isotopy representative of $\lambda$ that does not intersect the bar.
+The main case of the proof of Proposition~\ref{prop: ineqs} amounts to the following two lemmas.
 
-
-
-\begin{lemma}\label{helps}
+\begin{lemma}\label{nb bars}
 Suppose $U$ is a ring or a non-degenerate I-beam and $\lambda$ is an allowable curve.
-Then $\lambda$ is compatible with $U$ if and only if $\lambda$ is compatible with every bar contained in $U$.
+Then the following are equivalent.
+\begin{enumerate}[(i)]
+\item \label{U nb}
+$U$ is non-blocking for $\lambda$.
+\item \label{bar nb}
+Every bar contained in $U$ is non-blocking for $\lambda$.
+\item \label{special bar nb}
+Every bar contained in $U$ that begins with a right turn and ends with a left turn or begins with a left turn and ends with a right turn is non-blocking for~$\lambda$.
+\end{enumerate}
 \end{lemma}
 \begin{proof}
-Since $U$ is a ring or a non-degenerate I-beam, compatibility of $\lambda$ with $U$ means that $\lambda$ admits an honest embedding that does not intersect $U$.
-In particular, one direction is immediate.
+It is immediate that \eqref{U nb}$\implies$\eqref{bar nb}$\implies$\eqref{special bar nb}.
+Suppose $U$ is blocking for $\lambda$.
+We may as well assume that $\lambda$ is honest, so that it intersects $U$, and furthermore, we take an intersection $p$ that can't be removed by passing to a different honest isotopy representative of $\lambda$.
+From $p$, in each direction, $\lambda$ from passes from triangle to triangle (stopping when and if it hits the boundary of $\S$).
+Following $U$ from $p$, for a while $U$ passes through the same triangles, until it passes into a different triangle than $\lambda$ or until a degree-$3$ vertex is reached and $U$ continues to no further triangles.
+In either case, in each direction there is a part of $U$ that leaves the interior of a triangle from a different side than $\lambda$ does.
+The bar in $U$ connecting these two exit points from interiors of triangles is blocking and either starts with a left turn and ends with a right turn or vice versa, because otherwise, we could pass to an isotopy representative of $\lambda$ that removes the intersection.
+\marginN{I think I need to improve the explanation and add a picture}
+Supposing that \eqref{U nb} fails, we have contradicted \eqref{special bar nb}.  %, and thus proved that \eqref{special bar nb}$\implies$\eqref{U nb}.
+\end{proof}
 
-Suppose $\lambda$ is compatible with every bar contained in $U$.
+\begin{lemma}\label{bar ineq}
+Suppose $B$ is a bar, suppose $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the relative interior of~$B$, and suppose $\lambda$ is an allowable curve.
+\begin{enumerate}[\qquad1.]
+\item If $B$ begins with a right turn and ends with a left turn, then $B$ is non-blocking for $\lambda$ if and only if $b_{\alpha_1}(T,\lambda) + b_{\alpha_2}(T,\lambda) + ... + b_{\alpha_k}(T,\lambda) \geq 0$.
+\item If $B$ begins with a left turn and ends with a right turn, then $B$ is non-blocking for $\lambda$ if and only if $b_{\alpha_1}(T,\lambda) + b_{\alpha_2}(T,\lambda) + ... + b_{\alpha_k}(T,\lambda) \leq 0$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+We argue the first assertion.  
+The second assertion is symmetric by a reversal of orientation of $\S$.
+Suppose $B$ is a bar as in the first assertion.
+Consider the sequence of triangles whose interiors $B$ passes through, as shown in Figure~\ref{tri seq}.
+\begin{figure}
+NEED THIS.
+\caption{The triangles crossed by $B$}
+\label{tri seq}
+\end{figure}
+The triangles shown may not be distinct.
 
-
-
+FINISH THIS!!
 \end{proof}
 
 
 
-
-\begin{proof}[Proof of Proposition~\ref{prop: inequalities}]
+\begin{proof}[Proof of Proposition~\ref{prop: ineqs}]
 First, suppose $U$ is a ring or a non-degenerate I-beam.
+Then Lemmas~\ref{nb bars} and~\ref{bar ineq} combine to show that $L$ is compatible with $U$ if and only if the inequalities in Proposition~\ref{prop: ineqs} hold.
 
+In the case where $U$ is a non-degenerate I-beam, $U$ is a union of two bars, one starting with a right turn and ending with a left turn, the other starting with a left turn and ending with a right turn.
+The set of arcs of $T$ intersecting the relative interior of each of the two bars equals the set of arcs of $T$ intersecting the relative interior of $U$, and the equality in Proposition~\ref{prop: ineqs} follows.
+
+In the case where $U$ is a ring, we first point out that there is a bar $B$ in $U$ that starts with a right turn and ends with a left turn.
+(If all turns are in the same direction, then $U$ is contractible in $\S\setminus\M$ to a puncture.)
+We can choose $B$ so that it traces less than a complete turn through $U$.
+Let $\alpha_1,\ldots,\alpha_\ell$ be the sequence of arcs of $T$ crossed by the relative interior of $B$.
+Then $\sum_{i=1}^\ell b_{\alpha_i}(T,\lambda)\geq 0$.
+Let $\gamma_1,\ldots,\gamma_m$ be such that $\alpha_1,\ldots,\alpha_\ell,\gamma_1,\ldots,\gamma_m$ is the full sequence of arcs crossed by the ring $U$.
+For any $k\ge0$, we can make a bar $B_k$ from $B$ by inserting $k$ circuits of the ring $U$ in the middle of $B$, and we conclude that $(k+1)\sum_{i=1}^\ell b_{\alpha_i}(T,\lambda)+k\sum_{i=1}^m b_{\alpha_i}(T,\lambda)\geq 0$.
+Since this is true for arbitrarily large $k$, we conclude that $\sum_{i=1}^\ell b_{\alpha_i}(T,\lambda)+\sum_{i=1}^m b_{\alpha_i}(T,\lambda)\geq 0$.
+On the other hand, there is a bar $B'$ starting with a left turn and ending with a right turn such that $\gamma_m,\ldots,\gamma_1$ is the sequence of arcs intersected by the relative interior of $B'$.
+(This bar starts by passing through the tame triangle that $B$ starts with, but in the other direction, and traces along $U$ in the opposite direction.)
+Arguing as above, we see that $\sum_{i=1}^\ell b_{\alpha_i}(T,\lambda)+\sum_{i=1}^m b_{\alpha_i}(T,\lambda)\leq 0$ as well, so this sum equals $0$.
 
 Next, assume $U$ is a plain-tagged, degenerate I-beam.
-
+We will recast compatibility with $U$ in a way that looks more like (but not exactly like) the non-degenerate case.
+We replace the degenerate leaf of $U$ with a new vertex in the interior of the self-folded triangle, connected to two leaves on the fold edge by edges approaching the fold edge from both sides, as shown in Figure~\ref{degen recast}, obtaining a subset $U'$ of $\S$.
+\begin{figure}
+NEED THIS.
+\caption{Recasting compatibility with a degenerate I-beam}
+\label{degen recast}
+\end{figure}
+It is not true (for any fixed choice of $U'$) that an allowable curve $\lambda$ is compatible with $U$ if and only if $U'$ is non-blocking for $\lambda$.
+However, $U'$ is a union of two bars, one starting with a right turn and ending with a left turn, the other starting with a left turn and ending with a right turn, and $\lambda$ is compatible with $U$ if and only if each bar is non-blocking for $\lambda$.
+The proof of the proposition follows exactly as in that case.
 
 Finally, we need not argue separately for degenerate I-beams tagged notched, because the assertion follows immediately from the plain-tagged case by the symmetry in the definition of shear coordinates and compatibility.
 \end{proof}
 
+Given an I-beam or ring $U$, we define $\Wall(U)$ to be the closure of the set
+\[\settt{\sum_{\gamma\in T}b_\gamma(T,L)\gamma^*:\,L\text{ is a quasi-lamination compatible with }U}\subset V^*.\]
+
+\begin{prop}\label{wall dim}
+For any ring or I-beam $U$, the set $\Wall(U)$ is a codimension-$1$ polyhedral cone with normal vector $\sum_{i=1}^k\alpha_i$ where $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the relative interior of~$U$, given by the rational inequalities described in Proposition~\ref{prop: ineqs}.
+\end{prop}
+\begin{proof}
+By Theorem~\ref{q-lam bij}, we see that $\Wall(U)$ is a polyhedral cone given by the equality and inequalities described in Proposition~\ref{prop: ineqs}.
+In particular, $\Wall(U)$ has the desired normal vector and it remains only to check that the codimension of $\Wall(U)$ is not larger than $1$.
+
+DO THAT!
+
+
+\end{proof}
 
 
 \newpage
