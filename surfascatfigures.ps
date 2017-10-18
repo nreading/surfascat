@@ -17,14 +17,20 @@
 /nucolor {.2 .6 .2 setrgbcolor} def
 /mucolor {0 0 1 setrgbcolor} def
 /taucolor {0.7 0 0 setrgbcolor} def
+/bcolor {1 1 0 setrgbcolor} def
 
-% controling the dashing of nu.  Change the 3.5 (length of dashes)
+
+
+
+% controling the dashing.  Change the 3.5 (length of dashes)
 % and the 1.5 (length of spaces between dashes.
 % commented out below is a command to make the lines solid, not dashed.
 /nudash {[3.5 sf div 1.5 sf div] 0 setdash} def
 /mudash {[3.5 sf div 1.5 sf div] 0 setdash} def
 /taudash {[3.5 sf div 1.5 sf div] 0 setdash} def
-%/nudash {[] 0 setdash} def
+/bdash {[2.5 sf div 2.5 sf div] 0 setdash} def
+
+
 
 % radius of dots at marked points.
 /markedpointsize
@@ -49,12 +55,15 @@ def
 /redstroke {[] 0 setdash 1 setlinecap 1.2 sf div setlinewidth red stroke} def
 /bluestroke {[] 0 setdash 1 setlinecap 1.2 sf div setlinewidth blue stroke} def
 /graystroke {[] 0 setdash 1 setlinecap 1.2 sf div setlinewidth gray stroke} def
+/blackstroke {[] 0 setdash 1 setlinecap 1.2 sf div setlinewidth 0 setgray stroke} def
 /boundaryfill {boundarygray fill} def
 /lambdastroke {1 setlinecap .75 sf div setlinewidth [] 0 setdash lambdacolor stroke} def
 /nustroke {0 setlinecap 0.9 sf div setlinewidth nudash nucolor stroke} def
 /mustroke {0 setlinecap 0.9 sf div setlinewidth mudash mucolor stroke} def
 /taustroke {0 setlinecap 0.9 sf div setlinewidth taudash taucolor stroke} def
 /boundarystroke {1 setlinecap .5 sf div setlinewidth [] 0 setdash 0 setgray stroke} def
+
+/bstroke {1.5 sf div setlinewidth gsave blackstroke grestore 0 setlinecap 2 sf div setlinewidth bdash bcolor stroke } def
 
 /lightgrayfill {lightgray fill} def
 
