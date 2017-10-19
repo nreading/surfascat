@@ -28,7 +28,7 @@
 /nudash {[3.5 sf div 1.5 sf div] 0 setdash} def
 /mudash {[3.5 sf div 1.5 sf div] 0 setdash} def
 /taudash {[3.5 sf div 1.5 sf div] 0 setdash} def
-/bdash {[2.5 sf div 2.5 sf div] 0 setdash} def
+/bdash {[3.5 sf div 3.5 sf div] 1 setdash} def
 
 
 
@@ -63,7 +63,7 @@ def
 /taustroke {0 setlinecap 0.9 sf div setlinewidth taudash taucolor stroke} def
 /boundarystroke {1 setlinecap .5 sf div setlinewidth [] 0 setdash 0 setgray stroke} def
 
-/bstroke {1.5 sf div setlinewidth gsave blackstroke grestore 0 setlinecap 2 sf div setlinewidth bdash bcolor stroke } def
+/bstroke {2 sf div setlinewidth gsave 0 setlinecap 0 setgray stroke grestore 0 setlinecap 2.5 sf div setlinewidth bdash bcolor stroke } def
 
 /lightgrayfill {lightgray fill} def
 

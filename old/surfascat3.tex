@@ -753,14 +753,6 @@ We will prove the following theorem.
 
 \begin{theorem}\label{wall thm}
 For any ring or I-beam $U$, the set $\Wall(U)$ is a codimension-$1$ polyhedral cone with normal vector $\sum_{i=1}^k\alpha_i$ where $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the relative interior of~$U$, given by the following rational inequalities:
-%\begin{itemize}
-%\item For each bar $B$ in $U$ that begins with a right turn and ends with a left turn,
-%\begin{equation}\label{rt lft ineq} b_{\alpha_1}(T,L) + b_{\alpha_2}(T,L) + ... + b_{\alpha_k}(T,L) \geq 0,\end{equation}
-%where $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the relative interior of~$B$.
-%\item For each bar $B$ in $U$ that begins with a left turn and ends with a right turn,
-%\begin{equation}\label{lft rt ineq} b_{\alpha_1}(T,L) + b_{\alpha_2}(T,L) + ... + b_{\alpha_k}(T,L) \leq 0,\end{equation}
-%where $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the relative interior of~$B$.
-%\end{itemize}
 \begin{itemize}
 \item For each bar $B$ in $U$ that begins with a right turn and ends with a left turn,
 \[ b_{\alpha_1}(T,L) + b_{\alpha_2}(T,L) + ... + b_{\alpha_k}(T,L) \geq 0,\]
@@ -770,7 +762,6 @@ where $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the 
 where $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the relative interior of~$B$.
 \end{itemize}
 \end{theorem}
-The sequence $\alpha_1, \alpha_2,\ldots,\alpha_k$, each time it appears in the statement of Theorem~\ref{wall thm}, may contain the same arc more that once.
 
 Most of the proof of Theorem~\ref{wall thm} is accomplished by the following three lemmas.
 
@@ -832,32 +823,68 @@ The $\lambda$ either continues parallel to $B$ for the entire length of $B$ or t
 Since $B$ ends with a left turn, at some point, $\lambda$ turns right through a triangle then left through a triangle.
 The first time this happens after $\lambda$ leaves $t_1$, it picks up a positive contribution to $\sum_{i=1}^kb_{\alpha_i}(T,\lambda)$ that cancels the negative contribution.  
 
-On the other hand, suppose $\lambda$ is an allowable curve such that every honest isotopy representative of $\lambda$ intersects $B$.
-
-
-
-FINISH THIS!
+NEED CONVERSE!!
 \end{proof}
 
 \begin{lemma}\label{codim lemma}
 If $U$ is a ring or I-beam, then $\Wall(U)$ contains a cone of codimension $1$.
 \end{lemma}
 \begin{proof}
-NEED THIS!
+
 \end{proof}
 
 
 
 
 \begin{proof}[Proof of Theorem~\ref{wall thm}]
-We first show that a lamination $L$ has $\sum_{\gamma\in T}b_\gamma(T,L)\gamma^*\in\Wall(U)$ if and only if $\sum_{\gamma\in T}b_\gamma(T,L)\gamma^*$ satisfies the given inequalities and is normal to the given vector.
+By Theorem~\ref{q-lam bij}, we see that $\Wall(U)$ is a polyhedral cone given by the equality and inequalities described in Proposition~\ref{prop: ineqs}.
+In particular, $\Wall(U)$ has the desired normal vector and it remains only to check that the codimension of $\Wall(U)$ is not larger than $1$.
 
+DO THAT!
+
+
+\end{proof}
+
+
+
+
+The bars in the I-beam or ring determine inequalities on the shear coordinates of compatible quasi-laminations as follows.
+
+\begin{prop}\label{prop: ineqs}
+Given an I-beam or ring $U$, tagged plain if it is degenerate, a quasi-lamination $L$ is compatible with $U$ if and only if the following inequalities hold.
+%\begin{itemize}
+%\item For each bar $B$ in $U$ that begins with a right turn and ends with a left turn,
+%\begin{equation}\label{rt lft ineq} b_{\alpha_1}(T,L) + b_{\alpha_2}(T,L) + ... + b_{\alpha_k}(T,L) \geq 0,\end{equation}
+%where $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the relative interior of~$B$.
+%\item For each bar $B$ in $U$ that begins with a left turn and ends with a right turn,
+%\begin{equation}\label{lft rt ineq} b_{\alpha_1}(T,L) + b_{\alpha_2}(T,L) + ... + b_{\alpha_k}(T,L) \leq 0,\end{equation}
+%where $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the relative interior of~$B$.
+%\end{itemize}
+\begin{itemize}
+\item For each bar $B$ in $U$ that begins with a right turn and ends with a left turn,
+\[ b_{\alpha_1}(T,L) + b_{\alpha_2}(T,L) + ... + b_{\alpha_k}(T,L) \geq 0,\]
+where $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the relative interior of~$B$.
+\item For each bar $B$ in $U$ that begins with a left turn and ends with a right turn,
+\[ b_{\alpha_1}(T,L) + b_{\alpha_2}(T,L) + ... + b_{\alpha_k}(T,L) \leq 0,\]
+where $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the relative interior of~$B$.
+\end{itemize}
+In particular, 
+%\begin{equation}\label{sum eq} b_{\alpha_1}(T,L) + b_{\alpha_2}(T,L) + ... + b_{\alpha_k}(T,L) =0,\end{equation}
+\[ b_{\alpha_1}(T,L) + b_{\alpha_2}(T,L) + ... + b_{\alpha_k}(T,L) =0,\]
+where $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the relative interior of~$U$.
+
+Suppose $B$ is a degenerate I-beam tagged notched, suppose $\alpha$ and $\alpha'$ are the two edges of the self-folded triangle containing the degenerate leaf of $B$, and suppose $L'$ is the quasi-lamination obtained from $L$ by reversing all spiral directions at the degenerate leaf. 
+Then $L$ is compatible with $U$ if and only if the above (in)equalities hold with $L$ replaced by $L'$ and swapping $\alpha$ and $\alpha'$ throughout.
+\end{prop}
+The sequence $\alpha_1, \alpha_2,\ldots,\alpha_k$, each time it appears in the statement of Proposition~\ref{prop: ineqs}, may contain the same arc more that once.
+
+
+\begin{proof}[Proof of Proposition~\ref{prop: ineqs}]
 First, suppose $U$ is a ring or a non-degenerate I-beam.
-Then Lemmas~\ref{nb bars} and~\ref{bar ineq} combine to show that a quasi-lamination $L$ is compatible with $U$ if and only if the given inequalities hold.
-We now show that the inequalities imply that $\Wall(U)$ is normal to the given vector.
+Then Lemmas~\ref{nb bars} and~\ref{bar ineq} combine to show that $L$ is compatible with $U$ if and only if the inequalities in Proposition~\ref{prop: ineqs} hold.
 
 In the case where $U$ is a non-degenerate I-beam, $U$ is a union of two bars, one starting with a right turn and ending with a left turn, the other starting with a left turn and ending with a right turn.
-The set of arcs of $T$ intersecting the relative interior of each of the two bars equals the set of arcs of $T$ intersecting the relative interior of $U$, and it follows that the given vector is normal to $\Wall(U)$.
+The set of arcs of $T$ intersecting the relative interior of each of the two bars equals the set of arcs of $T$ intersecting the relative interior of $U$, and the equality in Proposition~\ref{prop: ineqs} follows.
 
 In the case where $U$ is a ring, we first point out that there is a bar $B$ in $U$ that starts with a right turn and ends with a left turn.
 (If all turns are in the same direction, then $U$ is contractible in $\S\setminus\M$ to a puncture.)
@@ -869,7 +896,7 @@ For any $k\ge0$, we can make a bar $B_k$ from $B$ by inserting $k$ circuits of t
 Since this is true for arbitrarily large $k$, we conclude that $\sum_{i=1}^\ell b_{\alpha_i}(T,\lambda)+\sum_{i=1}^m b_{\alpha_i}(T,\lambda)\geq 0$.
 On the other hand, there is a bar $B'$ starting with a left turn and ending with a right turn such that $\gamma_m,\ldots,\gamma_1$ is the sequence of arcs intersected by the relative interior of $B'$.
 (This bar starts by passing through the tame triangle that $B$ starts with, but in the other direction, and traces along $U$ in the opposite direction.)
-Arguing as above, we see that $\sum_{i=1}^\ell b_{\alpha_i}(T,\lambda)+\sum_{i=1}^m b_{\alpha_i}(T,\lambda)\leq 0$ as well, so this sum equals $0$, and we have verified that the given vector is normal.
+Arguing as above, we see that $\sum_{i=1}^\ell b_{\alpha_i}(T,\lambda)+\sum_{i=1}^m b_{\alpha_i}(T,\lambda)\leq 0$ as well, so this sum equals $0$.
 
 Next, assume $U$ is a plain-tagged, degenerate I-beam.
 We will recast compatibility with $U$ in a way that looks more like (but not exactly like) the non-degenerate case.
@@ -883,10 +910,7 @@ It is not true (for any fixed choice of $U'$) that an allowable curve $\lambda$ 
 However, $U'$ is a union of two bars, one starting with a right turn and ending with a left turn, the other starting with a left turn and ending with a right turn, and $\lambda$ is compatible with $U$ if and only if each bar is non-blocking for $\lambda$.
 The proof of the proposition follows exactly as in that case.
 
-We need not argue separately for degenerate I-beams tagged notched, because the assertion follows immediately from the plain-tagged case by the symmetry in the definition of shear coordinates and compatibility.
-
-Theorem~\ref{q-lam bij} now implies that $\Wall(U)$ contains all rational points is a polyhedral cone defined by the given normal vector and inequalities.
-Thus $\Wall(U)$ is a polyhedral cone defined by the given normal vector and inequalities, and Lemma~\ref{codim lemma} implies that $\Wall(U)$ has codimension $1$.
+Finally, we need not argue separately for degenerate I-beams tagged notched, because the assertion follows immediately from the plain-tagged case by the symmetry in the definition of shear coordinates and compatibility.
 \end{proof}
 
 \newpage
