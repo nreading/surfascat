@@ -386,6 +386,13 @@ A \newword{(rational) quasi-lamination} $L$ in $(\S,\M)$ is a collection of pair
 A \newword{multi-lamination} is a finite collection $\L$ of quasi-laminations.
 \end{definition}
 
+The following is essentially part of \cite[Theorem~7.9]{cats1}.  \marginN{If we define $\kappa$, perhaps we do this differently.}
+(That theorem contains a statement about tagged triangulations that is converted to the following statement by a bijection between tagged arcs and non-closed allowable curves defined in \cite[Definition~17.2]{cats2} or a different bijection defined in \cite[Section~5.1]{unisurface}.)
+
+\begin{theorem}\label{card thm}
+Every maximal set of non-closed allowable curves has cardinality $|T|$.
+\end{theorem}
+
 \begin{definition}[\emph{Honest curve}]\label{honest def}  
 Given $(\S,\M)$ and a triangulation $T$, a (closed or non closed) curve in $\S$ is \newword{honest} if: \marginN{I like this term, but am not married to it.  If you hate it we can change it.}
 \begin{itemize}
@@ -653,7 +660,7 @@ The existence and uniqueness of the cluster scattering diagram is the fundamenta
 \marginN{We might give the theorem showing cluster monomials in terms of path-ordered products.
 This gives a formula for a cluster monomial in terms of any sequence of flips that relates it to an initial cluster monomial, and I'm really curious to see what that formula is.}
 
-\section{I-beams and rings}
+\section{Walls}
 In this section, we will consider certain subsets of $\S\setminus\M$ that locally look like curves, except that at some points they ``branch.''
 Each set determines a set of quasi-laminations, and we will see that the shear coordinates of this set of quasi-laminations constitute a codimension-$1$ rational cone.
 These cones will eventually be the walls of the scattering diagram.
@@ -798,25 +805,27 @@ The bar in $U$ connecting these two exit points from interiors of triangles is b
 Supposing that \eqref{U nb} fails, we have contradicted \eqref{special bar nb}.  %, and thus proved that \eqref{special bar nb}$\implies$\eqref{U nb}.
 \end{proof}
 
-\begin{lemma}\label{bar ineq}
-Suppose $B$ is a bar, suppose $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the relative interior of~$B$, and suppose $\lambda$ is an allowable curve.
-\begin{enumerate}[\qquad1.]
-\item If $B$ begins with a right turn and ends with a left turn, then $B$ is non-blocking for $\lambda$ if and only if $b_{\alpha_1}(T,\lambda) + b_{\alpha_2}(T,\lambda) + ... + b_{\alpha_k}(T,\lambda) \geq 0$.
-\item If $B$ begins with a left turn and ends with a right turn, then $B$ is non-blocking for $\lambda$ if and only if $b_{\alpha_1}(T,\lambda) + b_{\alpha_2}(T,\lambda) + ... + b_{\alpha_k}(T,\lambda) \leq 0$.
-\end{enumerate}
-\end{lemma}
 %\begin{lemma}\label{bar ineq}
-%Suppose $B$ is a bar, suppose $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the relative interior of~$B$, and suppose $\lambda$ is an allowable curve such that $B$ is non-blocking for $\lambda$.
-%\begin{enumerate}[\quad1.]
-%\item If $B$ begins with a right turn and ends with a left turn, then ${\sum_{i=1}^kb_{\alpha_i}(T,\lambda)\ge0}$.
-%\item If $B$ begins with a left turn and ends with a right turn, then ${\sum_{i=1}^kb_{\alpha_i}(T,\lambda)\le0}$.
+%Suppose $B$ is a bar, suppose $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the relative interior of~$B$, and suppose $\lambda$ is an allowable curve.
+%\begin{enumerate}[\qquad1.]
+%\item If $B$ begins with a right turn and ends with a left turn, then $B$ is non-blocking for $\lambda$ if and only if $b_{\alpha_1}(T,\lambda) + b_{\alpha_2}(T,\lambda) + ... + b_{\alpha_k}(T,\lambda) \geq 0$.
+%\item If $B$ begins with a left turn and ends with a right turn, then $B$ is non-blocking for $\lambda$ if and only if $b_{\alpha_1}(T,\lambda) + b_{\alpha_2}(T,\lambda) + ... + b_{\alpha_k}(T,\lambda) \leq 0$.
 %\end{enumerate}
 %\end{lemma}
+\begin{lemma}\label{bar ineq}
+Suppose $B$ is a bar, suppose $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the relative interior of~$B$, and suppose $\lambda$ is an allowable curve.
+If $B$ is non-blocking for $\lambda$, then:
+\begin{enumerate}[\quad\rm(1)]
+\item If $B$ begins with a right turn and ends with a left turn, then ${\sum_{i=1}^kb_{\alpha_i}(T,\lambda)\ge0}$.
+\item If $B$ begins with a left turn and ends with a right turn, then ${\sum_{i=1}^kb_{\alpha_i}(T,\lambda)\le0}$.
+\end{enumerate}\marginN{Notice that the if and only if statement doesn't work exactly, but that something good enough does work.}
+If $B$ blocks $\lambda$, then there is a bar $B'$ contained in $B$ such that $B'$ and $\lambda$ violate $(1)$ or $(2)$.
+\end{lemma}
 \begin{proof}
-We argue the first assertion.  
-The second assertion is symmetric by a reversal of orientation of $\S$.
-Suppose $B$ is a bar as in the first assertion.
-Consider the sequence of triangles whose interiors $B$ passes through, as shown in Figure~\ref{tri seq}.
+Suppose $B$ is non-blocking for $\lambda$.
+We argue assertion (1);  assertion (2) is symmetric by a reversal of orientation of $\S$.
+
+Suppose $B$ begins with a right turn and ends with a left turn, and consider the sequence of triangles whose interiors $B$ passes through, as shown in Figure~\ref{tri seq}.
 \begin{figure}
 \scalebox{0.7}{\includegraphics{triseq}}
 \caption{The triangles crossed by $B$}
@@ -824,26 +833,74 @@ Consider the sequence of triangles whose interiors $B$ passes through, as shown 
 \end{figure}
 The triangles shown may not be distinct.
 
-%Suppose $\lambda$ is an allowable curve with $b_{\alpha_1}(T,\lambda) + b_{\alpha_2}(T,\lambda) + ... + b_{\alpha_k}(T,\lambda)<0$.
-Suppose $\lambda$ is an honest allowable curve that does not intersect $B$.
-Then $\lambda$ can only pick up a negative contribution to $\sum_{i=1}^kb_{\alpha_i}(T,\lambda)$ by moving parallel to $B$ through two triangles where $B$ has a left turn and then a right turn.
-Following $\lambda$ with $B$ to the right of $\lambda$, we call these two triangles $t_1$ and $t_2$.  
-The $\lambda$ either continues parallel to $B$ for the entire length of $B$ or turns left to stop going parallel to $B$.
-Since $B$ ends with a left turn, at some point, $\lambda$ turns right through a triangle then left through a triangle.
-The first time this happens after $\lambda$ leaves $t_1$, it picks up a positive contribution to $\sum_{i=1}^kb_{\alpha_i}(T,\lambda)$ that cancels the negative contribution.  
+We can assume that $\lambda$ is honest and that it does not intersect $B$.
+Consider the how $\lambda$ passes through the triangles that intersect $B$, and in particular whether $\lambda$ turns right or left in each triangle.
+We see that $\lambda$ picks up a positive contribution to $\sum_{i=1}^kb_{\alpha_i}(T,\lambda)$ exactly when it has a right turn immediately followed by a left turn.
+Similarly, $\lambda$ picks up a negative contribution exactly when it has a left turn and then immediately a right turn.
+Following $\lambda$ in the direction that keeps $B$ to the right of $\lambda$, we see that the first turn that $\lambda$ makes as it passes through the sequence of triangles can be right or left, but the last turn must be left (because $B$ begins with a right turn and ends with a left turn).
+We conclude that the total contribution (for each pass through the triangles) is $0$ or $1$, and assertion (1) follows.
 
 On the other hand, suppose $\lambda$ is an allowable curve such that every honest isotopy representative of $\lambda$ intersects $B$.
-
-
-
-FINISH THIS!
+Then $\lambda$ enters a triangle crossed by $B$ and passes through some other triangles crossed by $B$, intersecting $B$ (unavoidably) at some point, and finally leaves the sequence of triangles crossed by $B$.
+Let $B'$ be the restriction of $B$ to the sequence of triangles that $\lambda$ passes through. 
+The curve $\lambda$ itself must either begin with a left turn and end with a right turn or vice-versa. 
+Up to symmetry, we may as well assume that it begins left and ends right.
+Since the intersection of $\lambda$ with $B$ was unavoidable for honest isotopy representatives of $\lambda$, we conclude that $B'$ begins with a right turn and ends with a left turn.
+Let $\alpha'_1, \alpha'_2,\ldots,\alpha'_\ell$ be the sequence of arcs in $T$ intersecting the relative interior of~$B'$.
+Analyzing the contributions to $\sum_{i=1}^\ell b_{\alpha'_i}(T,\lambda)$ as above, since $\lambda$ begins with a left turn and ends with a right turn, we see that the total contribution is $-1$, violating assertion (1) for $B'$ and $\lambda$.
 \end{proof}
 
 \begin{lemma}\label{codim lemma}
 If $U$ is a ring or I-beam, then $\Wall(U)$ contains a cone of codimension $1$.
 \end{lemma}
-\begin{proof}
-NEED THIS!
+\begin{proof}  
+In light of Theorem~\ref{q-lam bij}, we need only find a set of $|T|-1$ pairwise compatible allowable curves that are compatible with $U$.
+
+\marginN{If we end up talking about tagged arcs and defining $\kappa$, we should use $\kappa$ to simplify this by just constructing triangulations.}
+First, suppose $U$ is an I-beam.
+For this proof, we use the term \newword{extreme point} to refer a marked point that either is the intersection of two edges containing leaves that are connected to the same degree-$3$ vertex of $U$ or is a degenerate leaf of $U$.
+If both extreme points are on the boundary of $\S$, then in particular $U$ is non-degenerate, so it is the union of two bars, each of which starts and ends with a right turn (or starts and ends with a left turn, depending on which direction we traverse the bar).
+We extend both bars to allowable curves $\lambda_1$ and $\lambda_2$:  
+At each end, if we turned right to end the bar, we extend by turning left repeatedly until we reach the boundary, and if we turned left, we extend by turning right repeatedly.  \marginN{I guess we need pictures}
+The two resulting allowable curves are compatible.  
+We can also construct a third allowable curve (that we will call $\lambda_3$) between the two and compatible with both, by starting with one of the two maximal bars in $U$ that starts with a left turn and ends with a right turn, and extending in the same way.  
+The triple $\set{\lambda_1,\lambda_2,\lambda_3}$ is part of a maximal collection of pairwise compatible non-closed allowable curves, which, by Theorem~\ref{card thm}, has cardinality $|T|$.
+No curve in this larger collection, aside from $\lambda_3$, is between $\lambda_1$ and $\lambda_2$, so $|T|-1$ of them (all but $\lambda_3$) are compatible with $U$.
+
+Every case of this proof is similar, and we briefly discuss each.
+If exactly one of the extreme points of $U$ is on the boundary of $\S$, then we construct an allowable curve $\lambda_1$ as follows:
+We extend $U$ near the extreme point on the boundary just as we extended in the previous case. 
+In the other direction from this extension, we follow $U$ around the extreme point that is not on the boundary and then extend the other branch to the boundary.  \marginN{again, need pictures}
+We also construct allowable curves $\lambda_2$ and $\lambda_3$ by extending one of the branches of $U$ at the extreme point on the boundary and spiraling into the non-boundary extreme points (in opposite directions for $\lambda_2$ and $\lambda_3$).
+The curves $\lambda_1$, $\lambda_2$, and $\lambda_3$ are pairwise compatible.
+Furthermore, $\lambda_1$ is compatible with $U$, while exactly one of $\lambda_2$ and $\lambda_3$ is compatible with $U$.  
+(If $U$ is degenerate, then which is compatible depends on the tagging.)
+Again, there is a collection of $|T|$ pairwise compatible allowable curves, including $\set{\lambda_1,\lambda_2,\lambda_3}$, and all of them except $\lambda_2$ or $\lambda_3$ is compatible with $U$.
+
+If neither of the extreme points of $U$ is on the boundary, then we construct an allowable curve $\lambda_1$ as follows:  \marginN{pictures}
+Let $p$ be a vertex (not an extreme point of $U$) of the triangle containing a degree-$3$ vertex of $U$.
+If $p$ is on the boundary of $\S$, then move a short distance from $p$ along the boundary, keeping $\S$ on the left.
+Starting there, $\lambda_1$ traces around $U$ and comes back to end on the boundary near where it started.
+We construct $\lambda_2$ by starting between the ends of $\lambda_1$ and spiraling into one of the non-degenerate extreme points of $U$.  
+Finally, construct allowable curves $\lambda_3$ and $\lambda_4$, each spiraling into both extreme points, with spiral direction agreeing with $\lambda_2$ at one extreme point, and having opposite spiral directions at the other extreme.
+This can be done so that exactly one of $\lambda_3$ and $\lambda_4$ is compatible with $U$.
+Now, we extend $\set{\lambda_1,\lambda_2,\lambda_3,\lambda_4}$ to a maximal set of $|T|$ pairwise compatible allowable curves, and throw out $\lambda_3$ or $\lambda_4$ to obtain a set of $|T|-1$ pairwise compatible allowable curves all compatible with $U$.
+
+That is, $U$ is an honest, non-shielding, allowable curve.
+Since it is non-shielding, there is a marked point on each side of it.  
+(Possibly, it is the same marked point on both sides.)
+From each side, choose an honest path from the marked point $p$ to $U$ and construct a curve $\lambda$ as follows:
+If $p$ is a puncture, then $\lambda$ spirals into $p$ clockwise at both ends.
+If $p$ is on the boundary, then $\lambda$ ends at a point on the boundary close to $p$, reached by moving a small distance along the boundary, with $\S$ on the left.  \marginN{Pictures necessary?  If so, we should wait until we see whether we use $\kappa$ or not.}
+Away from $p$, the curve $\lambda$ follows close to the path, traces close around $U$, and follows the path back to~$p$.
+Since $U$ is allowable, $\lambda$ is also allowable.
+(The exception occurs when $U$ encloses two punctures and nothing else.
+In this case, we replace $\lambda$ with two allowable curves, each spiraling into both marked points, with spiral directions agreeing at one point and disagreeing at the other.)
+
+Possibly the allowable curves obtained on the two sides coincide up to isotopy, but in any case, they are compatible and trace out an annulus surrounding $U$.
+We can complete these two curves to a maximal set of pairwise compatible non-closed allowable curves with exactly two allowable curves inside the annulus.
+Again, there are $|T|$ curves in this maximal set.
+Deleting the two curves inside the annulus and inserting $U$, we get $|T|-1$ pairwise compatible allowable curves, all compatible with $U$.
 \end{proof}
 
 
@@ -875,7 +932,7 @@ Next, assume $U$ is a plain-tagged, degenerate I-beam.
 We will recast compatibility with $U$ in a way that looks more like (but not exactly like) the non-degenerate case.
 We replace the degenerate leaf of $U$ with a new vertex in the interior of the self-folded triangle, connected to two leaves on the fold edge by edges approaching the fold edge from both sides, as shown in Figure~\ref{degen recast}, obtaining a subset $U'$ of $\S$.
 \begin{figure}
-NEED THIS.
+\scalebox{0.7}{\includegraphics{degen}}\qquad\scalebox{0.7}{\includegraphics{degen_recast}}
 \caption{Recasting compatibility with a degenerate I-beam}
 \label{degen recast}
 \end{figure}
@@ -888,6 +945,12 @@ We need not argue separately for degenerate I-beams tagged notched, because the 
 Theorem~\ref{q-lam bij} now implies that $\Wall(U)$ contains all rational points is a polyhedral cone defined by the given normal vector and inequalities.
 Thus $\Wall(U)$ is a polyhedral cone defined by the given normal vector and inequalities, and Lemma~\ref{codim lemma} implies that $\Wall(U)$ has codimension $1$.
 \end{proof}
+
+\marginN{Probably here would be a good place to point out that every codimension-$1$ cone in the mutation fan (rational quasi-lamination fan) is contained in some wall $\Wall(U)$.
+And conversely that every $\Wall(U)$ is a union of codimension-$1$ cones of the mutation fan.
+That will, I think, imply that the mutation fan and the scattering fan coincide, once we prove that we're constructing the scattering diagram.
+And I don't think it's hard.}
+
 
 \newpage
 
