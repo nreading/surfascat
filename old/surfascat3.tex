@@ -322,18 +322,18 @@ A \newword{boundary segment} is a curve contained in the boundary of $\S$ whose 
 If $\S$ is a disk with three or fewer marked points on its boundary, then $(\S,\M)$ must have at least one puncture.
 If $\S$ is a disk with only one marked point on its boundary (a monogon), then it must have at least two punctures.
 If $\S$ is a sphere, then it must have at least $4$ punctures.  
-(It is sometimes convenient, and with the right conventions harmless, to allow $\S$ to be disconnected and/or to allow once-punctured monogons, as in \cite{dominance}, but there is no need here.)
+(It is harmless, and sometimes convenient as in \cite{dominance}, to allow $\S$ to be disconnected and/or to allow once-punctured monogons, but there is no need here.)
 For convenience (and specifically to allow us to consider only well-behaved curves in $\S$), we assume that $\S$ has the has a differentiable structure.  \marginN{Thoughts on this?}
 \end{definition}
 
-\begin{definition}[\emph{Arc and triangulation}]\label{tri def}
+\begin{definition}[\emph{Arcs and triangulations}]\label{tri def}
 An \newword{arc} in $(\S,\M)$ is a differentiable \marginN{I am putting in the assumption of differentiability here.  This must surely be implicit in cats1 and cats2, or else one curve could fill $\S$ and thus would be a triangulation.  Thoughts?}
 curve in $\S$ with endpoints in $\M$.
 The arc may not intersect itself and, except at its endpoints, must be contained in the interior of $\S\setminus\M$.
 The arc may not bound an unpunctured monogon and may not define, together with a boundary segment connecting the endpoints, an unpunctured digon.
 Throughout, we consider arcs up to isotopy equivalence.
 
-Two arcs are \newword{compatible} if there is an isotopy representative of each such that the representatives do not intersect, except possibly at their endpoints.
+Two arcs are \newword{compatible} is there is an isotopy representative of each such that the representatives do not intersect, except possibly at their endpoints.
 A \newword{triangulation} $T$ is a maximal collection of distinct pairwise compatible arcs.
 The connected components of $\S\setminus\cup T$ are \newword{triangles}, which have one, two or three distinct vertices (in $\M$) and two or three distinct sides (in $T$).
 A triangle is called \newword{self-folded} if it has only two distinct sides.
@@ -358,7 +358,7 @@ We define $b_{\alpha\beta}$ to be the sum $\sum_\Delta b^\Delta_{\alpha\beta}$, 
 An \newword{allowable curve} in $(\S,\M)$ is  
 \begin{itemize}
 \item a closed curve,
-\item a curve whose two endpoints are distinct unmarked boundary points,
+\item a curve whose two endpoints are unmarked boundary points,
 \item a curve having one endpoint an unmarked boundary point, with the other end spiraling (clockwise or counterclockwise) into a puncture, or
 \item a curve spiraling into (not necessarily distinct) punctures at both ends,
 \end{itemize}
@@ -375,7 +375,7 @@ that
 %However, we may as well require honesty because when defining shear coordinates of an allowable curve $\lambda$ (as below in Definition~\ref{shear def}), one passes to a curve isotopic to $\lambda$ that is honest.
 \end{definition}
 
-\begin{definition}[\emph{Quasi-lamination}]\label{quasilam def}
+\begin{definition}[\emph{Quasi-laminations}]\label{quasilam def}
 Two allowable curves are \newword{compatible} if 
 \begin{itemize}
 \item
@@ -385,13 +385,6 @@ they are nonintersecting, or
 A \newword{(rational) quasi-lamination} $L$ in $(\S,\M)$ is a collection of pairwise compatible allowable curves in $\S$, distinct up to isotopy, with each curve $\lambda\in L$ carrying a positive rational weight $w_\lambda$.
 A \newword{multi-lamination} is a finite collection $\L$ of quasi-laminations.
 \end{definition}
-
-The following is essentially part of \cite[Theorem~7.9]{cats1}.  \marginN{If we define $\kappa$, perhaps we do this differently.}
-(That theorem contains a statement about tagged triangulations that is converted to the following statement by a bijection between tagged arcs and non-closed allowable curves defined in \cite[Definition~17.2]{cats2} or a different bijection defined in \cite[Section~5.1]{unisurface}.)
-
-\begin{theorem}\label{card thm}
-Every maximal set of non-closed allowable curves has cardinality~$|T|$.
-\end{theorem}
 
 \begin{definition}[\emph{Honest curve}]\label{honest def}  
 Given $(\S,\M)$ and a triangulation $T$, a (closed or non closed) curve in $\S$ is \newword{honest} if: \marginN{I like this term, but am not married to it.  If you hate it we can change it.}
@@ -417,11 +410,11 @@ An allowable curve that spirals into the puncture in a self-folded triangle cros
 Each intersection of $\lambda$ with $\gamma$ contributes $-1$, $0$, or $1$ to $b_\gamma(T,\lambda)$.
 The contribution is $0$ unless $\lambda$ intersects the triangles containing $\gamma$ in one of the ways shown in Figure~\ref{shear fig}, in which case the contribution is $1$ or $-1$ as shown.
 (In the figure, $\gamma$ is the diagonal of the quadrilateral shown, and $\lambda$ is a vertical or horizontal dashed line.)
-%\begin{figure}[ht]
-%\raisebox{42 pt}{$+1$}\,\,\includegraphics{shearplus}\qquad\qquad\includegraphics{shearminus}\,\,\raisebox{42 pt}{$-1$}
-%\caption{Computing shear coordinates}
-%\label{shear fig}
-%\end{figure}
+\begin{figure}[ht]
+\raisebox{42 pt}{$+1$}\,\,\includegraphics{shearplus}\qquad\qquad\includegraphics{shearminus}\,\,\raisebox{42 pt}{$-1$}
+\caption{Computing shear coordinates}
+\label{shear fig}
+\end{figure}
 If $\gamma$ \emph{is} the fold edge of a self-folded triangle of $T$, then $\gamma$ is inside a once-punctured monogon in $T$.
 Let $p$ be punctured in that monogon, let $\gamma'$ be the other edge of that self-folded triangle, and let $\lambda'$ be the allowable curve obtained from $\lambda$ by reversing the direction of all spirals (if any) at  $p$.
 Then define $b_\gamma(T,\lambda)$ to be $b_{\gamma'}(T,\lambda')$.
@@ -439,7 +432,7 @@ Then the map $L\mapsto\b(T,L)$ is a bijection between integral (resp. rational) 
 \end{theorem}
 
 
-\marginN{commented out here is the definition of $\kappa$.  We may need it.}
+\marginN{commented out here is the definition of $\kappa$.  We will probably need it.}
 %Given a tagged arc $\alpha$ in $(\S,\M)$, we define (up to isotopy) a curve $\kappa(\alpha)$.
 %The curve $\kappa(\alpha)$ coincides with $\alpha$ except within a small ball around the endpoints of $\alpha$.
 %Within each ball around an endpoint $p$, the behavior of $\kappa(\alpha)$ is as follows:
@@ -471,7 +464,7 @@ The matrix $B(T)$ is more special:  It is skew-symmetric.)
 The initial data defining a cluster scattering diagram amounts to an \newword{extended exchange matrix}.
 There are two different conventions in the cluster algebras literature on extending an exchange matrix.
 Here, we follow \cite{GHKK} in extending exchange matrices by adding columns of integer vectors.
-(Switching from our \emph{wide} extended exchange matrices to the \emph{tall} extended exchange matrices of \cite{ca4} amounts to  transposing---or equivalently in the skew-symmetric case, negating---the exchange matrix.)
+(Switching from our \emph{wide} extended exchange matrices to the \emph{tall} extended exchange matrices of \cite{ca4} amounts to  transposing (or equivalently in the skew-symmetric case, negating) the exchange matrix.)
 
 \begin{definition}[\emph{Extended exchange matrix for $T$ and $\L$}]\label{tB(T,L) def}
 The extended exchange matrix $\tB(T,L)$ defined by $(\S,\M)$, $T$, and $\L$ has rows indexed by $T$ and columns indexed by $T\cup\L$.
@@ -660,7 +653,7 @@ The existence and uniqueness of the cluster scattering diagram is the fundamenta
 \marginN{We might give the theorem showing cluster monomials in terms of path-ordered products.
 This gives a formula for a cluster monomial in terms of any sequence of flips that relates it to an initial cluster monomial, and I'm really curious to see what that formula is.}
 
-\section{Walls}
+\section{I-beams and rings}
 In this section, we will consider certain subsets of $\S\setminus\M$ that locally look like curves, except that at some points they ``branch.''
 Each set determines a set of quasi-laminations, and we will see that the shear coordinates of this set of quasi-laminations constitute a codimension-$1$ rational cone.
 These cones will eventually be the walls of the scattering diagram.
@@ -678,12 +671,12 @@ The closed curve in the interior of $\S$ that encircles the removed  the boundar
 Triangulations of $(\S,\M)$ consist of five arcs, but quasi-laminations containing $\lambda$ contain at most three allowable curves. 
 \end{example}
 
-\begin{definition}[\emph{Ring}]\label{ring def}
+\begin{definition}[\emph{Rings}]\label{ring def}
 A \newword{ring} in $(\S,\M)$ is an \emph{honest} \emph{non-sheilding} closed allowable curve in the sense of Definitions~\ref{allowable def}.
 We consider rings up to isotopy equivalence (in $\S\setminus\M$).
 \end{definition}
 
-\begin{definition}[\emph{I-beam}]\label{def: ibeam}
+\begin{definition}[\emph{I-beams}]\label{def: ibeam}
 Let $(\S,\M)$ be a marked surface with triangulation $T$.  
 \marginN{I am writing this so that a "ring" is not a kind of I-beam.  Rings don't really fit the name I-beam.}  
 \marginN{I am taking Shira's I-beams plus Greg's description via embedded graphs. } 
@@ -712,7 +705,7 @@ And/or once-punctured triangles with and/or without a self-folded triangle?
 
 Each I-beam or ring, as a set, is a finite union of curves that we will call bars.
 
-\begin{definition}[\emph{Bar}]\label{bar def}
+\begin{definition}[\emph{Bars}]\label{bar def}
 A \newword{bar} in $(\S,\M)$ is an \emph{honest} curve $\gamma:[0,1]\to\S$ each of whose endpoints is on an arc of $T$ or a boundary segment of $(\S,\M)$ or is the puncture in a self-folded triangle.
 The \newword{relative interior} of $\gamma$ is the restriction of $\gamma$ to $(0,1)$.  \marginN{Greg:  I'm really starting to appreciate why you wanted to work with barricades.  I have to make the same definitions about bars as for I-beams, rings, etc., so yes, they really should all be special cases of the same thing.  But I got too confused trying to work out what that thing should be.} 
 We consider bars up to isotopy equivalences (in $\S\setminus\M$) that don't change which arc of $T$ contains each endpoint.
@@ -760,14 +753,6 @@ We will prove the following theorem.
 
 \begin{theorem}\label{wall thm}
 For any ring or I-beam $U$, the set $\Wall(U)$ is a codimension-$1$ polyhedral cone with normal vector $\sum_{i=1}^k\alpha_i$ where $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the relative interior of~$U$, given by the following rational inequalities:
-%\begin{itemize}
-%\item For each bar $B$ in $U$ that begins with a right turn and ends with a left turn,
-%\begin{equation}\label{rt lft ineq} b_{\alpha_1}(T,L) + b_{\alpha_2}(T,L) + ... + b_{\alpha_k}(T,L) \geq 0,\end{equation}
-%where $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the relative interior of~$B$.
-%\item For each bar $B$ in $U$ that begins with a left turn and ends with a right turn,
-%\begin{equation}\label{lft rt ineq} b_{\alpha_1}(T,L) + b_{\alpha_2}(T,L) + ... + b_{\alpha_k}(T,L) \leq 0,\end{equation}
-%where $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the relative interior of~$B$.
-%\end{itemize}
 \begin{itemize}
 \item For each bar $B$ in $U$ that begins with a right turn and ends with a left turn,
 \[ b_{\alpha_1}(T,L) + b_{\alpha_2}(T,L) + ... + b_{\alpha_k}(T,L) \geq 0,\]
@@ -777,8 +762,6 @@ where $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the 
 where $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the relative interior of~$B$.
 \end{itemize}
 \end{theorem}
-The sequence $\alpha_1, \alpha_2,\ldots,\alpha_k$, each time it appears in the statement of Theorem~\ref{wall thm}, may contain the same arc more that once.
-The arcs should appear with multiplicity in the sums in Theorem~\ref{wall thm}.
 
 Most of the proof of Theorem~\ref{wall thm} is accomplished by the following three lemmas.
 
@@ -806,27 +789,25 @@ The bar in $U$ connecting these two exit points from interiors of triangles is b
 Supposing that \eqref{U nb} fails, we have contradicted \eqref{special bar nb}.  %, and thus proved that \eqref{special bar nb}$\implies$\eqref{U nb}.
 \end{proof}
 
-%\begin{lemma}\label{bar ineq}
-%Suppose $B$ is a bar, suppose $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the relative interior of~$B$, and suppose $\lambda$ is an allowable curve.
-%\begin{enumerate}[\qquad1.]
-%\item If $B$ begins with a right turn and ends with a left turn, then $B$ is non-blocking for $\lambda$ if and only if $b_{\alpha_1}(T,\lambda) + b_{\alpha_2}(T,\lambda) + ... + b_{\alpha_k}(T,\lambda) \geq 0$.
-%\item If $B$ begins with a left turn and ends with a right turn, then $B$ is non-blocking for $\lambda$ if and only if $b_{\alpha_1}(T,\lambda) + b_{\alpha_2}(T,\lambda) + ... + b_{\alpha_k}(T,\lambda) \leq 0$.
-%\end{enumerate}
-%\end{lemma}
 \begin{lemma}\label{bar ineq}
 Suppose $B$ is a bar, suppose $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the relative interior of~$B$, and suppose $\lambda$ is an allowable curve.
-If $B$ is non-blocking for $\lambda$, then:
-\begin{enumerate}[\quad\rm(1)]
-\item If $B$ begins with a right turn and ends with a left turn, then ${\sum_{i=1}^kb_{\alpha_i}(T,\lambda)\ge0}$.
-\item If $B$ begins with a left turn and ends with a right turn, then ${\sum_{i=1}^kb_{\alpha_i}(T,\lambda)\le0}$.
-\end{enumerate}\marginN{Notice that the if and only if statement doesn't work exactly, but that something good enough does work.}
-If $B$ blocks $\lambda$, then there is a bar $B'$ contained in $B$ such that $B'$ and $\lambda$ violate $(1)$ or $(2)$.
+\begin{enumerate}[\qquad1.]
+\item If $B$ begins with a right turn and ends with a left turn, then $B$ is non-blocking for $\lambda$ if and only if $b_{\alpha_1}(T,\lambda) + b_{\alpha_2}(T,\lambda) + ... + b_{\alpha_k}(T,\lambda) \geq 0$.
+\item If $B$ begins with a left turn and ends with a right turn, then $B$ is non-blocking for $\lambda$ if and only if $b_{\alpha_1}(T,\lambda) + b_{\alpha_2}(T,\lambda) + ... + b_{\alpha_k}(T,\lambda) \leq 0$.
+\end{enumerate}
 \end{lemma}
+%\begin{lemma}\label{bar ineq}
+%Suppose $B$ is a bar, suppose $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the relative interior of~$B$, and suppose $\lambda$ is an allowable curve such that $B$ is non-blocking for $\lambda$.
+%\begin{enumerate}[\quad1.]
+%\item If $B$ begins with a right turn and ends with a left turn, then ${\sum_{i=1}^kb_{\alpha_i}(T,\lambda)\ge0}$.
+%\item If $B$ begins with a left turn and ends with a right turn, then ${\sum_{i=1}^kb_{\alpha_i}(T,\lambda)\le0}$.
+%\end{enumerate}
+%\end{lemma}
 \begin{proof}
-Suppose $B$ is non-blocking for $\lambda$.
-We argue assertion (1);  assertion (2) is symmetric by a reversal of orientation of $\S$.
-
-Suppose $B$ begins with a right turn and ends with a left turn, and consider the sequence of triangles whose interiors $B$ passes through, as shown in Figure~\ref{tri seq}.
+We argue the first assertion.  
+The second assertion is symmetric by a reversal of orientation of $\S$.
+Suppose $B$ is a bar as in the first assertion.
+Consider the sequence of triangles whose interiors $B$ passes through, as shown in Figure~\ref{tri seq}.
 \begin{figure}
 \scalebox{0.7}{\includegraphics{triseq}}
 \caption{The triangles crossed by $B$}
@@ -834,88 +815,76 @@ Suppose $B$ begins with a right turn and ends with a left turn, and consider the
 \end{figure}
 The triangles shown may not be distinct.
 
-We can assume that $\lambda$ is honest and that it does not intersect $B$.
-Consider the how $\lambda$ passes through the triangles that intersect $B$, and in particular whether $\lambda$ turns right or left in each triangle.
-We see that $\lambda$ picks up a positive contribution to $\sum_{i=1}^kb_{\alpha_i}(T,\lambda)$ exactly when it has a right turn immediately followed by a left turn.
-Similarly, $\lambda$ picks up a negative contribution exactly when it has a left turn and then immediately a right turn.
-Following $\lambda$ in the direction that keeps $B$ to the right of $\lambda$, we see that the first turn that $\lambda$ makes as it passes through the sequence of triangles can be right or left, but the last turn must be left (because $B$ begins with a right turn and ends with a left turn).
-We conclude that the total contribution (for each pass through the triangles) is $0$ or $1$, and assertion (1) follows.
+%Suppose $\lambda$ is an allowable curve with $b_{\alpha_1}(T,\lambda) + b_{\alpha_2}(T,\lambda) + ... + b_{\alpha_k}(T,\lambda)<0$.
+Suppose $\lambda$ is an honest allowable curve that does not intersect $B$.
+Then $\lambda$ can only pick up a negative contribution to $\sum_{i=1}^kb_{\alpha_i}(T,\lambda)$ by moving parallel to $B$ through two triangles where $B$ has a left turn and then a right turn.
+Following $\lambda$ with $B$ to the right of $\lambda$, we call these two triangles $t_1$ and $t_2$.  
+The $\lambda$ either continues parallel to $B$ for the entire length of $B$ or turns left to stop going parallel to $B$.
+Since $B$ ends with a left turn, at some point, $\lambda$ turns right through a triangle then left through a triangle.
+The first time this happens after $\lambda$ leaves $t_1$, it picks up a positive contribution to $\sum_{i=1}^kb_{\alpha_i}(T,\lambda)$ that cancels the negative contribution.  
 
-On the other hand, suppose $\lambda$ is an allowable curve such that every honest isotopy representative of $\lambda$ intersects $B$.
-Then $\lambda$ enters a triangle crossed by $B$ and passes through some other triangles crossed by $B$, intersecting $B$ (unavoidably) at some point, and finally leaves the sequence of triangles crossed by $B$.
-Let $B'$ be the restriction of $B$ to the sequence of triangles that $\lambda$ passes through. 
-The curve $\lambda$ itself must either begin with a left turn and end with a right turn or vice-versa. 
-Up to symmetry, we may as well assume that it begins left and ends right.
-Since the intersection of $\lambda$ with $B$ was unavoidable for honest isotopy representatives of $\lambda$, we conclude that $B'$ begins with a right turn and ends with a left turn.
-Let $\alpha'_1, \alpha'_2,\ldots,\alpha'_\ell$ be the sequence of arcs in $T$ intersecting the relative interior of~$B'$.
-Analyzing the contributions to $\sum_{i=1}^\ell b_{\alpha'_i}(T,\lambda)$ as above, since $\lambda$ begins with a left turn and ends with a right turn, we see that the total contribution is $-1$, violating assertion (1) for $B'$ and $\lambda$.
+NEED CONVERSE!!
 \end{proof}
 
 \begin{lemma}\label{codim lemma}
 If $U$ is a ring or I-beam, then $\Wall(U)$ contains a cone of codimension $1$.
 \end{lemma}
-\begin{proof}  
-In light of Theorem~\ref{q-lam bij}, we need only find a set of $|T|-1$ pairwise compatible allowable curves that are compatible with $U$.
+\begin{proof}
 
-\marginN{If we end up talking about tagged arcs and defining $\kappa$, we should use $\kappa$ to simplify this by just constructing triangulations.}
-First, suppose $U$ is an I-beam.
-For this proof, we use the term \newword{extreme point} to refer a marked point that either is the intersection of two edges containing leaves that are connected to the same degree-$3$ vertex of $U$ or is a degenerate leaf of $U$.
-If both extreme points are on the boundary of $\S$, then in particular $U$ is non-degenerate, so it is the union of two bars, each of which starts and ends with a right turn (or starts and ends with a left turn, depending on which direction we traverse the bar).
-We extend both bars to allowable curves $\lambda_1$ and $\lambda_2$:  
-At each end, if we turned right to end the bar, we extend by turning left repeatedly until we reach the boundary, and if we turned left, we extend by turning right repeatedly.  \marginN{I guess we need pictures}
-The two resulting allowable curves are compatible.  
-We can also construct a third allowable curve (that we will call $\lambda_3$) between the two and compatible with both, by starting with one of the two maximal bars in $U$ that starts with a left turn and ends with a right turn, and extending in the same way.  
-The triple $\set{\lambda_1,\lambda_2,\lambda_3}$ is part of a maximal collection of pairwise compatible non-closed allowable curves, which, by Theorem~\ref{card thm}, has cardinality $|T|$.
-No curve in this larger collection, aside from $\lambda_3$, is between $\lambda_1$ and $\lambda_2$, so $|T|-1$ of them (all but $\lambda_3$) are compatible with $U$.
-
-Every case of this proof is similar, and we briefly discuss each.
-If exactly one of the extreme points of $U$ is on the boundary of $\S$, then we construct an allowable curve $\lambda_1$ as follows:
-We extend $U$ near the extreme point on the boundary just as we extended in the previous case. 
-In the other direction from this extension, we follow $U$ around the extreme point that is not on the boundary and then extend the other branch to the boundary.  \marginN{again, need pictures}
-We also construct allowable curves $\lambda_2$ and $\lambda_3$ by extending one of the branches of $U$ at the extreme point on the boundary and spiraling into the non-boundary extreme points (in opposite directions for $\lambda_2$ and $\lambda_3$).
-The curves $\lambda_1$, $\lambda_2$, and $\lambda_3$ are pairwise compatible.
-Furthermore, $\lambda_1$ is compatible with $U$, while exactly one of $\lambda_2$ and $\lambda_3$ is compatible with $U$.  
-(If $U$ is degenerate, then which is compatible depends on the tagging.)
-Again, there is a collection of $|T|$ pairwise compatible allowable curves, including $\set{\lambda_1,\lambda_2,\lambda_3}$, and all of them except $\lambda_2$ or $\lambda_3$ is compatible with $U$.
-
-If neither of the extreme points of $U$ is on the boundary, then we construct an allowable curve $\lambda_1$ as follows:  \marginN{pictures}
-Let $p$ be a vertex (not an extreme point of $U$) of the triangle containing a degree-$3$ vertex of $U$.
-If $p$ is on the boundary of $\S$, then move a short distance from $p$ along the boundary, keeping $\S$ on the left.
-Starting there, $\lambda_1$ traces around $U$ and comes back to end on the boundary near where it started.
-We construct $\lambda_2$ by starting between the ends of $\lambda_1$ and spiraling into one of the non-degenerate extreme points of $U$.  
-Finally, construct allowable curves $\lambda_3$ and $\lambda_4$, each spiraling into both extreme points, with spiral direction agreeing with $\lambda_2$ at one extreme point, and having opposite spiral directions at the other extreme.
-This can be done so that exactly one of $\lambda_3$ and $\lambda_4$ is compatible with $U$.
-Now, we extend $\set{\lambda_1,\lambda_2,\lambda_3,\lambda_4}$ to a maximal set of $|T|$ pairwise compatible allowable curves, and throw out $\lambda_3$ or $\lambda_4$ to obtain a set of $|T|-1$ pairwise compatible allowable curves all compatible with $U$.
-
-That is, $U$ is an honest, non-shielding, allowable curve.
-Since it is non-shielding, there is a marked point on each side of it.  
-(Possibly, it is the same marked point on both sides.)
-From each side, choose an honest path from the marked point $p$ to $U$ and construct a curve $\lambda$ as follows:
-If $p$ is a puncture, then $\lambda$ spirals into $p$ clockwise at both ends.
-If $p$ is on the boundary, then $\lambda$ ends at a point on the boundary close to $p$, reached by moving a small distance along the boundary, with $\S$ on the left.  \marginN{Pictures necessary?  If so, we should wait until we see whether we use $\kappa$ or not.}
-Away from $p$, the curve $\lambda$ follows close to the path, traces close around $U$, and follows the path back to~$p$.
-Since $U$ is allowable, $\lambda$ is also allowable.
-(The exception occurs when $U$ encloses two punctures and nothing else.
-In this case, we replace $\lambda$ with two allowable curves, each spiraling into both marked points, with spiral directions agreeing at one point and disagreeing at the other.)
-
-Possibly the allowable curves obtained on the two sides coincide up to isotopy, but in any case, they are compatible and trace out an annulus surrounding $U$.
-We can complete these two curves to a maximal set of pairwise compatible non-closed allowable curves with exactly two allowable curves inside the annulus.
-Again, there are $|T|$ curves in this maximal set.
-Deleting the two curves inside the annulus and inserting $U$, we get $|T|-1$ pairwise compatible allowable curves, all compatible with $U$.
 \end{proof}
 
 
 
 
 \begin{proof}[Proof of Theorem~\ref{wall thm}]
-We first show that a lamination $L$ has $\sum_{\gamma\in T}b_\gamma(T,L)\gamma^*\in\Wall(U)$ if and only if $\sum_{\gamma\in T}b_\gamma(T,L)\gamma^*$ satisfies the given inequalities and is normal to the given vector.
+By Theorem~\ref{q-lam bij}, we see that $\Wall(U)$ is a polyhedral cone given by the equality and inequalities described in Proposition~\ref{prop: ineqs}.
+In particular, $\Wall(U)$ has the desired normal vector and it remains only to check that the codimension of $\Wall(U)$ is not larger than $1$.
 
+DO THAT!
+
+
+\end{proof}
+
+
+
+
+The bars in the I-beam or ring determine inequalities on the shear coordinates of compatible quasi-laminations as follows.
+
+\begin{prop}\label{prop: ineqs}
+Given an I-beam or ring $U$, tagged plain if it is degenerate, a quasi-lamination $L$ is compatible with $U$ if and only if the following inequalities hold.
+%\begin{itemize}
+%\item For each bar $B$ in $U$ that begins with a right turn and ends with a left turn,
+%\begin{equation}\label{rt lft ineq} b_{\alpha_1}(T,L) + b_{\alpha_2}(T,L) + ... + b_{\alpha_k}(T,L) \geq 0,\end{equation}
+%where $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the relative interior of~$B$.
+%\item For each bar $B$ in $U$ that begins with a left turn and ends with a right turn,
+%\begin{equation}\label{lft rt ineq} b_{\alpha_1}(T,L) + b_{\alpha_2}(T,L) + ... + b_{\alpha_k}(T,L) \leq 0,\end{equation}
+%where $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the relative interior of~$B$.
+%\end{itemize}
+\begin{itemize}
+\item For each bar $B$ in $U$ that begins with a right turn and ends with a left turn,
+\[ b_{\alpha_1}(T,L) + b_{\alpha_2}(T,L) + ... + b_{\alpha_k}(T,L) \geq 0,\]
+where $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the relative interior of~$B$.
+\item For each bar $B$ in $U$ that begins with a left turn and ends with a right turn,
+\[ b_{\alpha_1}(T,L) + b_{\alpha_2}(T,L) + ... + b_{\alpha_k}(T,L) \leq 0,\]
+where $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the relative interior of~$B$.
+\end{itemize}
+In particular, 
+%\begin{equation}\label{sum eq} b_{\alpha_1}(T,L) + b_{\alpha_2}(T,L) + ... + b_{\alpha_k}(T,L) =0,\end{equation}
+\[ b_{\alpha_1}(T,L) + b_{\alpha_2}(T,L) + ... + b_{\alpha_k}(T,L) =0,\]
+where $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the relative interior of~$U$.
+
+Suppose $B$ is a degenerate I-beam tagged notched, suppose $\alpha$ and $\alpha'$ are the two edges of the self-folded triangle containing the degenerate leaf of $B$, and suppose $L'$ is the quasi-lamination obtained from $L$ by reversing all spiral directions at the degenerate leaf. 
+Then $L$ is compatible with $U$ if and only if the above (in)equalities hold with $L$ replaced by $L'$ and swapping $\alpha$ and $\alpha'$ throughout.
+\end{prop}
+The sequence $\alpha_1, \alpha_2,\ldots,\alpha_k$, each time it appears in the statement of Proposition~\ref{prop: ineqs}, may contain the same arc more that once.
+
+
+\begin{proof}[Proof of Proposition~\ref{prop: ineqs}]
 First, suppose $U$ is a ring or a non-degenerate I-beam.
-Then Lemmas~\ref{nb bars} and~\ref{bar ineq} combine to show that a quasi-lamination $L$ is compatible with $U$ if and only if the given inequalities hold.
-We now show that the inequalities imply that $\Wall(U)$ is normal to the given vector.
+Then Lemmas~\ref{nb bars} and~\ref{bar ineq} combine to show that $L$ is compatible with $U$ if and only if the inequalities in Proposition~\ref{prop: ineqs} hold.
 
 In the case where $U$ is a non-degenerate I-beam, $U$ is a union of two bars, one starting with a right turn and ending with a left turn, the other starting with a left turn and ending with a right turn.
-The set of arcs of $T$ intersecting the relative interior of each of the two bars equals the set of arcs of $T$ intersecting the relative interior of $U$, and it follows that the given vector is normal to $\Wall(U)$.
+The set of arcs of $T$ intersecting the relative interior of each of the two bars equals the set of arcs of $T$ intersecting the relative interior of $U$, and the equality in Proposition~\ref{prop: ineqs} follows.
 
 In the case where $U$ is a ring, we first point out that there is a bar $B$ in $U$ that starts with a right turn and ends with a left turn.
 (If all turns are in the same direction, then $U$ is contractible in $\S\setminus\M$ to a puncture.)
@@ -927,13 +896,13 @@ For any $k\ge0$, we can make a bar $B_k$ from $B$ by inserting $k$ circuits of t
 Since this is true for arbitrarily large $k$, we conclude that $\sum_{i=1}^\ell b_{\alpha_i}(T,\lambda)+\sum_{i=1}^m b_{\alpha_i}(T,\lambda)\geq 0$.
 On the other hand, there is a bar $B'$ starting with a left turn and ending with a right turn such that $\gamma_m,\ldots,\gamma_1$ is the sequence of arcs intersected by the relative interior of $B'$.
 (This bar starts by passing through the tame triangle that $B$ starts with, but in the other direction, and traces along $U$ in the opposite direction.)
-Arguing as above, we see that $\sum_{i=1}^\ell b_{\alpha_i}(T,\lambda)+\sum_{i=1}^m b_{\alpha_i}(T,\lambda)\leq 0$ as well, so this sum equals $0$, and we have verified that the given vector is normal.
+Arguing as above, we see that $\sum_{i=1}^\ell b_{\alpha_i}(T,\lambda)+\sum_{i=1}^m b_{\alpha_i}(T,\lambda)\leq 0$ as well, so this sum equals $0$.
 
 Next, assume $U$ is a plain-tagged, degenerate I-beam.
 We will recast compatibility with $U$ in a way that looks more like (but not exactly like) the non-degenerate case.
 We replace the degenerate leaf of $U$ with a new vertex in the interior of the self-folded triangle, connected to two leaves on the fold edge by edges approaching the fold edge from both sides, as shown in Figure~\ref{degen recast}, obtaining a subset $U'$ of $\S$.
 \begin{figure}
-\scalebox{0.7}{\includegraphics{degen}}\qquad\scalebox{0.7}{\includegraphics{degen_recast}}
+NEED THIS.
 \caption{Recasting compatibility with a degenerate I-beam}
 \label{degen recast}
 \end{figure}
@@ -941,17 +910,8 @@ It is not true (for any fixed choice of $U'$) that an allowable curve $\lambda$ 
 However, $U'$ is a union of two bars, one starting with a right turn and ending with a left turn, the other starting with a left turn and ending with a right turn, and $\lambda$ is compatible with $U$ if and only if each bar is non-blocking for $\lambda$.
 The proof of the proposition follows exactly as in that case.
 
-We need not argue separately for degenerate I-beams tagged notched, because the assertion follows immediately from the plain-tagged case by the symmetry in the definition of shear coordinates and compatibility.
-
-Theorem~\ref{q-lam bij} now implies that $\Wall(U)$ contains all rational points is a polyhedral cone defined by the given normal vector and inequalities.
-Thus $\Wall(U)$ is a polyhedral cone defined by the given normal vector and inequalities, and Lemma~\ref{codim lemma} implies that $\Wall(U)$ has codimension $1$.
+Finally, we need not argue separately for degenerate I-beams tagged notched, because the assertion follows immediately from the plain-tagged case by the symmetry in the definition of shear coordinates and compatibility.
 \end{proof}
-
-\marginN{Probably here would be a good place to point out that every codimension-$1$ cone in the mutation fan (rational quasi-lamination fan) is contained in some wall $\Wall(U)$.
-And conversely that every $\Wall(U)$ is a union of codimension-$1$ cones of the mutation fan.
-That will, I think, imply that the mutation fan and the scattering fan coincide, once we prove that we're constructing the scattering diagram.
-And I don't think it's hard.}
-
 
 \newpage
 
@@ -1136,7 +1096,7 @@ A \newword{short leaf}\margin[GM]{I can't decide if we want to allow non-short l
 Barricades are considered up to isotopy within the set of barricades (so leaves must remain on arcs in $\Delta$). 
 A measured lamination $\mu$ is \newword{compatible} with a barricade $B$ if there is are equivalent $\mu'$ and $B'$ such that $\mu'$ intersects $\Delta$ minimally and $\mu'$ and $B'$ do not intersect.%\margin[GM]{`Compatible' is a bit fiddly to define, since we need to be able to move the barricade around, but not 
 
-\begin{prop}[The compatibility inequalities]\label{prop: inequalities}
+\begin{prop}\label{prop: inequalities}
 Given a barricade $B$, a measured lamination $\mu$ is compatible with $B$ iff the following inequalities hold.
 \begin{itemize}
 	\item For each path in $B$ which begins with a right turn and ends with a left turn,
@@ -1145,34 +1105,19 @@ Given a barricade $B$, a measured lamination $\mu$ is compatible with $B$ iff th
 	\item For each path in $B$ which begins with a left turn and ends with a right turn, 
 	\[ S_{1}(\mu) + S_{2}(\mu) + ... + S_{n}(\mu) \leq 0\]
 	where $S_1, S_2,...,S_n$ are the shear coordinates of the arcs in $\Delta$ crossed by $P$.
-%	\item For each cycle in $B$, 
-%	\[ S_{1}(\mu) + S_{2}(\mu) + ... + S_{n}(\mu) = 0\]
-%	where $S_1, S_2,...,S_n$ are the shear coordinates of the arcs in $\Delta$ crossed by $P$.
+	\item For each cycle in $B$, 
+	\[ S_{1}(\mu) + S_{2}(\mu) + ... + S_{n}(\mu) = 0\]
+	where $S_1, S_2,...,S_n$ are the shear coordinates of the arcs in $\Delta$ crossed by $P$.
 \end{itemize}
 \end{prop}
 
-Given a barricade $B$ in $\Delta$, the \newword{compatible cone} $C_B\subset \mathbb{R}^\Delta$ is the set of measured laminations which are compatible with $B$. The compatibility inequalities imply this is a closed cone in $\mathbb{R}^\Delta$.
+%Given a barricade $B$, let $C_B\subset \mathbb{R}^\Delta$ be the set of measured laminations which are compatible with $B$.
 
-%\begin{corollary}
-%Given a barricade $B$, the set $C_B\subset \mathbb{R}^\Delta$ of measured laminations which are compatible with $B$ is a closed cone. 
-%\end{corollary}
+\begin{corollary}
+Given a barricade $B$, the set $C_B\subset \mathbb{R}^\Delta$ of measured laminations which are compatible with $B$ is a closed cone. 
+\end{corollary}
 
-\begin{lemma}
-Given a barricade $B$, the compatible cone $C_B$ is contained in the subspace defined by the following system of linearly independent equations.\footnote{Not sure how to show linear independence.}
-\begin{itemize}
-	\item For each path $P$ in $B$ between two trivalent vertices, 
-	\[ S_{1}(\mu) + S_{2}(\mu) + ... + S_{n}(\mu) = 0\]
-	where $S_1, S_2,...,S_n$ are the shear coordinates of the arcs in $\Delta$ crossed by $P$.
-	\item For each cycle $P$ in $B$ with no vertices which doesn't bound a single puncture,
-	\[ S_{1}(\mu) + S_{2}(\mu) + ... + S_{n}(\mu) = 0\]
-	where $S_1, S_2,...,S_n$ are the shear coordinates of the arcs in $\Delta$ crossed by $P$.
-\end{itemize}
-\end{lemma}
-%\begin{corollary}
-%The codimension of $C_B$ is at least
-%\[ 
-%%\[ \frac{3(\text{\# of trivalent vertices}) -(\text{\# of leaves})}{2} + \text{\# of cycles as above} \]
-%\end{corollary}
+
 
 %\begin{definition}
 %Given an (ordinary, untagged) triangulation $\Delta$ of $(\S,\M)$, an \newword{I-beam} is a graph $I$ embedded in $\S$, such that, when restricted to the neighborhood of a triangle in $\Delta$, the connected components are isotopic to one of pictures in Figure \ref{fig: local I-beams}.
@@ -1273,44 +1218,30 @@ Given a barricade $B$, the compatible cone $C_B$ is contained in the subspace de
 
 \section{Proof of Proposition \ref{prop: inequalities}}
 
-%Let us collectively refer to the inequalities in Proposition \ref{prop: inequalities} as the \newword{compatibility inequalities} for $B$ and $\mu$. 
+Let us collectively refer to the inequalities in Proposition \ref{prop: inequalities} as the \newword{compatibility inequalities} for $B$ and $\mu$. 
 
-%A barricade is \newword{simple} if it is connected and has no degree $3$ vertices. We start by proving a stronger version of Proposition \ref{prop: inequalities} in the case of a simple barricades.
+A barricade is \newword{simple} if it is connected and has no degree $3$ vertices. We start by proving a stronger version of Proposition \ref{prop: inequalities} in the case of a simple barricades.
 
-\begin{lemma}
-Let $B$ be a barricade consisting of a single maximal path in a simply connected triangulation $\Delta$, and let $\mu$ be an unmarked arc. Then $B$ and $\mu$ are compatible iff the compatibility inequalities are satisfied.
+\begin{lemma}\label{lemma: simplebarricade}
+Let $B$ be a simple barricade in $\Delta$. A measured lamination $\mu$ is compatible with $B$ iff it satisfies the compatibility inequalities.
 \end{lemma}
-\begin{proof}
-We argue by induction on the number $n$ of triangles in $\Delta$. If $n=0$, then there are no compatibility inequalities and every $\mu$ is compatible with every $B$. 
 
-Assume that the proposition holds for triangulations with fewer than $n$-many triangles, and consider $B$ and $\mu$ in a simply connected $\Delta$ with $n$ triangles. If $B$ or $\mu$ intersect fewer than $n$-many triangles, then the proposition holds by the inductive hypothesis. 
+\begin{proof}[Proof idea]
+Induction, I hope. I don't know about loops, though.
+\end{proof}
+	
+\begin{lemma}\label{lemma: simplesub}
+A measured lamination $\mu$ is compatible with a barricade $B$ iff $\mu$ is compatible with every simple sub-barricade of $B$.
+\end{lemma}
 
-The only remaining case is when $B$ and $\mu$ intersect every triangle in $\Delta$. We observe that $B$ and $\mu$ are compatible except for two cases.
-\begin{itemize}
-	\item $B$ begins with a right turn and ends with a left turn, while $\ell$ begins with a left turn and ends with a right turn.
-	\item $B$ begins with a left turn and ends with a right turn, while $\ell$ begins with a right turn and ends with a left turn.
-\end{itemize}
-We may write the shear coordinate of the $i$th arc crossed by $B$ as
-\[ S_i (\ell) = \left\{ \begin{array}{cc}
-1 & \text{if $\ell$ turns right before the $i$th internal arc and turns left after} \\
--1 & \text{if $\ell$ turns left before the $i$th internal arc and turns right after} \\
-0 & \text{otherwise}
-\end{array}\right\}\]
-Summing over all internal arcs, we obtain the following cases.
-\[ \sum_{i=1}^nS_i (\ell) = \left\{ \begin{array}{cc}
-1 & \text{if $\ell$ begins with a right turn and ends with a left turn} \\
--1 & \text{if $\ell$ begins with a left turn and ends with a right turn} \\
-0 & \text{otherwise}
-\end{array}\right\}\]
-We see that $B$ and $\mu$ are compatible iff they satisfy the compatibility inequalities. This completes the induction.
+\begin{proof}[Proof idea]
+If they are incompatible, there should be some unmarked curve that is crossed.
 \end{proof}
 
 \begin{proof}[Proof of Proposition \ref{prop: inequalities}]
-Still missing. Key ideas: lifting to the universal cover; if a lamination is incompatible, there is a support arc that is incompatible.
-%
-%Assume $\mu$ is compatible with $B$. For any path or cycle in $B$, there is a simple sub-barricade $B'$ containing that path or cycle which is also compatible with $\mu$, and so the associated compatibility inequality holds by Lemma \ref{lemma: simplebarricade}.
-%
-%Assume the compatibility inequalities hold for $\mu$ and $B$. Then they also hold for any simple sub-barricade of $B$, and so by Lemma \ref{lemma: simplebarricade} $\mu$ is compatible with each of them. By Lemma \ref{lemma: simplesub}, $\mu$ is compatible with $B$.
+Assume $\mu$ is compatible with $B$. For any path or cycle in $B$, there is a simple sub-barricade $B'$ containing that path or cycle which is also compatible with $\mu$, and so the associated compatibility inequality holds by Lemma \ref{lemma: simplebarricade}.
+
+Assume the compatibility inequalities hold for $\mu$ and $B$. Then they also hold for any simple sub-barricade of $B$, and so by Lemma \ref{lemma: simplebarricade} $\mu$ is compatible with each of them. By Lemma \ref{lemma: simplesub}, $\mu$ is compatible with $B$.
 \end{proof}
 
 \section{Minimal barricades}
@@ -1390,11 +1321,10 @@ The scattering diagram $\mathfrak{D}$ is consistent, and is the GHKK scattering 
 \begin{lemma}
 The joints of $\mathfrak{D}$ are as follows.%are $C_B$, as $B$ runs over the minimal barricades of codimension $2$.
 \begin{itemize}
-	\item If $B$ is a tree with 5 short leaves, then $C_B$ is a joint which is contained in the 3 walls: the 3 I-beams contained in $B$.
-	\item If $B$ is a cycle with 2 short leaves on different sides, then $C_B$ is a joint which is contained in infinitely many walls: the cycle and the infinitely-many I-beams contained in $B$.\footnote{Note that the cycle in this case must be non-shielding.}
-	\item If $B$ is a non-shielding cycle with 2 short leaves on the same side, then $C_B$ is a joint which is contained in 3 walls: the cycle and the 2 I-beams contained in $B$.
-	\item If $B$ is a shielding cycle with 2 short leaves on the same side, then $C_B$ is a joint which is contained in 2 walls: the 2 I-beams contained in $B$.
-	\item If $B$ is a disjoint union of 2 I-beams or non-shielding loops, then $C_B$ is a joint contained in 2 walls.
+	\item If $B$ is a tree with 5 short leaves, then $C_B$ is a joint which is contained in the 3 walls; specifically, the 3 I-beams contained in $B$.
+	\item If $B$ is a cycle with 2 short leaves on the same side, then $C_B$ is a joint which is contained in 2 or 3 walls; specifically, the 2 I-beams contained in $B$, and the cycle (if it is non-shielding).
+	\item If $B$ is a cycle with 2 short leaves on different sides, then $C_B$ is a joint which is contained in infinitely many walls; specifically, the infinitely-many I-beams contained in $B$, and the cycle.\footnote{Note that the cycle in this case must be non-shielding.}
+	\item If $B$ is a disjoint union of $2$ I-beams or non-shielding loops, then $C_B$ is a joint contained in 2 walls.
 \end{itemize}
 \end{lemma}
 

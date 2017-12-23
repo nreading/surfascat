@@ -1,0 +1,1324 @@
+(plane.ps) run
+(labels.ps) run
+
+%--------------------------------------------
+%  Begin definitions for arrangement.ps
+%--------------------------------------------
+
+% This is a set of routines for drawing central 
+% arrangements of planes in R^3.  They are depicted as 
+% arrangements of great circle on the sphere.
+%
+%  User procedures:
+%  
+%  Helper procedures: 
+%  
+%  Other names used:
+%  centerx, centery, radius, north,
+%  right, top
+
+% This also uses vector.ps
+
+%---------------------------------------------------
+%  Definitions of user procedures for arrangement.ps
+%---------------------------------------------------
+
+%---------------------------------------------------
+%  Setup procedures
+%---------------------------------------------------
+
+%  defines the center (in user coordinates) and the radius
+%  of the sphere to be drawn.  We see the sphere from the 
+%  north.
+%  usage:
+%  cx cy rad defcxcyr
+/defcxcyr
+{
+/radius exch def /centery exch def /centerx exch def
+}
+def
+
+%  rotates th degrees about (centerx,centery).
+%  This rotates the entire picture.
+%  Syntax: th crotate
+/crotate
+{
+centerx centery translate
+rotate
+centerx neg centery neg translate
+}
+def
+
+%  performs a scaling of sx in the x-direction
+%  and sy in the y-direction while fixing (centerx,centery).
+%  Syntax: sx sy cscale
+/cscale
+{
+centerx centery translate
+scale
+centerx neg centery neg translate
+}
+def
+
+%  rotates th degrees about (centerx,centery).
+%  This rotates the basis.  (So individual picture elements, like
+%  labels, are not rotated.)  Specifically, right is rotated 
+%  th degrees in the direction of top.
+%  This really only makes sense under the orthonormal option.
+%  Syntax: th basisrotate
+/basisrotate
+{
+dup sin top scalarmul exch
+cos right scalarmul addvec
+defright
+}
+def
+
+
+
+%  sets a flag to determine whether things will be drawn with respect to
+%  an orthonormal basis in the standard inner product.
+%  the default is orthonormal.  If you want non-orthonormal, then put
+%  "nonorthonormal" in your file before you define north, etc.
+%  You can switch back to orthonormal by putting "orthonormal"
+%  in the file before the next time you define north, top, etc.
+/nonorthonormal {/orthonorm false def} def
+/orthonormal {/orthonorm true def} def
+orthonormal
+
+%  The orthonormal basis will be right-handed unless you put in the
+%  command "lefthanded."  To switch back to right-handed, do the command
+%  "righthanded" and then define north and right again.
+/lefthanded {/righthand false def} def
+/righthanded {/righthand true def} def
+righthanded
+ 
+%  defines the vector which points directly north
+%  Need not be a unit vector.  Unless you are in nonorthonormal mode,
+%  it will be scaled to a unit vector.
+%  usage:
+%  [nx ny nz] defnorth
+/defnorth
+{
+orthonorm {unit} if
+/north exch def
+}
+def
+
+% defines the vector which points to the right.
+% In fact, this need not be perpendicular to the north 
+% vector but ought not to be parallel.
+% The program will project to a vector orthogonal to 
+% the north vector then scale to unit length.
+% Then it will choose a vector top such that 
+% (right, top, north) forms a right-handed orthonormal 
+% basis.
+% usage:
+% [rx ry rz] defright
+/defright
+{
+/right exch def  
+orthonorm
+{
+right right north dotprod north scalarmul subvec unit
+/right exch def
+/top north right crossprod def
+}
+if
+righthand not
+{/top -1 top scalarmul def}
+if
+}
+def
+
+%  This defines the vector which points to the top of the page
+%  You only need to do this if you are in nonorthogonal mode
+%  [tx ty tz] deftop
+/deftop
+{
+/top exch def
+}
+def
+
+%  This is a procedure which sets the projection
+%  to orthogonal.  You won't need this unless
+%  you are drawing two projections in the same file.
+%  But if you drew something in a different projection
+%  scheme and later you want to draw something orthogonal, type
+%  "orthogonal" in the file, to get back to default behavior
+/orthogonal {/projectionscheme (orthogonal) def} def
+orthogonal
+
+%  This is a procedure which sets the projection
+%  to northorthogonal.  (Which draws only the north pole of an 
+%  orthogonal projecton.)  To use this, put the command 
+%  "northorthogonal" in the file.
+/northorthogonal {/projectionscheme (north) def} def
+
+%  This is a procedure which sets the projection
+%  to southorthogonal.  (Which draws only the south pole of an 
+%  orthogonal projecton.)  To use this, put the command 
+%  "southorthogonal" in the file.
+/southorthogonal {/projectionscheme (south) def} def
+
+%  This is a procedure which sets the projection
+%  to stereographic.  To use this, put the command 
+%  "stereo" in the file.  Every arc drawn after that 
+%  will be drawn according to stereographic projection.
+%  The point at infinity is the south pole and the equatorial
+%  great circle projects to the circle of the defined radius 
+%  at the defined center. 
+/stereo {/projectionscheme (stereo) def} def
+
+%  This is a procedure which sets the projection
+%  to affine.  To use this, put the command 
+%  "affine" in the file.  Every hyperplane drawn by the 
+%  routines plane and northplane will be represented by its 
+%  intersection with the plane "northcoordinate = 1"
+%  southplane will draw the intersection with 
+%  "northcoordinate = -1"
+%  geodesics may draw pieces of both planes.
+/affine {/projectionscheme (affine) def} def
+
+%  This is a procedure which sets the projection
+%  to the poincare model.  To use this, put the command 
+%  "poincare" in the file.  Every arc drawn after that 
+%  will be drawn according to the poincare model.
+%  That is, we intersect the hyperplane with the north sheet 
+%  of the standard 2-sheet hyperboloid with axis in the north
+%  direction.  Then we map each point p to the intersection
+%  of the line through p and -north with the unit disk in 
+%  the right-top plane.
+%  northplane and plane will act identically, while southplane
+%  will do the analogous thing with the south sheet of the
+%  hyperboloid.  Geodesics may draw pieces of both projections.
+/poincare {/projectionscheme (poincare) def} def
+
+%---------------------------------------------------
+%  Drawing procedures
+%---------------------------------------------------
+
+%  NOTE:  The drawing procedures /plane and /geodesic
+%  construct the path and then "stroke" it. 
+
+%  This is a procedure which, given a vector [vx vy vz], draws
+%  the hyperplane perpendicular to [vx vy vz] according to the 
+%  given projection scheme.  One must have already run defcxcyr, 
+%  defnorth, defright (and deftop in nonorthogonal mode) to have 
+%  set up a coordinate system.
+%  usage:
+%  [vx vy vz] plane
+/plane
+{
+newpath
+projectionscheme (plane) concat
+cvn cvx exec
+stroke
+}
+def
+
+%  This is a procedure which, given two vectors (not parallel),
+%  draws the geodesic connecting their projections.
+%  usage:  
+%  [vx vy vz] [wx wy wz] geodesic
+/geodesic
+{
+newpath
+projectionscheme (geodesic) concat cvn cvx exec
+stroke
+}
+def
+
+%  This is a procedure which, given three vectors,
+%  draws the filled triangle given by the three geodesics
+%  they define.
+%  usage:  
+%  [ux uy uz] [vx vy vz] [wx wy wz] geodesic
+/triangle
+{
+newpath
+projectionscheme (triangle) concat cvn cvx exec
+fill
+}
+def
+
+%  Draws the circle at (centerx,centery) of the defined radius.
+%  This is the equatorial circle in the orthogonal or 
+%  stereographic projection schemes or the boundary of the 
+%  poincare circle.
+/equator
+{
+newpath
+centerx radius add centery moveto
+centerx centery radius 0 360 arc 
+centerx radius add centery moveto
+stroke
+}
+def
+
+%  Fills the circle at (centerx,centery) of the defined radius.
+%  This is the equatorial circle in the orthogonal or 
+%  stereographic projection schemes or the boundary of the 
+%  poincare circle.
+/equatorfill
+{
+newpath
+centerx radius add centery moveto
+centerx centery radius 0 360 arc 
+centerx radius add centery moveto
+fill
+}
+def
+
+%  Clips at the circle at (centerx,centery) of the defined radius.
+%  This is the equatorial circle in the orthogonal or 
+%  stereographic projection schemes or the boundary of the 
+%  poincare circle.
+/equatorclip
+{
+newpath
+centerx radius add centery moveto
+centerx centery radius 0 360 arc 
+centerx radius add centery moveto
+clip
+newpath
+}
+def
+
+
+
+
+%  Finds coordinates, in the chosen projection scheme, 
+%  of the ray defined by vx vy vz.  The output is a vector
+%  with two entries.  Note that in some projection
+%  schemes, some rays can't be projected.  In that case,
+%  this will return the name /noprojection, probably leading 
+%  to an error.  (This will be easy to debug:  you'll see 
+%  the name noprojection on the stack when your error occurs.)
+%  You can also check, within a procedure, whether this returned
+%  /noprojection, as some routines below do.
+% usage:
+%  [vx vy vz] raycoords
+/raycoords
+{
+projectionscheme (coords) concat cvn cvx exec
+}
+def
+
+
+%  given [vx vy vz], offets offx and offy and a string (label)
+%  moves to the point determined by ray, centers the string about 
+%  that point and then, if offsetx and offsety are provided,
+%  moves by offsetx in the x direction and offsety 
+%  in the y direction, and shows the string.
+%  Does nothing if the ray has no projection.
+%  usage:
+%  [vx vy vz] offsetx offsety labelstring raylabel
+%  or:
+%  [vx vy vz] labelstring raylabel
+%  The latter will take the offsets to be zero.
+/raylabel
+{
+exch dup type /arraytype eq
+{0 0 4 -1 roll}
+{exch}
+ifelse
+4 -1 roll raycoords		% stack: offx offy labelstring [x y]
+dup /noprojection ne
+{
+dup clipdistance maxlength gt {pop pop}
+{
+aload pop exch 5 -1 roll add	% stack: offy labelstring y (x+offx)
+exch 4 -1 roll add		% stack: labelstring (x+offx) (y+offy)
+moveto labelcenter show
+}
+ifelse
+}
+{pop pop pop pop}
+ifelse
+}
+def
+
+%  given [vx vy vz], and rad, draws a dot of radius rad
+%  at the projected point.
+%  Does nothing if the ray has no projection.
+%  usage:
+%  [vx vy vz] rad raydot
+/raydot
+{
+exch raycoords	 			
+% stack: rad [x y]
+dup /noprojection ne
+{
+dup clipdistance maxlength gt {pop pop}
+{
+aload pop 3 1 roll 3 copy add exch	% stack: y rad x (rad+x) y
+gsave newpath
+moveto 3 1 roll				% stack: x y rad
+0 360 arc fill
+grestore
+}
+ifelse
+}
+{pop pop}
+ifelse
+}
+def
+
+%---------------------------------------------------
+%  Definitions of helper procedures for arrangement.ps
+%---------------------------------------------------
+
+%  constructs a diameter of the unit circle, given a 2-d vector
+%  normal to the diameter.
+%  usage: [x y] diameter
+/diameter
+{
+aload pop exch
+neg [ 3 1 roll ] unit 
+radius exch scalarmul dup -2 exch scalarmul exch
+centerx centery moveto
+aload pop rmoveto
+aload pop rlineto 
+}
+def
+
+
+%  A helper that takes two strings as input and returns
+%  their concatenation.
+%  usage: string1 string2 concat
+/concat
+{
+2 copy				%stack: str1 str2 str1 str2
+length exch length add string
+dup dup				%stack: str1 str2 str str str
+5 -1 roll dup 6 1 roll length	%stack: str1 str2 str str str l
+5 -1 roll putinterval		%stack: str1 str str
+0 4 -1 roll putinterval
+} 
+def
+
+% A very different coordinate transform function.
+% This takes a vector in the user's coordinates and 
+% returns a vector in the right-top-north coordinates.
+/rtncoords
+{
+[
+exch dup dup 
+right dotprod 3 1 roll
+top dotprod exch
+north dotprod 
+]
+unit
+}
+def
+
+% This transforms mathematical coordinates to page
+% coordinates by first multiplying by radius and then
+% adding [centerx centery]
+% Syntax: [x y] pagecoords
+/pagecoords
+{
+radius exch scalarmul
+[centerx centery] addvec
+}
+def
+
+% Solves the quadratic equation ax^2+bx+c=0.
+% puts /undefined on the stack if there is no solution, 
+% or if a=b=0.
+% If there are two solutions, then the one with the "+"
+% sign is placed on the stack first, followed by the 
+% one with the "-" sign.
+% If there is one solution, the two copies of the solution
+% are placed on the stack.
+% Syntax: a b c quadsolve
+/quadsolve
+{
+3 -1 roll dup 0 eq  % If a is zero
+	{
+	pop
+	neg exch
+	dup 0 eq {pop pop /undefined} {div dup} ifelse
+	}
+	{
+	3 copy				% stack: b c a b c a
+	mul 4 mul exch dup mul exch sub	% stack: b c a b^2-4ca
+	dup 0 lt 
+		{pop pop pop pop /undefined}
+		{
+		sqrt 4 1 roll		% stack: sqrt(b^2-4ca) b c a
+		exch pop		% stack: sqrt(b^2-4ca) b a
+		2 mul dup		% stack: sqrt(b^2-4ca) b 2a 2a
+		3 -1 roll neg dup	% stack: sqrt(b^2-4ca) 2a 2a -b -b
+		5 -1 roll dup		% stack: 2a 2a -b -b sqrt(b^2-4ca) sqrt(b^2-4ca)
+		3 -1 roll add 		% stack: 2a 2a -b sqrt(b^2-4ca) -b+sqrt(b^2-4ca)
+		4 -1 roll div		% stack: 2a -b sqrt(b^2-4ca) -b+sqrt(b^2-4ca)/2a
+		4 1 roll		% stack: -b+sqrt(b^2-4ca)/2a 2a -b sqrt(b^2-4ca)
+		sub exch div		% stack: -b+sqrt(b^2-4ca)/2a -b-sqrt(b^2-4ca)/2a
+		}
+		ifelse
+	}
+ifelse
+}
+def
+
+
+
+
+% Finally, not a procedure, but changes to default drawing parameters.
+% This seems to be a good idea.
+1 setlinejoin
+1 setlinecap
+
+
+%---------------------------------------------------
+%  Procedures for the orthogonal projection scheme
+%---------------------------------------------------
+
+%  The orthogonal version of plane.
+%  This draws the intersection of the plane with
+%  the unit sphere, projected orthogonally
+%  to the equatorial plane.
+/orthogonalplane
+{
+%  calls the procedure to put rho and theta on the stack
+thetarho
+%  Then makes a full great circle.
+0 360 greatarc
+}
+def
+
+/orthogonalgeodesic
+{
+2 copy crossprod unit 		% stack: v w x
+%  If x is directly north or south, I get a funny
+%  answer from thetarho, so I use equatorialgeodesic
+dup dup north dotprod 
+abs exch veclength		% stack: v w x |x.north| |x|
+eq
+	{equatorialgeodesic}
+	{thetarhostartend greatarc}
+ifelse 
+}
+def
+
+%  This is a procedure which, given angles theta, rho
+%  start and end, draws an arc of a great circle (as projected onto
+%  the plane---so it's an ellipse).
+%  To use this, one must have already done defcxcyr, but need not
+%  have done defnorth or defright.
+%  theta is the angle that the intersection of the equatorial plane and the 
+%  plane of the great circle depicted (the major axis of the ellipse) makes 
+%  with the positive x-axis.  
+%  rho is the angle that a normal to the plane makes with north.
+%  start and end are measured counterclockwise (on the ellipse, if rho is 
+%  between 0 and 90) from the ray given by theta. 
+%  usage:
+%  theta rho start end greatarc
+/greatarc
+{
+gsave
+newpath
+%  this does 0 0 radius start end arc
+0 0 radius 5 -2 roll arc 
+false upath 3 1 roll newpath
+6 array currentmatrix 4 1 roll
+centerx centery translate
+% bring theta to the top of the stack and rotate by theta
+exch rotate
+% bring rho to the top of the stack and scale y-axis by cos(rho)
+1 exch cos scale
+%  this does 0 0 radius start end arc
+uappend
+setmatrix
+false upath
+grestore
+uappend
+}
+def
+
+%/greatarc
+%{
+%centerx centery translate
+%% bring a copy of theta to the top of the stack and rotate by theta
+%4 -1 roll dup 5 1 roll rotate
+%gsave
+%%  this does 0 0 radius start end arc
+%0 0 radius 5 -2 roll arc
+%% bring a copy of rho to the top of the stack and 
+%% check whether cos rho is zero.
+%% if it is, it pretends that cos rho is 0.000001.
+%cos dup 0 eq {pop 0.0000001} if
+%1 exch 1 exch div scale
+%%  We use the following trick before stroke so that the 
+%%  width of the line doesn't get affected by the scaling.
+%false upath
+%grestore
+%uappend
+%%  rotate back by theta
+%neg rotate
+%% translate back
+%centerx neg centery neg translate
+%}
+%def
+
+%  Given a vector, puts theta and rho on the stack.
+%  This will be the angles explained in connection with 
+%  the procedure greatarc, where v is the vector 
+%  perpendicular to the plane defined by the great
+%  circle.
+%  usage:
+%  [vx vy vz] thetarho
+/thetarho
+{					% stack: v
+dup dup top dotprod			% stack: v v (v.top)
+exch right dotprod			% stack: v (v.top) (v.right)
+%  Calculate theta
+%  if v is parallel to north then rho is 0 and
+%  theta is irrelevant.
+2 copy 0 eq exch 0 eq and		% stack: v (v.top) (v.right) (BOOLEAN)
+{pop pop pop 0 0} 
+{
+2 copy atan 90 add			% stack: v (v.top) (v.right) theta
+4 1 roll				% stack: theta v (v.top) (v.right) 
+%  find the unit vector in the projection of v to the equator
+right scalarmul				% stack: theta v (v.top) (v.right)right 
+exch top scalarmul			% stack: theta v (v.right)right (v.top)top 
+addvec unit 				% stack: theta v eqvec
+exch dup 3 1 roll			% stack: theta v eqvec v
+dotprod					% stack: theta v (eqvec.v)
+exch north dotprod			% stack: theta (eqvec.v) (v.north)
+atan					% stack: theta rho
+}			
+ifelse
+}
+def
+
+%  A helper for geodesic.
+%  Takes three vectors (not 9 numbers).
+%  The first two are expected to both be in the equator.
+%  The third is expected to be the crossproduct of the first two
+%  (scaled to a unit vector).
+/equatorialgeodesic
+{
+%  The crossprod (third parameter) is either parallel or 
+%  antiparallel to north
+north dotprod 0 ge
+{
+%  If x is directly north:
+exch dup 			% stack: w v v 
+top dotprod exch right dotprod	% stack: w (v.top) (v.right) 
+atan dup 0 0			% stack: w theta theta 0 0
+5 3 roll exch dup		% stack: theta 0 0 theta w w
+top dotprod exch right dotprod	% stack: theta 0 0 theta (w.top) (w.right)
+atan exch sub			% stack: theta 0 0 endangle
+greatarc
+}
+{
+%  If x is directly south:
+dup	 			% stack: v w w 
+top dotprod exch right dotprod	% stack: v (w.top) (w.right) 
+atan dup 0 0			% stack: v theta theta 0 0
+5 3 roll exch dup		% stack: theta 0 0 theta v v
+top dotprod exch right dotprod	% stack: theta 0 0 theta (v.top) (v.right)
+atan exch sub			% stack: theta 0 0 endangle
+greatarc
+}
+ifelse
+}
+def 
+
+%  A helper for geodesic.
+%  Takes three vectors (not 9 numbers).
+%  The first two are expected to not both be in the equator.
+%  The third is expected to be the crossproduct of the first two
+%  (scaled to a unit vector).
+%  leaves 4 angles (theta rho startangle endangle) on the stack
+/thetarhostartend
+{					% stack: v w x
+	dup thetarho			% stack: v w x theta rho
+	exch dup 3 1 roll		% stack: v w x theta rho theta
+	dup cos right scalarmul		% stack: v w x theta rho theta (right(cos theta))
+	exch sin top scalarmul		% stack: v w x theta rho right(cos theta) top(sin theta)
+	addvec				% stack: v w x theta rho y
+	3 1 roll 6 2 roll		% stack: theta rho v w x y
+	dup 3 1 roll			% stack: theta rho v w y x y
+	crossprod unit			% stack: theta rho v w y z
+	dup 5 -1 roll dup		% stack: theta rho w y z z v v
+	4 1 roll dotprod exch		% stack: theta rho w y v (v.z) z
+	4 1 roll 3 1 roll exch 		% stack: theta rho w z (v.z) v y 
+	dup 5 1 roll dotprod		% stack: theta rho w y z (v.z) (v.y)
+	atan 4 1 roll			% stack: theta rho startangle w y z
+	3 -1 roll dup 4 1 roll		% stack: theta rho startangle w y z w
+	dotprod 3 1 roll dotprod	% stack: theta rho startangle (z.w) (w.y) 
+	atan				% stack: theta rho startangle endangle
+}
+def
+
+%  This is the orthogonal version of raycoords.
+/orthogonalcoords
+{
+unit 
+[ exch dup right dotprod exch top dotprod ]
+pagecoords
+}
+def
+
+%---------------------------------------------------
+%  Procedures for the north orthogonal projection scheme
+%---------------------------------------------------
+
+/northplane
+{
+%  calls the procedure to put rho and theta on the stack
+thetarho
+dup cos abs 1 eq
+{
+%  If the great circle is equatorial, draw everything.
+0 360 greatarc
+}
+{
+%  Otherwise makes a half great circle.
+0 180 greatarc
+}
+ifelse
+}
+def
+
+%  usage:  
+%  [vx vy vz] [wx wy wz] northgeodesic
+/northgeodesic
+{
+2 dict begin
+/w exch def
+/v exch def
+v north dotprod 0 ge
+	{
+	w north dotprod 0 ge
+		{v w orthogonalgeodesic}
+		{
+		v
+		w right dotprod v north dotprod mul
+		w north dotprod v right dotprod mul
+		sub right scalarmul
+		w top dotprod v north dotprod mul
+		w north dotprod v top dotprod mul
+		sub top scalarmul
+		addvec
+		orthogonalgeodesic
+		}
+	ifelse
+	}
+	{
+	w north dotprod 0 ge
+		{
+		v right dotprod w north dotprod mul
+		v north dotprod w right dotprod mul
+		sub right scalarmul
+		v top dotprod w north dotprod mul
+		v north dotprod w top dotprod mul
+		sub top scalarmul
+		addvec w
+		orthogonalgeodesic
+		}
+	if
+	}
+ifelse
+end
+}
+def
+
+
+%  same idea for the raycoords functions.
+%  See how the orthogonal projection mode handles this.
+
+/northcoords
+{
+dup north dotprod 0 ge
+{orthogonalcoords}
+{pop /noprojection}
+ifelse
+}
+def
+
+
+
+%---------------------------------------------------
+%  Procedures for the south orthogonal projection scheme
+%---------------------------------------------------
+
+%  The orthogonal version of southplane.
+%  This draws the intersection of the plane with
+%  the unit southern hemisphere, projected orthogonally
+%  to the equatorial plane.
+/southplane
+{
+%  calls the procedure to put rho and theta on the stack
+thetarho
+dup cos abs 1 eq
+{
+%  If the great circle is equatorial, draw everything.
+0 360 greatarc
+}
+{
+%  Otherwise makes a half great circle.
+180 360 greatarc
+}
+ifelse
+}
+def
+
+%  Like geodesic but only draws what's in the southern hemisphere.
+%  usage:  
+%  [vx vy vz] [wx wy wz] southgeodesic
+/southgeodesic
+{
+2 dict begin
+/w exch def
+/v exch def
+v north dotprod 0 le
+	{
+	w north dotprod 0 le
+		{v w orthogonalgeodesic}
+		{
+		v
+		w right dotprod v north dotprod mul
+		w north dotprod v right dotprod mul
+		exch sub right scalarmul
+		w top dotprod v north dotprod mul
+		w north dotprod v top dotprod mul
+		exch sub top scalarmul
+		addvec
+		orthogonalgeodesic
+		}
+	ifelse
+	}
+	{
+	w north dotprod 0 le
+		{
+		v right dotprod w north dotprod mul
+		v north dotprod w right dotprod mul
+		exch sub right scalarmul
+		v top dotprod w north dotprod mul
+		v north dotprod w top dotprod mul
+		exch sub top scalarmul
+		addvec w 
+		orthogonalgeodesic
+		}
+	if
+	}
+ifelse
+end
+}
+def
+
+/southcoords
+{
+dup north dotprod 0 le
+{orthogonalcoords}
+{pop /noprojection}
+ifelse
+}
+def
+
+
+
+
+%---------------------------------------------------
+%  Procedures for the stereographic projection scheme
+%---------------------------------------------------
+
+%  This is the stereographic version of plane.
+%  usage:  [vx vy vz] stereoplane
+/stereoplane
+{
+4 dict begin
+/v exch def
+/vrtn v rtncoords def
+/vr vrtn 0 get def
+/vt vrtn 1 get def
+/vn vrtn 2 get def
+[vr vt] veclengthsqr 0 eq
+	{equator}
+	{
+	vt neg right scalarmul 
+	vr top scalarmul addvec
+	dup -1 exch scalarmul
+	stereocoords exch stereocoords
+	vr neg vn mul right scalarmul
+	vt neg vn mul top scalarmul
+	[vr vt] veclengthsqr north scalarmul
+	addvec addvec stereocoords
+	circumcircle stroke
+	}
+ifelse
+end
+}
+def
+
+%  This is the stereographic version of raycoords.
+/stereocoords
+{
+rtncoords
+unit aload pop dup
+%  If z=-1 then the point can't be projected
+-1 eq
+{pop pop pop /noprojection}
+{
+1 add [ 4 2 roll ]
+exch scalardiv
+pagecoords
+} 
+ifelse
+}
+def
+
+%  This is the stereographic version of geodesic.
+%  usage:  v w stereogeodesic
+/stereogeodesic
+{
+2 copy 
+stereocoords exch 
+stereocoords exch
+dup /noprojection eq
+	{
+	pop
+	dup /noprojection eq 
+		{pop pop pop} 
+		{3 1 roll addvec stereocoords ray} 
+	ifelse
+	}
+	{
+	exch dup /noprojection eq 
+		{pop 3 1 roll addvec stereocoords ray} 
+		{
+		4 2 roll
+		addvec stereocoords
+		dup /noprojection eq
+			{
+			pop
+			2 copy subvec
+			dup 4 1 roll -1 exch scalarmul rray
+			exch rray
+			}
+			{3 -1 roll aload pop moveto exch arcthrough}
+		ifelse
+		} 
+	ifelse
+	}
+ifelse
+}
+def
+
+%  A triangle in the stereographic projection.
+%  The only complication here is that you have 
+%  to see if the triangle is unbounded, and if so,
+%  you have to draw it by fooling with the clipping path.
+%  Right now this only draws if all three vectors have projections.
+%  Later it would be cool to draw the reasonable thing in all cases.
+/stereotriangle
+{
+3 copy 
+stereocoords 3 1 roll
+stereocoords 3 1 roll
+stereocoords 3 1 roll
+3 copy
+/noprojection eq exch 
+/noprojection eq or exch
+/noprojection eq or
+{pop pop pop pop pop pop}
+{					% stack: u v w uproj vproj wproj
+6 3 roll 3 copy 9 -3 roll		% stack: u v w u v w uproj vproj wproj
+dup aload pop moveto				% stack: u v w u v w uproj vproj wproj
+5 -2 roll 2 copy addvec	stereocoords	% stack: u v w u uproj vproj wproj v w (v+w)proj
+5 -1 roll arcthrough			% stack: u v w u uproj wproj v w
+exch 5 -1 roll dup 3 1 roll		% stack: u v w uproj wproj w u v u
+addvec stereocoords			% stack: u v w uproj wproj w u (v+u)proj
+5 -1 roll arcthrough			% stack: u v w wproj w u
+addvec stereocoords exch arcthrough	% stack: u v w
+closepath
+%  Now I have to decide whether to just fill or draw an infinite region.
+%  I use the scalar triple product (i.e. determinant).
+3 copy crossprod dotprod		% stack: u v w det
+dup 0 eq 
+{pop pop pop pop}			%  If the vectors are coplanar, don't bother.
+{
+dup abs div 4 1 roll				% stack: +-1 u v w
+3 copy pop north crossprod dotprod 		% stack: +-1 u v w det
+5 -1 roll dup 6 1 roll mul 0 lt 5 1 roll	% stack: bool1 +-1 u v w
+3 copy exch pop north exch			% stack: bool1 +-1 u v w u north w
+crossprod dotprod				% stack: bool1 +-1 u v w det
+5 -1 roll dup 6 1 roll mul 0 lt 5 1 roll	% stack: bool1 bool2 +-1 u v w
+3 -1 roll pop north 3 1 roll			% stack: bool1 +-1 north v w
+crossprod dotprod				% stack: bool1 bool2 +-1 det
+exch dup 3 1 roll mul 0 lt			% stack: bool1 bool2 +-1 bool3
+4 -2 roll and and
+{
+1 eq {[centerx centery] maxlength circle} {[centerx centery] maxlength revcircle} ifelse
+}
+{pop}
+ifelse
+eofill
+}
+ifelse
+}
+ifelse
+}
+def
+
+
+
+
+
+%---------------------------------------------------
+%  Procedures for the affine projection scheme
+%---------------------------------------------------
+
+%  The affine version of plane.
+%  This draws the intersection of the plane with
+%  the plane orthogonal to north, a distance radius 
+%  from the origin.  The picture will be rotated so that
+%  right is the vector pointing right on the screen.
+
+/affineplane
+{						% stack: v
+rtncoords 
+aload aload pop pop				% stack: r t n r t
+dup mul exch dup mul add dup 0 eq		% stack: r t n r^2+t^2 (r^2+t^2=0)
+% if the right and top coordinates are zero, do nothing
+{pop pop}
+% Otherwise, find a constant c such that [cr ct 1]
+% is perpendicular to [r t n]:
+{						% stack: r t n r^2+t^2
+div neg	3 1 roll				% stack: c r t
+% Then draw the line through [cr ct] perpendicular to [r t].
+2 copy neg exch [ 3 1 roll ] 4 1 roll		% stack: [-t r] c r t
+[ 3 1 roll ] scalarmul
+pagecoords
+exch rline
+}
+ifelse
+}
+def
+
+/affinecoords
+{
+rtncoords aload pop
+dup 0 le
+{pop pop pop /noprojection}
+{
+3 1 roll
+[ 3 1 roll ] exch scalardiv
+pagecoords
+}
+ifelse
+}
+def
+
+/affinegeodesic
+{
+dup north dotprod 0 gt
+	{
+	exch dup north dotprod 0 gt
+		{
+		% Even when both points are in the northern hemisphere,
+		% we need to be careful, in case they are very far away.
+		affinecoords exch affinecoords
+		dup clipdistance maxlength gt
+			{
+			exch dup clipdistance maxlength gt
+				{
+				% In this case, nothing to do but 
+				% the slow thing.
+				aload pop moveto aload pop lineto
+				}
+				{exch ray}
+			ifelse
+			}
+			{
+			exch dup clipdistance maxlength gt
+				{ray}
+				{aload pop moveto aload pop lineto}
+			ifelse
+			}
+		ifelse		
+		}
+		{affinegeodesichelper}
+	ifelse
+	}
+	{
+	exch dup north dotprod 0 gt
+	{exch affinegeodesichelper}
+	{pop pop}
+	ifelse
+	}
+ifelse
+}
+def
+
+%  handles a pair of vectors, the first in the open northern halfspace
+%  and the second in the closed southern halfspace.
+/affinegeodesichelper
+{
+2 dict begin
+/w exch def /v exch def
+v affinecoords
+v north dotprod w right dotprod mul 
+v right dotprod w north dotprod mul sub
+v north dotprod w top dotprod mul 
+v top dotprod w north dotprod mul sub
+[ 3 1 roll ] 
+rray
+end
+}
+def
+
+/affinetriangle
+%  Right now this only draws if all three vectors have projections.
+%  Later it would be cool to draw the reasonable thing in all cases.
+{
+affinecoords 3 1 roll
+affinecoords 3 1 roll
+affinecoords 3 1 roll
+3 copy
+/noprojection eq exch 
+/noprojection eq or exch
+/noprojection eq or
+{pop pop pop}
+{					% stack: uproj vproj wproj
+aload pop moveto
+aload pop lineto
+aload pop lineto
+closepath
+}
+ifelse
+}
+def
+
+
+%----------------------------------------------------
+%  Procedures for the poincare projection scheme
+%----------------------------------------------------
+
+%  The poincare model version of plane.
+%  This draws the intersection of the plane with the north sheet of
+%  the standard hyperboloid of two sheets (with axis of
+%  symmetry parallel to north).
+%  The intersection is then transformed onto the unit circle.
+%  (Each point in the intersection is scaled so that its north
+%  coordinate is 1.)
+%  The above description is mathematical.  We actually do this
+%  by calculating the center and radius of a circle.
+%  Our drawing of the unit circle is scaled by the global
+%  parameter radius.  
+/poincareplane
+{
+rtncoords dup 2 get 0 eq  	
+	{aload pop pop [ 3 1 roll ] diameter stroke}	
+	{
+	aload pop 3 1 roll [ 3 1 roll ] exch scalardiv	%stack: [a b]
+	dup veclengthsqr dup 3 1 roll 1 sub 		%stack: a^2+b^2 [a b] a^2+b^2-1  
+	dup 0 le
+		{pop pop pop}
+		{				% use "r" for sqrt(a^2+b^2-1)
+		sqrt exch aload 3 1 roll	%stack: a^2+b^2 r [a b] a b 
+		neg exch [ 3 1 roll ]		%stack: a^2+b^2 r [a b] [-b a]
+		exch -1 exch scalarmul exch	%stack: a^2+b^2 r [-a -b] [-b a]
+		3 -1 roll dup 4 1 roll		%stack: a^2+b^2 r [-a -b] [-b a] r
+		exch scalarmul			%stack: a^2+b^2 r [-a -b] r[-b a]
+		2 copy addvec			%stack: a^2+b^2 r [-a -b] r[-b a] [-a -b]+r[-b a]
+		5 -1 roll dup 6 1 roll
+		scalardiv
+		pagecoords	
+		aload pop moveto				%stack: a^2+b^2 r [-a -b] r[-b a]
+		subvec
+		3 -1 roll scalardiv
+		pagecoords	
+		exch radius mul
+		% If we are getting a "radius too small" in arcright,
+		% then it comes about by rounding errors.  We can safely
+		% not draw anything.
+		1 dict begin /safearcs true def arcright end
+		}
+	ifelse
+	}
+ifelse
+}
+def
+
+%  this gives /noprojection unless the ray intersects
+%  the northern sheet or is contained in the northern
+%  limiting cone.
+/poincarecoords
+{
+rtncoords dup 2 get 0 le
+	{pop /noprojection}
+	{
+	dup dup [-1 -1 1] sigprod dup
+	[
+		[{0 lt} {pop pop /noprojection}]
+		[{0 eq} 
+			{pop
+			dup 2 get scalardiv
+			aload pop pop [ 3 1 roll ] unit
+			pagecoords
+			}
+		]
+		[else 
+			{
+			sqrt 1 exch div exch scalarmul
+			aload pop 1 add radius exch div
+			3 1 roll [ 3 1 roll ]
+			scalarmul
+			[centerx centery] addvec
+			}
+		]
+	] cases
+	}
+ifelse
+}
+def
+
+/poincaregeodesic
+{
+2 copy poincarecoords exch poincarecoords exch		% stack: v w vproj wproj
+dup /noprojection eq
+	{
+	exch dup /noprojection eq 
+		{pop pop poincareneitherprojects} 
+		{exch pop poincareoneprojects} 
+	ifelse
+	}
+	{
+	exch dup /noprojection eq 
+		{pop 3 1 roll exch 3 -1 roll poincareoneprojects} 
+		{exch poincarebothproject} 
+	ifelse
+	}
+ifelse
+}
+def
+
+% Helpers for poincaregeodesic
+% This is the case where neither ray intersects the poincare
+% disk model.  Here, we need to decide whether to draw the
+% whole line or nothing.
+% This procedure receives v and w on the stack.
+/poincareneitherprojects
+{
+4 dict begin
+rtncoords /w exch def
+rtncoords /v exch def
+/a v w subvec def
+/t a w [1 1 -1] sigprod neg
+a a [1 1 -1] sigprod div def
+t 0 gt
+t 1 lt and
+t a scalarmul w addvec dup [1 1 -1] sigprod 0 lt and
+a 2 get t mul w 2 get add 0 gt and
+{v w crossprod poincareplane}
+if
+end
+}
+def
+
+% Helpers for poincaregeodesic
+% This is the case where both rays intersect the poincare
+% disk model.  Here, we need to find starting and ending 
+% angles for the arc we will draw.
+% This procedure receives v, w, vproj and wproj on the stack.
+/poincarebothproject
+{
+4 2 roll
+addvec poincarecoords
+3 1 roll aload pop moveto
+arcthrough
+}
+def
+
+% This procedure receives v, w and vproj on the stack.
+/poincareoneprojects
+{
+aload pop moveto
+9 dict begin
+rtncoords 
+/w exch def
+rtncoords 
+/v exch def
+% We're solving for t such that (1-t)v+tw is on the boundary cone.
+v w subvec dup [1 1 -1] sigprod
+v v [-2 -2 2] sigprod v w [2 2 -2] sigprod add
+v dup [1 1 -1] sigprod
+quadsolve
+% Possibly, this can give no solution, but only by roundoff errors,
+% in which case we are playing with points extremely close to the 
+% boundary, so we can safely draw nothing.
+dup /undefined eq 
+	{pop}
+	{
+	% we want the largest solution less than 1.
+	exch dup 1 le {exch pop} {pop} ifelse 
+	dup w scalarmul exch
+	1 exch sub v scalarmul addvec
+	dup 2 get scalardiv
+	aload pop pop [ 3 1 roll ] unit pagecoords
+	% Now the stack contains the projection of the limit point.
+	v w crossprod dup rtncoords			% stack: proj vcrossw vcrosswrtn
+	aload pop 3 1 roll [ 3 1 roll ] exch scalardiv	% stack: proj vcrossw [a b]
+	veclengthsqr 1 sub		 		% stack: proj vcrossw a^2+b^2-1
+	% If this quantity is negative, then we are 
+	% playing with points extremely close to the 
+	% boundary (and getting a negative from rounding 
+	% errors), so we can safely draw nothing.
+	dup 0 lt 
+		{pop pop pop}
+		{
+		sqrt radius mul exch
+		% If we are going to get an error out of arcleft/arcright
+		% The it can only come from rounding errors, in which case
+		% we are very close to the boundary, so we can safely run
+		% with the flag /safearcs set to true.
+		/safearcs true def
+		north dotprod 0 gt {arcright} {arcleft} ifelse
+		}
+	ifelse
+	}
+ifelse
+end
+}
+def
+
+/poincaretriangle
+%  Right now this only draws if all three vectors have projections.
+%  Later it would be cool to draw the reasonable thing in all cases.
+{
+3 copy 
+poincarecoords 3 1 roll
+poincarecoords 3 1 roll
+poincarecoords 3 1 roll
+3 copy
+/noprojection eq exch 
+/noprojection eq or exch
+/noprojection eq or
+{pop pop pop pop pop pop}
+{					% stack: u v w uproj vproj wproj
+dup aload pop moveto				% stack: u v w uproj vproj wproj
+5 -2 roll 2 copy addvec	poincarecoords	% stack: u uproj vproj wproj v w (v+w)proj
+5 -1 roll arcthrough			% stack: u uproj wproj v w
+exch 5 -1 roll dup 3 1 roll		% stack: uproj wproj w u v u
+addvec poincarecoords			% stack: uproj wproj w u (v+u)proj
+5 -1 roll arcthrough			% stack: wproj w u
+addvec poincarecoords exch arcthrough
+}
+ifelse
+}
+def
+
+
+
+
+%--------------------------------------------
+%  End definitions for arrangement.ps
+%--------------------------------------------
+

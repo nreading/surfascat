@@ -1,0 +1,73 @@
+%!PS-Adobe-2.0 EPSF-1.2
+%%BoundingBox: -153 -53 153 53
+
+(surfascatfigures.ps) run
+
+/sf 0.7 def
+
+/h 50 def
+/v 50 def
+
+
+h -3 mul v /mp1 markedpoint
+h -2 mul v /mp2 markedpoint
+h -1 mul v /mp3 markedpoint
+h 0 mul v /mp4 markedpoint
+h 1 mul v /mp5 markedpoint
+h 2 mul v /mp6 markedpoint
+h -2 mul v neg /mp7 markedpoint
+h -1 mul v neg /mp8 markedpoint
+h 0 mul v neg /mp9 markedpoint
+h 1 mul v neg /mp10 markedpoint
+h 2 mul v neg /mp11 markedpoint
+h 3 mul v neg /mp12 markedpoint
+
+
+mp1 move mp2 line mp6 line mp12 line mp11 line mp7 line lightgrayfill
+
+
+-2.5 h mul 0 moveto 
+-2 h mul 0 lineto 
+2 h mul 0 lineto 
+2.5 h mul 0 lineto 
+bstroke
+
+
+
+mp1 move mp2 line mp6 line mp12 line mp11 line mp7 line closepath blackstroke
+
+mp2 move mp7 line blackstroke
+
+mp11 move mp6 line blackstroke
+
+mp2 move mp8 line blackstroke
+
+mp2 move mp9 line blackstroke
+
+mp3 move mp9 line blackstroke
+
+mp4 move mp9 line blackstroke
+
+mp5 move mp9 line blackstroke
+
+mp5 move mp10 line blackstroke
+
+mp6 move mp10 line blackstroke
+
+
+
+
+
+
+mp1 drawmarkedpoint
+mp2 drawmarkedpoint
+mp3 drawmarkedpoint
+mp4 drawmarkedpoint
+mp5 drawmarkedpoint
+mp6 drawmarkedpoint
+mp7 drawmarkedpoint
+mp8 drawmarkedpoint
+mp9 drawmarkedpoint
+mp10 drawmarkedpoint
+mp11 drawmarkedpoint
+mp12 drawmarkedpoint
