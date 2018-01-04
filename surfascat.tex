@@ -323,7 +323,7 @@ If $\S$ is a disk with three or fewer marked points on its boundary, then $(\S,\
 If $\S$ is a disk with only one marked point on its boundary (a monogon), then it must have at least two punctures.
 If $\S$ is a sphere, then it must have at least $4$ punctures.  
 (It is sometimes convenient, and with the right conventions harmless, to allow $\S$ to be disconnected and/or to allow once-punctured monogons, as in \cite{dominance}, but there is no need here.)
-For convenience (and specifically to allow us to consider only well-behaved curves in $\S$), we assume that $\S$ has the has a differentiable structure.  \marginN{Thoughts on this?}
+For convenience (and specifically to allow us to consider only well-behaved curves in $\S$), we assume that $\S$ has a differentiable structure.  \marginN{Thoughts on this?}
 \end{definition}
 
 \begin{definition}[\emph{Arc and triangulation}]\label{tri def}
@@ -532,7 +532,7 @@ $\set{L,L'}$ unspecified for $L,L'\in\L$
 \\\hline
 $N^+$& nonzero elements of $N_\uf$ with \textbf{nonnegative} coefficients\\\hline
 $p^*:N_\uf\to M$&
-$p^*(\alpha)=\sum_{\gamma\in T}b_{\alpha\gamma}\gamma^*+\sum_{L\in\L}b_\alpha(T,L)L^*$\\\hline
+$p^*(\alpha)=\sum_{\gamma\in T}b_{\alpha\gamma}\gamma^*+\sum_{L\in\L}b_\alpha(T,L)L^*$ for $\alpha\in T$\\\hline
 $(v_i:i\in T\cup\L)$&$v_\alpha=p^*(\alpha)$ for $\alpha\in T$ and
 $v_L\in M$ for $L\in\L$ chosen to make $(v_i:i\in T\cup\L)$ linearly independent
 \\\hline
@@ -715,13 +715,27 @@ Each I-beam or ring, as a set, is a finite union of curves that we will call bar
 \begin{definition}[\emph{Bar}]\label{bar def}
 A \newword{bar} in $(\S,\M)$ is an \emph{honest} curve $\gamma:[0,1]\to\S$ each of whose endpoints is on an arc of $T$ or a boundary segment of $(\S,\M)$ or is the puncture in a self-folded triangle.
 The \newword{relative interior} of $\gamma$ is the restriction of $\gamma$ to $(0,1)$.  \marginN{Greg:  I'm really starting to appreciate why you wanted to work with barricades.  I have to make the same definitions about bars as for I-beams, rings, etc., so yes, they really should all be special cases of the same thing.  But I got too confused trying to work out what that thing should be.} 
-We consider bars up to isotopy equivalences (in $\S\setminus\M$) that don't change which arc of $T$ contains each endpoint.
+If the endpoint of the bar is a puncture in a self-folded triangle, then the bar is tagged plain or notched at that endpoint.
+We consider bars up to isotopy equivalences (in $\S\setminus\M$) that don't change which arc of $T$ contains each endpoint (or don't move the endpoint if it is a puncture).
 We will be most interested in bars contained in some I-beam or ring.
+
+Given a ring or I-beam $U$, a \newword{bar in $U$} is a bar contained in $U$ that, if its endpoint is a puncture (necessarily a degenerate leaf of $U$), has the same barring as $U$ at that point.
 
 Following a bar in some direction, we say the bar makes a \newword{right (left) turn} if it enters the interior of a triangle through some side and then exits through the side to the right (turn).
 In particular, a bar with an endpoint at the puncture inside a self-folded triangle makes \emph{both} a right turn \emph{and} a left turn inside that triangle on its way to or from the puncture.
 Reversing the direction that we follow the bar reverses left and right.
 Thus, for example, a bar that starts with a right turn is also a bar that ends with a left turn.
+\end{definition}
+
+\begin{definition}[\emph{Arc sequence of a ring, I-beam, or bar}]\label{seq def}  
+The arc sequences we define here might instead be called ``arc-multisets,'' because we only care about the underlying multiset and because there will be some ambiguities in the ordering.
+However, the term ``arc sequence'' seems more pleasant and also more correctly captures the spirit of the definition despite the ambiguities.
+The \newword{arc sequence of a bar} $B$ is, essentially, the sequence of arcs of $T$ intersecting the relative interior of $B$, but we make two slight modifications.
+First, if $B$ ends at a puncture $p$, at one end of this sequence is the non-fold edge of the triangle containing $p$.
+In the case where $B$ is tagged notched at $p$, we replace this occurrence of the non-fold edge in the arc sequence of $B$ by the fold edge.
+Second, if $\alpha$ is the non-fold edge of some self-folded triangle and $\beta$ is the fold edge, any occurrence of adjacent entries $\alpha,\beta,\alpha$ in the sequence is replaced by $\alpha,\beta$.
+The \newword{arc sequence of an $I$-beam} $U$ is essentially the sequence of arcs of $T$ intersecting the curve in $U$ connecting the two non-leaves, or connecting the non-leaf to the degenerate leaf, making the same two slight modifications.
+The \newword{arc sequence of a ring} $U$ is obtained from the cycle of arcs of $T$ intersecting $U$ by applying the second of the two modifications above and then cutting the cycle arbitrarily to make a sequence.
 \end{definition}
 
 
@@ -759,7 +773,7 @@ Given an I-beam or ring $U$, we define $\Wall(U)$ to be the closure of the set
 We will prove the following theorem.
 
 \begin{theorem}\label{wall thm}
-For any ring or I-beam $U$, the set $\Wall(U)$ is a codimension-$1$ polyhedral cone with normal vector $\sum_{i=1}^k\alpha_i$ where $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the relative interior of~$U$, given by the following rational inequalities:
+For any ring or I-beam $U$, the set $\Wall(U)$ is a codimension-$1$ polyhedral cone with normal vector $\sum_{i=1}^k\alpha_i$ where $\alpha_1, \alpha_2,\ldots,\alpha_k$ is the arc sequence of $U$, given by the following rational inequalities:
 %\begin{itemize}
 %\item For each bar $B$ in $U$ that begins with a right turn and ends with a left turn,
 %\begin{equation}\label{rt lft ineq} b_{\alpha_1}(T,L) + b_{\alpha_2}(T,L) + ... + b_{\alpha_k}(T,L) \geq 0,\end{equation}
@@ -771,14 +785,12 @@ For any ring or I-beam $U$, the set $\Wall(U)$ is a codimension-$1$ polyhedral c
 \begin{itemize}
 \item For each bar $B$ in $U$ that begins with a right turn and ends with a left turn,
 \[ b_{\alpha_1}(T,L) + b_{\alpha_2}(T,L) + ... + b_{\alpha_k}(T,L) \geq 0,\]
-where $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the relative interior of~$B$.
+where $\alpha_1, \alpha_2,\ldots,\alpha_k$ is the arc sequence of $B$.
 \item For each bar $B$ in $U$ that begins with a left turn and ends with a right turn,
 \[ b_{\alpha_1}(T,L) + b_{\alpha_2}(T,L) + ... + b_{\alpha_k}(T,L) \leq 0,\]
-where $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the relative interior of~$B$.
+where $\alpha_1, \alpha_2,\ldots,\alpha_k$ is the arc sequence of $B$.
 \end{itemize}
 \end{theorem}
-The sequence $\alpha_1, \alpha_2,\ldots,\alpha_k$, each time it appears in the statement of Theorem~\ref{wall thm}, may contain the same arc more that once.
-The arcs should appear with multiplicity in the sums in Theorem~\ref{wall thm}.
 
 Most of the proof of Theorem~\ref{wall thm} is accomplished by the following three lemmas.
 
@@ -789,9 +801,9 @@ Then the following are equivalent.
 \item \label{U nb}
 $U$ is non-blocking for $\lambda$.
 \item \label{bar nb}
-Every bar contained in $U$ is non-blocking for $\lambda$.
+Every bar in $U$ is non-blocking for $\lambda$.
 \item \label{special bar nb}
-Every bar contained in $U$ that begins with a right turn and ends with a left turn or begins with a left turn and ends with a right turn is non-blocking for~$\lambda$.
+Every bar in $U$ that begins with a right turn and ends with a left turn or begins with a left turn and ends with a right turn is non-blocking for~$\lambda$.
 \end{enumerate}
 \end{lemma}
 \begin{proof}
@@ -814,7 +826,7 @@ Supposing that \eqref{U nb} fails, we have contradicted \eqref{special bar nb}. 
 %\end{enumerate}
 %\end{lemma}
 \begin{lemma}\label{bar ineq}
-Suppose $B$ is a bar, suppose $\alpha_1, \alpha_2,\ldots,\alpha_k$ are the arcs in $T$ intersecting the relative interior of~$B$, and suppose $\lambda$ is an allowable curve.
+Suppose $B$ is a bar with both endpoints on an arc of $T$, suppose $\alpha_1, \alpha_2,\ldots,\alpha_k$ is the arc sequence of~$B$, and suppose $\lambda$ is an allowable curve.
 If $B$ is non-blocking for $\lambda$, then:
 \begin{enumerate}[\quad\rm(1)]
 \item If $B$ begins with a right turn and ends with a left turn, then ${\sum_{i=1}^kb_{\alpha_i}(T,\lambda)\ge0}$.
@@ -1433,8 +1445,8 @@ Trans. Amer. Math. Soc. \textbf{366} no. 12 (2014), 6647--6685.
 
 \bibitem{scatfan}
 N. Reading, 
-\textit{Scattering fans}. 
-In preparation.
+\textit{Scattering diagrams and scattering fans}. 
+Preprint, 2017.  (arXiv:1712.06968)
 
 \bibitem{dominance}
 N. Reading, 
