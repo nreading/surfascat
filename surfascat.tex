@@ -663,7 +663,7 @@ This gives a formula for a cluster monomial in terms of any sequence of flips th
 \section{Walls}
 In this section, we will consider certain subsets of $\S\setminus\M$ that locally look like curves, except that at some points they ``branch.''
 Each set determines a set of quasi-laminations, and we will see that the shear coordinates of this set of quasi-laminations constitute a codimension-$1$ rational cone.
-These cones will eventually be the walls of the scattering diagram.
+These cones will eventually be the walls of the cluster scattering diagram.
 \marginN{I came to see that my "crossing or uncrossing edges" were NOT really the right thing.  I think the right thing was taggings as we discussed before.  But also trying to do barricades was rapidly getting confusing.  I'm going to try to do the I-beams story with complete proofs.}
 
 \begin{definition}[\emph{Non-shielding closed curve}]\label{nonshield def}
@@ -767,10 +767,12 @@ If the degenerate edge is tagged notched, then the compatibility conditions are 
 A quasi-lamination is \newword{compatible} with an I-beam or ring if and only if every curve in the quasi-lamination is compatible with the I-beam/ring.
 \end{definition}
 
+\begin{definition}[\emph{Wall associated to an I-beam or ring}]
 Given an I-beam or ring $U$, we define $\Wall(U)$ to be the closure of the set
 \[\settt{\sum_{\gamma\in T}b_\gamma(T,L)\gamma^*:\,L\text{ is a quasi-lamination compatible with }U}\subset V^*.\]
+\end{definition}
 
-We will prove the following theorem.
+%We will prove the following theorem.
 
 \begin{theorem}\label{wall thm}
 For any ring or I-beam $U$, the set $\Wall(U)$ is a codimension-$1$ polyhedral cone with normal vector $\sum_{i=1}^k\alpha_i$ where $\alpha_1, \alpha_2,\ldots,\alpha_k$ is the arc sequence of $U$, given by the following rational inequalities:
@@ -963,6 +965,18 @@ Thus $\Wall(U)$ is a polyhedral cone defined by the given normal vector and ineq
 And conversely that every $\Wall(U)$ is a union of codimension-$1$ cones of the mutation fan.
 That will, I think, imply that the mutation fan and the scattering fan coincide, once we prove that we're constructing the scattering diagram.
 And I don't think it's hard.}
+
+We now prove a property of walls $\Wall(U)$ that is necessary for them to constitute the walls of the cluster scattering diagram.
+
+\begin{prop}\label{genteel}
+Suppose $U$ is an I-beam or ring with arc sequence $\alpha_1,\ldots,\alpha_k$.
+Then $p^*(\sum_{i=1}^k\alpha_i)\in\Wall(U)\oplus\Span_\integers\set{L^*:L\in\L}$ of and only if $k=1$.
+\end{prop}
+\begin{proof}
+Checking whether $p^*(\sum_{i=1}^k\alpha_i)\in\Wall(U)\oplus\Span_\integers\set{L^*:L\in\L}$ amounts to leaving out the terms $b_\alpha(T,L)L^*$ in the definition of $p^*$ in Table~\ref{init data} and checking whether the result is in $\Wall(U)$.
+
+\end{proof}
+
 
 
 \newpage
