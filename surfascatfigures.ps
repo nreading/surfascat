@@ -1320,7 +1320,7 @@ cleartomark
 %  writes a number
 %  usage, e.g. 10 10 (3) number
 /number
-{3 1 roll moveto 0 setgray /CMR10 findfont 9 sf div scalefont setfont show}
+{3 1 roll moveto /CMR10 findfont 9 sf div scalefont setfont show}
 def
 
 %  writes a subscript
@@ -1444,7 +1444,9 @@ def
 {moveto /CMMI10 findfont 9 sf div scalefont setfont (\027) show} 
 def
 
-/plus {gsave moveto [] 0 setdash 0.4 setlinewidth 0 3 rmoveto 6 0 rlineto -3 -3 rmoveto 0 6 rlineto stroke grestore} def
+/plus {gsave moveto [] 0 setdash 0.4 setlinewidth -3 0 rmoveto 6 0 rlineto -3 -3 rmoveto 0 6 rlineto stroke grestore} def
+
+/minus {gsave moveto [] 0 setdash 0.4 setlinewidth -3 0 rmoveto 6 0 rlineto stroke grestore} def
 
 
 %-------------------------------------------- 

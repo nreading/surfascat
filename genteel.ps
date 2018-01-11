@@ -1,0 +1,107 @@
+%!PS-Adobe-2.0 EPSF-1.2
+%%BoundingBox: -165 -59 165 59
+
+(surfascatfigures.ps) run
+
+/sf 0.7 def
+
+/h 50 def
+/v 50 def
+
+
+h -3.25 mul 0 /mp1 markedpoint
+h -2 mul v /mp2 markedpoint
+h -1 mul v /mp3 markedpoint
+h 0 mul v /mp4 markedpoint
+h 1 mul v /mp5 markedpoint
+h 2 mul v /mp6 markedpoint
+h -2 mul v neg /mp7 markedpoint
+h -1 mul v neg /mp8 markedpoint
+h 0 mul v neg /mp9 markedpoint
+h 1 mul v neg /mp10 markedpoint
+h 2 mul v neg /mp11 markedpoint
+h 3.25 mul 0 /mp12 markedpoint
+
+
+mp1 move mp2 line mp6 line mp12 line mp11 line mp7 line lightgrayfill
+
+
+-2.75 h mul v 0.4 mul moveto 
+-2.4 h mul 0 lineto 
+2.4 h mul 0 lineto 
+h 2.75 mul v 0.4 mul lineto
+h 2.75 mul v -0.4 mul moveto
+2.4 h mul 0 lineto 
+h -2.75 mul v -0.4 mul moveto
+-2.4 h mul 0 lineto 
+bstroke
+
+1 0 0 setrgbcolor
+
+-140 25 minus
+-140 -25 plus
+-80 -55 minus
+-77 -7 plus
+
+-106 -7 minus
+-70 -55 plus
+-30 -55 minus
+-49 -7 plus
+
+-66 -7 minus
+-80 55 plus
+-34 7 minus
+-20 -55 plus
+
+
+0.2 0.2 1 setrgbcolor
+h -2 mul 2 add -30 (1) number
+h -1 mul -12 add -20 (2) number
+h -1 mul -7 add 10 (3) number
+h -1 mul 14 add 25 (4) number
+h 0 mul 2 add 28 (5) number
+h 0 mul 17 add -28 (6) number
+h 1 mul 2 add 15 (7) number
+h 1 mul 17 add -28 (8) number
+h 2 mul 2 add 15 (9) number
+
+
+
+
+mp1 move mp2 line mp6 line mp12 line mp11 line mp7 line closepath blackstroke
+
+mp2 move mp7 line blackstroke
+
+mp11 move mp6 line blackstroke
+
+mp2 move mp8 line blackstroke
+
+mp2 move mp9 line blackstroke
+
+mp3 move mp9 line blackstroke
+
+mp4 move mp9 line blackstroke
+
+mp5 move mp9 line blackstroke
+
+mp5 move mp10 line blackstroke
+
+mp6 move mp10 line blackstroke
+
+
+
+
+
+
+mp1 drawmarkedpoint
+mp2 drawmarkedpoint
+mp3 drawmarkedpoint
+mp4 drawmarkedpoint
+mp5 drawmarkedpoint
+mp6 drawmarkedpoint
+mp7 drawmarkedpoint
+mp8 drawmarkedpoint
+mp9 drawmarkedpoint
+mp10 drawmarkedpoint
+mp11 drawmarkedpoint
+mp12 drawmarkedpoint
