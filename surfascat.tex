@@ -375,7 +375,7 @@ that
 %However, we may as well require honesty because when defining shear coordinates of an allowable curve $\lambda$ (as below in Definition~\ref{shear def}), one passes to a curve isotopic to $\lambda$ that is honest.
 \end{definition}
 
-\begin{definition}[\emph{Quasi-lamination}]\label{quasilam def}
+\begin{definition}[\emph{Quasi-lamination}]\label{quasilam def}  \marginN{The term quasi-lamination needs to go away, and we need to just call these "laminations".  Not sure if this paper is the place yet, but in any case, we should be consistent throughout.}
 Two allowable curves are \newword{compatible} if 
 \begin{itemize}
 \item
@@ -402,7 +402,7 @@ Given $(\S,\M)$ and a triangulation $T$, a (closed or non closed) curve in $\S$ 
 \item the curve never crosses an arc of $T$ and then crosses the same arc again \emph{in the opposite direction} without crossing a different arc of $T$ in between;
 \item if the curve has an endpoint at a marked point $p$, then its next intersection with an arc of $T$ or with $\partial S$ must be in the relative interior of a side of some triangle of $T$ that is opposite $p$ in the triangle.
 \end{itemize}
-There is no requirement that the curve not have self-intersections.
+There is no requirement that the curve not have self-intersections.  \marginN{At some point, I wrote this, but now i wonder:  Is there any reason not to rule out self-intersections in the definition of "honest"?}
 \end{definition}
 
 \begin{definition}[\emph{Shear coordinates}]\label{shear def}
@@ -474,7 +474,7 @@ Here, we follow \cite{GHKK} in extending exchange matrices by adding columns of 
 (Switching from our \emph{wide} extended exchange matrices to the \emph{tall} extended exchange matrices of \cite{ca4} amounts to  transposing---or equivalently in the skew-symmetric case, negating---the exchange matrix.)
 
 \begin{definition}[\emph{Extended exchange matrix for $T$ and $\L$}]\label{tB(T,L) def}
-The extended exchange matrix $\tB(T,L)$ defined by $(\S,\M)$, $T$, and $\L$ has rows indexed by $T$ and columns indexed by $T\cup\L$.
+The extended exchange matrix $\tB(T,\L)$ defined by $(\S,\M)$, $T$, and $\L$ has rows indexed by $T$ and columns indexed by $T\cup\L$.
 Its entries $b_{\alpha\beta}$ for $\alpha,\beta\in T$ are the entries of the signed adjacency matrix $B(T)$ defined in Definition~\ref{B(T) def} and its entry $b_{\alpha L}$ for $\alpha\in T$ and $L\in\L$ is $b_\alpha(T,L)$ as in Definition~\ref{shear def}.
 \end{definition}
 
@@ -867,6 +867,44 @@ Let $\alpha'_1, \alpha'_2,\ldots,\alpha'_\ell$ be the sequence of arcs in $T$ in
 Analyzing the contributions to $\sum_{i=1}^\ell b_{\alpha'_i}(T,\lambda)$ as above, since $\lambda$ begins with a left turn and ends with a right turn, we see that the total contribution is $-1$, violating assertion (1) for $B'$ and $\lambda$.
 \end{proof}
 
+\marginN{I'm inserting a new approach here that hopefully proves that $\Wall(U)$ has codimension $1$ while also proving the genteel property (in fact that every wall is gregarious).
+End of this insertion marked by Note~\ref{insert end}\label{insert}}
+
+
+\begin{definition}[\emph{Encircling lamination of an I-beam or ring}]\label{encirc def}
+Need to get this in all the cases.
+Call it $L^\circ(U)$
+
+\end{definition}
+
+\begin{prop}\label{encirc prop}
+Suppose $U$ is an I-beam or ring with arc sequence $\alpha_1,\ldots,\alpha_k$ and encircling lamination $L^\circ(U)$.  \marginN{This is a bit of a laundry list.  Separate it?}
+Then 
+\begin{enumerate}[\rm(i)]
+\item \label{encirc completed}
+$L^\circ(U)$ can be completed to a quasi-lamination with $|T|-1$ curves, compatible with $U$.
+\item \label{encirc codim}
+$\Wall(U)$ contains a cone of codimension $1$.
+\item
+$\sum_{\gamma\in T}b_\gamma(T,L^\circ(U))\gamma^*=-p^*(\sum_{i=1}^k\alpha_k)$.
+\item
+$-p^*(\sum_{i=1}^k\alpha_k)$ is in the relative interior of $\Wall(U)$.
+\item
+$p^*(\sum_{i=1}^k\alpha_k)$ is in $\Wall(U)$ if and only if $\Wall(U)$ is a hyperplane.\end{enumerate}
+\end{prop}
+\begin{proof}
+\eqref{encirc completed}:  ASSUME FOR NOW WE HAVE THIS.
+
+Now \eqref{encirc codim} follows immediately:  Complete $L^\circ(U)$ as in (i) and vary the weights on the $|T|-1$ curves (and/or delete curves) to obtain the desired cone.
+
+
+
+\end{proof}
+
+
+
+\marginN{End of new insertions.  See Note~\ref{insert}\label{insert end}}
+
 \begin{lemma}\label{codim lemma}
 If $U$ is a ring or I-beam, then $\Wall(U)$ contains a cone of codimension $1$.
 \end{lemma}
@@ -963,6 +1001,26 @@ Theorem~\ref{q-lam bij} now implies that $\Wall(U)$ contains all rational points
 Thus $\Wall(U)$ is a polyhedral cone defined by the given normal vector and inequalities, and Lemma~\ref{codim lemma} implies that $\Wall(U)$ has codimension $1$.
 \end{proof}
 
+Theorem~\ref{wall thm} also lets us prove some useful facts about $\Wall(U)$.
+\begin{prop}\label{basic wall}
+If $U$ is an I-beam or ring with arc sequence $\alpha_1,\ldots,\alpha_k$, then $\Wall(U)$ is a hyperplane if and only if $k=1$.
+In this case, $U$ is an I-beam.
+For each arc $\gamma\in T$, there is a unique I-beam $U$ whose arc sequence has only the term~$\gamma$ so that in particular $\Wall(U)$ is the hyperplane $\gamma^\perp$.
+\end{prop}
+\begin{proof}  \marginN{We may eventually decide that this proof is easy enough to omit.}
+If $k=1$, then $U$ must be an I-beam, because if it is a ring, then this ring is contractible to a puncture, which is not allowed.
+In this case, every bar in $U$ has either empty arc sequence or arc sequence $\alpha_1$, and Theorem~\ref{wall thm} implies that $\Wall(U)$ is a hyperplane.
+If $k>1$, then we claim that there exists a bar in $U$ starting with a left turn and ending with a right turn whose arc sequence has only one term.
+If $U$ is a ring with only right turns or only left turns, then it is contractible to a puncture.
+Thus $U$ has a right turn immediately followed by a left turn, so we can construct the desired bar.
+If $U$ is an I-beam, then following $U$ from $\alpha_1$ to $\alpha_2$ is either a right turn or a left turn.
+Choosing the appropriate leaf of $U$ in the triangle before $\alpha_1$, we can construct the desired bar.
+
+Given $\gamma\in T$, we easily construct the desired I-beam, which is degenerate or degenerate tagged plain or notched, depending on whether $\gamma$ is not in a self-folded triangle, is the non-fold edge of a self-folded triangle, or is the fold edge of a self-folded triangle.
+\end{proof}
+
+
+
 \marginN{Probably here would be a good place to point out that every codimension-$1$ cone in the mutation fan (rational quasi-lamination fan) is contained in some wall $\Wall(U)$.
 And conversely that every $\Wall(U)$ is a union of codimension-$1$ cones of the mutation fan.
 That will, I think, imply that the mutation fan and the scattering fan coincide, once we prove that we're constructing the scattering diagram.
@@ -972,7 +1030,7 @@ We now prove a property of walls $\Wall(U)$ that is necessary for them to consti
 
 \begin{prop}\label{genteel}
 Suppose $U$ is an I-beam or ring with arc sequence $\alpha_1,\ldots,\alpha_k$.
-If $k>1$, then $p^*(\sum_{i=1}^k\alpha_i)\in\Wall(U)\oplus\Span_\integers\set{L^*:L\in\L}$.
+If $k>1$, then $p^*(\sum_{i=1}^k\alpha_i)\not\in\Wall(U)\oplus\Span_\integers\set{L^*:L\in\L}$.
 \end{prop}
 \begin{proof}
 Checking whether $p^*(\sum_{i=1}^k\alpha_i)\in\Wall(U)\oplus\Span_\integers\set{L^*:L\in\L}$ amounts to leaving out the terms $b_\alpha(T,L)L^*$ in the definition of $p^*$ in Table~\ref{init data} and checking whether the result is in $\Wall(U)$.
