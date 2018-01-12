@@ -700,7 +700,7 @@ The third edge incident to the non-leaf crosses the third side of the triangle.
 The edge at this leaf is either ``tagged'' \newword{plain} (and drawn as an ordinary edge) or tagged \newword{notched} (and drawn as an edge marked with $\notch$).
 \end{itemize}
 We consider I-beams up to isotopy equivalences (in $\S\setminus\M$) of the embedding that don't change which arc of $T$ or boundary segment of $(\S,\M)$ or puncture contains each leaf.
-(If two leaves are in the interior of the same arc of $T$, necessarily connected to two different non-leaves in two different triangles, we allow isotopies that move them past each other.)
+(If two leaves are in the interior of the same arc of $T$, necessarily connected to two different non-leaves in two different triangles, we allow isotopies that move them past each other.)  \marginN{Added this important parenthetical}
 The \newword{relative interior} of an I-beam is the I-beam minus its leaves.
 We will call an I-beam \newword{degenerate} if it has only one non-leaf.
 The leaf of a degenerate I-beam that is a puncture and the edge to that leaf are accordingly called degenerate as well.
@@ -714,8 +714,9 @@ And/or once-punctured triangles with and/or without a self-folded triangle?
 Each I-beam or ring, as a set, is a finite union of curves that we will call bars.
 
 \begin{definition}[\emph{Bar}]\label{bar def}
-A \newword{bar} in $(\S,\M)$ is an \emph{honest} curve $\gamma:[0,1]\to\S$ each of whose endpoints is on an arc of $T$ or a boundary segment of $(\S,\M)$ or is the puncture in a self-folded triangle.
-The \newword{relative interior} of $\gamma$ is the restriction of $\gamma$ to $(0,1)$.  \marginN{Greg:  I'm really starting to appreciate why you wanted to work with barricades.  I have to make the same definitions about bars as for I-beams, rings, etc., so yes, they really should all be special cases of the same thing.  But I got too confused trying to work out what that thing should be.} 
+A \newword{bar} in $(\S,\M)$ is an \emph{honest} curve $\gamma:[0,1]\to\S$ each of whose endpoints is on an arc of $T$ (not the fold edge of a self-folded triangle) \marginN{added parenthetical}
+or a boundary segment of $(\S,\M)$ or is the puncture in a self-folded triangle.
+The \newword{relative interior} of $\gamma$ is the restriction of $\gamma$ to $(0,1)$.  
 If the endpoint of the bar is a puncture in a self-folded triangle, then the bar is tagged plain or notched at that endpoint.
 We consider bars up to isotopy equivalences (in $\S\setminus\M$) that don't change which arc of $T$ contains each endpoint (or don't move the endpoint if it is a puncture).
 We will be most interested in bars contained in some I-beam or ring.
@@ -837,7 +838,7 @@ If $B$ is non-blocking for $\lambda$, then:
 \end{enumerate}\marginN{Notice that the if and only if statement doesn't work exactly, but that something good enough does work.}
 If $B$ blocks $\lambda$, then there is a bar $B'$ contained in $B$ such that $B'$ and $\lambda$ violate $(1)$ or $(2)$.
 \end{lemma}
-\begin{proof}
+\begin{proof}  \marginN{Need to think about this proof more carefully in the case where the bar passes through a self-folded triangle.}
 Suppose $B$ is non-blocking for $\lambda$.
 We argue assertion (1);  assertion (2) is symmetric by a reversal of orientation of $\S$.
 
@@ -971,16 +972,22 @@ We now prove a property of walls $\Wall(U)$ that is necessary for them to consti
 
 \begin{prop}\label{genteel}
 Suppose $U$ is an I-beam or ring with arc sequence $\alpha_1,\ldots,\alpha_k$.
-Then $p^*(\sum_{i=1}^k\alpha_i)\in\Wall(U)\oplus\Span_\integers\set{L^*:L\in\L}$ of and only if $k=1$.
+If $k>1$, then $p^*(\sum_{i=1}^k\alpha_i)\in\Wall(U)\oplus\Span_\integers\set{L^*:L\in\L}$.
 \end{prop}
 \begin{proof}
 Checking whether $p^*(\sum_{i=1}^k\alpha_i)\in\Wall(U)\oplus\Span_\integers\set{L^*:L\in\L}$ amounts to leaving out the terms $b_\alpha(T,L)L^*$ in the definition of $p^*$ in Table~\ref{init data} and checking whether the result is in $\Wall(U)$.
 
 First, suppose $U$ is a non-degenerate I-beam with arc sequence $\alpha_1,\ldots,\alpha_k$.
-
-Working on the figure genteel.ps to illustrate this part of the proof...
-
-
+Consider the example of Figure~\ref{genteel}, in which $k=7$.
+\begin{figure}
+\scalebox{0.7}{\includegraphics{genteel}}
+\caption{Computing $p^*(\sum_{i=1}^k\alpha_i)$ for a non-degenerate I-beam}
+\label{genteel}
+\end{figure}
+Each $+$-sign on an arc $\gamma$ in the figure represents a term $\gamma^*$ present in $p^*(\sum_{i=1}^k\alpha_i)$.
+The figure is completely representative (of the non-degenerate case) if we keep in mind that some arcs shown may actually be boundary segments and that some pairs of arcs shown may coincide.  
+(However, this cannot be the case for any of the arcs in the arc-sequence of $U$.)
+We see that if $k>1$, then the coefficient of $\alpha_1$
 
 
 
