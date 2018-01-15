@@ -872,9 +872,21 @@ End of this insertion marked by Note~\ref{insert end}\label{insert}}
 
 
 \begin{definition}[\emph{Encircling lamination of an I-beam or ring}]\label{encirc def}
-Need to get this in all the cases.
-Call it $L^\circ(U)$
+The \newword{encircling lamination} $L^\circ(U)$ of an I-beam or ring $U$ is constructed using two allowable curves, one from each side of $U$, possibly combined into one curve as we now explain in the various cases.
 
+An \newword{extreme point} is a marked point that either is the intersection of two edges containing leaves that are connected to the same degree-$3$ vertex of $U$ or is a degenerate leaf of $U$.
+
+If $U$ is a non-degenerate I-beam, then  it is the union of two bars, each of which starts and ends with a right turn (or starts and ends with a left turn, depending on which direction we traverse the bar).
+If $U$ is degenerate, then it is a union of two bars, each connecting a non-degenerate leaf of $U$ to the degenerate leaf.
+In either case, we nudge each bar slightly to its side so to make them non-intersecting and then connect and/or extend them to allowable curves:
+At each non-degenerate end where the extreme point is a boundary point, if we turned right to end the bar, we extend by turning left repeatedly until we reach the boundary, and if we turned left, we extend by turning right repeatedly.  \marginN{I guess we need pictures}
+At each non-degenerate end where the extreme point is a puncture, we turn right or left as in the case of a boundary point, but connect the two curves.
+At a degenerate leaf, we connect the two curves around the leaf.
+If both extreme points are on the boundary, then $L^\circ(U)$ consists of these two curves, each with weight $1$.
+Otherwise, $L^\circ(U)$ is the combined curve (which may be closed), with weight $1$.
+
+If $U$ is a ring, then $L^\circ(U)$ is $U$ itself with a weight of $2$.
+(We take one curve on each side of $U$, but each of the two curves is isotopic to $U$.)
 \end{definition}
 
 \begin{prop}\label{encirc prop}
@@ -887,18 +899,40 @@ $L^\circ(U)$ can be completed to a quasi-lamination with $|T|-1$ curves, compati
 $\Wall(U)$ contains a cone of codimension $1$.
 \item
 $\sum_{\gamma\in T}b_\gamma(T,L^\circ(U))\gamma^*=-p^*(\sum_{i=1}^k\alpha_k)$.
-\item
+\item\label{-p relint}
 $-p^*(\sum_{i=1}^k\alpha_k)$ is in the relative interior of $\Wall(U)$.
-\item
-$p^*(\sum_{i=1}^k\alpha_k)$ is in $\Wall(U)$ if and only if $\Wall(U)$ is a hyperplane.\end{enumerate}
+\end{enumerate}
 \end{prop}
 \begin{proof}
-\eqref{encirc completed}:  ASSUME FOR NOW WE HAVE THIS.
+We first argue (i).
 
+I-beam case
+
+HERE
+
+Now, suppose $U$ is a ring (an honest, non-shielding, allowable curve).
+Since it is non-shielding, there is a marked point on each side of it.  
+(Possibly, it is the same marked point on both sides.)
+From each side, choose an honest path from the marked point $p$ to $U$ and construct a curve $\lambda$ as follows:
+If $p$ is a puncture, then $\lambda$ spirals into $p$ clockwise at both ends.
+If $p$ is on the boundary, then $\lambda$ ends at a point on the boundary close to $p$, reached by moving a small distance along the boundary, with $\S$ on the left.  \marginN{Pictures necessary?  If so, we should wait until we see whether we use $\kappa$ or not.}
+Away from $p$, the curve $\lambda$ follows close to the path, traces close around $U$, and follows the path back to~$p$.
+Since $U$ is allowable, $\lambda$ is also allowable.
+(The exception occurs when $U$ encloses two punctures and nothing else.
+In this case, we replace $\lambda$ with two allowable curves, each spiraling into both marked points, with spiral directions agreeing at one point and disagreeing at the other.)
+
+Possibly the allowable curves obtained on the two sides coincide up to isotopy, but in any case, they are compatible and trace out an annulus surrounding $U$.
+We can complete these two curves to a maximal set of pairwise compatible non-closed allowable curves with exactly two allowable curves inside the annulus.
+Again, there are $|T|$ curves in this maximal set.
+Deleting the two curves inside the annulus and inserting $U$, we get $|T|-1$ pairwise compatible allowable curves, all compatible with $U$.
+
+We have proved (i).
 Now \eqref{encirc codim} follows immediately:  Complete $L^\circ(U)$ as in (i) and vary the weights on the $|T|-1$ curves (and/or delete curves) to obtain the desired cone.
 
+(iii):  ASSUME FOR NOW.
 
-
+Now observe that $\sum_{\gamma\in T}b_\gamma(T,L^\circ(U))\gamma^*$ is in the relative interior of the cone constructed in the proof of (ii).
+Thus, (iii) implies (iv). %that $-p^*(\sum_{i=1}^k\alpha_k)$ is in the relative interior of $\Wall(U)$.
 \end{proof}
 
 
@@ -1003,7 +1037,7 @@ Thus $\Wall(U)$ is a polyhedral cone defined by the given normal vector and ineq
 
 Theorem~\ref{wall thm} also lets us prove some useful facts about $\Wall(U)$.
 \begin{prop}\label{basic wall}
-If $U$ is an I-beam or ring with arc sequence $\alpha_1,\ldots,\alpha_k$, then $\Wall(U)$ is a hyperplane if and only if $k=1$.
+If $U$ is an I-beam or ring with arc sequence $\alpha_1,\ldots,\alpha_k$, then $\Wall(U)$ is a hyperplane if and only if $k=1$ if and only if $p^*(\sum_{i=1}^k\alpha_k)$ is in $\Wall(U)$.
 In this case, $U$ is an I-beam.
 For each arc $\gamma\in T$, there is a unique I-beam $U$ whose arc sequence has only the term~$\gamma$ so that in particular $\Wall(U)$ is the hyperplane $\gamma^\perp$.
 \end{prop}
@@ -1015,6 +1049,10 @@ If $U$ is a ring with only right turns or only left turns, then it is contractib
 Thus $U$ has a right turn immediately followed by a left turn, so we can construct the desired bar.
 If $U$ is an I-beam, then following $U$ from $\alpha_1$ to $\alpha_2$ is either a right turn or a left turn.
 Choosing the appropriate leaf of $U$ in the triangle before $\alpha_1$, we can construct the desired bar.
+
+Proposition~\ref{encirc prop}\eqref{-p relint}, says that $-p^*(\sum_{i=1}^k\alpha_k)$ is in the relative interior of $\Wall(U)$.
+Since $\Wall(U)$ is convex, easy convexity arguments imply that if $\Wall(U)$ contains $p^*(\sum_{i=1}^k\alpha_k)$, then it contains a relatively open (relative to the hyperplane) neighborhood of the origin.
+Since it is a cone, it is therefore the entire hyperplane.
 
 Given $\gamma\in T$, we easily construct the desired I-beam, which is degenerate or degenerate tagged plain or notched, depending on whether $\gamma$ is not in a self-folded triangle, is the non-fold edge of a self-folded triangle, or is the fold edge of a self-folded triangle.
 \end{proof}
