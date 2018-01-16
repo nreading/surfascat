@@ -897,20 +897,14 @@ Then
 $L^\circ(U)$ can be completed to a quasi-lamination with $|T|-1$ curves, compatible with $U$.
 \item \label{encirc codim}
 $\Wall(U)$ contains a cone of codimension $1$.
-\item
+\item\label{p in}
 $\sum_{\gamma\in T}b_\gamma(T,L^\circ(U))\gamma^*=-p^*(\sum_{i=1}^k\alpha_k)$.
 \item\label{-p relint}
 $-p^*(\sum_{i=1}^k\alpha_k)$ is in the relative interior of $\Wall(U)$.
 \end{enumerate}
 \end{prop}
 \begin{proof}
-We first argue (i).
-
-I-beam case
-
-HERE
-
-Now, suppose $U$ is a ring (an honest, non-shielding, allowable curve).
+We first argue \eqref{encirc completed} when $U$ is a ring (an honest, non-shielding, allowable curve).
 Since it is non-shielding, there is a marked point on each side of it.  
 (Possibly, it is the same marked point on both sides.)
 From each side, choose an honest path from the marked point $p$ to $U$ and construct a curve $\lambda$ as follows:
@@ -919,20 +913,50 @@ If $p$ is on the boundary, then $\lambda$ ends at a point on the boundary close 
 Away from $p$, the curve $\lambda$ follows close to the path, traces close around $U$, and follows the path back to~$p$.
 Since $U$ is allowable, $\lambda$ is also allowable.
 (The exception occurs when $U$ encloses two punctures and nothing else.
-In this case, we replace $\lambda$ with two allowable curves, each spiraling into both marked points, with spiral directions agreeing at one point and disagreeing at the other.)
+In this case, we replace $\lambda$ with two allowable curves, each spiraling into both marked points, with spiral directions agreeing at one point and disagreeing at the other.
+It is straightforward to modify the following paragraph for this exceptional case.)
 
 Possibly the allowable curves obtained on the two sides coincide up to isotopy, but in any case, they are compatible and trace out an annulus surrounding $U$.
 We can complete these two curves to a maximal set of pairwise compatible non-closed allowable curves with exactly two allowable curves inside the annulus.
 Again, there are $|T|$ curves in this maximal set.
 Deleting the two curves inside the annulus and inserting $U$, we get $|T|-1$ pairwise compatible allowable curves, all compatible with $U$.
 
-We have proved (i).
-Now \eqref{encirc codim} follows immediately:  Complete $L^\circ(U)$ as in (i) and vary the weights on the $|T|-1$ curves (and/or delete curves) to obtain the desired cone.
+NEED MORE CASES HERE...  I-beams are hard, particularly when they are not degenerate (!).
 
-(iii):  ASSUME FOR NOW.
 
-Now observe that $\sum_{\gamma\in T}b_\gamma(T,L^\circ(U))\gamma^*$ is in the relative interior of the cone constructed in the proof of (ii).
-Thus, (iii) implies (iv). %that $-p^*(\sum_{i=1}^k\alpha_k)$ is in the relative interior of $\Wall(U)$.
+Now, we argue \eqref{encirc completed}, starting with the case where $U$ is an I-beam.
+If both extreme points of $U$ are boundary points, then the two curves $\lambda_1$ and $\lambda_2$ in $L^\circ(U)$ are compatible.  
+We can also construct a third allowable curve (that we will call $\lambda_3$) between the two and compatible with both, by starting with one of the two maximal bars in $U$ that starts with a left turn and ends with a right turn, and extending in the same way.  
+The triple $\set{\lambda_1,\lambda_2,\lambda_3}$ is part of a maximal collection of pairwise compatible non-closed allowable curves, which, by Theorem~\ref{card thm}, has cardinality $|T|$.
+No curve in this larger collection, aside from $\lambda_3$, is between $\lambda_1$ and $\lambda_2$, so $|T|-1$ of them (all but $\lambda_3$) are compatible with $U$.
+
+If exactly one of the extreme points of $U$ is on the boundary of $\S$, then $L^\circ(U)$ is a single curve $\lambda_1$.
+We also construct allowable curves $\lambda_2$ and $\lambda_3$.
+In the definition of $L^\circ(U)$, we considered $U$ as a union of two bars.
+We choose one of the two, extend it near the extreme point on the boundary as in the construction of $L^\circ(U)$, and extend it in two ways at the non-boundary extreme point by spiraling into that point in two opposite directions for $\lambda_2$ and $\lambda_3$.
+The curves $\lambda_1$, $\lambda_2$, and $\lambda_3$ are pairwise compatible.
+Furthermore, $\lambda_1$ is compatible with $U$, while exactly one of $\lambda_2$ and $\lambda_3$ is compatible with $U$.  
+(If $U$ is degenerate, then which is compatible depends on the tagging.)
+Again, there is a collection of $|T|$ pairwise compatible allowable curves, including $\set{\lambda_1,\lambda_2,\lambda_3}$, and all of them except $\lambda_2$ or $\lambda_3$ is compatible with $U$.
+
+If neither of the extreme points of $U$ is on the boundary, then $L^\circ(U)$ is a single closed curve.
+We 
+
+Finally, construct allowable curves $\lambda_3$ and $\lambda_4$, each spiraling into both extreme points, with spiral direction agreeing with $\lambda_2$ at one extreme point, and having opposite spiral directions at the other extreme.
+This can be done so that exactly one of $\lambda_3$ and $\lambda_4$ is compatible with $U$.
+Now, we extend $\set{\lambda_1,\lambda_2,\lambda_3,\lambda_4}$ to a maximal set of $|T|$ pairwise compatible allowable curves, and throw out $\lambda_3$ or $\lambda_4$ to obtain a set of $|T|-1$ pairwise compatible allowable curves all compatible with $U$.
+
+
+***
+
+
+We have proved \eqref{encirc completed}.
+Now \eqref{encirc codim} follows immediately:  Complete $L^\circ(U)$ as in \eqref{encirc completed} and vary the weights on the $|T|-1$ curves (and/or delete curves) to obtain the desired cone.
+
+\eqref{p in}:  ASSUME FOR NOW.
+
+Now observe that $\sum_{\gamma\in T}b_\gamma(T,L^\circ(U))\gamma^*$ is in the relative interior of the cone constructed in the proof of \eqref{encirc codim}.
+Thus, \eqref{p in} implies \eqref{-p relint}. %that $-p^*(\sum_{i=1}^k\alpha_k)$ is in the relative interior of $\Wall(U)$.
 \end{proof}
 
 
