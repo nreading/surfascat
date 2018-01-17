@@ -687,8 +687,8 @@ We consider rings up to isotopy equivalence (in $\S\setminus\M$).
 Let $(\S,\M)$ be a marked surface with triangulation $T$.  
 \marginN{I am writing this so that a "ring" is not a kind of I-beam.  Rings don't really fit the name I-beam.}  
 \marginN{I am taking Shira's I-beams plus Greg's description via embedded graphs. } 
-\marginN{Note that we do not have the case of edges connecting self-folded triangles to each other.  Turns out that those are lower-dimensional!}
-An \newword{I-beam} in $(\S,\M)$ is an embedded tree with either $2$ non-leaves or $1$ non-leaf, satisfying conditions and possibly having markings as follows.
+\marginN{Note that we do not have the case of edges connecting self-folded triangles to each other.  Turns out that those are lower-dimensional!  UPDATE:  I was wrong about that, so I have changed this definition. }
+An \newword{I-beam} in $(\S,\M)$ is an embedded tree with $0$, $1$, or $2$ non-leaves, satisfying conditions and possibly having markings as follows.
 \begin{itemize}
 \item Every edge is an honest, non-self-intersecting curve.
 \item Embedded edges are disjoint from each other except possibly at shared endpoints and disjoint from $\partial\S$ except possibly at leaves.
@@ -697,13 +697,16 @@ Two sides of the triangle contain leaves connected to this non-leaf.
 The third edge incident to the non-leaf crosses the third side of the triangle.
 \item If the graph has two non-leaves, then they are in two distinct triangles and are connected to each other.
 \item If the graph has one non-leaf, then it is connected to a leaf located at the puncture inside a self-folded triangle.
-The edge at this leaf is either ``tagged'' \newword{plain} (and drawn as an ordinary edge) or tagged \newword{notched} (and drawn as an edge marked with $\notch$).
+\item If the graph has no non-leaves, then it has two leaves, located at distinct punctures, each inside a self-folded triangle, and connected to each other by an edge.
+\item 
+The edge connected to a leaf at a puncture is ``tagged'' either \newword{plain} \newword{notched} at the puncture.  
+Notched taggings are indicated with $\notch$ in drawings.
 \end{itemize}
 We consider I-beams up to isotopy equivalences (in $\S\setminus\M$) of the embedding that don't change which arc of $T$ or boundary segment of $(\S,\M)$ or puncture contains each leaf.
 (If two leaves are in the interior of the same arc of $T$, necessarily connected to two different non-leaves in two different triangles, we allow isotopies that move them past each other.)  \marginN{Added this important parenthetical}
 The \newword{relative interior} of an I-beam is the I-beam minus its leaves.
-We will call an I-beam \newword{degenerate} if it has only one non-leaf.
-The leaf of a degenerate I-beam that is a puncture and the edge to that leaf are accordingly called degenerate as well.
+We will call an I-beam \newword{degenerate} if it does not have $2$ non-leaves.
+A leaf of a degenerate I-beam that is a puncture and the edge to that leaf are accordingly called degenerate as well.
 \end{definition}
 
 \begin{example}\label{I-beam ex}
@@ -758,13 +761,18 @@ Otherwise $U$ \newword{blocks} $\lambda$.
 An allowable curve $\lambda$ is \newword{compatible} with a given \emph{non-degenerate} I-beam or ring $U$ if and only if $U$ is non-blocking for $\lambda$.
 
 In the case of a \emph{degenerate} I-beam $U$, the curve $\lambda$ is again compatible with $U$ if $U$ is non-blocking, but under special conditions, $\lambda$ can be compatible with the degenerate I-beam even when $U$ is blocking.  
-The degenerate leaf is at a puncture inside a self-folded triangle that is in turn inside a once-punctured digon.  \marginN{Gonna need pictures here.}
-The fold edge and the degenerate edge cut the digon into two pieces.
-(Possibly the entire I-beam is inside the digon, in which case, the fold edge and the I-beam cut the digon into three pieces, one of which we can ignore.)
-If the degenerate edge is tagged plain and some honest isotopy representative of $\lambda$ spirals clockwise into the puncture (but otherwise doesn't intersect the I-beam), then $\lambda$ is compatible with the I-beam if and only if it enters the digon on the right (from the perspective of someone walking along the fold edge and then the degenerate edge).
-If instead $\lambda$ spirals counterclockwise, then the compatibility condition is that $\lambda$ must enter from the left.
-If the degenerate edge is tagged notched, then the compatibility conditions are reversed.
-(Compatibility occurs for a counterclockwise spiral entering from the right or a clockwise spiral entering from the left.)
+\marginN{Fixed the definition here.  Old one commented out.  This one is simpler, and has the advantage, I think/hope, of being correct.}
+The degenerate leaf is at a puncture inside a self-folded triangle.
+If $U$ is tagged plain at that puncture, then $\lambda$ is allowed to cross $U$ as it spirals into the puncture, as long as it crosses the fold edge of the triangle first, before ever crossing $U$.
+If $U$ is tagged notched, it is allowed to cross $U$ as it spirals, as long as it crosses $U$ first before ever crossing the fold edge of the triangle.
+If $\lambda$ has an honest embedding that only intersects $U$ in these allowed ways, then it is compatible with $U$.
+%The degenerate leaf is at a puncture inside a self-folded triangle that is in turn inside a once-punctured digon.  \marginN{Gonna need pictures here.}
+%The fold edge and the degenerate edge cut the digon into two pieces.
+%(Possibly the entire I-beam is inside the digon, in which case, the fold edge and the I-beam cut the digon into three pieces, one of which we can ignore.)
+%If the degenerate edge is tagged plain and some honest isotopy representative of $\lambda$ spirals clockwise into the puncture (but otherwise doesn't intersect the I-beam), then $\lambda$ is compatible with the I-beam if and only if it enters the digon on the right (from the perspective of someone walking along the fold edge and then the degenerate edge).
+%If instead $\lambda$ spirals counterclockwise, then the compatibility condition is that $\lambda$ must enter from the left.
+%If the degenerate edge is tagged notched, then the compatibility conditions are reversed.
+%(Compatibility occurs for a counterclockwise spiral entering from the right or a clockwise spiral entering from the left.)
 
 A quasi-lamination is \newword{compatible} with an I-beam or ring if and only if every curve in the quasi-lamination is compatible with the I-beam/ring.
 \end{definition}
@@ -867,101 +875,9 @@ Let $\alpha'_1, \alpha'_2,\ldots,\alpha'_\ell$ be the sequence of arcs in $T$ in
 Analyzing the contributions to $\sum_{i=1}^\ell b_{\alpha'_i}(T,\lambda)$ as above, since $\lambda$ begins with a left turn and ends with a right turn, we see that the total contribution is $-1$, violating assertion (1) for $B'$ and $\lambda$.
 \end{proof}
 
-\marginN{I'm inserting a new approach here that hopefully proves that $\Wall(U)$ has codimension $1$ while also proving the genteel property (in fact that every wall is gregarious).
-End of this insertion marked by Note~\ref{insert end}\label{insert}}
-
-
-\begin{definition}[\emph{Encircling lamination of an I-beam or ring}]\label{encirc def}
-The \newword{encircling lamination} $L^\circ(U)$ of an I-beam or ring $U$ is constructed using two allowable curves, one from each side of $U$, possibly combined into one curve as we now explain in the various cases.
-
-An \newword{extreme point} is a marked point that either is the intersection of two edges containing leaves that are connected to the same degree-$3$ vertex of $U$ or is a degenerate leaf of $U$.
-
-If $U$ is a non-degenerate I-beam, then  it is the union of two bars, each of which starts and ends with a right turn (or starts and ends with a left turn, depending on which direction we traverse the bar).
-If $U$ is degenerate, then it is a union of two bars, each connecting a non-degenerate leaf of $U$ to the degenerate leaf.
-In either case, we nudge each bar slightly to its side so to make them non-intersecting and then connect and/or extend them to allowable curves:
-At each non-degenerate end where the extreme point is a boundary point, if we turned right to end the bar, we extend by turning left repeatedly until we reach the boundary, and if we turned left, we extend by turning right repeatedly.  \marginN{I guess we need pictures}
-At each non-degenerate end where the extreme point is a puncture, we turn right or left as in the case of a boundary point, but connect the two curves.
-At a degenerate leaf, we connect the two curves around the leaf.
-If both extreme points are on the boundary, then $L^\circ(U)$ consists of these two curves, each with weight $1$.
-Otherwise, $L^\circ(U)$ is the combined curve (which may be closed), with weight $1$.
-
-If $U$ is a ring, then $L^\circ(U)$ is $U$ itself with a weight of $2$.
-(We take one curve on each side of $U$, but each of the two curves is isotopic to $U$.)
-\end{definition}
-
-\begin{prop}\label{encirc prop}
-Suppose $U$ is an I-beam or ring with arc sequence $\alpha_1,\ldots,\alpha_k$ and encircling lamination $L^\circ(U)$.  \marginN{This is a bit of a laundry list.  Separate it?}
-Then 
-\begin{enumerate}[\rm(i)]
-\item \label{encirc completed}
-$L^\circ(U)$ can be completed to a quasi-lamination with $|T|-1$ curves, compatible with $U$.
-\item \label{encirc codim}
-$\Wall(U)$ contains a cone of codimension $1$.
-\item\label{p in}
-$\sum_{\gamma\in T}b_\gamma(T,L^\circ(U))\gamma^*=-p^*(\sum_{i=1}^k\alpha_k)$.
-\item\label{-p relint}
-$-p^*(\sum_{i=1}^k\alpha_k)$ is in the relative interior of $\Wall(U)$.
-\end{enumerate}
-\end{prop}
-\begin{proof}
-We first argue \eqref{encirc completed} when $U$ is a ring (an honest, non-shielding, closed allowable curve).
-Since it is non-shielding, there is a marked point on each side of it.  
-(Possibly, it is the same marked point on both sides.)
-From each side, choose an honest path from the marked point $p$ to $U$ and construct a curve $\lambda$ as follows:
-If $p$ is a puncture, then $\lambda$ spirals into $p$ clockwise at both ends.
-If $p$ is on the boundary, then $\lambda$ ends at a point on the boundary close to $p$, reached by moving a small distance along the boundary, with $\S$ on the left.  \marginN{Pictures necessary?  If so, we should wait until we see whether we use $\kappa$ or not.}
-Away from $p$, the curve $\lambda$ follows close to the path, traces close around $U$, and follows the path back to~$p$.
-Since $U$ is allowable, $\lambda$ is also allowable.
-(The exception occurs when $U$ encloses two punctures and nothing else.
-In this case, we replace $\lambda$ with two allowable curves, each spiraling into both marked points, with spiral directions agreeing at one point and disagreeing at the other.
-It is straightforward to modify the following paragraph for this exceptional case.)
-
-Possibly the allowable curves obtained on the two sides coincide up to isotopy, but in any case, they are compatible and trace out an annulus surrounding $U$.
-We can complete these two curves to a maximal set of pairwise compatible non-closed allowable curves with exactly two allowable curves inside the annulus.
-Again, there are $|T|$ curves in this maximal set.
-Deleting the two curves inside the annulus and inserting $U$, we get $|T|-1$ pairwise compatible allowable curves, all compatible with $U$.
-
-NEED MORE CASES HERE...  I-beams are hard, particularly when they are not degenerate (!).
-
-
-Now, we argue \eqref{encirc completed}, when $U$ is an I-beam.
-If both extreme points of $U$ are boundary points, then the two curves $\lambda_1$ and $\lambda_2$ in $L^\circ(U)$ are compatible.  
-We can also construct a third allowable curve (that we will call $\lambda_3$) between the two and compatible with both, by starting with one of the two maximal bars in $U$ that starts with a left turn and ends with a right turn, and extending in the same way.  
-The triple $\set{\lambda_1,\lambda_2,\lambda_3}$ is part of a maximal collection of pairwise compatible non-closed allowable curves, which, by Theorem~\ref{card thm}, has cardinality $|T|$.
-No curve in this larger collection, aside from $\lambda_3$, is between $\lambda_1$ and $\lambda_2$, so $|T|-1$ of them (all but $\lambda_3$) are compatible with $U$.
-
-If exactly one of the extreme points of $U$ is on the boundary of $\S$, then $L^\circ(U)$ is a single curve $\lambda_1$.
-We also construct allowable curves $\lambda_2$ and $\lambda_3$.
-In the definition of $L^\circ(U)$, we considered $U$ as a union of two bars.
-We choose one of the two, extend it near the extreme point on the boundary as in the construction of $L^\circ(U)$, and extend it in two ways at the non-boundary extreme point by spiraling into that point in two opposite directions for $\lambda_2$ and $\lambda_3$.
-The curves $\lambda_1$, $\lambda_2$, and $\lambda_3$ are pairwise compatible.
-Furthermore, $\lambda_1$ is compatible with $U$, while exactly one of $\lambda_2$ and $\lambda_3$ is compatible with $U$.  
-(If $U$ is degenerate, then which is compatible depends on the tagging.)
-Again, there is a collection of $|T|$ pairwise compatible allowable curves, including $\set{\lambda_1,\lambda_2,\lambda_3}$, and all of them except $\lambda_2$ or $\lambda_3$ is compatible with $U$.
-
-If neither of the extreme points of $U$ is on the boundary, then $L^\circ(U)$ is a single closed curve.
-We 
-
-Finally, construct allowable curves $\lambda_3$ and $\lambda_4$, each spiraling into both extreme points, with spiral direction agreeing with $\lambda_2$ at one extreme point, and having opposite spiral directions at the other extreme.
-This can be done so that exactly one of $\lambda_3$ and $\lambda_4$ is compatible with $U$.
-Now, we extend $\set{\lambda_1,\lambda_2,\lambda_3,\lambda_4}$ to a maximal set of $|T|$ pairwise compatible allowable curves, and throw out $\lambda_3$ or $\lambda_4$ to obtain a set of $|T|-1$ pairwise compatible allowable curves all compatible with $U$.
-
-
-***
-
-
-We have proved \eqref{encirc completed}.
-Now \eqref{encirc codim} follows immediately:  Complete $L^\circ(U)$ as in \eqref{encirc completed} and vary the weights on the $|T|-1$ curves (and/or delete curves) to obtain the desired cone.
-
-\eqref{p in}:  ASSUME FOR NOW.
-
-Now observe that $\sum_{\gamma\in T}b_\gamma(T,L^\circ(U))\gamma^*$ is in the relative interior of the cone constructed in the proof of \eqref{encirc codim}.
-Thus, \eqref{p in} implies \eqref{-p relint}. %that $-p^*(\sum_{i=1}^k\alpha_k)$ is in the relative interior of $\Wall(U)$.
-\end{proof}
-
-
-
-\marginN{End of new insertions.  See Note~\ref{insert}\label{insert end}}
+%\marginN{I'm inserting a new approach here that hopefully proves that $\Wall(U)$ has codimension $1$ while also proving the genteel property (in fact that every wall is gregarious).
+%End of this insertion marked by Note~\ref{insert end}\label{insert}}
+%\marginN{End of new insertions.  See Note~\ref{insert}\label{insert end}}
 
 \begin{lemma}\label{codim lemma}
 If $U$ is a ring or I-beam, then $\Wall(U)$ contains a cone of codimension $1$.
@@ -1080,6 +996,116 @@ Since it is a cone, it is therefore the entire hyperplane.
 
 Given $\gamma\in T$, we easily construct the desired I-beam, which is degenerate or degenerate tagged plain or notched, depending on whether $\gamma$ is not in a self-folded triangle, is the non-fold edge of a self-folded triangle, or is the fold edge of a self-folded triangle.
 \end{proof}
+
+\begin{definition}[\emph{Encircling lamination of an I-beam or ring}]\label{encirc def}
+The \newword{encircling lamination} $L^\circ(U)$ of an I-beam or ring $U$ is constructed using two allowable curves, one from each side of $U$, possibly combined into one curve as we now explain in the various cases.
+
+An \newword{extreme point} is a marked point that either is the intersection of two edges containing leaves that are connected to the same degree-$3$ vertex of $U$ or is a degenerate leaf of $U$.
+
+If $U$ is a non-degenerate I-beam, then  it is the union of two bars, each of which starts and ends with a right turn (or starts and ends with a left turn, depending on which direction we traverse the bar).
+If $U$ is degenerate, then it is a union of two bars, each connecting a non-degenerate leaf of $U$ to the degenerate leaf.
+In either case, we nudge each bar slightly to its side so to make them non-intersecting and then connect and/or extend them to allowable curves.
+At a non-degenerate extreme point, there are three possibilities for connecting/extending the curves, and at a degenerate extreme point, there is only one.
+The possibilities are pictured in Figure~\ref{extend fig} and described here.
+\begin{figure}
+%\includegraphics{extend_sep}
+\caption{Extending curves to construct the encircling lamination}
+\label{extend fig}
+\end{figure}
+\begin{itemize}
+\item
+If the extreme point is separated from the leaves by a segment of $U$, then that segment is removed and the curves are connected as shown in the figure.
+\item
+If the extreme point is not separated from the leaves by a segment of $U$ and if the extreme point is a boundary point, then the bar that turned right at this extreme point is extended by turning left repeatedly until it reaches the boundary.
+The bar that turned left is extended by turning right repeatedly to the boundary.
+\item
+If the extreme point is a puncture not separated from the leaves by a segment of $U$, then we connect the two curves around the puncture.
+\item
+At a degenerate leaf, we connect the two curves around the leaf (regardless of the plain or notched tagging of $U$).
+\end{itemize}
+The result is one, two, or three allowable curves, as shown in Figure~\ref{encirc fig}, and $L^\circ(U)$ consists of these two curves, each with weight $1$.
+\begin{figure}
+%\includegraphics{}
+\caption{Extending curves to construct the encircling lamination}
+\label{encirc fig}
+\end{figure}
+
+If $U$ is a ring, then $L^\circ(U)$ is $U$ itself with a weight of $2$.
+(We take one curve on each side of $U$, but each of the two curves is isotopic to $U$.)
+\end{definition}
+\begin{prop}\label{encirc prop}
+Suppose $U$ is an I-beam or ring with arc sequence $\alpha_1,\ldots,\alpha_k$ and encircling lamination $L^\circ(U)$.  \marginN{This is a bit of a laundry list.  Separate it?}
+Then 
+\begin{enumerate}[\rm(i)]
+\item \label{encirc completed}
+$L^\circ(U)$ can be completed to a quasi-lamination with $|T|-1$ curves, compatible with $U$.
+\item \label{encirc codim}
+$\Wall(U)$ contains a cone of codimension $1$.
+\item\label{p in}
+$\sum_{\gamma\in T}b_\gamma(T,L^\circ(U))\gamma^*=-p^*(\sum_{i=1}^k\alpha_k)$.
+\item\label{-p relint}
+$-p^*(\sum_{i=1}^k\alpha_k)$ is in the relative interior of $\Wall(U)$.
+\end{enumerate}
+\end{prop}
+\begin{proof}
+NOTE:  \eqref{encirc completed} is not true...
+
+
+We first argue \eqref{encirc completed} when $U$ is a ring (an honest, non-shielding, closed allowable curve).
+Since it is non-shielding, there is a marked point on each side of it.  
+(Possibly, it is the same marked point on both sides.)
+From each side, choose an honest path from the marked point $p$ to $U$ and construct a curve $\lambda$ as follows:
+If $p$ is a puncture, then $\lambda$ spirals into $p$ clockwise at both ends.
+If $p$ is on the boundary, then $\lambda$ ends at a point on the boundary close to $p$, reached by moving a small distance along the boundary, with $\S$ on the left.  \marginN{Pictures necessary?  If so, we should wait until we see whether we use $\kappa$ or not.}
+Away from $p$, the curve $\lambda$ follows close to the path, traces close around $U$, and follows the path back to~$p$.
+Since $U$ is allowable, $\lambda$ is also allowable.
+(The exception occurs when $U$ encloses two punctures and nothing else.
+In this case, we replace $\lambda$ with two allowable curves, each spiraling into both marked points, with spiral directions agreeing at one point and disagreeing at the other.
+It is straightforward to modify the following paragraph for this exceptional case.)
+
+Possibly the allowable curves obtained on the two sides coincide up to isotopy, but in any case, they are compatible and trace out an annulus surrounding $U$.
+We can complete these two curves to a maximal set of pairwise compatible non-closed allowable curves with exactly two allowable curves inside the annulus.
+Again, there are $|T|$ curves in this maximal set.
+Deleting the two curves inside the annulus and inserting $U$, we get $|T|-1$ pairwise compatible allowable curves, all compatible with $U$.
+
+NEED MORE CASES HERE...  I-beams are hard, particularly when they are not degenerate (!).
+
+
+Now, we argue \eqref{encirc completed}, when $U$ is an I-beam.
+If both extreme points of $U$ are boundary points, then the two curves $\lambda_1$ and $\lambda_2$ in $L^\circ(U)$ are compatible.  
+We can also construct a third allowable curve (that we will call $\lambda_3$) between the two and compatible with both, by starting with one of the two maximal bars in $U$ that starts with a left turn and ends with a right turn, and extending in the same way.  
+The triple $\set{\lambda_1,\lambda_2,\lambda_3}$ is part of a maximal collection of pairwise compatible non-closed allowable curves, which, by Theorem~\ref{card thm}, has cardinality $|T|$.
+No curve in this larger collection, aside from $\lambda_3$, is between $\lambda_1$ and $\lambda_2$, so $|T|-1$ of them (all but $\lambda_3$) are compatible with $U$.
+
+If exactly one of the extreme points of $U$ is on the boundary of $\S$, then $L^\circ(U)$ is a single curve $\lambda_1$.
+We also construct allowable curves $\lambda_2$ and $\lambda_3$.
+In the definition of $L^\circ(U)$, we considered $U$ as a union of two bars.
+We choose one of the two, extend it near the extreme point on the boundary as in the construction of $L^\circ(U)$, and extend it in two ways at the non-boundary extreme point by spiraling into that point in two opposite directions for $\lambda_2$ and $\lambda_3$.
+The curves $\lambda_1$, $\lambda_2$, and $\lambda_3$ are pairwise compatible.
+Furthermore, $\lambda_1$ is compatible with $U$, while exactly one of $\lambda_2$ and $\lambda_3$ is compatible with $U$.  
+(If $U$ is degenerate, then which is compatible depends on the tagging.)
+Again, there is a collection of $|T|$ pairwise compatible allowable curves, including $\set{\lambda_1,\lambda_2,\lambda_3}$, and all of them except $\lambda_2$ or $\lambda_3$ is compatible with $U$.
+
+If neither of the extreme points of $U$ is on the boundary, then $L^\circ(U)$ is a single closed curve.
+We 
+
+Finally, construct allowable curves $\lambda_3$ and $\lambda_4$, each spiraling into both extreme points, with spiral direction agreeing with $\lambda_2$ at one extreme point, and having opposite spiral directions at the other extreme.
+This can be done so that exactly one of $\lambda_3$ and $\lambda_4$ is compatible with $U$.
+Now, we extend $\set{\lambda_1,\lambda_2,\lambda_3,\lambda_4}$ to a maximal set of $|T|$ pairwise compatible allowable curves, and throw out $\lambda_3$ or $\lambda_4$ to obtain a set of $|T|-1$ pairwise compatible allowable curves all compatible with $U$.
+
+
+***
+
+
+We have proved \eqref{encirc completed}.
+Now \eqref{encirc codim} follows immediately:  Complete $L^\circ(U)$ as in \eqref{encirc completed} and vary the weights on the $|T|-1$ curves (and/or delete curves) to obtain the desired cone.
+
+\eqref{p in}:  ASSUME FOR NOW.
+
+Now observe that $\sum_{\gamma\in T}b_\gamma(T,L^\circ(U))\gamma^*$ is in the relative interior of the cone constructed in the proof of \eqref{encirc codim}.
+Thus, \eqref{p in} implies \eqref{-p relint}. %that $-p^*(\sum_{i=1}^k\alpha_k)$ is in the relative interior of $\Wall(U)$.
+\end{proof}
+
 
 
 
