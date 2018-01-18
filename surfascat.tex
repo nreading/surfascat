@@ -1005,7 +1005,7 @@ An \newword{extreme point} is a marked point that either is the intersection of 
 If $U$ is a non-degenerate I-beam, then  it is the union of two bars, each of which starts and ends with a right turn (or starts and ends with a left turn, depending on which direction we traverse the bar).
 If $U$ is degenerate, then it is a union of two bars, each connecting a non-degenerate leaf of $U$ to the degenerate leaf.
 In either case, we nudge each bar slightly to its side so to make them non-intersecting and then connect and/or extend them to allowable curves.
-At a non-degenerate extreme point, there are three possibilities for connecting/extending the curves, and at a degenerate extreme point, there is only one.
+%At a non-degenerate extreme point, there are three possibilities for connecting/extending the curves, and at a degenerate extreme point, there is only one.
 The possibilities are pictured in Figure~\ref{extend fig} and described here.
 \begin{figure}
 %\includegraphics{extend_sep}
@@ -1021,7 +1021,10 @@ The bar that turned left is extended by turning right repeatedly to the boundary
 \item
 If the extreme point is a puncture not separated from the leaves by a segment of $U$, then we connect the two curves around the puncture.
 \item
-At a degenerate leaf, we connect the two curves around the leaf (regardless of the plain or notched tagging of $U$).  \margin{No, there is another case here:  If the two extreme points coincide, curves at the different ends can connect to each other (one or both, depending on if its a boundary point!}
+If the two extreme points coincide and neither is separated from the leaves by a segment of $U$, then one or both curves from one end of $U$ are connected to curves at the other end.
+(One if the extreme point is on the boundary or two if it is a puncture.)
+\item
+At a degenerate leaf, we connect the two curves around the leaf (regardless of the plain or notched tagging of $U$).  
 \end{itemize}
 The result is one, two, or three allowable curves, as shown in Figure~\ref{encirc fig}, and $L^\circ(U)$ consists of these two curves, each with weight $1$.
 \begin{figure}
