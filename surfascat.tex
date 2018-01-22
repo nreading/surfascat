@@ -746,7 +746,7 @@ The \newword{arc sequence of a ring} $U$ is obtained from the cycle of arcs of $
 
 \begin{definition}[\emph{Blocking of allowable curves by rings, I-beams, or bars}]\label{block def}  \marginN{Since compatibility is going to have something to do with the tagging on the I-beam, I thought we should have a different name for the basic "doesn't intersect" version of compatibility.}
 A ring, I-beam, or bar $U$ of $\S$ is \newword{non-blocking} for an allowable curve $\lambda$ if there is an isotopy representative of $U$ (up to the isotopies allowed in the definitions of ring, I-beam, and bar) and an \emph{honest} isotopy representative of $\lambda$ such that the representatives do not intersect each other.
-Otherwise $U$ \newword{blocks} $\lambda$.
+Otherwise $U$ \newword{blocks} $\lambda$.   \margin[GM--by email]{The definition of when an I-beam/ring/barricade blocks a lamination needs to allow the barricade to be replaced by an equivalent barricade, in addition to the lamination. As an example, consider an I-beam with two end-points on opposite sides of an arc in the triangulation. There will be compatible laminations which cross that arc with positive shear coordinate, and compatible laminations which cross that arc with negative shear coordinate, and we need to be able to move the I-beam around to accommodate this.}
 \end{definition}
 
 %\begin{lemma}\label{block lem}
@@ -882,6 +882,11 @@ Analyzing the contributions to $\sum_{i=1}^\ell b_{\alpha'_i}(T,\lambda)$ as abo
 \begin{lemma}\label{codim lemma}
 If $U$ is a ring or I-beam, then $\Wall(U)$ contains a cone of codimension $1$.
 \end{lemma}
+
+WARNING!!  I no longer think this proof is correct.
+It is at best incomplete...I have no counterexample to the lemma.---NR
+
+
 \begin{proof}  
 In light of Theorem~\ref{q-lam bij}, we need only find a set of $|T|-1$ pairwise compatible allowable curves that are compatible with $U$.
 
