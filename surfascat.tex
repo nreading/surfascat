@@ -386,12 +386,71 @@ A \newword{(rational) quasi-lamination} $L$ in $(\S,\M)$ is a collection of pair
 A \newword{multi-lamination} is a finite collection $\L$ of quasi-laminations.
 \end{definition}
 
-The following is essentially part of \cite[Theorem~7.9]{cats1}.  \marginN{If we define $\kappa$, perhaps we do this differently.}
-(That theorem contains a statement about tagged triangulations that is converted to the following statement by a bijection between tagged arcs and non-closed allowable curves defined in \cite[Definition~17.2]{cats2} or a different bijection defined in \cite[Section~5.1]{unisurface}.)
+\begin{definition}[\emph{Tagged arcs, the map $\kappa$, tagged triangulations, exchangeability}]\label{tagged tri def}
+A \newword{tagged arc} in $(\S,\M)$ is an arc in $\S$ that is marked (``tagged'') at each end, with some restrictions.
+Specifically, each end is tagged either \newword{plain} or \newword{notched}.
+Each endpoint that is on a boundary component must be tagged plain.
+If the endpoints of an arc coincide, then they must have the same tag.
+The arc may not cut out a once-punctured monogon.
+
+There is a natural bijection from tagged arcs to non-closed allowable curves, where the tagging of the arc encodes spiral directions (if any) of the curve.
+Given a tagged arc $\alpha$ in $(\S,\M)$, we define a curve $\kappa(\alpha)$ that coincides with $\alpha$ near the endpoints.
+Suppose $p$ is an endpoint of $\alpha$. 
+If $p$ is on the boundary of $\S$, then as $\alpha$ approaches $p$, $\kappa(\alpha)$ veers off slightly to the left and ends at a point close to $p$ on the boundary.
+(Here ``close'' means precisely that, moving from $p$ to the endpoint of $\kappa(\alpha)$ along the boundary, keeping $\S$ on the left, we don't go through any marked point besides $p$.)
+If the endpoint $p$ is a puncture, then $\kappa(\alpha)$ spirals into $p$.
+The spiral is clockwise into $p$ if $\alpha$ is tagged plain at $p$ or counterclockwise if $\alpha$ is tagged notched at $p$.
+
+Two arcs $\alpha$ and $\gamma$ are \newword{compatible} if and only if $\kappa(\alpha)$ and $\kappa(\gamma)$ are compatible.
+Thus they are compatible if and only if one of the following conditions holds:
+the corresponding untagged arcs are nonisotopic and compatible and any shared endpoints have the same tagging, or
+the corresponding untagged arcs are the isotopic and their tagging agrees at one endpoint but not the other.
+
+A \newword{tagged triangulation} is a maximal collection of distinct pairwise compatible tagged arcs.
+Two tagged arcs $\alpha$ and $\beta$ are \newword{exchangeable} if and only if there exists a set $\widetilde T$ of tagged arcs such that $\widetilde T\cup\set{\alpha}$ is a tagged triangulation and $\widetilde T\cup\set{\beta}$ is a tagged triangulation.
+\end{definition}
+
+The following is part of \cite[Theorem~7.9]{cats1}, plus a restatement in terms of allowable curves that is immediate from the fact that $\kappa$ is a bijection from tagged arcs to non-closed allowable curves, and the definitions of compatibility.
 
 \begin{theorem}\label{card thm}
-Every maximal set of non-closed allowable curves has cardinality~$|T|$.
+Every maximal set of pairwise compatible tagged arcs has cardinality~$|T|$.
+Every maximal set of non-closed pairwise compatible allowable curves has cardinality~$|T|$.
 \end{theorem}
+
+\begin{definition}[\emph{Intersection number}]\label{int num def}
+The \newword{intersection number} $(\alpha|\beta)$ of tagged arcs $\alpha$ and $\beta$ is the sum of four quantities $A$, $B$, $C$, and $D$ defined as follows:
+Choose isotopy representatives of $\alpha$ and $\beta$, intersecting with each other the minimum possible number of times, with only transverse intersections.
+Write $\alpha_0$ and $\beta_0$ for the untagged arcs corresponding to $\alpha$ and $\beta$.
+\begin{itemize}
+\item
+$A$ is the number of intersection points of $\alpha_0$ with $\beta_0$ (excluding intersections at endpoints).
+\item
+$B$ is zero unless the two endpoints of $\alpha_0$ coincide, in which case we write $a$ for the endpoint and number the intersections of $\alpha_0$ and $\beta_0$ as $b_1,\ldots,b_k$ in the order they arise as we follow $\beta_0$ in some direction.
+For $i=1,\ldots,k-1$, we define three segments of these curves and a quantity $B_i$.
+Let $[a,b_i]$ be the segment of $\alpha_0$ that has endpoints $a$ and $b_i$ and does not contain $b_{i+1}$.
+Let $[a,b_{i+1}]$ be the segment of $\alpha_0$ with endpoints $a$ and $b_{i+1}$ that does not contain $b_i$.
+Let $[b_i,b_{i+1}]$ be the segment of $\beta_0$ connecting $b_i$ to $b_{i+1}$.
+Set $B_i=-1$ if the segments $[a,b_i]$, $[a,b_{i+1}]$, and $[b_i,b_{i+1}]$ define a triangle that is contractible in $\S\setminus\M$.
+Set $B_i=0$ otherwise.
+Then $B$ is $\sum_{i=1}^{k-1}B_i$.
+\item
+$C$ is $-1$ if $\alpha_0$ and $\beta_0$ are isotopic relative to $\M$ or zero otherwise.
+\item
+$D$ is the number of ends of $\beta$ that coincide with an endpoint of $\alpha$ and have, at that endpoint, a different tag from the tag of $\alpha$ at that endpoint.
+\end{itemize}
+\end{definition}
+
+We use the ``positive part'' of the intersection number to characterize exchangeability of tagged arcs.
+
+\begin{proposition}\label{exch char}
+
+\end{proposition}
+
+
+
+
+
+
 
 \begin{definition}[\emph{Honest curve}]\label{honest def}  
 Given $(\S,\M)$ and a triangulation $T$, a (closed or non closed) curve in $\S$ is \newword{honest} if: \marginN{I like this term, but am not married to it.  If you hate it we can change it.}
@@ -437,16 +496,6 @@ The following is a special case of \cite[Theorem~4.4]{unisurface}, which is an e
 Fix a triangulation $T$.
 Then the map $L\mapsto\b(T,L)$ is a bijection between integral (resp. rational) quasi-laminations and $\integers^n$ (resp.~$\rationals^n$).
 \end{theorem}
-
-
-\marginN{commented out here is the definition of $\kappa$.  We may need it.}
-%Given a tagged arc $\alpha$ in $(\S,\M)$, we define (up to isotopy) a curve $\kappa(\alpha)$.
-%The curve $\kappa(\alpha)$ coincides with $\alpha$ except within a small ball around the endpoints of $\alpha$.
-%Within each ball around an endpoint $p$, the behavior of $\kappa(\alpha)$ is as follows:
-%If $p$ is on a boundary component, then $\kappa(\alpha)$ ends at a point $x$ on the same boundary component such the path along the boundary from $p$ to $x$, keeping $\S$ on the left, does not leave the small ball.
-%If $p$ is a puncture, then $\kappa(\alpha)$ spirals into $p$, clockwise if $\alpha$ is tagged plain at $p$ and counterclockwise if $\alpha$ is tagged notched at $p$.
-%The map $\kappa$ is similar to the map considered in \cite[Definition~17.2]{cats2}, but with the opposite orientation throughout.
-%
 
 \begin{remark}\label{comparison to cats1-2}
 In \cite{cats1,cats2}, the interior of $\S\setminus\M$ is given the structure of Riemann surface, but the metric structure is not needed here.  \marginN{as far as I know now}
@@ -724,7 +773,10 @@ If the endpoint of the bar is a puncture in a self-folded triangle, then the bar
 We consider bars up to isotopy equivalences (in $\S\setminus\M$) that don't change which arc of $T$ contains each endpoint (or don't move the endpoint if it is a puncture).
 We will be most interested in bars contained in some I-beam or ring.
 
-Given a ring or I-beam $U$, a \newword{bar in $U$} is a bar contained in $U$ that, if its endpoint is a puncture (necessarily a degenerate leaf of $U$), has the same barring as $U$ at that point.
+\marginN{Made a change in here to reflect Greg's correction (embedded or immersed).  This is going to worsen one of the things Greg complained about:  an over-abundance of terms.  I think he's probably right, but I want to get a complete mathematical story written before we think hard about how to fix the problem.}
+Given a ring or I-beam $U$, a \newword{bar in $U$} is a bar contained in $U$ that, if its endpoint is a puncture (necessarily a degenerate leaf of $U$), has the same tagging as $U$ at that point.
+A \newword{bar along $U$} is a bar $B$ such that there exists a homotopy (in $\S\setminus\M$) from $B$ to a (possibly self-intersecting) curve contained in $U$, that don't change which arc of $T$ contains each endpoint (or don't move the endpoint if it is a puncture), with the same condition on tagging.
+Since a bar is required to be honest, there exist bars \emph{along $B$} that are not (up to homotopy) \emph{in $B$} only when $U$ is a ring.
 
 Following a bar in some direction, we say the bar makes a \newword{right (left) turn} if it enters the interior of a triangle through some side and then exits through the side to the right (turn).
 In particular, a bar with an endpoint at the puncture inside a self-folded triangle makes \emph{both} a right turn \emph{and} a left turn inside that triangle on its way to or from the puncture.
@@ -784,8 +836,8 @@ Given an I-beam or ring $U$, we define $\Wall(U)$ to be the closure of the set
 
 %We will prove the following theorem.
 
-\begin{theorem}\label{wall thm}
-For any ring or I-beam $U$, the set $\Wall(U)$ is a codimension-$1$ polyhedral cone with normal vector $\sum_{i=1}^k\alpha_i$ where $\alpha_1, \alpha_2,\ldots,\alpha_k$ is the arc sequence of $U$, given by the following rational inequalities:
+\begin{theorem}\label{wall thm}  \marginN{This theorem characterizes the set in terms of the normal vector and bars \textbf{in} $U$.  We don't need inequalities from bars \newword{along} $U$ because they are implied by the normal vector and the others.}
+For any ring or I-beam $U$, the set $\Wall(U)$ is a codimension-$1$ polyhedral cone with normal vector $\sum_{i=1}^k\alpha_i$ where $\alpha_1, \alpha_2,\ldots,\alpha_k$ is the arc sequence of $U$, given by the following rational inequalities:  
 %\begin{itemize}
 %\item For each bar $B$ in $U$ that begins with a right turn and ends with a left turn,
 %\begin{equation}\label{rt lft ineq} b_{\alpha_1}(T,L) + b_{\alpha_2}(T,L) + ... + b_{\alpha_k}(T,L) \geq 0,\end{equation}
@@ -806,7 +858,7 @@ where $\alpha_1, \alpha_2,\ldots,\alpha_k$ is the arc sequence of $B$.
 
 Most of the proof of Theorem~\ref{wall thm} is accomplished by the following three lemmas.
 
-\begin{lemma}\label{nb bars}
+\begin{lemma}\label{nb bars}  \marginN{This theorem uses bars \textbf{along} $U$ because it is false if we only use bars \textbf{in} $U$.}
 Suppose $U$ is a ring or a non-degenerate I-beam and $\lambda$ is an allowable curve.
 Then the following are equivalent.
 \begin{enumerate}[(i)]
@@ -879,9 +931,11 @@ Analyzing the contributions to $\sum_{i=1}^\ell b_{\alpha'_i}(T,\lambda)$ as abo
 %End of this insertion marked by Note~\ref{insert end}\label{insert}}
 %\marginN{End of new insertions.  See Note~\ref{insert}\label{insert end}}
 
-\begin{lemma}\label{codim lemma}
-If $U$ is a ring or I-beam, then $\Wall(U)$ contains a cone of codimension $1$.
+\begin{lemma}\label{I-beam codim lemma}
+If $U$ is an I-beam, then there exists a pair of exchangeable allowable curves $\lambda_1$, $\lambda_2$ such that a lamination $\lambda$ is compatible with $U$ if and only if $\lambda$ is compatible with $\lambda_1$ and with $\lambda_2$.
+Thus $\Wall(U)$ contains a cone of codimension $1$.
 \end{lemma}
+
 
 WARNING!!  I no longer think this proof is correct.
 It is at best incomplete...I have no counterexample to the lemma.---NR
