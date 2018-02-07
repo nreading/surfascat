@@ -539,11 +539,11 @@ An allowable curve that spirals into the puncture in a self-folded triangle cros
 Each intersection of $\lambda$ with $\gamma$ contributes $-1$, $0$, or $1$ to $b_\gamma(T,\lambda)$.
 The contribution is $0$ unless $\lambda$ intersects the triangles containing $\gamma$ in one of the ways shown in Figure~\ref{shear fig}, in which case the contribution is $1$ or $-1$ as shown.
 (In the figure, $\gamma$ is the diagonal of the quadrilateral shown, and $\lambda$ is a vertical or horizontal dashed line.)
-%\begin{figure}[ht]
-%\raisebox{42 pt}{$+1$}\,\,\includegraphics{shearplus}\qquad\qquad\includegraphics{shearminus}\,\,\raisebox{42 pt}{$-1$}
-%\caption{Computing shear coordinates}
-%\label{shear fig}
-%\end{figure}
+\begin{figure}[ht]
+\raisebox{42 pt}{$+1$}\,\,\includegraphics{shearplus}\qquad\qquad\includegraphics{shearminus}\,\,\raisebox{42 pt}{$-1$}
+\caption{Computing shear coordinates}
+\label{shear fig}
+\end{figure}
 If $\gamma$ \emph{is} the fold edge of a self-folded triangle of $T$, then $\gamma$ is inside a once-punctured monogon in $T$.
 Let $p$ be punctured in that monogon, let $\gamma'$ be the other edge of that self-folded triangle, and let $\lambda'$ be the allowable curve obtained from $\lambda$ by reversing the direction of all spirals (if any) at  $p$.
 Then define $b_\gamma(T,\lambda)$ to be $b_{\gamma'}(T,\lambda')$.
@@ -933,7 +933,8 @@ where $\alpha_1, \alpha_2,\ldots,\alpha_k$ is the arc sequence of $B$.
 \end{itemize}
 \end{theorem}
 
-Most of the proof of Theorem~\ref{wall thm} is accomplished by the following three lemmas.
+We first prove all of Theorem~\ref{wall thm} except the codimension assertion.
+We will need two lemmas.
 
 \begin{lemma}\label{nb bars}  \marginN{This theorem uses bars \textbf{along} $U$ because it is false if we only use bars \textbf{in} $U$.}
 Suppose $U$ is a ring or a non-degenerate I-beam and $\lambda$ is an allowable curve.
@@ -1004,19 +1005,79 @@ Let $\alpha'_1, \alpha'_2,\ldots,\alpha'_\ell$ be the sequence of arcs in $T$ in
 Analyzing the contributions to $\sum_{i=1}^\ell b_{\alpha'_i}(T,\lambda)$ as above, since $\lambda$ begins with a left turn and ends with a right turn, we see that the total contribution is $-1$, violating assertion (1) for $B'$ and $\lambda$.
 \end{proof}
 
-Given a pairwise compatible collection $\Lambda$ of allowable curves, let $C_\Lambda$ be the set
-\[\settt{\sum_{\gamma\in T}b_\gamma(T,L)\gamma^*:\,L\text{ is a quasi-lamination with support contained in }\Lambda}\subset V^*.\]
-This is a pointed rational cone.
+We can now prove Theorem~\ref{wall thm}, except for the codimension assertion.
 
-Given an exchangeable pair $\alpha,\beta$ of tagged arcs, there is a unique set $T'(\alpha,\beta)$ of tagged arcs such that $T'(\alpha,\beta)\cup\set{\alpha}$ is a triangulation and $T'(\alpha,\beta)\cup\set{\beta}$ is a triangulation.
-We write $C_{\alpha,\beta}$ as an abbreviation for $C_{\kappa(T'(\alpha,\beta))}$.
-
-\begin{prop}\label{Wall union}
-If $U$ is an I-beam, then $\Compat$ is a union of cones $C_{\alpha,\beta}$ for exchangeable tagged arcs $\alpha$ and $\beta$.
-For every exchangeable pair $\alpha,\beta$ of tagged arcs, there exists an I-beam $U$ such that $C_{\alpha,\beta}\subseteq\Compat(U)$.
+\begin{prop}\label{all but codim}
+For any ring or I-beam $U$, the set $\Compat(U)$ is a polyhedral cone in the hyperplane normal to the vector described in Theorem~\ref{wall thm}, defined by the inequalities given in that theorem.
 \end{prop}
 \begin{proof}
+We show that a lamination $L$ is compatible with $U$ if and only if the vector $\sum_{\gamma\in T}b_\gamma(T,L)\gamma^*$ satisfies the given inequalities and is normal to the given vector.
 
+First, suppose $U$ is a non-degenerate I-beam.
+In this case, there is no difference between bars \emph{in} $U$ and bars \emph{along} $U$.
+Then Lemmas~\ref{nb bars} and~\ref{bar ineq} combine to show that a quasi-lamination $L$ is compatible with $U$ if and only if the given inequalities hold.
+Also, $U$ is a union of two bars, one starting with a right turn and ending with a left turn, the other starting with a left turn and ending with a right turn.
+The set of arcs of $T$ intersecting the relative interior of each of the two bars equals the set of arcs of $T$ intersecting the relative interior of $U$, and it follows that the given vector is normal to $\Compat(U)$.
+
+Next, assume $U$ is a plain-tagged, degenerate I-beam.
+We will recast compatibility with $U$ in a way that looks more like (but not exactly like) the non-degenerate case.
+We replace the degenerate leaf of $U$ with a new vertex in the interior of the self-folded triangle, connected to two leaves on the fold edge by edges approaching the fold edge from both sides, as shown in Figure~\ref{degen recast}, obtaining a subset $U'$ of $\S$.
+\begin{figure}
+\scalebox{0.7}{\includegraphics{degen}}\qquad\scalebox{0.7}{\includegraphics{degen_recast}}
+\caption{Recasting compatibility with a degenerate I-beam}
+\label{degen recast}
+\end{figure}
+It is not true (for any fixed choice of $U'$) that an allowable curve $\lambda$ is compatible with $U$ if and only if $U'$ is non-blocking for $\lambda$.
+However, $U'$ is a union of two bars, one starting with a right turn and ending with a left turn, the other starting with a left turn and ending with a right turn, and $\lambda$ is compatible with $U$ if and only if each bar is non-blocking for $\lambda$.
+The proof of the proposition follows exactly as in that case.
+
+We need not argue separately for degenerate I-beams tagged notched, because the assertion follows immediately from the plain-tagged case by the symmetry in the definition of shear coordinates and compatibility.
+
+Finally, suppose $U$ is a ring.
+Lemmas~\ref{nb bars} and~\ref{bar ineq} combine to show that a quasi-lamination $L$ is compatible with $U$ if and only if the inequalities of Lemma~\ref{bar ineq} (involving all bars \emph{along} $U$) hold.
+There is a bar $B$ in $U$ that starts with a right turn and ends with a left turn, because if all turns are in the same direction, then $U$ is contractible in $\S\setminus\M$ to a puncture.
+We can choose $B$ so that it traces less than a complete turn through $U$.
+Let $\alpha_1,\ldots,\alpha_\ell$ be the sequence of arcs of $T$ crossed by the relative interior of $B$.
+Then $\sum_{i=1}^\ell b_{\alpha_i}(T,\lambda)\geq 0$.
+Let $\gamma_1,\ldots,\gamma_m$ be such that $\alpha_1,\ldots,\alpha_\ell,\gamma_1,\ldots,\gamma_m$ is the full sequence of arcs crossed by the ring $U$.
+For any $k\ge0$, we can make a bar $B_k$ from $B$ by inserting $k$ circuits of the ring $U$ in the middle of $B$, and since this is a bar \emph{along} $U$, we conclude that $(k+1)\sum_{i=1}^\ell b_{\alpha_i}(T,\lambda)+{k\sum_{i=1}^m b_{\alpha_i}(T,\lambda)\geq 0}$.
+This is true for arbitrarily large $k$, and we conclude that $\sum_{i=1}^\ell b_{\alpha_i}(T,\lambda)+\sum_{i=1}^m b_{\alpha_i}(T,\lambda)\geq 0$.
+On the other hand, there is a bar $B'$ starting with a left turn and ending with a right turn such that $\gamma_m,\ldots,\gamma_1$ is the sequence of arcs intersected by the relative interior of $B'$.
+(This bar starts by passing through the same triangle that $B$ starts with, but in the other direction, and traces along $U$ in the opposite direction.)
+Arguing as above, we see that $\sum_{i=1}^\ell b_{\alpha_i}(T,\lambda)+\sum_{i=1}^m b_{\alpha_i}(T,\lambda)\leq 0$ as well, so this sum equals $0$, and we have verified that the given vector is normal.
+Because the given vector is normal, every inequality arising from a bar \emph{along} $U$ is equivalent to an inequality arising from a bar \emph{in} $U$, so the inequalities given in Theorem~\ref{wall thm} suffice (together with knowing the normal vector) to describe $\Compat(U)$.
+\end{proof}
+
+
+
+
+
+
+A \newword{near triangulation} is a set of tagged arcs that is one short of the cardinality of a triangulation.
+Given a near triangulation $T'$, there exist exactly two tagged arcs that can be adjoined to $T'$ to make a triangulation.  \margin{cite this?  I think it is in cats1}
+These two arcs form an exchangeable pair.
+This map from near triangulations to exchangeable pairs is typically not one-to-one.
+
+Given a pairwise compatible collection $\Lambda$ of allowable curves, let $C_\Lambda$ be the set
+\[\settt{\sum_{\gamma\in T}b_\gamma(T,L)\gamma^*:\,L\text{ is a quasi-lamination with support contained in }\Lambda}\subset V^*.\]
+This is a pointed rational cone, and as a consequence of Theorem~\ref{q-lam bij}, it has dimension~$|\Lambda|$.
+
+\begin{prop}\label{Wall union}
+If $U$ is an I-beam, then $\Compat$ is a union of cones $C_{\kappa(T')}$ for near triangulations $T'$.
+For every near triangulation $T'$, there exists a unique I-beam $U$ (and there is no ring $U$) such that $C_{\kappa(T')}\subseteq\Compat(U)$.
+\end{prop}
+\begin{proof}
+To prove the first assertion, we will show that any lamination compatible with $U$ can be completed to a near triangulation $T'$ such that $\kappa(T')$ is compatible with $U$.
+
+
+We now prove the second assertion.
+
+
+
+
+
+Theorem~\ref{card thm} implies that $C_{\kappa(T')}$ has codimension $1$, so by Proposition~\ref{arc seq determines}, there is at most one ring or I-beam such that $C_{\kappa(T')}\subseteq\Compat(U)$.
+The uniqueness assertion follows.
 \end{proof}
 
 HERE
@@ -1075,41 +1136,41 @@ Now, we extend $\set{\lambda_1,\lambda_2,\lambda_3,\lambda_4}$ to a maximal set 
 
 
 \begin{proof}[Proof of Theorem~\ref{wall thm}]
-We first show that a lamination $L$ has $\sum_{\gamma\in T}b_\gamma(T,L)\gamma^*\in\Compat(U)$ if and only if $\sum_{\gamma\in T}b_\gamma(T,L)\gamma^*$ satisfies the given inequalities and is normal to the given vector.
-
-First, suppose $U$ is a ring or a non-degenerate I-beam.
-Then Lemmas~\ref{nb bars} and~\ref{bar ineq} combine to show that a quasi-lamination $L$ is compatible with $U$ if and only if the given inequalities hold.
-We now show that the inequalities imply that $\Compat(U)$ is normal to the given vector.
-
-In the case where $U$ is a non-degenerate I-beam, $U$ is a union of two bars, one starting with a right turn and ending with a left turn, the other starting with a left turn and ending with a right turn.
-The set of arcs of $T$ intersecting the relative interior of each of the two bars equals the set of arcs of $T$ intersecting the relative interior of $U$, and it follows that the given vector is normal to $\Compat(U)$.
-
-In the case where $U$ is a ring, we first point out that there is a bar $B$ in $U$ that starts with a right turn and ends with a left turn.
-(If all turns are in the same direction, then $U$ is contractible in $\S\setminus\M$ to a puncture.)
-We can choose $B$ so that it traces less than a complete turn through $U$.
-Let $\alpha_1,\ldots,\alpha_\ell$ be the sequence of arcs of $T$ crossed by the relative interior of $B$.
-Then $\sum_{i=1}^\ell b_{\alpha_i}(T,\lambda)\geq 0$.
-Let $\gamma_1,\ldots,\gamma_m$ be such that $\alpha_1,\ldots,\alpha_\ell,\gamma_1,\ldots,\gamma_m$ is the full sequence of arcs crossed by the ring $U$.
-For any $k\ge0$, we can make a bar $B_k$ from $B$ by inserting $k$ circuits of the ring $U$ in the middle of $B$, and we conclude that $(k+1)\sum_{i=1}^\ell b_{\alpha_i}(T,\lambda)+{k\sum_{i=1}^m b_{\alpha_i}(T,\lambda)\geq 0}$.
-Since this is true for arbitrarily large $k$, we conclude that $\sum_{i=1}^\ell b_{\alpha_i}(T,\lambda)+\sum_{i=1}^m b_{\alpha_i}(T,\lambda)\geq 0$.
-On the other hand, there is a bar $B'$ starting with a left turn and ending with a right turn such that $\gamma_m,\ldots,\gamma_1$ is the sequence of arcs intersected by the relative interior of $B'$.
-(This bar starts by passing through the tame triangle that $B$ starts with, but in the other direction, and traces along $U$ in the opposite direction.)
-Arguing as above, we see that $\sum_{i=1}^\ell b_{\alpha_i}(T,\lambda)+\sum_{i=1}^m b_{\alpha_i}(T,\lambda)\leq 0$ as well, so this sum equals $0$, and we have verified that the given vector is normal.
-
-Next, assume $U$ is a plain-tagged, degenerate I-beam.
-We will recast compatibility with $U$ in a way that looks more like (but not exactly like) the non-degenerate case.
-We replace the degenerate leaf of $U$ with a new vertex in the interior of the self-folded triangle, connected to two leaves on the fold edge by edges approaching the fold edge from both sides, as shown in Figure~\ref{degen recast}, obtaining a subset $U'$ of $\S$.
-\begin{figure}
-\scalebox{0.7}{\includegraphics{degen}}\qquad\scalebox{0.7}{\includegraphics{degen_recast}}
-\caption{Recasting compatibility with a degenerate I-beam}
-\label{degen recast}
-\end{figure}
-It is not true (for any fixed choice of $U'$) that an allowable curve $\lambda$ is compatible with $U$ if and only if $U'$ is non-blocking for $\lambda$.
-However, $U'$ is a union of two bars, one starting with a right turn and ending with a left turn, the other starting with a left turn and ending with a right turn, and $\lambda$ is compatible with $U$ if and only if each bar is non-blocking for $\lambda$.
-The proof of the proposition follows exactly as in that case.
-
-We need not argue separately for degenerate I-beams tagged notched, because the assertion follows immediately from the plain-tagged case by the symmetry in the definition of shear coordinates and compatibility.
-
+%We first show that a lamination $L$ has $\sum_{\gamma\in T}b_\gamma(T,L)\gamma^*\in\Compat(U)$ if and only if $\sum_{\gamma\in T}b_\gamma(T,L)\gamma^*$ satisfies the given inequalities and is normal to the given vector.
+%
+%First, suppose $U$ is a ring or a non-degenerate I-beam.
+%Then Lemmas~\ref{nb bars} and~\ref{bar ineq} combine to show that a quasi-lamination $L$ is compatible with $U$ if and only if the given inequalities hold.
+%We now show that the inequalities imply that $\Compat(U)$ is normal to the given vector.
+%
+%In the case where $U$ is a non-degenerate I-beam, $U$ is a union of two bars, one starting with a right turn and ending with a left turn, the other starting with a left turn and ending with a right turn.
+%The set of arcs of $T$ intersecting the relative interior of each of the two bars equals the set of arcs of $T$ intersecting the relative interior of $U$, and it follows that the given vector is normal to $\Compat(U)$.
+%
+%In the case where $U$ is a ring, we first point out that there is a bar $B$ in $U$ that starts with a right turn and ends with a left turn.
+%(If all turns are in the same direction, then $U$ is contractible in $\S\setminus\M$ to a puncture.)
+%We can choose $B$ so that it traces less than a complete turn through $U$.
+%Let $\alpha_1,\ldots,\alpha_\ell$ be the sequence of arcs of $T$ crossed by the relative interior of $B$.
+%Then $\sum_{i=1}^\ell b_{\alpha_i}(T,\lambda)\geq 0$.
+%Let $\gamma_1,\ldots,\gamma_m$ be such that $\alpha_1,\ldots,\alpha_\ell,\gamma_1,\ldots,\gamma_m$ is the full sequence of arcs crossed by the ring $U$.
+%For any $k\ge0$, we can make a bar $B_k$ from $B$ by inserting $k$ circuits of the ring $U$ in the middle of $B$, and we conclude that $(k+1)\sum_{i=1}^\ell b_{\alpha_i}(T,\lambda)+{k\sum_{i=1}^m b_{\alpha_i}(T,\lambda)\geq 0}$.
+%Since this is true for arbitrarily large $k$, we conclude that $\sum_{i=1}^\ell b_{\alpha_i}(T,\lambda)+\sum_{i=1}^m b_{\alpha_i}(T,\lambda)\geq 0$.
+%On the other hand, there is a bar $B'$ starting with a left turn and ending with a right turn such that $\gamma_m,\ldots,\gamma_1$ is the sequence of arcs intersected by the relative interior of $B'$.
+%(This bar starts by passing through the tame triangle that $B$ starts with, but in the other direction, and traces along $U$ in the opposite direction.)
+%Arguing as above, we see that $\sum_{i=1}^\ell b_{\alpha_i}(T,\lambda)+\sum_{i=1}^m b_{\alpha_i}(T,\lambda)\leq 0$ as well, so this sum equals $0$, and we have verified that the given vector is normal.
+%
+%Next, assume $U$ is a plain-tagged, degenerate I-beam.
+%We will recast compatibility with $U$ in a way that looks more like (but not exactly like) the non-degenerate case.
+%We replace the degenerate leaf of $U$ with a new vertex in the interior of the self-folded triangle, connected to two leaves on the fold edge by edges approaching the fold edge from both sides, as shown in Figure~\ref{degen recast}, obtaining a subset $U'$ of $\S$.
+%\begin{figure}
+%\scalebox{0.7}{\includegraphics{degen}}\qquad\scalebox{0.7}{\includegraphics{degen_recast}}
+%\caption{Recasting compatibility with a degenerate I-beam}
+%\label{degen recast}
+%\end{figure}
+%It is not true (for any fixed choice of $U'$) that an allowable curve $\lambda$ is compatible with $U$ if and only if $U'$ is non-blocking for $\lambda$.
+%However, $U'$ is a union of two bars, one starting with a right turn and ending with a left turn, the other starting with a left turn and ending with a right turn, and $\lambda$ is compatible with $U$ if and only if each bar is non-blocking for $\lambda$.
+%The proof of the proposition follows exactly as in that case.
+%
+%We need not argue separately for degenerate I-beams tagged notched, because the assertion follows immediately from the plain-tagged case by the symmetry in the definition of shear coordinates and compatibility.
+%
 Theorem~\ref{q-lam bij} now implies that $\Compat(U)$ contains all rational points is a polyhedral cone defined by the given normal vector and inequalities.
 Thus $\Compat(U)$ is a polyhedral cone defined by the given normal vector and inequalities, and Lemma~\ref{codim lemma} implies that $\Compat(U)$ has codimension $1$.
 \end{proof}
@@ -1139,7 +1200,7 @@ Given $\gamma\in T$, we easily construct the desired I-beam, which is degenerate
 \begin{definition}[\emph{Encircling lamination of an I-beam or ring}]\label{encirc def}
 The \newword{encircling lamination} $L^\circ(U)$ of an I-beam or ring $U$ is constructed using two allowable curves, one from each side of $U$, possibly combined into one curve as we now explain in the various cases.
 
-An \newword{extreme point} is a marked point that either is the intersection of two edges containing leaves that are connected to the same degree-$3$ vertex of $U$ or is a degenerate leaf of $U$.
+An \newword{extreme point} of $U$ is a marked point that either is the intersection of two edges containing leaves that are connected to the same degree-$3$ vertex of $U$ or is a degenerate leaf of $U$.
 
 If $U$ is a non-degenerate I-beam, then  it is the union of two bars, each of which starts and ends with a right turn (or starts and ends with a left turn, depending on which direction we traverse the bar).
 If $U$ is degenerate, then it is a union of two bars, each connecting a non-degenerate leaf of $U$ to the degenerate leaf.
