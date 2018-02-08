@@ -354,6 +354,18 @@ We define $b_{\alpha\beta}$ to be the sum $\sum_\Delta b^\Delta_{\alpha\beta}$, 
 \]
 \end{definition}
 
+\begin{definition}[\emph{Honest curve}]\label{honest def}  
+Given $(\S,\M)$ and a triangulation $T$, a (closed or non closed) curve in $\S$ is \newword{honest} if: \marginN{I like this term, but am not married to it.  If you hate it we can change it.}
+\begin{itemize}
+\item the curve is differentiable;
+\item the curve is disjoint from $\partial \S$ and from $\M$ except possibly at endpoints of the curve;
+\item each intersection of the curve with an arc of $T$ is either transverse or is an endpoint of the curve;
+\item the curve never crosses an arc of $T$ and then crosses the same arc again \emph{in the opposite direction} without crossing a different arc of $T$ in between;
+\item if the curve has an endpoint at a marked point $p$, then its next intersection with an arc of $T$ or with $\partial S$ must be in the relative interior of a side of some triangle of $T$ that is opposite $p$ in the triangle.
+\end{itemize}
+There is no requirement that the curve not have self-intersections.  \marginN{At some point, I wrote this, but now i wonder:  Is there any reason not to rule out self-intersections in the definition of "honest"?}
+\end{definition}
+
 \begin{definition}[\emph{Allowable curve}]\label{allowable def}
 An \newword{allowable curve} in $(\S,\M)$ is  
 \begin{itemize}
@@ -371,6 +383,7 @@ that
 \item does not have both endpoints on the same boundary segment and, together with the portion of the boundary between its endpoints, cut out a once-punctured disk, and 
 \item does not spiral at both ends into the same marked point and cut out an unpunctured or once-punctured disk.
 \end{itemize}
+There are countably many allowable curves, up to isotopy.  \marginN{I don't think this is written down anywhere, but there is an easy argument.  Do we need to write down that argument?}
 %The requirement that an allowable curve is honest is not made in \cite{unisurface} or in the analogous definition in \cite{cats2}.  
 %However, we may as well require honesty because when defining shear coordinates of an allowable curve $\lambda$ (as below in Definition~\ref{shear def}), one passes to a curve isotopic to $\lambda$ that is honest.
 \end{definition}
@@ -383,6 +396,7 @@ they are nonintersecting, or
 \item they are identical except that, at exactly one end of the curve, they spiral opposite directions into the same marked point.
 \end{itemize}
 A \newword{(rational) quasi-lamination} $L$ in $(\S,\M)$ is a collection of pairwise compatible allowable curves in $\S$, distinct up to isotopy, with each curve $\lambda\in L$ carrying a positive rational weight $w_\lambda$.
+Every quasi-lamination can be realized with pairwise compatible curves embedded honestly.  \marginN{I don't think we need to argue that.}
 The \newword{support} of a quasi-lamination $L$ is the underlying pairwise compatible set of allowable curves.
 A \newword{multi-lamination} is a finite collection $\L$ of quasi-laminations.
 \end{definition}
@@ -512,20 +526,6 @@ Proposition~\ref{exch char} can be rephrased in terms of the ``positive part'' o
 There, denominator vectors of cluster algebras are characterized in terms of intersection numbers $(\alpha|\beta)$, which are defined as a sum $A+B+C+D$, two of which ($A$ and $D$) are nonnegative, while the other two are nonpositive.
 Proposition~\ref{exch char} says that $\alpha$ and $\beta$ are exchangeable if and only if $A+D=1$ when computing $(\alpha|\beta)$ \emph{and} $A+D=1$ when computing $(\beta|\alpha)$.
 \end{remark}
-
-
-
-\begin{definition}[\emph{Honest curve}]\label{honest def}  
-Given $(\S,\M)$ and a triangulation $T$, a (closed or non closed) curve in $\S$ is \newword{honest} if: \marginN{I like this term, but am not married to it.  If you hate it we can change it.}
-\begin{itemize}
-\item the curve is differentiable;
-\item the curve is disjoint from $\partial \S$ and from $\M$ except possibly at endpoints of the curve;
-\item each intersection of the curve with an arc of $T$ is either transverse or is an endpoint of the curve;
-\item the curve never crosses an arc of $T$ and then crosses the same arc again \emph{in the opposite direction} without crossing a different arc of $T$ in between;
-\item if the curve has an endpoint at a marked point $p$, then its next intersection with an arc of $T$ or with $\partial S$ must be in the relative interior of a side of some triangle of $T$ that is opposite $p$ in the triangle.
-\end{itemize}
-There is no requirement that the curve not have self-intersections.  \marginN{At some point, I wrote this, but now i wonder:  Is there any reason not to rule out self-intersections in the definition of "honest"?}
-\end{definition}
 
 \begin{definition}[\emph{Shear coordinates}]\label{shear def}
 Given a quasi-lamination $L$, a triangulation $T$, and an arc $\gamma\in T$,  we define the \newword{shear coordinate} $b_\gamma(T,L)$ of $L$ at $\gamma$ (with respect to $T$).
@@ -1061,26 +1061,67 @@ This map from near triangulations to exchangeable pairs is typically not one-to-
 Given a pairwise compatible collection $\Lambda$ of allowable curves, let $C_\Lambda$ be the set
 \[\settt{\sum_{\gamma\in T}b_\gamma(T,L)\gamma^*:\,L\text{ is a quasi-lamination with support contained in }\Lambda}\subset V^*.\]
 This is a pointed rational cone, and as a consequence of Theorem~\ref{q-lam bij}, it has dimension~$|\Lambda|$.
+Theorem~\ref{q-lam bij} implies that the cones $C_\Lambda$ are dense in $V^*$.
+Since there are countably many allowable curves, there are countably many cones of the form $C_\Lambda$.
+
 
 \begin{prop}\label{Wall union}
-If $U$ is an I-beam, then $\Compat$ is a union of cones $C_{\kappa(T')}$ for near triangulations $T'$.
+If $U$ is an I-beam, then $\Compat(U)$ is the closure of a nonempty union of cones $C_{\kappa(T')}$ for near triangulations $T'$.
 For every near triangulation $T'$, there exists a unique I-beam $U$ (and there is no ring $U$) such that $C_{\kappa(T')}\subseteq\Compat(U)$.
 \end{prop}
 \begin{proof}
-To prove the first assertion, we will show that any lamination compatible with $U$ can be completed to a near triangulation $T'$ such that $\kappa(T')$ is compatible with $U$.
+If $L$ is a lamination compatible with $U$ and having support $\Lambda$, then the entire cone $C_\Lambda$ is in $\Compat(U)$.
+Thus $\Compat(U)$ is a union of cones $C_\Lambda$.
+Proposition~\ref{all but codim} says that $\Compat(U)$ is a convex cone, and since there are countably many cones $C_\Lambda$ and they are dense in $V^*$, the cone $\Compat(U)$ is the closure of the cones $C_\Lambda$ it contains that are full-dimensional.
+Thus to prove the first assertion, we show that $\Compat(U)$ contains a cone $C_{\kappa(T')}$ for some near triangulation $T'$ and that every cone $C_\Lambda$ in $\Compat(U)$ of codimension $1$ (relative to $V^*$) has $\Lambda=T'$ for some near triangulation $T'$.
+We consider first the case where $U$ is non-degenerate.
+
+Suppose $\Lambda$ is maximal such that $C_\Lambda$ is in $\Compat(U)$ and choose an honest embedding of $\Lambda$.
+Since $U$ is non-degenerate, it is the union of two bars, a bar $B_l$ that starts with a right turn and ends in a left turn (in either direction), and a bar $B_r$ that starts with a left turn and ends in a right turn (in either direction).
+We extend both bars to allowable curves $\lambda_l$ and $\lambda_r$ so that each extension is compatible with all curves in $\Lambda$.
+At each step in the extension, we leave an arc (to the opposite side we entered it from), entering the interior of a triangle, and then leave the triangle by entering one of its edges, either left or right.
+We continue until we reach the boundary or have the opportunity to  spiral into a puncture.
+We first start from an end of $\lambda_l$ and extend so as to never cross any curve in $\Lambda$, any part of $\lambda_l$ or its extension, or $\lambda_r$.
+Since the curves in $\Lambda$ are embedded honestly and compatible with $U$ and since the extension process produces an honest curve, we never get stuck.
+We then extend the opposite end of $\lambda_l$, and then both ends of $\lambda_r$ in the same way.
+The extensions 
+
+HERE!!
+
+At each end, if we turned right to end the bar, we extend by turning left repeatedly until we reach the boundary, and if we turned left, we extend by turning right repeatedly.  \marginN{I guess we need pictures}
+
+
+
+
+
+Don't forget degenerate cases!!
+
 
 
 We now prove the second assertion.
+Suppose $T'$ is a near triangulation and let $\alpha$ and $\beta$ be the tagged arcs that (separately) complete $T'$ to a triangulation.
+There are two possibilities described in Proposition~\ref{exch char}.
+If $\alpha$ and $\beta$ intersect exactly once in their relative interiors and their taggings agree at all shared endpoints, then $\kappa(\alpha)$ and $\kappa(\gamma)$ are non-isotopic allowable curves that intersect exactly once.
+We can embed them honestly with their intersection in the interior of some triangle.
+From the intersection, each curve leaves the triangle through some edge of the triangle.
+We follow the curves as far as they continue to pass through the same edges.
+In each direction, there is some triangle that they first exit through different edges.
+If this is a non-self-folded triangle, then we place a non-leaf of 
+
+HERE TOO!
 
 
 
 
+ they each have distinct endpoints, they share one or more endpoint, with their tagging disagreeing at exactly one endpoint, and they have disjoint relative interiors.
 
+
+
+%It remains only to prove the uniqueness of $U$.
 Theorem~\ref{card thm} implies that $C_{\kappa(T')}$ has codimension $1$, so by Proposition~\ref{arc seq determines}, there is at most one ring or I-beam such that $C_{\kappa(T')}\subseteq\Compat(U)$.
-The uniqueness assertion follows.
+The uniqueness assertion (and the ruling out of a ring $U$) follows.
 \end{proof}
 
-HERE
 
 Need something like {Wall union} for closed nonshielding curves.
 
