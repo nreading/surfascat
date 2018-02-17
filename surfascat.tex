@@ -892,8 +892,8 @@ An allowable curve $\lambda$ is \newword{compatible} with a given \emph{non-dege
 In the case of a \emph{degenerate} I-beam $U$, the curve $\lambda$ is again compatible with $U$ if $U$ is non-blocking, but under special conditions, $\lambda$ can be compatible with the degenerate I-beam even when $U$ is blocking.  
 \marginN{Fixed the definition here.  Old one commented out.  This one is simpler, and has the advantage, I think/hope, of being correct.}
 The degenerate leaf is at a puncture inside a self-folded triangle.
-If $U$ is tagged plain at that puncture, then $\lambda$ is allowed to cross $U$ as it spirals into the puncture, as long as it crosses the fold edge of the triangle first, before ever crossing $U$.
-If $U$ is tagged notched, it is allowed to cross $U$ as it spirals, as long as it crosses $U$ first before ever crossing the fold edge of the triangle.
+If $U$ is tagged plain at that puncture, then $\lambda$ is allowed to cross $U$, inside the self-folded triangle, as it spirals into the puncture, as long as it crosses the fold edge of the triangle first, before ever crossing $U$.
+If $U$ is tagged notched, it is allowed to cross $U$ as it spirals inside the self-folded triangle, as long as it crosses $U$ first before ever crossing the fold edge of the triangle.
 If $\lambda$ has an honest embedding that only intersects $U$ in these allowed ways, then it is compatible with $U$.
 %The degenerate leaf is at a puncture inside a self-folded triangle that is in turn inside a once-punctured digon.  \marginN{Gonna need pictures here.}
 %The fold edge and the degenerate edge cut the digon into two pieces.
@@ -1067,13 +1067,24 @@ Since there are countably many allowable curves, there are countably many cones 
 
 \begin{prop}\label{Wall union}
 If $U$ is an I-beam, then $\Compat(U)$ is the closure of a nonempty union of cones $C_{\kappa(T')}$ for near triangulations $T'$.
-For every near triangulation $T'$, there exists a unique I-beam $U$ (and there is no ring $U$) such that $C_{\kappa(T')}\subseteq\Compat(U)$.
 \end{prop}
+
 \begin{proof}
 If $L$ is a lamination compatible with $U$ and having support $\Lambda$, then the entire cone $C_\Lambda$ is in $\Compat(U)$.
 Thus $\Compat(U)$ is a union of cones $C_\Lambda$.
-Proposition~\ref{all but codim} says that $\Compat(U)$ is a convex cone, and since there are countably many cones $C_\Lambda$ and they are dense in $V^*$, the cone $\Compat(U)$ is the closure of the cones $C_\Lambda$ it contains that are full-dimensional.
-Thus to prove the first assertion, we show that $\Compat(U)$ contains a cone $C_{\kappa(T')}$ for some near triangulation $T'$ and that every cone $C_\Lambda$ in $\Compat(U)$ of codimension $1$ (relative to $V^*$) has $\Lambda=T'$ for some near triangulation $T'$.
+Proposition~\ref{all but codim} says that $\Compat(U)$ is a convex cone, and since there are countably many cones $C_\Lambda$ and they are dense in $V^*$, the cone $\Compat(U)$ is the closure of the cones $C_\Lambda$ with $C_\Lambda\subseteq\Compat(U)$ and $\dim C_\lambda=\dim\Compat(U)$.
+Thus the proposition is implied by the following two claims.
+First, we claim that $\Compat(U)$ contains a cone $C_{\kappa(T')}$ for some near triangulation $T'$.
+Second, we claim that every cone $C_\Lambda$ in $\Compat(U)$ of codimension $1$ (relative to $V^*$) has $\Lambda=\kappa(T')$ for some near triangulation $T'$.
+
+HERE
+
+
+
+
+
+
+
 We consider first the case where $U$ is non-degenerate.
 
 Suppose $\Lambda$ is maximal such that $C_\Lambda$ is in $\Compat(U)$ and choose an honest embedding of $\Lambda$.
@@ -1096,6 +1107,18 @@ At each end, if we turned right to end the bar, we extend by turning left repeat
 
 Don't forget degenerate cases!!
 
+
+\end{proof}
+
+Need something like {Wall union} for closed nonshielding curves.
+
+
+
+
+\begin{prop}\label{near I}
+For every near triangulation $T'$, there exists a unique I-beam $U$ (and there is no ring $U$) such that $C_{\kappa(T')}\subseteq\Compat(U)$.
+\end{prop}
+\begin{proof}
 
 
 We now prove the second assertion.
@@ -1123,8 +1146,6 @@ Theorem~\ref{card thm} implies that $C_{\kappa(T')}$ has codimension $1$, so by 
 The uniqueness assertion (and the ruling out of a ring $U$) follows.
 \end{proof}
 
-
-Need something like {Wall union} for closed nonshielding curves.
 
 
 
