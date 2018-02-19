@@ -799,7 +799,8 @@ We consider rings up to isotopy equivalence (in $\S\setminus\M$).
 Let $(\S,\M)$ be a marked surface with triangulation $T$.  
 \marginN{I am writing this so that a "ring" is not a kind of I-beam.  Rings don't really fit the name I-beam.}  
 \marginN{I am taking Shira's I-beams plus Greg's description via embedded graphs. } 
-\marginN{Note that we do not have the case of edges connecting self-folded triangles to each other.  Turns out that those are lower-dimensional!  UPDATE:  I was wrong about that, so I have changed this definition. }
+\marginN{Note that we do not have the case of edges connecting self-folded triangles to each other.  Turns out that those are lower-dimensional!  UPDATE:  I was wrong about that, so I have changed this definition. 
+A LITTLE MORE DETAIL:  What is lower dimensional is when this is accomplished by curves that have disagreeing spirals at both endpoints.  But there are other ways this can happen.}
 An \newword{I-beam} in $(\S,\M)$ is an embedded tree with $0$, $1$, or $2$ non-leaves, satisfying conditions and possibly having markings as follows.
 \begin{itemize}
 \item Every edge is an honest, non-self-intersecting curve.
@@ -1119,17 +1120,21 @@ Need something like {Wall union} for closed nonshielding curves.
 For every near triangulation $T'$, there exists a unique I-beam $U$ (and there is no ring $U$) such that $C_{\kappa(T')}\subseteq\Compat(U)$.
 \end{prop}
 \begin{proof}
-
-
-We now prove the second assertion.
 Suppose $T'$ is a near triangulation and let $\alpha$ and $\beta$ be the tagged arcs that (separately) complete $T'$ to a triangulation.
 There are two possibilities described in Proposition~\ref{exch char}.
-If $\alpha$ and $\beta$ intersect exactly once in their relative interiors and their taggings agree at all shared endpoints, then $\kappa(\alpha)$ and $\kappa(\gamma)$ are non-isotopic allowable curves that intersect exactly once (and in particular agree in spiral directions at any common endpoints.
+
+First, suppose $\alpha$ and $\beta$ intersect exactly once in their relative interiors and their taggings agree at all shared endpoints.
+Then $\kappa(\alpha)$ and $\kappa(\gamma)$ are non-isotopic allowable curves that intersect exactly once (and in particular agree in spiral directions at any common endpoints.
 We can embed them honestly with their intersection in the interior of some triangle.
 From the intersection, each curve leaves the triangle through some edge of the triangle.
-We follow the curves as far as they continue to pass through the same edges.
+We follow the curves as far as they continue to pass through the same edges in the same directions.
 In each direction, there is some triangle that they first exit through different edges.
-If this is a non-self-folded triangle, then we place a non-leaf of 
+The two triangles (one in each direction) are necessarily distinct, or else $\alpha$ and/or $\beta$ intersects itself and/or $\alpha$ and $\beta$ intersect more than once.
+We place a vertex in each of the two triangles, in the interior of the triangle is not self folded, or at the internal puncture if the triangle is self-folded, and connect the two vertices with an edge $e$ that follows the two curves.
+For a vertex $v$ in a non-self-folded triangle such that $e$ first leaves $t$ through an edge $\alpha$, we connect $v$ two leaves, one on each of the sides of $t$ besides $\alpha$.
+For a vertex $v$ that is the puncture inside a self-folded triangle, $\kappa(\alpha)$ and $\kappa(\gamma)$ enter $t$ through the non-fold edge.
+If they then cross the fold edge from different sides (possibly with one of them spiraling into $v$), we tag $e$ plain near $v$.
+If they cross the fold edge from the same side, with one spiraling into $v$ and the other leaving $t$ through the non-fold edge, then we tag $e$ notched near $v$.
 
 
 HERE TOO!
