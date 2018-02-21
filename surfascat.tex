@@ -801,6 +801,7 @@ Let $(\S,\M)$ be a marked surface with triangulation $T$.
 \marginN{I am taking Shira's I-beams plus Greg's description via embedded graphs. } 
 \marginN{Note that we do not have the case of edges connecting self-folded triangles to each other.  Turns out that those are lower-dimensional!  UPDATE:  I was wrong about that, so I have changed this definition. 
 A LITTLE MORE DETAIL:  What is lower dimensional is when this is accomplished by curves that have disagreeing spirals at both endpoints.  But there are other ways this can happen.}
+\marginN{As I'm proving Proposition~\ref{}, I'm seeing that this definition needs to be broadened further:  We need to allow all punctures to be degenerate vertices.  BUT I HAVE NOT MADE THIS CHANGE YET!!}
 An \newword{I-beam} in $(\S,\M)$ is an embedded tree with $0$, $1$, or $2$ non-leaves, satisfying conditions and possibly having markings as follows.
 \begin{itemize}
 \item Every edge is an honest, non-self-intersecting curve.
@@ -1122,6 +1123,9 @@ For every near triangulation $T'$, there exists a unique I-beam $U$ (and there i
 \begin{proof}
 Suppose $T'$ is a near triangulation and let $\alpha$ and $\beta$ be the tagged arcs that (separately) complete $T'$ to a triangulation.
 There are two possibilities described in Proposition~\ref{exch char}.
+In each case we will construct an I-beam $U$ and verify that $C_{\kappa(T')}\subseteq\Compat(U)$.
+By our choice of $\alpha$ and $\beta$, each of $\kappa(\alpha)$ and $\kappa(\beta)$ is compatible with every curve in $\kappa(T')$.
+Thus to verify that $C_{\kappa(T')}\subseteq\Compat(U)$, we check that if an allowable curve is compatible with $\kappa(\alpha)$ and $\kappa(\beta)$ then it is compatible with $U$.
 
 First, suppose $\alpha$ and $\beta$ intersect exactly once in their relative interiors and their taggings agree at all shared endpoints.
 Then $\kappa(\alpha)$ and $\kappa(\gamma)$ are non-isotopic allowable curves that intersect exactly once (and in particular agree in spiral directions at any common endpoints.
@@ -1135,6 +1139,17 @@ For a vertex $v$ in a non-self-folded triangle such that $e$ first leaves $t$ th
 For a vertex $v$ that is the puncture inside a self-folded triangle, $\kappa(\alpha)$ and $\kappa(\gamma)$ enter $t$ through the non-fold edge.
 If they then cross the fold edge from different sides (possibly with one of them spiraling into $v$), we tag $e$ plain near $v$.
 If they cross the fold edge from the same side, with one spiraling into $v$ and the other leaving $t$ through the non-fold edge, then we tag $e$ notched near $v$.
+We have constructed an $I$-beam $U$.
+
+We now verify, in this first case, that any allowable curve compatible with $\kappa(\alpha)$ and $\kappa(\beta)$ is also compatible with $U$.
+This is easy in the case when $U$ is non-degenerate, because we can choose a subset of $\kappa(\alpha)$ that is a bar $B_\alpha$ and a subset of $\kappa(\beta)$ that is a bar $B_\beta$ such that there are isotopy representatives of $B_\alpha$ and $B_\beta$ whose union is $U$.
+If $U$ has a degenerate vertex $v$ tagged plain, then as in the proof of 
+
+
+
+
+(if we choose appropriate isotopy representatives), the union $\kappa(\alpha)\cup\kappa(\beta)$ contains $U$. 
+When $U$ is degenerate 
 
 
 HERE TOO!
