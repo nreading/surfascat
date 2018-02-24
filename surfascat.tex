@@ -772,6 +772,520 @@ The existence and uniqueness of the cluster scattering diagram is the fundamenta
 \marginN{We might give the theorem showing cluster monomials in terms of path-ordered products.
 This gives a formula for a cluster monomial in terms of any sequence of flips that relates it to an initial cluster monomial, and I'm really curious to see what that formula is.}
 
+
+\section{Walls for surfaces without punctures}
+Building cluster scattering diagrams for marked surfaces if considerably more complicated in the presence of punctures.
+For that reason, we first make the complete construction in the case of surfaces without punctures.
+The ideas behind the proof for punctured surfaces are the same, but the combinatorics becomes more complicated.
+
+One basic combinatorial element of the construction is an I-beam, a subset of $\S\setminus\M$ that locally looks like a curve, but ``branches'' at two points.
+Another basic element is a ring, a closed curve.
+An I-beam or ring determines a set of quasi-laminations, and we will see that the shear coordinates of this set of quasi-laminations constitute a codimension-$1$ rational cone.
+These cones will eventually be the walls of the cluster scattering diagram.
+
+\begin{definition}[\emph{Non-shielding closed curve}]\label{nonshield def}
+An allowable closed curve $\lambda$ is \newword{shielding} if some component of $\S \setminus \lambda$ contains no marked point.
+Otherwise it is called \newword{non-shielding}.
+\end{definition}
+
+\begin{example}\label{shield ex}
+Consider a torus from which an open disk has been removed, with one marked point on the boundary of the disk.
+This marked surface $(\S,\M)$ is sometimes called the \newword{dread torus}.  \marginN{I guess we ought to cite that to Gregg somehow.}
+The closed curve in the interior of $\S$ that encircles the removed  the boundary is a shielding curve.
+Triangulations of $(\S,\M)$ consist of five arcs, but quasi-laminations containing $\lambda$ contain at most three allowable curves. 
+\end{example}
+
+\begin{definition}[\emph{Ring}]\label{ring def}
+A \newword{ring} in $(\S,\M)$ is an \emph{honest} \emph{non-sheilding} closed allowable curve in the sense of Definitions~\ref{allowable def}.
+We consider rings up to isotopy equivalence (in $\S\setminus\M$).
+\end{definition}
+
+\begin{definition}[\emph{I-beam}]\label{def: i-beam no punct}
+Let $(\S,\M)$ be a marked surface \emph{with no punctures} and let $T$ be a triangulation.
+An \newword{I-beam} in $(\S,\M)$ is an embedded tree with two non-leaves, each connected to the other and to two leaves, satisfying the following conditions.
+\begin{itemize}
+\item Every edge is an honest, non-self-intersecting curve.
+\item Embedded edges are disjoint from each other except possibly at shared endpoints and disjoint from $\partial\S$ except possibly at leaves.
+\item The two non-leaves are in two distinct triangles and are connected to each other.
+\item Each non-leaf $v$ is in the interior of a triangle of~$T$.
+The two leaves connected to $v$ are in the relative interiors of two distinct sides of the triangle, and the edge from $v$ to the other non-leaf passes through the third side when leaving the triangle.
+\end{itemize}
+We consider I-beams up to isotopy equivalences (in $\S\setminus\M$) of the embedding that don't change which arc of $T$ or boundary segment of $(\S,\M)$ or puncture contains each leaf.
+(If two leaves are in the interior of the same arc of $T$, necessarily connected to two different non-leaves in two different triangles, we allow isotopies that move them past each other.)  The \newword{relative interior} of an I-beam is the I-beam minus its leaves.
+\end{definition}
+
+\begin{example}\label{I-beam ex}
+Pentagon as in Shira's pictures?
+And/or once-punctured triangles?
+\end{example}
+
+Each I-beam or ring, as a set, is a finite union of curves that we will call bars.
+
+\begin{definition}[\emph{Bar}]\label{bar def no punct}
+Let $(\S,\M)$ be a marked surface \emph{with no punctures} and let $T$ be a triangulation.
+A \newword{bar} in $(\S,\M)$ is an \emph{honest} curve $\gamma:[0,1]\to\S$ each of whose endpoints is on the relative interior of an arc of $T$ or a boundary segment of $(\S,\M)$.
+We consider bars up to isotopy equivalences (in $\S\setminus\M$) that don't change which arc of $T$ contains each endpoint.
+We will be most interested in bars contained in some I-beam or ring.
+
+Given a ring or I-beam $U$, a \newword{bar in $U$} is a bar contained in $U$.
+A \newword{bar along $U$} is a bar $B$ such that there exists a homotopy (in $\S\setminus\M$) from $B$ to a (possibly self-intersecting) curve contained in $U$, that doesn't change which arc of $T$ contains each endpoint.
+Since a bar is required to be honest, there exist bars \emph{along $B$} that are not (up to homotopy) \emph{in $B$} only when $U$ is a ring.
+
+Following a bar in some direction, we say the bar makes a \newword{right (left) turn} if it enters the interior of a triangle through some side and then exits through the side to the right (turn).
+Reversing the direction that we follow the bar reverses left and right.
+Thus, for example, a bar that starts with a right turn is also a bar that ends with a left turn.
+\end{definition}
+
+\begin{definition}[\emph{Arc sequence of a ring, I-beam, or bar}]\label{seq def no punct}  
+Let $(\S,\M)$ be a marked surface \emph{with no punctures} and let $T$ be a triangulation.
+The arc sequences we define here might instead be called ``arc-multisets,'' because we only care about the underlying multiset and because there will be some ambiguity in the ordering.
+However, the term ``arc sequence'' seems more pleasant and also more correctly captures the spirit of the definition despite the ambiguity.
+The \newword{arc sequence of a bar} $B$ is, essentially, the sequence of arcs of $T$ intersecting the relative interior of $B$.
+The \newword{arc sequence of an $I$-beam} $U$ is the sequence of arcs of $T$ intersecting the curve in $U$ connecting the two non-leaves.
+The \newword{arc sequence of a ring} $U$ is obtained from the cycle of arcs of $T$ intersecting $U$ by cutting the cycle arbitrarily to make a sequence.
+\end{definition}
+
+\begin{prop}\label{arc seq determines no punct}
+Suppose $U$ is an I-beam or ring and $U'$ is an I-beam or ring.
+If $U$ and $U'$ have the same arc sequence (as multisets), then $U=U'$.
+\end{prop}
+\begin{proof}
+For each arc $\alpha$ in an arc sequence, draw a curve crossing $\alpha$, connecting the interiors of the two adjacent triangles that share $\alpha$.
+Draw all of these curves to be disjoint from each other.
+To find an I-beam or ring with this arc sequence, we must connect all of these curves to each other within the interiors of triangles and then, at any remaining unconnected endpoints, add leaves on the two sides of the triangle that the curve did not cross.
+Since the result is not allowed to cross itself, there is at most one way to do this.
+\end{proof}
+
+\begin{definition}[\emph{Compatibility of quasi-laminations with I-beams, rings, and bars}]\label{ibeam compat def}
+Let $(\S,\M)$ be a marked surface \emph{with no punctures} and let $T$ be a triangulation.
+An allowable curve $\lambda$ is \newword{compatible} with a given I-beam, ring, or bar $U$ if and only if there is an isotopy representative of $U$ (up to the isotopies allowed in the definitions of ring, I-beam, and bar) and an \emph{honest} isotopy representative of $\lambda$ such that the representatives do not intersect each other.
+A quasi-lamination is \newword{compatible} with an I-beam/ring/bar if and only if every curve in the quasi-lamination is compatible with the I-beam/ring/bar.
+\end{definition}
+
+\begin{definition}[\emph{Compatibility cone associated to an I-beam or ring}]  
+Given an I-beam or ring $U$, the \newword{compatibility cone} $\Compat(U)$ is the closure of the set 
+\[\settt{\sum_{\gamma\in T}b_\gamma(T,L)\gamma^*:\,L\text{ is a quasi-lamination compatible with }U}\subset V^*.\]	
+\end{definition}
+
+\begin{theorem}\label{wall thm no punct}  
+Let $(\S,\M)$ be a marked surface \emph{with no punctures} and let $T$ be a triangulation.
+For any ring or I-beam $U$, the set $\Compat(U)$ is a codimension-$1$ polyhedral cone with normal vector $\sum_{i=1}^k\alpha_i$ where $\alpha_1, \alpha_2,\ldots,\alpha_k$ is the arc sequence of $U$, given by the following rational inequalities:  
+\begin{itemize}
+\item For each bar $B$ in $U$ that begins with a right turn and ends with a left turn,
+\[ b_{\alpha_1}(T,L) + b_{\alpha_2}(T,L) + ... + b_{\alpha_k}(T,L) \geq 0,\]
+where $\alpha_1, \alpha_2,\ldots,\alpha_k$ is the arc sequence of $B$.
+\item For each bar $B$ in $U$ that begins with a left turn and ends with a right turn,
+\[ b_{\alpha_1}(T,L) + b_{\alpha_2}(T,L) + ... + b_{\alpha_k}(T,L) \leq 0,\]
+where $\alpha_1, \alpha_2,\ldots,\alpha_k$ is the arc sequence of $B$.
+\end{itemize}
+\end{theorem}
+
+We first prove all of Theorem~\ref{wall thm no punct} except the codimension assertion.
+We will need two lemmas.
+
+\begin{lemma}\label{nb bars}  
+Let $(\S,\M)$ be a marked surface \emph{with no punctures} and let $T$ be a triangulation.
+Suppose $U$ is a ring or I-beam and $\lambda$ is an allowable curve.
+Then the following are equivalent.
+\begin{enumerate}[(i)]
+\item \label{U nb}
+$\lambda$ is compatible with $U$.
+\item \label{bar nb}
+$\lambda$ is compatible with every bar along $U$.
+\item \label{special bar nb}
+$\lambda$ is compatible with every bar along $U$ that begins with a right turn and ends with a left turn or begins with a left turn and ends with a right turn.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+It is immediate that \eqref{U nb}$\implies$\eqref{bar nb}$\implies$\eqref{special bar nb}.
+Suppose $\lambda$ is not compatible with $U$.
+We may as well assume that $\lambda$ is honest, so that it intersects $U$, and furthermore, we take an intersection $p$ that can't be removed by passing to a different honest isotopy representative of $\lambda$.
+From $p$, in each direction, $\lambda$ from passes from triangle to triangle (stopping when and if it hits the boundary of $\S$).
+Following $U$ from $p$, for a while $U$ passes through the same triangles, until it passes into a different triangle than $\lambda$ or until a degree-$3$ vertex is reached and $U$ continues to no further triangles.
+In either case, in each direction there is a part of $U$ that leaves the interior of a triangle from a different side than $\lambda$ does.
+The bar along $U$ connecting these two exit points from interiors of triangles is not compatible with $\lambda$ and either starts with a left turn and ends with a right turn or vice versa, because otherwise, we could pass to an isotopy representative of $\lambda$ that removes the intersection.
+\marginN{I think I need to improve the explanation and add a picture}
+We have supposed that \eqref{U nb} fails and concluded that \eqref{special bar nb} fails also.  %, and thus proved that \eqref{special bar nb}$\implies$\eqref{U nb}.
+\end{proof}
+
+\begin{lemma}\label{bar ineq no punct}
+Let $(\S,\M)$ be a marked surface \emph{with no punctures} and let $T$ be a triangulation.
+Suppose $B$ is a bar with both endpoints on an arc of $T$, suppose $\alpha_1, \alpha_2,\ldots,\alpha_k$ is the arc sequence of~$B$, and suppose $\lambda$ is an allowable curve.
+If $\lambda$ is compatible with $B$, then:
+\begin{enumerate}[\quad\rm(1)]
+\item If $B$ begins with a right turn and ends with a left turn, then ${\sum_{i=1}^kb_{\alpha_i}(T,\lambda)\ge0}$.
+\item If $B$ begins with a left turn and ends with a right turn, then ${\sum_{i=1}^kb_{\alpha_i}(T,\lambda)\le0}$.
+\end{enumerate}\marginN{Notice that the if and only if statement doesn't work exactly, but that something good enough does work.}
+If $\lambda$ is incompatible with $B$, then there is a bar $B'$ contained in $B$ such that $\lambda$ and $B'$ violate $(1)$ or $(2)$.
+\end{lemma}
+\begin{proof}
+Suppose $\lambda$ is compatible with $B$.
+We argue assertion (1);  assertion (2) is symmetric by a reversal of orientation of $\S$.
+
+Suppose $B$ begins with a right turn and ends with a left turn, and consider the sequence of triangles whose interiors $B$ passes through, as shown in Figure~\ref{tri seq}.
+\begin{figure}
+\scalebox{0.7}{\includegraphics{triseq}}
+\caption{The triangles crossed by $B$}
+\label{tri seq}
+\end{figure}
+The triangles shown may not be distinct.
+
+We can assume that $\lambda$ is honest and that it does not intersect $B$.
+Consider the how $\lambda$ passes through the triangles that intersect $B$, and in particular whether $\lambda$ turns right or left in each triangle.
+We see that $\lambda$ picks up a positive contribution to $\sum_{i=1}^kb_{\alpha_i}(T,\lambda)$ exactly when it has a right turn immediately followed by a left turn.
+Similarly, $\lambda$ picks up a negative contribution exactly when it has a left turn and then immediately a right turn.
+Following $\lambda$ in the direction that keeps $B$ to the right of $\lambda$, we see that the first turn that $\lambda$ makes as it passes through the sequence of triangles can be right or left, but the last turn must be left (because $B$ begins with a right turn and ends with a left turn).
+We conclude that the total contribution (for each pass through the triangles) is $0$ or $1$, and assertion (1) follows.
+
+On the other hand, suppose $\lambda$ is an allowable curve such that every honest isotopy representative of $\lambda$ intersects $B$.
+Then $\lambda$ enters a triangle crossed by $B$ and passes through some other triangles crossed by $B$, intersecting $B$ (unavoidably) at some point, and finally leaves the sequence of triangles crossed by $B$.
+Let $B'$ be the restriction of $B$ to the sequence of triangles that $\lambda$ passes through. 
+The curve $\lambda$ itself must either begin with a left turn and end with a right turn or vice-versa. 
+Up to symmetry, we may as well assume that it begins left and ends right.
+Since the intersection of $\lambda$ with $B$ was unavoidable for honest isotopy representatives of $\lambda$, we conclude that $B'$ begins with a right turn and ends with a left turn.
+Let $\alpha'_1, \alpha'_2,\ldots,\alpha'_\ell$ be the sequence of arcs in $T$ intersecting the relative interior of~$B'$.
+Analyzing the contributions to $\sum_{i=1}^\ell b_{\alpha'_i}(T,\lambda)$ as above, since $\lambda$ begins with a left turn and ends with a right turn, we see that the total contribution is $-1$, violating assertion (1) for $B'$ and $\lambda$.
+\end{proof}
+
+We can now prove Theorem~\ref{wall thm no punct}, except for the codimension assertion.
+
+\begin{prop}\label{all but codim no punct}
+Let $(\S,\M)$ be a marked surface \emph{with no punctures} and let $T$ be a triangulation.
+For any ring or I-beam $U$, the set $\Compat(U)$ is a polyhedral cone in the hyperplane normal to the vector described in Theorem~\ref{wall thm no punct}, defined by the inequalities given in that theorem.
+\end{prop}
+\begin{proof}
+We show that a lamination $L$ is compatible with $U$ if and only if the vector $\sum_{\gamma\in T}b_\gamma(T,L)\gamma^*$ satisfies the given inequalities and is normal to the given vector.
+
+First, suppose $U$ is an I-beam.
+In this case, there is no difference between bars \emph{in} $U$ and bars \emph{along} $U$.
+Then Lemmas~\ref{nb bars} and~\ref{bar ineq} combine to show that a quasi-lamination $L$ is compatible with $U$ if and only if the given inequalities hold.
+Also, $U$ is a union of two bars, one starting with a right turn and ending with a left turn, the other starting with a left turn and ending with a right turn.
+The set of arcs of $T$ intersecting the relative interior of each of the two bars equals the set of arcs of $T$ intersecting the relative interior of $U$, and it follows that the given vector is normal to $\Compat(U)$.
+
+Next, suppose $U$ is a ring.
+Lemmas~\ref{nb bars} and~\ref{bar ineq} combine to show that a quasi-lamination $L$ is compatible with $U$ if and only if the inequalities of Lemma~\ref{bar ineq} (involving all bars \emph{along} $U$) hold.
+There is a bar $B$ in $U$ that starts with a right turn and ends with a left turn, because if all turns are in the same direction, then $U$ is contractible in $\S\setminus\M$ to a puncture.
+We can choose $B$ so that it traces less than a complete turn through $U$.
+Let $\alpha_1,\ldots,\alpha_\ell$ be the arc sequence of $B$.
+Then $\sum_{i=1}^\ell b_{\alpha_i}(T,\lambda)\geq 0$.
+Let $\gamma_1,\ldots,\gamma_m$ be such that $\alpha_1,\ldots,\alpha_\ell,\gamma_1,\ldots,\gamma_m$ is the full sequence of arcs crossed by the ring $U$.
+For any $k\ge0$, we can make a bar $B_k$ from $B$ by inserting $k$ circuits of the ring $U$ in the middle of $B$, and since this is a bar \emph{along} $U$, we conclude that $(k+1)\sum_{i=1}^\ell b_{\alpha_i}(T,\lambda)+{k\sum_{i=1}^m b_{\alpha_i}(T,\lambda)\geq 0}$.
+This is true for arbitrarily large $k$, and we conclude that $\sum_{i=1}^\ell b_{\alpha_i}(T,\lambda)+\sum_{i=1}^m b_{\alpha_i}(T,\lambda)\geq 0$.
+On the other hand, there is a bar $B'$ starting with a left turn and ending with a right turn such that $\gamma_m,\ldots,\gamma_1$ is the sequence of arcs intersected by the relative interior of $B'$.
+(This bar starts by passing through the same triangle that $B$ starts with, but in the other direction, and traces along $U$ in the opposite direction.)
+Arguing as above, we see that $\sum_{i=1}^\ell b_{\alpha_i}(T,\lambda)+\sum_{i=1}^m b_{\alpha_i}(T,\lambda)\leq 0$ as well, so this sum equals $0$, and we have verified that the given vector is normal.
+Because the given vector is normal, every inequality arising from a bar \emph{along} $U$ is equivalent to an inequality arising from a bar \emph{in} $U$, so the inequalities given in Theorem~\ref{wall thm} suffice (together with knowing the normal vector) to describe $\Compat(U)$.
+\end{proof}
+
+\marginN{Move these definitions to the surfaces background section?}
+A \newword{near (tagged) triangulation} is a set of tagged arcs that is one short of the cardinality of a triangulation.
+Given a near triangulation $T'$, there exist exactly two tagged arcs that can be adjoined to $T'$ to make a triangulation.  \margin{cite this?  I think it is in cats1}
+These two arcs form an exchangeable pair.
+This map from near triangulations to exchangeable pairs is typically not one-to-one.
+
+Given a pairwise compatible collection $\Lambda$ of allowable curves, let $C_\Lambda$ be the set
+\[\settt{\sum_{\gamma\in T}b_\gamma(T,L)\gamma^*:\,L\text{ is a quasi-lamination with support contained in }\Lambda}\subset V^*.\]
+This is a pointed rational cone, and as a consequence of Theorem~\ref{q-lam bij}, it has dimension~$|\Lambda|$.
+Theorem~\ref{q-lam bij} implies that the cones $C_\Lambda$ are dense in $V^*$.
+Since there are countably many allowable curves, there are countably many cones of the form $C_\Lambda$.
+
+
+\begin{prop}\label{Wall union no punct}
+Let $(\S,\M)$ be a marked surface \emph{with no punctures}, let $T$ be a triangulation, and let $U$ be an I-beam.
+Then $\Compat(U)$ is the closure of a nonempty union of cones $C_{\kappa(T')}$ for near triangulations $T'$.
+\end{prop}
+
+The key to the proof of Proposition~\ref{Wall union no punct} is the following lemma.
+
+\begin{lemma}\label{key}
+Let $(\S,\M)$ be a marked surface \emph{with no punctures}, let $T$ be a triangulation, and let $U$ be an I-beam.
+Then there exist exchangeable arcs $\alpha$ and $\beta$ and isotopy representatives of $\kappa(\alpha)$ and $\kappa(\beta)$ whose union contains $U$.
+\end{lemma}
+\begin{proof}
+The I-beam $U$ is the union of two bars, a bar $B_l$ that starts with a right turn and ends in a left turn (in either direction), and a bar $B_r$ that starts with a left turn and ends in a right turn (in either direction).
+We extend both bars to non-closed allowable curves $\lambda_l$ and $\lambda_r$ that don't intersect except where they coincide along an edge of $U$.
+Thus, after a suitable isotopy, $\lambda_l$ and $\lambda_r$ intersect exactly once.
+At each step in the extension, we leave an arc (to the opposite side we entered it from), entering the interior of a triangle, and then leave the triangle by entering one of its edges, either left or right.
+When there is a choice, we always choose the right.
+We continue until we reach the boundary.
+We first start from an end of $\lambda_l$ and extend so as to never cross any part of $\lambda_l$ or its extension, or $\lambda_r$.
+Since the curves in $\Lambda$ are embedded honestly and compatible with $U$ and since the extension process produces an honest curve, we never get stuck.
+Conceivably, the extension never terminates (i.e.\ never reaches the boundary).
+
+
+
+We then extend the opposite end of $\lambda_l$, and then both ends of $\lambda_r$ in the same way.
+The extensions 
+
+HERE!!
+
+\end{proof}
+
+
+\begin{proof}[Proof of Proposition~\ref{Wall union no punct}]
+If $L$ is a lamination compatible with $U$ and having support $\Lambda$, then the entire cone $C_\Lambda$ is in $\Compat(U)$.
+Thus $\Compat(U)$ is a union of cones $C_\Lambda$.
+Proposition~\ref{all but codim no punct} says that $\Compat(U)$ is a convex cone, and since there are countably many cones $C_\Lambda$ and they are dense in $V^*$, the cone $\Compat(U)$ is the closure of the cones $C_\Lambda$ with $C_\Lambda\subseteq\Compat(U)$ and $\dim C_\lambda=\dim\Compat(U)$.
+Thus the proposition is implied by the following two claims.
+First, we claim that $\Compat(U)$ contains a cone $C_{\kappa(T')}$ for some near triangulation $T'$.
+Second, we claim that every cone $C_\Lambda\subseteq\Compat(U)$ of codimension $1$ (relative to $V^*$) has $\Lambda=\kappa(T')$ for some near triangulation $T'$.
+
+For the first claim, Lemma~\ref{key} implies that there are exchangeable arcs $\alpha$ and $\beta$ such that every allowable curve compatible with $\kappa(\alpha)$ and $\kappa(\beta)$ is also compatible with $U$.
+In particular, if $T'$ is a near triangulation such that $T'\cup\set{\alpha}$ and $T'\cup\set{\beta}$ are both triangulations, every curve in $\kappa(T')$ is compatible with $U$.
+
+To prove the second claim, Proposition~\ref{closed card thm} implies that it is enough to show that a pairwise-compatible set $\Lambda$ containing a non-shielding closed curve and having $C_\Lambda\subseteq\Compat(U)$ must have has $|\Lambda|<|T|-1$,
+Given such a $\Lambda$, the non-shielding closed curve $U'$ in $\Lambda$ is a \emph{ring}, so Proposition~\ref{all but codim no punct} applies, and we see that $C_\Lambda$ is contained in the normal hyperplane to the vector determined by the arc sequence of $U'$.
+But also, by Proposition~\ref{all but codim no punct}, $C_\Lambda$ is in the normal hyperplane to the vector determined by the arc sequence of $U$.
+Proposition~\ref{arc seq determines} says that these are not the same hyperplane, so $\dim C_\Lambda\le|T|-2$, and thus $|\Lambda|\le|T|-2$.
+\end{proof}
+
+The following proposition is an analog of Proposition~\ref{Wall union no punct} for rings.
+
+\begin{prop}\label{Wall union ring no punct}
+Let $(\S,\M)$ be a marked surface, let $T$ be a triangulation, and let $U$ be a ring.
+Then $\Compat(U)$ is the closure of a nonempty union of cones $C_{\set{U}\cup\kappa(T')}$ for pairwise compatible sets $T'$ of tagged arcs disjoint from $U$ with $|T'|=|T|-2$.
+\end{prop}
+\begin{proof}
+Just as in the proof of Proposition~\ref{Wall union no punct}, the proof reduces to checking two claims:
+First, that $\Compat(U)$ contains a cone $C_{\set{U}\cup\kappa(T')}$ as described in the statement of the proposition; and second, that every cone $C_\Lambda\subseteq\Compat(U)$ of codimension $1$ (relative to $V^*$) is of the form $C_{\set{U}\cup\kappa(T')}$.
+
+To prove the first claim, we repeat a construction from the proof of Proposition~\ref{closed card thm}, with $U$ replacing $\lambda$.
+On each side of $U$, we construct an arc $\alpha$ (or a pair of arcs $\beta$ and $\beta'$) such that the curves on both sides cut out an annulus surrounding.
+These curves can be completed to a triangulation containing exactly $2$ tagged arcs that are not disjoint from $U$.  
+Deleting those two arcs from the triangulation, we obtain the desired $T'$.
+
+The second claim follows immediately from Proposition~\ref{closed card thm}.
+\end{proof}
+
+Propositions~\ref{Wall union no punct} and~\ref{Wall union ring no punct} say in particular that for any ring or I-beam $U$, the set $\Compat(U)$ contains a cone of codimension $1$ in $V^*$.
+Together with Proposition~\ref{all but codim no punct}, this completes the proof of Theorem~\ref{wall thm no punct}.
+
+The following proposition is a form of converse to Proposition~\ref{Wall union no punct}.
+
+\begin{prop}\label{near I no punct}
+Let $(\S,\M)$ be a marked surface \emph{with no punctures} and let $T$ be a triangulation.
+For every near triangulation $T'$, there exists a unique I-beam $U$ (and there is no ring $U$) such that $C_{\kappa(T')}\subseteq\Compat(U)$.
+\end{prop}
+\begin{proof}
+Since $(\S,\M)$ has no punctures, we deal only in ordinary arcs (or equivalently, all tags are plain).
+Suppose $T'$ is a near triangulation and let $\alpha$ and $\beta$ be the arcs that (separately) complete $T'$ to a triangulation.
+By Proposition~\ref{exch char} and the fact that $(\S,\M)$ has no punctures, $\alpha$ and $\beta$ intersect exactly once in their relative interiors.
+We will construct an I-beam $U$ and verify that $C_{\kappa(T')}\subseteq\Compat(U)$.
+By our choice of $\alpha$ and $\beta$, each of $\kappa(\alpha)$ and $\kappa(\beta)$ is compatible with every curve in $\kappa(T')$.
+Thus to verify that $C_{\kappa(T')}\subseteq\Compat(U)$, we check that if an allowable curve is compatible with $\kappa(\alpha)$ and $\kappa(\beta)$ then it is compatible with $U$.
+
+The allowable curves $\kappa(\alpha)$ and $\kappa(\gamma)$ are non-isotopic and intersect exactly once.
+We can embed them honestly with their intersection in the interior of some triangle.
+From the intersection, each curve leaves the triangle through some edge of the triangle.
+We follow the curves as far as they continue to pass through the same edges in the same directions.
+In each direction, there is some triangle that they first exit through different edges.
+The two triangles (one in each direction) are necessarily distinct, or else $\alpha$ and/or $\beta$ intersects itself and/or $\alpha$ and $\beta$ intersect more than once.
+We place a vertex in the interior of each of the two triangles and connect the two vertices with an edge $e$ that follows the two curves.
+For each vertex $v$ in a triangle $t$, the edge $e$ first leaves $t$ through an arc $\alpha$, and we connect $v$ to two leaves, one on each of the sides of $t$ besides $\alpha$.
+We have constructed an $I$-beam $U$.
+
+We can choose a subset of $\kappa(\alpha)$ that is a bar $B_\alpha$ and a subset of $\kappa(\beta)$ that is a bar $B_\beta$ such that there are isotopy representatives of $B_\alpha$ and $B_\beta$ whose union is $U$.
+Thus any allowable curve compatible with $\kappa(\alpha)$ and $\kappa(\beta)$ is also compatible with~$U$.
+
+It remains only to prove the uniqueness of $U$.
+Theorem~\ref{card thm} implies that $C_{\kappa(T')}$ has codimension $1$, so by Proposition~\ref{arc seq determines no punct}, there is at most one ring or I-beam such that $C_{\kappa(T')}\subseteq\Compat(U)$.
+The uniqueness assertion (and the ruling out of a ring $U$) follows.
+\end{proof}
+
+The following is the analog, for rings, of Proposition~\ref{near I no punct}, a form of converse to Proposition~\ref{Wall union ring no punct}.
+
+\begin{prop}\label{ring face no punct}
+Let $(\S,\M)$ be a marked surface \emph{with no punctures} and let $T$ be a triangulation.
+Given a ring $U$ and a pairwise compatible sets $T'$ of tagged arcs disjoint from $U$ with $|T'|=|T|-2$, the ring $U$ is the unique ring $U'$ (and there is no I-beam $U'$) such that $C_{\set{U}\cup\kappa(T')}\subseteq\Compat(U')$.
+\end{prop}
+\begin{proof}
+The allowable curve $U$ is compatible with the ring $U$, so the containment $C_{\set{U}\cup\kappa(T')}\subseteq\Compat(U')$ holds by definition.
+The uniqueness (and ruling our an I-beam $U'$) holds by Proposition~\ref{arc seq determines no punct} and the fact that $C_{\set{U}\cup\kappa(T')}$ has codimension $1$ in $V^*$.
+\end{proof}
+
+
+
+
+\section{A holding place for the rest of the material that I want to clean up in the no-punctures case}
+
+
+Theorem~\ref{wall thm no punct} also lets us prove some useful facts about $\Compat(U)$.
+\begin{prop}\label{basic wall}
+If $U$ is an I-beam or ring with arc sequence $\alpha_1,\ldots,\alpha_k$, then $\Compat(U)$ is a hyperplane if and only if $k=1$ if and only if $p^*(\sum_{i=1}^k\alpha_k)$ is in $\Compat(U)$.
+In this case, $U$ is an I-beam.
+For each arc $\gamma\in T$, there is a unique I-beam $U$ whose arc sequence has only the term~$\gamma$ so that in particular $\Compat(U)$ is the hyperplane $\gamma^\perp$.
+\end{prop}
+\begin{proof}  \marginN{We may eventually decide that this proof is easy enough to omit.}
+If $k=1$, then $U$ must be an I-beam, because if it is a ring, then this ring is contractible to a puncture, which is not allowed.
+In this case, every bar in $U$ has either empty arc sequence or arc sequence $\alpha_1$, and Theorem~\ref{wall thm} implies that $\Compat(U)$ is a hyperplane.
+If $k>1$, then we claim that there exists a bar in $U$ starting with a left turn and ending with a right turn whose arc sequence has only one term.
+If $U$ is a ring with only right turns or only left turns, then it is contractible to a puncture.
+Thus $U$ has a right turn immediately followed by a left turn, so we can construct the desired bar.
+If $U$ is an I-beam, then following $U$ from $\alpha_1$ to $\alpha_2$ is either a right turn or a left turn.
+Choosing the appropriate leaf of $U$ in the triangle before $\alpha_1$, we can construct the desired bar.
+
+Proposition~\ref{encirc prop}\eqref{-p relint}, says that $-p^*(\sum_{i=1}^k\alpha_k)$ is in the relative interior of $\Compat(U)$.
+Since $\Compat(U)$ is convex, easy convexity arguments imply that if $\Compat(U)$ contains $p^*(\sum_{i=1}^k\alpha_k)$, then it contains a relatively open (relative to the hyperplane) neighborhood of the origin.
+Since it is a cone, it is therefore the entire hyperplane.
+
+Given $\gamma\in T$, we easily construct the desired I-beam, which is degenerate or degenerate tagged plain or notched, depending on whether $\gamma$ is not in a self-folded triangle, is the non-fold edge of a self-folded triangle, or is the fold edge of a self-folded triangle.
+\end{proof}
+
+\begin{definition}[\emph{Encircling lamination of an I-beam or ring}]\label{encirc def}
+The \newword{encircling lamination} $L^\circ(U)$ of an I-beam or ring $U$ is constructed using two allowable curves, one from each side of $U$, possibly combined into one curve as we now explain in the various cases.
+
+An \newword{extreme point} of $U$ is a marked point that either is the intersection of two edges containing leaves that are connected to the same degree-$3$ vertex of $U$ or is a degenerate leaf of $U$.
+
+If $U$ is a non-degenerate I-beam, then  it is the union of two bars, each of which starts and ends with a right turn (or starts and ends with a left turn, depending on which direction we traverse the bar).
+If $U$ is degenerate, then it is a union of two bars, each connecting a non-degenerate leaf of $U$ to the degenerate leaf.
+In either case, we nudge each bar slightly to its side so to make them non-intersecting and then connect and/or extend them to allowable curves.
+%At a non-degenerate extreme point, there are three possibilities for connecting/extending the curves, and at a degenerate extreme point, there is only one.
+The possibilities are pictured in Figure~\ref{extend fig} and described here.
+\begin{figure}
+%\includegraphics{extend_sep}
+\caption{Extending curves to construct the encircling lamination}
+\label{extend fig}
+\end{figure}
+\begin{itemize}
+\item
+If the extreme point is separated from the leaves by a segment of $U$, then that segment is removed and the curves are connected as shown in the figure.
+\item
+If the extreme point is not separated from the leaves by a segment of $U$ and if the extreme point is a boundary point, then the bar that turned right at this extreme point is extended by turning left repeatedly until it reaches the boundary.
+The bar that turned left is extended by turning right repeatedly to the boundary.
+\item
+If the extreme point is a puncture not separated from the leaves by a segment of $U$, then we connect the two curves around the puncture.
+\item
+If the two extreme points coincide and neither is separated from the leaves by a segment of $U$, then one or both curves from one end of $U$ are connected to curves at the other end.
+(One if the extreme point is on the boundary or two if it is a puncture.)
+\item
+At a degenerate leaf, we connect the two curves around the leaf (regardless of the plain or notched tagging of $U$).  
+\end{itemize}
+The result is one, two, or three allowable curves, as shown in Figure~\ref{encirc fig}, and $L^\circ(U)$ consists of these two curves, each with weight $1$.
+\begin{figure}
+%\includegraphics{}
+\caption{Extending curves to construct the encircling lamination}
+\label{encirc fig}
+\end{figure}
+
+If $U$ is a ring, then $L^\circ(U)$ is $U$ itself with a weight of $2$.
+(We take one curve on each side of $U$, but each of the two curves is isotopic to $U$.)
+\end{definition}
+\begin{prop}\label{encirc prop}
+Suppose $U$ is an I-beam or ring with arc sequence $\alpha_1,\ldots,\alpha_k$ and encircling lamination $L^\circ(U)$.  \marginN{This is a bit of a laundry list.  Separate it?}
+Then 
+\begin{enumerate}[\rm(i)]
+\item \label{encirc completed}
+$L^\circ(U)$ can be completed to a quasi-lamination with $|T|-1$ curves, compatible with $U$.
+\item \label{encirc codim}
+$\Compat(U)$ contains a cone of codimension $1$.
+\item\label{p in}
+$\sum_{\gamma\in T}b_\gamma(T,L^\circ(U))\gamma^*=-p^*(\sum_{i=1}^k\alpha_k)$.
+\item\label{-p relint}
+$-p^*(\sum_{i=1}^k\alpha_k)$ is in the relative interior of $\Compat(U)$.
+\end{enumerate}
+\end{prop}
+\begin{proof}
+NOTE:  \eqref{encirc completed} is not true...
+
+
+We first argue \eqref{encirc completed} when $U$ is a ring (an honest, non-shielding, closed allowable curve).
+Since it is non-shielding, there is a marked point on each side of it.  
+(Possibly, it is the same marked point on both sides.)
+From each side, choose an honest path from the marked point $p$ to $U$ and construct a curve $\lambda$ as follows:
+If $p$ is a puncture, then $\lambda$ spirals into $p$ clockwise at both ends.
+If $p$ is on the boundary, then $\lambda$ ends at a point on the boundary close to $p$, reached by moving a small distance along the boundary, with $\S$ on the left.  \marginN{Pictures necessary?  If so, we should wait until we see whether we use $\kappa$ or not.}
+Away from $p$, the curve $\lambda$ follows close to the path, traces close around $U$, and follows the path back to~$p$.
+Since $U$ is allowable, $\lambda$ is also allowable.
+(The exception occurs when $U$ encloses two punctures and nothing else.
+In this case, we replace $\lambda$ with two allowable curves, each spiraling into both marked points, with spiral directions agreeing at one point and disagreeing at the other.
+It is straightforward to modify the following paragraph for this exceptional case.)
+
+Possibly the allowable curves obtained on the two sides coincide up to isotopy, but in any case, they are compatible and trace out an annulus surrounding $U$.
+We can complete these two curves to a maximal set of pairwise compatible non-closed allowable curves with exactly two allowable curves inside the annulus.
+Again, there are $|T|$ curves in this maximal set.
+Deleting the two curves inside the annulus and inserting $U$, we get $|T|-1$ pairwise compatible allowable curves, all compatible with $U$.
+
+NEED MORE CASES HERE...  I-beams are hard, particularly when they are not degenerate (!).
+
+
+Now, we argue \eqref{encirc completed}, when $U$ is an I-beam.
+If both extreme points of $U$ are boundary points, then the two curves $\lambda_1$ and $\lambda_2$ in $L^\circ(U)$ are compatible.  
+We can also construct a third allowable curve (that we will call $\lambda_3$) between the two and compatible with both, by starting with one of the two maximal bars in $U$ that starts with a left turn and ends with a right turn, and extending in the same way.  
+The triple $\set{\lambda_1,\lambda_2,\lambda_3}$ is part of a maximal collection of pairwise compatible non-closed allowable curves, which, by Theorem~\ref{card thm}, has cardinality $|T|$.
+No curve in this larger collection, aside from $\lambda_3$, is between $\lambda_1$ and $\lambda_2$, so $|T|-1$ of them (all but $\lambda_3$) are compatible with $U$.
+
+If exactly one of the extreme points of $U$ is on the boundary of $\S$, then $L^\circ(U)$ is a single curve $\lambda_1$.
+We also construct allowable curves $\lambda_2$ and $\lambda_3$.
+In the definition of $L^\circ(U)$, we considered $U$ as a union of two bars.
+We choose one of the two, extend it near the extreme point on the boundary as in the construction of $L^\circ(U)$, and extend it in two ways at the non-boundary extreme point by spiraling into that point in two opposite directions for $\lambda_2$ and $\lambda_3$.
+The curves $\lambda_1$, $\lambda_2$, and $\lambda_3$ are pairwise compatible.
+Furthermore, $\lambda_1$ is compatible with $U$, while exactly one of $\lambda_2$ and $\lambda_3$ is compatible with $U$.  
+(If $U$ is degenerate, then which is compatible depends on the tagging.)
+Again, there is a collection of $|T|$ pairwise compatible allowable curves, including $\set{\lambda_1,\lambda_2,\lambda_3}$, and all of them except $\lambda_2$ or $\lambda_3$ is compatible with $U$.
+
+If neither of the extreme points of $U$ is on the boundary, then $L^\circ(U)$ is a single closed curve.
+We 
+
+Finally, construct allowable curves $\lambda_3$ and $\lambda_4$, each spiraling into both extreme points, with spiral direction agreeing with $\lambda_2$ at one extreme point, and having opposite spiral directions at the other extreme.
+This can be done so that exactly one of $\lambda_3$ and $\lambda_4$ is compatible with $U$.
+Now, we extend $\set{\lambda_1,\lambda_2,\lambda_3,\lambda_4}$ to a maximal set of $|T|$ pairwise compatible allowable curves, and throw out $\lambda_3$ or $\lambda_4$ to obtain a set of $|T|-1$ pairwise compatible allowable curves all compatible with $U$.
+
+
+***
+
+
+We have proved \eqref{encirc completed}.
+Now \eqref{encirc codim} follows immediately:  Complete $L^\circ(U)$ as in \eqref{encirc completed} and vary the weights on the $|T|-1$ curves (and/or delete curves) to obtain the desired cone.
+
+\eqref{p in}:  ASSUME FOR NOW.
+
+Now observe that $\sum_{\gamma\in T}b_\gamma(T,L^\circ(U))\gamma^*$ is in the relative interior of the cone constructed in the proof of \eqref{encirc codim}.
+Thus, \eqref{p in} implies \eqref{-p relint}. %that $-p^*(\sum_{i=1}^k\alpha_k)$ is in the relative interior of $\Compat(U)$.
+\end{proof}
+
+
+
+
+\marginN{Probably here would be a good place to point out that every codimension-$1$ cone in the mutation fan (rational quasi-lamination fan) is contained in some wall $\Compat(U)$.
+And conversely that every $\Compat(U)$ is a union of codimension-$1$ cones of the mutation fan.
+That will, I think, imply that the mutation fan and the scattering fan coincide, once we prove that we're constructing the scattering diagram.
+And I don't think it's hard.}
+
+We now prove a property of walls $\Compat(U)$ that is necessary for them to constitute the walls of the cluster scattering diagram.
+
+\begin{prop}\label{genteel}
+Suppose $U$ is an I-beam or ring with arc sequence $\alpha_1,\ldots,\alpha_k$.
+If $k>1$, then $p^*(\sum_{i=1}^k\alpha_i)\not\in\Compat(U)\oplus\Span_\integers\set{L^*:L\in\L}$.
+\end{prop}
+\begin{proof}
+Checking whether $p^*(\sum_{i=1}^k\alpha_i)\in\Compat(U)\oplus\Span_\integers\set{L^*:L\in\L}$ amounts to leaving out the terms $b_\alpha(T,L)L^*$ in the definition of $p^*$ in Table~\ref{init data} and checking whether the result is in $\Compat(U)$.
+
+First, suppose $U$ is a non-degenerate I-beam with arc sequence $\alpha_1,\ldots,\alpha_k$.
+Consider the example of Figure~\ref{genteel}, in which $k=7$.
+\begin{figure}
+\scalebox{0.7}{\includegraphics{genteel}}
+\caption{Computing $p^*(\sum_{i=1}^k\alpha_i)$ for a non-degenerate I-beam}
+\label{genteel}
+\end{figure}
+Each $+$-sign on an arc $\gamma$ in the figure represents a term $\gamma^*$ present in $p^*(\sum_{i=1}^k\alpha_i)$.
+The figure is completely representative (of the non-degenerate case) if we keep in mind that some arcs shown may actually be boundary segments and that some pairs of arcs shown may coincide.  
+(However, this cannot be the case for any of the arcs in the arc-sequence of $U$.)
+We see that if $k>1$, then the coefficient of $\alpha_1$
+
+
+
+\end{proof}
+
+\section{Cluster scattering diagrams for surfaces without punctures}
+
+
+
+
+\newpage
+
+******\marginN{Below here, the case with punctures allowed, which is still a mess.}
+******
+
 \section{Walls}
 In this section, we will consider certain subsets of $\S\setminus\M$ that locally look like curves, except that at some points they ``branch.''
 Each set determines a set of quasi-laminations, and we will see that the shear coordinates of this set of quasi-laminations constitute a codimension-$1$ rational cone.
@@ -959,7 +1473,7 @@ Following $U$ from $p$, for a while $U$ passes through the same triangles, until
 In either case, in each direction there is a part of $U$ that leaves the interior of a triangle from a different side than $\lambda$ does.
 The bar along $U$ connecting these two exit points from interiors of triangles is blocking and either starts with a left turn and ends with a right turn or vice versa, because otherwise, we could pass to an isotopy representative of $\lambda$ that removes the intersection.
 \marginN{I think I need to improve the explanation and add a picture}
-We have supposed that \eqref{U nb} fails and councluded that \eqref{special bar nb} fails also.  %, and thus proved that \eqref{special bar nb}$\implies$\eqref{U nb}.
+We have supposed that \eqref{U nb} fails and concluded that \eqref{special bar nb} fails also.  %, and thus proved that \eqref{special bar nb}$\implies$\eqref{U nb}.
 \end{proof}
 
 %\begin{lemma}\label{bar ineq}
@@ -1152,7 +1666,9 @@ If $\lambda$ is compatible with $\kappa(\alpha)$ and $\kappa(\beta)$, then $\lam
 Arguing as in the non-degenerate case, $U'$ is non-blocking for $\lambda'$, and thus $\lambda$ is compatible with $U$.
 
 Second, suppose $\alpha$ and $\beta$ each have distinct endpoints, they share one or more endpoint, with their tagging disagreeing at exactly one endpoint, and they have disjoint relative interiors.
-Then $\kappa(\alpha)$ and $\kappa(\beta)$
+Then $\kappa(\alpha)$ spirals into some puncture $p$ on one side and, on the other side, spirals into a different puncture or ends on a boundary component, while $\kappa(\beta)$ spirals into $p$ (in the opposite direction from $\kappa(\alpha)$) on one side and, on the other side, spirals into a different puncture (possibly the same puncture as $\kappa(\alpha)$, but if so, in the same direction) or ends on a boundary component, without crossing $\kappa(\alpha)$ except at the opposite spirals at $p$.
+
+Following 
 
 
 
