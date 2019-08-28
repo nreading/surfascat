@@ -2431,6 +2431,21 @@ The joints of $\mathfrak{D}$ are as follows.%are $C_B$, as $B$ runs over the min
 \end{itemize}
 \end{lemma}
 
+\section{Theta functions}
+
+I'm adding this section because it seems possible that we can do something fairly quick with theta functions, based on an anonymous referee report I received on \cite{scatcomb}.
+I'm copying it here.  
+It may need more context.
+We definitely need to acknowledge this referee if this turns into something.  
+
+``It's up to you, but it might be worthwhile to mention that you've almost computed a theta function here.  In your definition of broken lines, suppose you took the endpoint p to be very very close to this ray $\d_{p/q}$ instead of in the dominant chamber.  Then for any $m$ pointing into this wall, the only two broken lines for m with endpoint p are those which are straight, plus those that go once around the origin, bending as much as possible towards the origin when they cross an incoming wall.  For m primitive, the attached monomials are $x_1^{-1}x_2$ for the unbroken line, plus I think $(x_1^{-1}x_2)^{-1}$ times some y's for the other broken line.  By the CPS result (Theorem 3.5 in GHKK), the theta function for p in the dominant chamber D is obtained by applying the path-ordered product for $\d_{p/q}\to D$ to these two monomials.  The first monomial gives what you compute here, and I think the other would be the $y$'s times 1 over what you compute here.  Of course, this theta function has also been computed elsewhere (cf. GHKK Example 3.10) and when you combine the series for these two final monomials, most of the terms cancel.
+
+``Also, some related combinatorics you might be interested in (just for fun, it's up to you what you do with this): using the description of the structure constants in GHKK Definition-Lemma 6.2, you can relate $\thet_{km}$ to $\thet_m$ in this case, for $m$ the primitive vector above, and $k$ a positive integer.  Again, the only relevant broken lines are the straight ones and the ones which always take the maximal bend towards the origin.  What you find is that the relation is given by certain Chebyshev polynomials, the ones that relate $(a^k+b^k)$ to $(a+b)^k$ when ab=1 (this is relevant to local systems people since it relates the $k^{\text{th}}$ power of the trace of a matrix in $SL_2$ to the trace of the $k^{\text{th}}$ power of the matrix).  In fact, I think this argument for the appearance of Chebyshev polynomials would apply for limiting directions in any affine type cases (certainly in rank 2), and it also works for the limiting directions for the Markov quiver.''
+
+
+
+
+
 \begin{thebibliography}{27}
 
 \bibitem{cats1}
@@ -2468,6 +2483,11 @@ Trans. Amer. Math. Soc. \textbf{366} no. 12 (2014), 6647--6685.
 N. Reading, 
 \textit{Scattering diagrams and scattering fans}. 
 Preprint, 2017.  (arXiv:1712.06968)
+
+\bibitem{scatcomb}
+N. Reading, 
+\textit{A combinatorial approach to scattering diagrams}. 
+DETAILS.
 
 \bibitem{dominance}
 N. Reading, 
