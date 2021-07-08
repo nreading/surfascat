@@ -1136,40 +1136,93 @@ Then $\Compat(U)$ is the closure of a nonempty countable union of cones $C_{\kap
 Since $\Compat(U)$ is the closure of a union of countably many cones in $\F_rationals(T)$ and has codimension $1$ in $V^*$, it can be written as the closure of a nonempty countable union of cones in $\F_rationals(T)$ of codimension $1$ in $V^*$.
 By Proposition~\ref{closed card thm}, if $C_\Lambda$ has codimension~$1$, then $\Lambda$ consists either of $|T|-1$ non-closed allowable curves or of $|T|-2$ non-closed allowable curves and $1$ non-shielding closed allowable curve.
 
-Suppose that $C_\Lambda\subseteq\Compat(U)$ for some $\Lambda$ containing a non-shielding closed curve $U'$.
-Then $U'$ is a \emph{ring}, so Proposition~\ref{all but codim no punct} applies, and we see that $C_\Lambda$ is contained in $\bigl(\sum_{i=1}^\ell\alpha'_i\bigr)^\perp$, where $\alpha'_1,\ldots,\alpha'_\ell$ is the arc sequence of $U'$.
-But also, Proposition~\ref{all but codim no punct} says that $C_\Lambda$ is contained in $\bigl(\sum_{i=1}^k\alpha_i\bigr)^\perp$, where $\alpha_1,\ldots,\alpha_k$ is the arc sequence of $U$.
-Proposition~\ref{arc seq determines} implies that $\bigl(\sum_{i=1}^\ell\alpha'_i\bigr)^\perp\neq\bigl(\sum_{i=1}^k\alpha_i\bigr)^\perp$,  so $\dim C_\Lambda\le|T|-2$, and thus $|\Lambda|\le|T|-2$.
-We see that if $C_\Lambda\subseteq\Compat(U)$ for $|\Lambda|=|T|-1$, then $\Lambda$ consists of $|T|-1$ non-closed allowable curves, so that $\Lambda=\kappa(T')$ for some near-triangulation $T'$.
+
 \end{proof}
 
-\begin{cor}\label{key} \marginN{Make sure I changed this from lemma to cor throughout.}
+
+\begin{lemma}\label{key}
 Let $(\S,\M)$ be a marked surface \emph{with no punctures}, let $T$ be a triangulation, and let $U$ be an I-beam.
 Then there exist exchangeable arcs $\alpha$ and $\beta$ and isotopy representatives of $\kappa(\alpha)$ and $\kappa(\beta)$ whose union contains $U$.
-\end{cor}
-\begin{proof} 
-**!!**
+\end{lemma}
+\begin{proof}  \marginN{This paragraph gives the basic strategy, although I don't know how to achieve this goal.}
+The I-beam $U$ is the union of two bars, a bar $B_l$ that starts with a right turn and ends in a left turn (in either direction), and a bar $B_r$ that starts with a left turn and ends in a right turn (in either direction).
+We extend both bars to non-closed allowable curves $\lambda_l$ and $\lambda_r$ that don't intersect $U$ and don't intersect each other except where they coincide along an edge of $U$.
+Thus, after a suitable isotopy, $\lambda_l$ and $\lambda_r$ intersect exactly once.
+At each step in the extension, we leave an arc (to the opposite side we entered it from), entering the interior of a triangle, and then leave the triangle by entering one of its edges, either left or right.
+In particular, since the curves in $\Lambda$ are embedded honestly, we obtain honest embeddings of $\lambda_l$ and $\lambda_r$.
 
-I couldn't prove this directly to prove Theorem~\ref{wall thm no punct}.
-Can I prove it as a corollary of Theorem~\ref{wall thm no punct}?
+\marginN{These next paragraphs gives a useful reduction (useless if we can't ever prove the reduced form).  There is one piece that I wonder whether it needs to be argued, but I have not argued it.  I am fairly sure it is true (sure enough for a reduction that I can't prove anyway).}
+Between the two bars, there are four ends that must be extended to construct $\lambda_l$ and $\lambda_r$.
+We can reduce the problem to extending just one of them honestly until it reaches the boundary.
+If we can extend one, then by symmetry, we can extend all four independently, but we may end up with intersecting extensions.
+Up to isotopies of the extensions that don't destroy the property of honesty, we can make the intersections occur at a finite set of points, minimize the number of intersections, and make the intersections pairwise and transverse.
 
+We now show how to remove any intersections.
+If two of the extensions intersect at a point $p$, we may as well take $p$ to be in the interior of some triangle.
+Around each $p$, we construct a small open ball $\B_p$ small enough to intersect no other intersection points and no other curves, so that inside the ball there is only the single transverse intersection.
+We will remove the intersections by induction on the number of balls that still contain intersections.  
+(At some steps, the total number of intersections may increase, but the number of balls containing intersections will decrease, and we do not define new balls for new intersections.)
+
+From an intersection $p$, each curve leaves the triangle through some edge of the triangle.
+We follow the curves as far as they continue to pass through the same edges.
+In each direction, there is some triangle that they first exit through different edges.
+Consider a curve $\delta$ connecting the interiors of the two triangles, running along the two curves.
+There are two possible orientations of intersections to consider.
+If we orient the two extensions away from $U$ (and thus towards the boundary), either both curves follow $\delta$ in the same direction or they both follow $\delta$ in the opposite direction.
+
+Suppose they follow $\delta$ in the same direction.
+There are two ways of resolving the intersection.
+One way produces a different way of extending the curves to the boundary, while the other produces an extension that connects two of the endpoints of the bars to each other and a curve that connects two boundary points.
+In this case (both curves following $\delta$ in the same direction), we perform the resolution that produces extensions to the boundary, and the resulting curves are still honest.
+
+Next suppose they follow $\delta$ in the opposite direction.
+Then choose one of the extensions and delete all of it from $p$ to the boundary, instead extend it to follow parallel to the other extension back towards $U$, along $U$, and then parallel to an extension of $U$ to the boundary.
+In this step, we may pick up additional intersections, but by running the new parallel curves close enough to the existing curves, we can put all of the new intersections in balls that already existed, and the ball $\B_p$ no longer contains any intersections.
+
+In later steps, we may have, instead of two curves intersecting in the ball, two collections of parallel curves (each with mixed orientations of curves).  
+These curves intersect in a grid of points, and we can consider these intersection points individually, in a suitable order, according to their orientations as in the previous paragraphs.  
+\marginN{This is the part that maybe ought to be argued.  But I think it works}
+Eventually, none of the balls contain intersections, to the extensions are non-intersecting, except for the one intersection inside $U$.
+
+\marginN{NOW, we would just have to actually CONSTRUCT the extension of a given end of a bar.  
+So far, no luck.  :(}
 \end{proof}
 
 
-\begin{cor}\label{wall union ring no punct} \marginN{Make sure I changed this from prop to cor throughout.}
+\begin{proof}[Proof of Proposition~\ref{wall union no punct}]
+If $L$ is a lamination compatible with $U$ and having support $\Lambda$, then the entire cone $C_\Lambda$ is in $\Compat(U)$.
+Thus $\Compat(U)$ is a union of cones $C_\Lambda$.
+Proposition~\ref{all but codim no punct} says that $\Compat(U)$ is a convex cone, and since there are countably many cones $C_\Lambda$ and they are dense in $V^*$, the cone $\Compat(U)$ is the closure of the cones $C_\Lambda$ with $C_\Lambda\subseteq\Compat(U)$ and $\dim C_\lambda=\dim\Compat(U)$.
+Thus the proposition is implied by the following two claims.
+First, we claim that $\Compat(U)$ contains a cone $C_{\kappa(T')}$ for some near triangulation $T'$.
+Second, we claim that every cone $C_\Lambda\subseteq\Compat(U)$ of codimension $1$ (relative to $V^*$) has $\Lambda=\kappa(T')$ for some near triangulation $T'$.
+
+For the first claim, Lemma~\ref{key} implies that there are exchangeable arcs $\alpha$ and $\beta$ such that every allowable curve compatible with $\kappa(\alpha)$ and $\kappa(\beta)$ is also compatible with $U$.
+In particular, if $T'$ is a near triangulation such that $T'\cup\set{\alpha}$ and $T'\cup\set{\beta}$ are both triangulations, every curve in $\kappa(T')$ is compatible with $U$.
+
+To prove the second claim, Proposition~\ref{closed card thm} implies that it is enough to show that a pairwise-compatible set $\Lambda$ containing a non-shielding closed curve and having $C_\Lambda\subseteq\Compat(U)$ must have has $|\Lambda|<|T|-1$,
+Given such a $\Lambda$, the non-shielding closed curve $U'$ in $\Lambda$ is a \emph{ring}, so Proposition~\ref{all but codim no punct} applies, and we see that $C_\Lambda$ is contained in the normal hyperplane to the vector determined by the arc sequence of $U'$.
+But also, by Proposition~\ref{all but codim no punct}, $C_\Lambda$ is in the normal hyperplane to the vector determined by the arc sequence of $U$.
+Proposition~\ref{arc seq determines} says that these are not the same hyperplane, so $\dim C_\Lambda\le|T|-2$, and thus $|\Lambda|\le|T|-2$.
+\end{proof}
+
+The following proposition is an analog of Proposition~\ref{wall union no punct} for rings.
+
+\begin{prop}\label{wall union ring no punct}
 Let $(\S,\M)$ be a marked surface, let $T$ be a triangulation, and let $U$ be a ring.
 Then $\Compat(U)$ is the closure of a nonempty union of cones $C_{\set{U}\cup\kappa(T')}$ for pairwise compatible sets $T'$ of tagged arcs disjoint from $U$ with $|T'|=|T|-2$.
-\end{cor}
+\end{prop}
 \begin{proof}
-As in the proof of Corollary~\ref{wall union no punct}, $\Compat(U)$ is the closure of a union of countably many cones in $\F_rationals(T)$ of codimension $1$ in $V^*$, and these cones are of the form $C_\Lambda$ has codimension~$1$, where $\Lambda$ consists either of $|T|-1$ non-closed allowable curves or of $|T|-2$ non-closed allowable curves and $1$ non-shielding closed allowable curve.
+Just as in the proof of Proposition~\ref{wall union no punct}, the proof reduces to checking two claims:
+First, that $\Compat(U)$ contains a cone $C_{\set{U}\cup\kappa(T')}$ as described in the statement of the proposition; and second, that every cone $C_\Lambda\subseteq\Compat(U)$ of codimension $1$ (relative to $V^*$) is of the form $C_{\set{U}\cup\kappa(T')}$.
 
-However, if $\Lambda$ consists of $|T|-1$ non-closed allowable curves, then since every curve in Lambda is compatible with $U$, the set $\Lambda\cup\set{U}$ is a set of $|T|$ pairwise compatible allowable curves, one of which is closed, contradicting Proposition~\ref{closed card thm}.
-We conclude that $\Lambda$ consists of $|T|-2$ non-closed allowable curves and $1$ non-shielding closed allowable curve.
-For the same reason, we see that the $1$ non-shielding closed allowable curve is $U$ itself.
+To prove the first claim, we repeat a construction from the proof of Proposition~\ref{closed card thm}, with $U$ replacing $\lambda$.
+On each side of $U$, we construct an arc $\alpha$ (or a pair of arcs $\beta$ and $\beta'$) such that the curves on both sides cut out an annulus surrounding.
+These curves can be completed to a triangulation containing exactly $2$ tagged arcs that are not disjoint from $U$.  
+Deleting those two arcs from the triangulation, we obtain the desired $T'$.
+
+The second claim follows immediately from Proposition~\ref{closed card thm}.
 \end{proof}
-
-HERE
-
 
 Propositions~\ref{wall union no punct} and~\ref{wall union ring no punct} say in particular that for any ring or I-beam $U$, the set $\Compat(U)$ contains a cone of codimension $1$ in $V^*$.
 Together with Proposition~\ref{all but codim no punct}, this completes the proof of Theorem~\ref{wall thm no punct}.
