@@ -144,6 +144,9 @@
 \newcommand{\pidown}{\pi_\downarrow}
 \newcommand{\piup}{\pi^\uparrow}
 \newcommand{\br}[1]{{\langle #1 \rangle}}
+\newcommand{\brr}[1]{{\bigl\langle #1 \bigr\rangle}}
+\newcommand{\brrr}[1]{{\Bigl\langle #1 \Bigr\rangle}}
+\newcommand{\brrrr}[1]{{\biggl\langle #1 \biggr\rangle}}
 \newcommand{\A}{{\mathcal A}}
 \newcommand{\EL}{{\mathcal L}}
 \newcommand{\F}{{\mathcal F}}
@@ -361,9 +364,10 @@ Given $(\S,\M)$ and a triangulation $T$, a (closed or non closed) curve in $\S$ 
 \item the curve is disjoint from $\partial \S$ and from $\M$ except possibly at endpoints of the curve;
 \item each intersection of the curve with an arc of $T$ is either transverse or is an endpoint of the curve;
 \item the curve never crosses an arc of $T$ and then crosses the same arc again \emph{in the opposite direction} without crossing a different arc of $T$ in between;
+\item each segment of the curve between two successive intersections with arcs in $T$ has no self-intersections.  Similarly, the segment between an endpoint and the next intersection with an arc of $T$ (or between the two endpoints if the curve intersects no arcs of $T$) has no self-intersections.
 \item if the curve has an endpoint at a marked point $p$, then its next intersection with an arc of $T$ or with $\partial S$ must be in the relative interior of a side of some triangle of $T$ that is opposite $p$ in the triangle.
 \end{itemize}
-There is no requirement that the curve not have self-intersections.  \marginN{At some point, I wrote this, but now i wonder:  Is there any reason not to rule out self-intersections in the definition of "honest"?}
+There is no global requirement that the curve not have self-intersections, only the prohibition given above against local self-intersections.  \marginN{At some point, I wrote this, but now i wonder:  Is there any reason not to rule out self-intersections in the definition of "honest"?  Later answer:  Yes, because we want to allow bars to be self-intersecting, so they can wrap around rings multiple times.}
 \end{definition}
 
 \begin{definition}[\emph{Allowable curve}]\label{allowable def}
@@ -398,6 +402,7 @@ they are nonintersecting, or
 A \newword{(rational) quasi-lamination} $L$ in $(\S,\M)$ is a collection of pairwise compatible allowable curves in $\S$, distinct up to isotopy, with each curve $\lambda\in L$ carrying a positive rational weight $w_\lambda$.
 Every quasi-lamination can be realized with pairwise compatible curves embedded honestly.  \marginN{I don't think we need to argue that.}
 The \newword{support} of a quasi-lamination $L$ is the underlying pairwise compatible set of allowable curves.
+Thus we say that $L$ has \newword{maximal support} if there does not exist a quasi-lamination $L'$ whose support strictly contains the support of $L$.
 A \newword{multi-lamination} is a finite collection $\L$ of quasi-laminations.
 \end{definition}
 
@@ -423,6 +428,12 @@ the corresponding untagged arcs are the isotopic and their tagging agrees at one
 
 A \newword{tagged triangulation} is a maximal collection of distinct pairwise compatible tagged arcs.
 Two tagged arcs $\alpha$ and $\beta$ are \newword{exchangeable} if and only if there exists a set $\widetilde T$ of tagged arcs such that $\widetilde T\cup\set{\alpha}$ is a tagged triangulation and $\widetilde T\cup\set{\beta}$ is a tagged triangulation.
+
+A \newword{near (tagged) triangulation} is a set of tagged arcs that is one short of the cardinality of a triangulation.
+Given a near triangulation $T'$, there exist exactly two tagged arcs that can be adjoined to $T'$ to make a triangulation. 
+These two arcs form an exchangeable pair.
+This map from near triangulations to exchangeable pairs is typically not one-to-one.
+
 \end{definition}
 
 The following is part of \cite[Theorem~7.9]{cats1}, plus a restatement in terms of allowable curves that is immediate from the fact that $\kappa$ is a bijection from tagged arcs to non-closed allowable curves, and the definitions of compatibility.
@@ -432,9 +443,23 @@ Every maximal set of pairwise compatible tagged arcs has cardinality~$|T|$, wher
 Every maximal set of non-closed pairwise compatible allowable curves has cardinality~$|T|$.
 \end{theorem}
 
+\begin{definition}[\emph{Non-shielding closed curve}]\label{nonshield def}
+An allowable closed curve $\lambda$ is \newword{shielding} if some component of $\S \setminus \lambda$ contains no marked point.
+Otherwise it is called \newword{non-shielding}.
+\end{definition}
+
+\begin{example}\label{shield ex}
+Consider a torus from which an open disk has been removed, with one marked point on the boundary of the disk.
+This marked surface $(\S,\M)$ is sometimes called the \newword{dread torus}.\footnote{The term ``dreaded torus'' for this surface was coined, off the cuff during a talk, but Gregg Musiker, and the variation ``dread torus'' arose later.}
+The closed curve in the interior of $\S$ that encircles the removed  the boundary is a shielding curve.
+Triangulations of $(\S,\M)$ consist of five arcs, but quasi-laminations containing $\lambda$ contain at most three allowable curves. 
+\end{example}
+
+
+
 \begin{proposition}\label{closed card thm}
-Suppose $T$ is a triangulation and $L$ is a lamination supported on exactly $k$ closed, non-shielding allowable curves and exactly $\ell$ closed shielding allowable curves, and some number of non-closed allowable curves.
-Then the number of curves in $L$ is at most $|T|-k-2\ell$.
+Suppose $T$ is a triangulation and $L$ is a lamination whose support consists of exactly $k$ closed, non-shielding allowable curves, exactly $\ell$ closed shielding allowable curves, and some number of non-closed allowable curves.
+Then the total number of curves in the support of $L$ is at most $|T|-k-3\ell$.  \marginN{Originally, we had $2\ell$ here, but I think this is right.  It is $3\ell$ that is correct for the dread torus (plus, I think this proof is correct).}
 If $\ell=0$ and $L$ has maximal support, then it attains the bound.
 \end{proposition}
 It will also be apparent, from the following proof, how to write down a sharp bound when $\ell>0$, in terms of the genus of pieces of $\S$ cut off by the shielding curves, but we will not need it.
@@ -442,25 +467,27 @@ It will also be apparent, from the following proof, how to write down a sharp bo
 We use Theorem~\ref{card thm} throughout.
 Suppose $L$ is a lamination with maximal support containing closed curves as described in the proposition.
 Let $T'$ be the result of applying $\kappa^{-1}$ to the non-closed curves in $L$.
-We will show that $L$ has at most $|T|-k-2\ell$ curves by showing that we can add at least $2k+3\ell$ tagged arcs to $T'$ without losing pairwise compatibility.
+We will show that $L$ has at most $|T|-k-3\ell$ curves by showing that we can add at least $2k+4\ell$ tagged arcs to $T'$ without losing pairwise compatibility.
 
 Starting from a closed allowable curve $\lambda$ in $L$, on each side of $\lambda$ that contains a marked point, there is some marked point $p$ that can be reached from $\lambda$ without passing through any other marked points or any tagged arcs in $T'$.
 Furthermore, we can choose $p$ so that it is not incident to two arcs of $T'$ with opposite tagging.
-Choose an honest path from $p$ to $\lambda$ and construct a tagged arc $\alpha$ starting at $p$ (tagged to agree with the taggings at $p$ of any other arcs in $T'$), following the honest path, following all the way around $\lambda$, and returning along the honest path to $p$.
+Choose an honest path from $p$ to $\lambda$ and construct a tagged arc $\alpha$ starting at $p$ (tagged to agree with the taggings at $p$ of any other arcs in $T'$), following close to the honest path, following close to $\lambda$ all the way around, and returning close along the honest path to $p$, without intersecting itself.
 In almost every case, $\alpha$ is a valid tagged arc because $\lambda$ is not contractible to a puncture.
 The only exception is when $\lambda$ bounds a disk with exactly two marked points (including $p$) and no boundary components.
 In this case, we replace $\alpha$ by a pair $\beta,\beta'$ of arcs, tagged plain at $p$ and tagged differently at the other puncture.
 The arc $\alpha$ (or each of $\beta$ and $\beta'$) is compatible with every other arc in $T'$ because $T'$ came from a collection of curves all compatible with $\lambda$.
-Since we $L$ has maximal support, we see that $\alpha$ is (or $\beta$ and $\beta'$ are) in $T'$.
+Since we $L$ has maximal support, we see that $\alpha$ is either in $T'$ or is isotopic to a boundary segment (or $\beta$ and $\beta'$ are both in in $T'$).
 
-For each non-shielding curve $\lambda\in L$, we have shown that $T'$ contains two tagged arcs (possibly coinciding up to isotopy) that trace out an annulus surrounding $U$.
-Since $S$ is compact and orientable, each shielding $\lambda$ cuts off a direct sum of tori.
+For each non-shielding curve $\lambda\in L$, we have shown that $T'$ contains two tagged arcs or boundary segments (possibly coinciding up to isotopy if they are arcs) that trace out an annulus surrounding $U$.
+(If we constructed a pair $\beta,\beta'$ on one or both sides of $\lambda$, we understand this ``tracing out of an annulus'' in the usual sense in which the pair $\beta,\beta'$ corresponds to a self-folded triangle.)
+Since $\S$ is compact and orientable, at each shielding $\lambda$, the surface $\S$ is a direct sum along $\lambda$ of a direct sum of tori with some other summand.
 We have shown that $T'$ contains one tagged arc $\alpha$ that traces along $\lambda$, with both endpoints at a point $p$.
-A single torus admits a triangulation with one vertex and three arcs, so we can find at least three pairwise compatible tagged arcs from $p$ that cross $\lambda$ but are compatible with every other arc in $T'$.
+We can find at least four pairwise compatible tagged arcs from $p$ that cross $\lambda$ but are compatible with every arc in $T'$.
+(To find these arcs, consider a triangulation of the dread torus consisting of four arcs).
 
-When we complete $T'$ to a triangulation $T$, we must use exactly two curves for each non-shielding closed curve and at least three curves for each shielding close curve.
-Thus $T'$ has at most $|T|-2k-3\ell$ tagged arcs, with equality when $\ell=0$.
-Therefore the support of $L$ has at most $|T|-k-2\ell$ curves, with equality when $\ell=0$.
+When we complete $T'$ to a triangulation $T$, we must use exactly two curves for each non-shielding closed curve and at least four curves for each shielding close curve.
+Thus $T'$ has at most $|T|-2k-4\ell$ tagged arcs, with equality when $\ell=0$.
+Therefore the support of $L$ has at most $|T|-k-3\ell$ curves, with equality when $\ell=0$.
 \end{proof}
 
 
@@ -493,27 +520,27 @@ Therefore the support of $L$ has at most $|T|-k-2\ell$ curves, with equality whe
 Two tagged arcs $\alpha$ and $\beta$ are exchangeable if and only if (when isotopy representatives of each are chosen so as to minimize intersections) either
 \begin{itemize}
 \item they intersect exactly once in their relative interiors and their taggings agree at all shared endpoints, or
-\item they each have distinct endpoints, they share one or more endpoint, with their tagging disagreeing at exactly one endpoint, and they have disjoint relative interiors.
+\item they each have distinct endpoints, they share one or more endpoint, with their tagging disagreeing at exactly one endpoint, they are not isotopic to each other, and they have disjoint relative interiors.
 \end{itemize}
 \end{proposition}
 \begin{proof}
 Suppose $\alpha$ and $\beta$ are exchangeable and let $T$ be a tagged triangulation containing $\alpha$ such that $(T\setminus\set{\alpha})\cup\set{\beta}$ is also a tagged triangulation.
 There are two possibilities for $\alpha$.
-If $\alpha$ is an edge shared between two triangles (including in the notion of ``triangle'' a once-punctured digon formed by arcs of $T$), then $\beta$ is an arc intersecting $\alpha$ exactly once, with taggings agreeing at shared endpoints.
-Otherwise, $\alpha$ is an arc, with distinct endpoints, inside a once-punctured monogon, connected to the puncture.
-The other arc inside the digon either coincides with $\alpha$ except for the tagging at the puncture or is disjoint (in its relative interior) from $\alpha$ and has tagging agreeing with $\alpha$ at the puncture.
-In either case, $\beta$ is an arc with distinct endpoints, disjoint from $\alpha$ in its relative interior, and disagreeing in tagging at the puncture.
+If $\alpha$ is an edge shared between two triangles (including in the notion of ``triangle'' a once-punctured digon formed by arcs of $T$), then $\beta$ is an arc intersecting $\alpha$ exactly once, with taggings agreeing at any shared endpoints.
+Otherwise, $\alpha$ is an arc, with distinct endpoints, namely the vertex and the puncture $p$ of a once-punctured monogon, which is itself contained in a digon.
+The other arc inside the digon either coincides with $\alpha$ except for the tagging at $p$ or is disjoint (in its relative interior) from $\alpha$ and has tagging agreeing with $\alpha$ at $p$.
+In either case, $\beta$ is an arc with distinct endpoints, disjoint from $\alpha$ in its relative interior, disagreeing in tagging at the puncture $p$ (but not at the other endpoint if $\alpha$ and $\beta$ share another endpoint), and not isotopic with $\alpha$.
 
 Conversely, suppose first that $\alpha$ and $\beta$ intersect exactly once in their relative interiors and their taggings agree at all shared endpoints.
 In particular, $\alpha$ and $\beta$ are incompatible.
 We can make new tagged arcs by starting at an endpoint of $\alpha$, taking the tagging to agree with $\alpha$ at that endpoint, following $\alpha$ to the intersection point, then following $\beta$ to an endpoint of $\beta$ and taking the tagging to agree with $\beta$ at that endpoint.
-There are four ways to do this, but some or all of them might give boundary segments rather than tagged arcs.
+There are four ways to do this, but some or all of them might be isotopic to boundary segments rather than tagged arcs.
 Also, some of them might produce an arc that cuts out a once punctured monogon, in which case we replace it with a pair of arcs in the monogon, connecting the vertex of the monogon to the puncture and disagreeing in tagging at the puncture.
 Taking $T'$ to be the set of tagged arcs produced in this way, the set $T'\cup\set{\alpha}$ is pairwise compatible, and similarly $T'\cup\set{\beta}$.
 Furthermore, a tagged arc not in $T'\cup\set{\alpha,\beta}$ is compatible with $T'\cup\set{\alpha}$ if and only if it is compatible with $T'\cup\set{\beta}$.
 Thus, completing $T'\cup\set{\alpha}$ to a tagged triangulation $T$, we see that $(T\setminus\set{\alpha})\cup\set{\beta}$ is also a tagged triangulation, so that $\alpha$ and $\beta$ are exchangeable.
 
-To complete the proof of the converse, suppose $\alpha$ and $\beta$ are arcs each having distinct endpoints, sharing one or more endpoint, with their tagging disagreeing at exactly one endpoint, and having disjoint relative interiors.
+To complete the proof of the converse, suppose $\alpha$ and $\beta$ are arcs each having distinct endpoints, sharing one or more endpoint, with their tagging disagreeing at exactly one endpoint, having disjoint relative interiors, and not isotopic to each other.
 Again, $\alpha$ and $\beta$ are incompatible.
 We construct arcs by starting at an endpoint of $\alpha$ (not the point where the taggings disagree), taking the tagging of alpha at that point, following $\alpha$ toward the point where their taggings disagree, missing that point on one side or the other, continuing along $\beta$, and taking the tagging of $\beta$ at that point.
 There are two ways to do that.
@@ -524,19 +551,19 @@ Taking $T'$ to be the set of tagged arcs produced, we complete the proof as in t
 \begin{remark}\label{pos part int num}
 Proposition~\ref{exch char} can be rephrased in terms of the ``positive part'' of the intersection number defined in \cite[Definition~8.4]{cats1}.
 There, denominator vectors of cluster algebras are characterized in terms of intersection numbers $(\alpha|\beta)$, which are defined as a sum $A+B+C+D$, two of which ($A$ and $D$) are nonnegative, while the other two are nonpositive.
-Proposition~\ref{exch char} says that $\alpha$ and $\beta$ are exchangeable if and only if $A+D=1$ when computing $(\alpha|\beta)$ \emph{and} $A+D=1$ when computing $(\beta|\alpha)$.
+Proposition~\ref{exch char} says that $\alpha$ and $\beta$ are exchangeable if and only if, both when computing $(\alpha|\beta)$ and when computing $(\beta|\alpha)$, we have $A+D=1$, $B=0$, and $C=0$.  \marginN{Is this right?}
 \end{remark}
 
 \begin{definition}[\emph{Shear coordinates}]\label{shear def}
 Given a quasi-lamination $L$, a triangulation $T$, and an arc $\gamma\in T$,  we define the \newword{shear coordinate} $b_\gamma(T,L)$ of $L$ at $\gamma$ (with respect to $T$).
 This is $b_\gamma(T,L)=\sum_{\lambda\in L}w_\lambda b_\gamma(T,\lambda)$, a weighted sum over curves $\lambda$ in $L$ of quantities $b_\gamma(T,\lambda)$ that we now define.
 First, if $\gamma$ is \emph{not} the fold edge of a self-folded triangle of $T$, then it is contained in a quadrilateral.
-(Possibly, the edges of this quadrilateral are fewer than four distinct arcs of $T$.)
+(Possibly, the edges of this quadrilateral are fewer than four distinct arcs of $T$ and the vertices are fewer than four distinct points in $\M$.)
 We choose an honest isotopy representative of $\lambda$ (in the sense of Definition~\ref{honest def}) and we reuse the symbol $\lambda$ for the representative.
 \marginN{Unless I'm mistaken, this condition on an allowable curve is exactly the condition of minimizing the number of intersections with the arcs of $T$.  This way of saying it seems so much more clear to me.}
 (The caveat in Definition~\ref{honest def} about opposite directions is present in order to allow honest embeddings of allowable curves with spirals:
 An allowable curve that spirals into the puncture in a self-folded triangle crosses the fold edge of the triangle infinitely many times in succession, but can be embedded honestly, because these crossings can be all in the same direction.)
-Each intersection of $\lambda$ with $\gamma$ contributes $-1$, $0$, or $1$ to $b_\gamma(T,\lambda)$.
+Each intersection of $\lambda$ with $\gamma$ contributes $-1$, $0$, or $1$ to $b_\gamma(T,\lambda)$, and only finitely many contributions will be nonzero.
 The contribution is $0$ unless $\lambda$ intersects the triangles containing $\gamma$ in one of the ways shown in Figure~\ref{shear fig}, in which case the contribution is $1$ or $-1$ as shown.
 (In the figure, $\gamma$ is the diagonal of the quadrilateral shown, and $\lambda$ is a vertical or horizontal dashed line.)
 \begin{figure}[ht]
@@ -545,7 +572,7 @@ The contribution is $0$ unless $\lambda$ intersects the triangles containing $\g
 \label{shear fig}
 \end{figure}
 If $\gamma$ \emph{is} the fold edge of a self-folded triangle of $T$, then $\gamma$ is inside a once-punctured monogon in $T$.
-Let $p$ be punctured in that monogon, let $\gamma'$ be the other edge of that self-folded triangle, and let $\lambda'$ be the allowable curve obtained from $\lambda$ by reversing the direction of all spirals (if any) at  $p$.
+Let $p$ be the puncture in that monogon, let $\gamma'$ be the other edge of that self-folded triangle, and let $\lambda'$ be the allowable curve obtained from $\lambda$ by reversing the direction of all spirals (if any) at  $p$.
 Then define $b_\gamma(T,\lambda)$ to be $b_{\gamma'}(T,\lambda')$.
 \end{definition}
 
@@ -557,7 +584,7 @@ The sequence is the same (up to reversing) for every honest embedding, and the a
 The following is a special case of \cite[Theorem~4.4]{unisurface}, which is an easy modification of \cite[Theorem~13.6]{cats2}.
 \begin{theorem}\label{q-lam bij}
 Fix a triangulation $T$.
-Then the map $L\mapsto\b(T,L)$ is a bijection between integral (resp. rational) quasi-laminations and $\integers^n$ (resp.~$\rationals^n$).
+Then the map $L\mapsto\b(T,L)$ is a bijection between rational quasi-laminations and~$\rationals^n$.
 \end{theorem}
 
 \begin{remark}\label{comparison to cats1-2}  \marginN{Is this where we want this?}
@@ -620,14 +647,14 @@ N_\fr&=\textstyle\sett{\sum_{L\in\L}c_LL:\text{ each }c_\gamma\in\integers}\end{
 $\begin{aligned}M&=\Hom(N,\integers)\\&=M_\uf\oplus M_\fr\end{aligned}$\linebreak %\hspace*{40pt} 
 (dual lattice) 
 &
-$\begin{aligned}M_\uf&=\textstyle\sett{\sum_{\gamma\in T}c_\gamma\gamma^*:\text{ each }c_\gamma\in\integers}\\
+$\begin{aligned}M_\uf&=\textstyle\sett{\sum_{\gamma\in T}c_\gamma\gamma^*:\text{ each }c_\gamma\in\integers}  \text{ (formal sums)}\\
 M_\fr&=\textstyle\sett{\sum_{L\in\L}c_LL^*:\text{ each }c_\gamma\in\integers}\end{aligned}$\linebreak
-for dual vectors $\gamma^*$ for $\gamma\in T$ and $L^*$ for $L\in\L$
+for formal duals $\gamma^*$ for $\gamma\in T$ and $L^*$ for $L\in\L$
 \\\hline
 $V=N_\uf\otimes_\integers\reals$&$V=\sett{\sum_{\gamma\in T}c_\gamma\gamma:\text{ each }c_\gamma\in\reals}$ \\\hline
 $V^*=M_\uf\otimes_\integers\reals$\linebreak
 (dual vector space)&
-$V=\sett{\sum_{\gamma\in T}c_\gamma\gamma^*:\text{ each }c_\gamma\in\reals}$
+$V^*=\sett{\sum_{\gamma\in T}c_\gamma\gamma^*:\text{ each }c_\gamma\in\reals}$
 \\\hline
 $\br{\,\cdot\,,\,\cdot\,}:V^*\times V\to\reals$\linebreak
 $\br{\,\cdot\,,\,\cdot\,}:M\times N\to\rationals$\linebreak
@@ -645,6 +672,8 @@ $\set{L,L'}$ unspecified for $L,L'\in\L$
 $N^+$& nonzero elements of $N_\uf$ with \textbf{nonnegative} coefficients\\\hline
 $p^*:N_\uf\to M$&
 $p^*(\alpha)=\sum_{\gamma\in T}b_{\alpha\gamma}\gamma^*+\sum_{L\in\L}b_\alpha(T,L)L^*$ for $\alpha\in T$\\\hline
+$p^*_\uf:N_\uf\to M_\uf$&
+$p^*_\uf(\alpha)=\sum_{\gamma\in T}b_{\alpha\gamma}\gamma^*$ for $\alpha\in T$\\\hline
 $(v_i:i\in T\cup\L)$&$v_\alpha=p^*(\alpha)$ for $\alpha\in T$ and
 $v_L\in M$ for $L\in\L$ chosen to make $(v_i:i\in T\cup\L)$ linearly independent
 \\\hline
@@ -658,12 +687,14 @@ $z^v$&$\displaystyle\prod_{\alpha\in T}z_\alpha^{c_\alpha}\prod_{L\in\L}z_L^{c_L
 $(\zeta_\alpha:\alpha\in T)$&$\zeta_\alpha=z^{v_\alpha}$\\\hline
 $\zeta^u$&$\displaystyle\prod_{\alpha\in T}\zeta_\alpha^{c_\alpha}=z^{p^*(u)}$ for $\displaystyle u=\sum_{\alpha\in T}c_\alpha\alpha\in N_\uf$\\\hline
 $\k$&field of characteristic zero\\\hline
-$\k[[\zeta]]$&$\k[[\zeta_i:i\in T\cup\L]]$, ring of formal power series in the $\zeta_i$\\\hline
+$\k[[\zeta]]$&$\k[[\zeta_i:i\in T\cup\L]]$, ring of formal power series in the $\zeta_i$ \\\hline
 $\m$&ideal in $\k[[\zeta]]$ consisting of series in $\k[[\zeta_\alpha:\alpha\in T]]$ with constant term zero\\\hline
 \end{longtable}
+\marginN{Why $T\cup\L$ in the next-to-last line when it's just $T$ in the last line?  I think $T$ is correct.}
+
 
 \begin{remark}\label{compare GHKK}
-Here are some details that may be useful in comparing Table~\ref{init data} with \cite{GHK,GHKK}.
+Here are some details that may be useful in comparing Table~\ref{init data} with \cite{GHK,GHKK,scatfan}.
 The indexing sets $I_\uf$, $I_\fr$, and $I$ appearing in \cite{GHK,GHKK} are $T$, $\L$, and $T\cup\L$, respectively. 
 The set $T\cup\L$ also coincides with the basis $\s$ of $N$.
 The sublattice $N^\circ$ of $N$ that appears in \cite{GHK,GHKK} coincides with $N$ (because $B(T)$ is skew-symmetric).
@@ -671,11 +702,11 @@ Therefore $M^\circ=M$ as well, and the bases $\set{f_i:i\in I}$ and $\set{e^*_i:
 For the same reason, the integers $d_i$ are all $1$ and the bilinear form $[\,\cdot\,,\,\cdot\,]_\s$ coincides with $\set{\,\cdot\,,\,\cdot\,}$.
 The values $\set{L,L'}$ for $L,L'\in\L$, left unspecified above, will not matter to what follows. 
 We leave them unspecified (rather than, say, setting them equal to zero) in anticipation that they will matter in other contexts.
-\marginN{For definiteness, we can always take the $v_L$ for $L\in\L$ to be in $\\set{\alpha^*:\alpha\in T}\cup\set{L^*:L\in\L}$.
+\marginN{For definiteness, we can always take the $v_L$ for $L\in\L$ to be in $\set{\alpha^*:\alpha\in T}\cup\set{L^*:L\in\L}$.
 Not sure if this is worth saying.
-If we do principal coefficients, we can the $v_L$ for $L\in\L$ to be $\set{\alpha^*:\alpha\in T}$}
+If we do principal coefficients, we can take $\set{v_L:L\in\L}$ to be $\set{\alpha^*:\alpha\in T}$}
 \marginN{We may want a separate discussion of principal coefficients somewhere} 
-The quantities $\zeta_i$ are not defined in \cite{GHKK}.
+The quantities $\zeta_i$ and the map $p^*_\uf$ are not defined in \cite{GHK,GHKK}.
 \end{remark}
 
 \begin{definition}[\emph{Wall}]\label{wall def}
@@ -686,6 +717,7 @@ Notice also that $\zeta^u=z^{p^*(u)}$.
 The wall is \newword{incoming} if $p^*(u)\in\d\oplus\Span_\integers\set{L^*:L\in\L}$.  
 (That is, $p^*(u)$ is a vector in $\d$ plus a vector in $M_\fr$.)
 Otherwise $(\d,f_\d)$ is \newword{outgoing}.  
+Equivalently, the wall is incoming if $p*_\uf(u)\in\d$ and outgoing if $p*_\uf(u)\not\in\d$.
 Say that two walls are \newword{parallel} if they are contained in the same hyperplane.
 The \newword{degree} of $(\d,f_\d)$ is the smallest $k$ such that $f_\d\not\equiv 1$ modulo $\m^{k+1}$, if $f_\d\neq1$.
 If $f_\d=1$, the degree of $(\d,f_\d)$ is $0$.  
@@ -702,7 +734,7 @@ The \newword{support} $\Supp(\D)$ of $\D$ is the union of all the walls of $\D$.
 In \cite{GHKK}, scattering diagrams are constructed in the larger vector space $M\otimes_\integers\reals$.
 The difference is not meaningful in our context:  
 To recover such a scattering diagram from the scattering diagram defined here, one replaces every $(\d,f_\d)$ with $(\d\oplus\Span_\reals\set{L^*:L\in\L},f_\d)$.
-See \cite[Cite specific remark!!]{scatfan}.
+See \cite[Remark~2.12]{scatfan} and \cite[Remark~2.13]{scatfan}.
 \end{remark}
 
 \begin{definition}[\emph{Generic path}]\label{generic def}
@@ -741,6 +773,7 @@ The name wall-crossing \emph{automorphism} arises because \eqref{p def zeta} ext
 \begin{remark}\label{skew sym remark}
 We remind the reader that we are defining scattering diagrams specifically in the context of surfaces.
 In particular, since $B(T)$ is skew-symmetric, rather than merely skew-symmetrizable, we have removed the subtlety in Definition~\ref{wall crossing def} that makes the non-skew-symmetric case work.
+For more details on this subtlety, see \cite[Section~2]{scatfan}.
 \end{remark}
 
 \begin{definition}[\emph{Path-ordered product, consistency, and equivalence}]\label{pop def}
@@ -757,7 +790,7 @@ In checking consistency or equivalence, it is useful to keep in mind that, by (\
 \end{definition}
 
 \marginN{This would be a good place to define minimal support and then the scattering fan, if we end up discussing them in the paper. 
-Alternately, we could keep the main line of the paper more clear, and define the extra things in a separate section on scattering fans.}
+Alternatively, we could keep the main line of the paper more clear, and define the extra things in a separate section on scattering fans.}
 
 We now define the cluster scattering diagram associated to $(\S,\M)$, $T$, and~$\L$.
 In \cite{GHKK}, most of the data described in Table~\ref{init data} is considered fixed, and the cluster scattering diagram is written $\D_\s$, where $\s$ is a basis for $N$.
@@ -780,20 +813,8 @@ The ideas behind the proof for punctured surfaces are the same, but the combinat
 
 One basic combinatorial element of the construction is an I-beam, a subset of $\S\setminus\M$ that locally looks like a curve, but ``branches'' at two points.
 Another basic element is a ring, a closed curve.
-An I-beam or ring determines a set of quasi-laminations, and we will see that the shear coordinates of this set of quasi-laminations constitute a codimension-$1$ rational cone.
+An I-beam or ring determines a set of quasi-laminations, and we will see that the shear coordinates of this set of quasi-laminations constitute a codimension-$1$ rational cone.  \marginN{Or, was this codimension one of the sticking points?}
 These cones will eventually be the walls of the cluster scattering diagram.
-
-\begin{definition}[\emph{Non-shielding closed curve}]\label{nonshield def}
-An allowable closed curve $\lambda$ is \newword{shielding} if some component of $\S \setminus \lambda$ contains no marked point.
-Otherwise it is called \newword{non-shielding}.
-\end{definition}
-
-\begin{example}\label{shield ex}
-Consider a torus from which an open disk has been removed, with one marked point on the boundary of the disk.
-This marked surface $(\S,\M)$ is sometimes called the \newword{dread torus}.  \marginN{I guess we ought to cite that to Gregg somehow.}
-The closed curve in the interior of $\S$ that encircles the removed  the boundary is a shielding curve.
-Triangulations of $(\S,\M)$ consist of five arcs, but quasi-laminations containing $\lambda$ contain at most three allowable curves. 
-\end{example}
 
 \begin{definition}[\emph{Ring}]\label{ring def}
 A \newword{ring} in $(\S,\M)$ is an \emph{honest} \emph{non-sheilding} closed allowable curve in the sense of Definitions~\ref{allowable def}.
@@ -802,22 +823,17 @@ We consider rings up to isotopy equivalence (in $\S\setminus\M$).
 
 \begin{definition}[\emph{I-beam}]\label{def: i-beam no punct}
 Let $(\S,\M)$ be a marked surface \emph{with no punctures} and let $T$ be a triangulation.
-An \newword{I-beam} in $(\S,\M)$ is an embedded tree with two non-leaves, each connected to the other and to two leaves, satisfying the following conditions.
+An \newword{I-beam} in $(\S,\M)$ is an embedded tree with two non-leaves, each connected to the other and to two leaves (for a total of 6 vertices and 5 edges in the tree), satisfying the following conditions.
 \begin{itemize}
 \item Every edge is an honest, non-self-intersecting curve.
 \item Embedded edges are disjoint from each other except possibly at shared endpoints and disjoint from $\partial\S$ except possibly at leaves.
-\item The two non-leaves are in two distinct triangles and are connected to each other.
 \item Each non-leaf $v$ is in the interior of a triangle of~$T$.
 The two leaves connected to $v$ are in the relative interiors of two distinct sides of the triangle, and the edge from $v$ to the other non-leaf passes through the third side when leaving the triangle.
+\item The two non-leaves are in two distinct triangles.
 \end{itemize}
-We consider I-beams up to isotopy equivalences (in $\S\setminus\M$) of the embedding that don't change which arc of $T$ or boundary segment of $(\S,\M)$ or puncture contains each leaf.
+We consider I-beams up to isotopy equivalences (in $\S\setminus\M$) of the embedding that don't change which triangle each non-leaf is in, and don't change which arc of $T$ or boundary segment of $(\S,\M)$ or puncture contains each leaf.
 (If two leaves are in the interior of the same arc of $T$, necessarily connected to two different non-leaves in two different triangles, we allow isotopies that move them past each other.)  The \newword{relative interior} of an I-beam is the I-beam minus its leaves.
 \end{definition}
-
-\begin{example}\label{I-beam ex}
-Pentagon as in Shira's pictures?
-And/or once-punctured triangles?
-\end{example}
 
 Each I-beam or ring, as a set, is a finite union of curves that we will call bars.
 
@@ -827,11 +843,11 @@ A \newword{bar} in $(\S,\M)$ is an \emph{honest} curve $\gamma:[0,1]\to\S$ each 
 We consider bars up to isotopy equivalences (in $\S\setminus\M$) that don't change which arc of $T$ contains each endpoint.
 We will be most interested in bars contained in some I-beam or ring.
 
-Given a ring or I-beam $U$, a \newword{bar in $U$} is a bar contained in $U$.
-A \newword{bar along $U$} is a bar $B$ such that there exists a homotopy (in $\S\setminus\M$) from $B$ to a (possibly self-intersecting) curve contained in $U$, that doesn't change which arc of $T$ contains each endpoint.
-Since a bar is required to be honest, there exist bars \emph{along $B$} that are not (up to homotopy) \emph{in $B$} only when $U$ is a ring.
+Given a ring or I-beam $U$, a \newword{bar in $U$} is a bar contained in $U$.  \marginN{Got rid of "bar along $U$" notion here.  Letting bars have self-intersections lets us make "bar along" basically a special case of "bar in".  Here is the old language:  A \newword{bar along $U$} is a bar $B$ such that there exists a homotopy (in $\S\setminus\M$) from $B$ to a (possibly self-intersecting) curve contained in $U$, that doesn't change which arc of $T$ contains each endpoint.  Since a bar is required to be honest, there exist bars \emph{along $B$} that are not (up to homotopy) \emph{in $B$} only when $U$ is a ring.}
+Since bars are required to be honest, a bar in $U$ can only be self-intersecting when $U$ is a ring. 
+(In that case, the bar can ``wrap'' multiple times around the ring.)
 
-Following a bar in some direction, we say the bar makes a \newword{right (left) turn} if it enters the interior of a triangle through some side and then exits through the side to the right (turn).
+Following a bar in some direction, we say the bar makes a \newword{right (left) turn} if it enters the interior of a triangle through some side and then exits through the side to the right (left).
 Reversing the direction that we follow the bar reverses left and right.
 Thus, for example, a bar that starts with a right turn is also a bar that ends with a left turn.
 \end{definition}
@@ -840,7 +856,7 @@ Thus, for example, a bar that starts with a right turn is also a bar that ends w
 Let $(\S,\M)$ be a marked surface \emph{with no punctures} and let $T$ be a triangulation.
 The arc sequences we define here might instead be called ``arc-multisets,'' because we only care about the underlying multiset and because there will be some ambiguity in the ordering.
 However, the term ``arc sequence'' seems more pleasant and also more correctly captures the spirit of the definition despite the ambiguity.
-The \newword{arc sequence of a bar} $B$ is, essentially, the sequence of arcs of $T$ intersecting the relative interior of $B$.
+The \newword{arc sequence of a bar} $B$ is, essentially, the sequence of arcs of $T$ intersecting the \emph{relative interior} of $B$.
 The \newword{arc sequence of an $I$-beam} $U$ is the sequence of arcs of $T$ intersecting the curve in $U$ connecting the two non-leaves.
 The \newword{arc sequence of a ring} $U$ is obtained from the cycle of arcs of $T$ intersecting $U$ by cutting the cycle arbitrarily to make a sequence.
 \end{definition}
@@ -849,11 +865,14 @@ The \newword{arc sequence of a ring} $U$ is obtained from the cycle of arcs of $
 Suppose $U$ is an I-beam or ring and $U'$ is an I-beam or ring.
 If $U$ and $U'$ have the same arc sequence (as multisets), then $U=U'$.
 \end{prop}
+The conclusion of Proposition~\ref{arc seq determines no punct} is that $U$ equals $U'$ up to isotopy equivalence as specified in Definitions~\ref{ring def} and~\ref{def: i-beam no punct}.
+
 \begin{proof}
 For each arc $\alpha$ in an arc sequence, draw a curve crossing $\alpha$, connecting the interiors of the two adjacent triangles that share $\alpha$.
 Draw all of these curves to be disjoint from each other.
 To find an I-beam or ring with this arc sequence, we must connect all of these curves to each other within the interiors of triangles and then, at any remaining unconnected endpoints, add leaves on the two sides of the triangle that the curve did not cross.
 Since the result is not allowed to cross itself, there is at most one way to do this.
+\marginN{I think this is a correct proof, but when I think about why it's true, there is a particular picture in my mind.  Is more explanation needed?  Would providing that picture help?}
 \end{proof}
 
 \begin{definition}[\emph{Compatibility of quasi-laminations with I-beams, rings, and bars}]\label{ibeam compat def}
@@ -869,21 +888,27 @@ Given an I-beam or ring $U$, the \newword{compatibility cone} $\Compat(U)$ is th
 
 \begin{theorem}\label{wall thm no punct}  
 Let $(\S,\M)$ be a marked surface \emph{with no punctures} and let $T$ be a triangulation.
-For any ring or I-beam $U$, the set $\Compat(U)$ is a codimension-$1$ polyhedral cone with normal vector $\sum_{i=1}^k\alpha_i$ where $\alpha_1, \alpha_2,\ldots,\alpha_k$ is the arc sequence of $U$, given by the following rational inequalities:  
+For any ring or I-beam $U$, the set $\Compat(U)$ is a codimension-$1$ polyhedral cone consisting of the points $\sum_{\gamma\in T}c_\gamma\gamma^*\in V^*$ satisfying the following rational equalities/inequalities, where  $\alpha_1, \alpha_2,\ldots,\alpha_k$ is the arc sequence of $U$:
 \begin{itemize}
-\item For each bar $B$ in $U$ that begins with a right turn and ends with a left turn,
-\[ b_{\alpha_1}(T,L) + b_{\alpha_2}(T,L) + ... + b_{\alpha_k}(T,L) \geq 0,\]
-where $\alpha_1, \alpha_2,\ldots,\alpha_k$ is the arc sequence of $B$.
-\item For each bar $B$ in $U$ that begins with a left turn and ends with a right turn,
-\[ b_{\alpha_1}(T,L) + b_{\alpha_2}(T,L) + ... + b_{\alpha_k}(T,L) \leq 0,\]
-where $\alpha_1, \alpha_2,\ldots,\alpha_k$ is the arc sequence of $B$.
+\item  $\sum_{i=1}^kc_{\alpha_i}=0$, 
+\item For each bar $B$ in $U$ that begins with a right turn and ends with a left turn, $\sum_{i=1}^\ell c_{\gamma_i} \geq 0$, where $\gamma_1, \gamma_2,\ldots,\gamma_\ell$ is the arc sequence of $B$.
+\item For each bar $B$ in $U$ that begins with a left turn and ends with a right turn, $\sum_{i=1}^\ell c_{\gamma_i} \leq 0$, where $\gamma_1, \gamma_2,\ldots,\gamma_\ell$ is the arc sequence of $B$.
 \end{itemize}
 \end{theorem}
 
-We first prove all of Theorem~\ref{wall thm no punct} except the codimension assertion.
+Before proving Theorem~\ref{wall thm no punct}, we make a few comments.
+First, the equality $\sum_{i=1}^kc_{\alpha_i}{=0}$ amounts to the assertion that $\sum_{i=1}^k\alpha_i\in V$ is the normal vector to $\Compat(U)$.
+Second, in deciding whether a bar ``begins with a right turn and ends with a left turn'', it doesn't matter which direction one moves along the bar.
+The same is true for deciding whether a bar ``begins with a left turn and ends with a right turn''.
+Third, Theorem~\ref{wall thm no punct} defines $\Compat(U)$ be a finite list of inequalities.
+If $U$ is an I-beam, the list of inequalities is finite because there are only finitely many bars in $U$.
+If $U$ is a ring, the list is finite because all but finitely many bars in $U$ are self-intersecting because they wrap around $U$.  
+But since $\sum_{i=1}^kc_{\alpha_i}=0$, each bar that wraps around $U$ defines the same inequality as a bar obtained by deleting the part of the bar that wraps around.
+
+We begin the proof of Theorem~\ref{wall thm no punct} by proving everything except the codimension assertion.
 We will need two lemmas.
 
-\begin{lemma}\label{nb bars}  
+\begin{lemma}\label{nb bars no punct}  
 Let $(\S,\M)$ be a marked surface \emph{with no punctures} and let $T$ be a triangulation.
 Suppose $U$ is a ring or I-beam and $\lambda$ is an allowable curve.
 Then the following are equivalent.
@@ -891,30 +916,28 @@ Then the following are equivalent.
 \item \label{U nb}
 $\lambda$ is compatible with $U$.
 \item \label{bar nb}
-$\lambda$ is compatible with every bar along $U$.
+$\lambda$ is compatible with every bar in $U$.
 \item \label{special bar nb}
-$\lambda$ is compatible with every bar along $U$ that begins with a right turn and ends with a left turn or begins with a left turn and ends with a right turn.
+$\lambda$ is compatible with every bar in $U$ that begins with a right turn and ends with a left turn or begins with a left turn and ends with a right turn.
 \end{enumerate}
 \end{lemma}
 \begin{proof}
 It is immediate that \eqref{U nb}$\implies$\eqref{bar nb}$\implies$\eqref{special bar nb}.
 Suppose $\lambda$ is not compatible with $U$.
-We may as well assume that $\lambda$ is honest, so that it intersects $U$, and furthermore, we take an intersection $p$ that can't be removed by passing to a different honest isotopy representative of $\lambda$.
-From $p$, in each direction, $\lambda$ from passes from triangle to triangle (stopping when and if it hits the boundary of $\S$).
+Thus there is an honest curve isotopic to $\lambda$ (and we re-use the name $\lambda$ for this honest curve) that intersects $U$ at a point $p$, in a way that can't be removed by passing to a different honest isotopy representative.
+From $p$, in each direction, $\lambda$ passes from triangle to triangle (stopping when and if it hits the boundary of $\S$).
 Following $U$ from $p$, for a while $U$ passes through the same triangles, until it passes into a different triangle than $\lambda$ or until a degree-$3$ vertex is reached and $U$ continues to no further triangles.
 In either case, in each direction there is a part of $U$ that leaves the interior of a triangle from a different side than $\lambda$ does.
-The bar along $U$ connecting these two exit points from interiors of triangles is not compatible with $\lambda$ and either starts with a left turn and ends with a right turn or vice versa, because otherwise, we could pass to an isotopy representative of $\lambda$ that removes the intersection.
-\marginN{I think I need to improve the explanation and add a picture}
-We have supposed that \eqref{U nb} fails and concluded that \eqref{special bar nb} fails also.  %, and thus proved that \eqref{special bar nb}$\implies$\eqref{U nb}.
+The bar in $U$ connecting these two exit points from interiors of triangles is not compatible with $\lambda$ and either starts with a left turn and ends with a right turn or vice versa, because otherwise, we could pass to an isotopy representative of $\lambda$ that removes the intersection.
+We have supposed that \eqref{U nb} fails and concluded that \eqref{special bar nb} fails also, and thus we have proved that \eqref{special bar nb}$\implies$\eqref{U nb}.
 \end{proof}
 
 \begin{lemma}\label{bar ineq no punct}
 Let $(\S,\M)$ be a marked surface \emph{with no punctures} and let $T$ be a triangulation.
-Suppose $B$ is a bar with both endpoints on an arc of $T$, suppose $\alpha_1, \alpha_2,\ldots,\alpha_k$ is the arc sequence of~$B$, and suppose $\lambda$ is an allowable curve.
-If $\lambda$ is compatible with $B$, then:
+Suppose $B$ is a bar with arc sequence $\gamma_1, \gamma_2,\ldots,\gamma_\ell$ and suppose $\lambda$ is an allowable curve that is compatible with $B$.  \marginN{We used to say that $B$ had "both endpoints on an arc of $T$".  I took that out, because I don't see why it couldn't have one or both endpoints on a boundary segment.  Did I mess up?}
 \begin{enumerate}[\quad\rm(1)]
-\item If $B$ begins with a right turn and ends with a left turn, then ${\sum_{i=1}^kb_{\alpha_i}(T,\lambda)\ge0}$.
-\item If $B$ begins with a left turn and ends with a right turn, then ${\sum_{i=1}^kb_{\alpha_i}(T,\lambda)\le0}$.
+\item If $B$ begins with a right turn and ends with a left turn, then ${\sum_{i=1}^\ell b_{\gamma_i}(T,\lambda)\ge0}$.
+\item If $B$ begins with a left turn and ends with a right turn, then ${\sum_{i=1}^\ell b_{\gamma_i}(T,\lambda)\le0}$.
 \end{enumerate}\marginN{Notice that the if and only if statement doesn't work exactly, but that something good enough does work.}
 If $\lambda$ is incompatible with $B$, then there is a bar $B'$ contained in $B$ such that $\lambda$ and $B'$ violate $(1)$ or $(2)$.
 \end{lemma}
@@ -930,9 +953,9 @@ Suppose $B$ begins with a right turn and ends with a left turn, and consider the
 \end{figure}
 The triangles shown may not be distinct.
 
-We can assume that $\lambda$ is honest and that it does not intersect $B$.
+Since $\lambda$ is compatible with $B$, we can assume that $\lambda$ is honest and does not intersect $B$.
 Consider the how $\lambda$ passes through the triangles that intersect $B$, and in particular whether $\lambda$ turns right or left in each triangle.
-We see that $\lambda$ picks up a positive contribution to $\sum_{i=1}^kb_{\alpha_i}(T,\lambda)$ exactly when it has a right turn immediately followed by a left turn.
+We see that $\lambda$ picks up a positive contribution to $\sum_{i=1}^\ell b_{\gamma_i}(T,\lambda)$ exactly when it has a right turn immediately followed by a left turn.
 Similarly, $\lambda$ picks up a negative contribution exactly when it has a left turn and then immediately a right turn.
 Following $\lambda$ in the direction that keeps $B$ to the right of $\lambda$, we see that the first turn that $\lambda$ makes as it passes through the sequence of triangles can be right or left, but the last turn must be left (because $B$ begins with a right turn and ends with a left turn).
 We conclude that the total contribution (for each pass through the triangles) is $0$ or $1$, and assertion (1) follows.
@@ -940,50 +963,131 @@ We conclude that the total contribution (for each pass through the triangles) is
 On the other hand, suppose $\lambda$ is an allowable curve such that every honest isotopy representative of $\lambda$ intersects $B$.
 Then $\lambda$ enters a triangle crossed by $B$ and passes through some other triangles crossed by $B$, intersecting $B$ (unavoidably) at some point, and finally leaves the sequence of triangles crossed by $B$.
 Let $B'$ be the restriction of $B$ to the sequence of triangles that $\lambda$ passes through. 
-The curve $\lambda$ itself must either begin with a left turn and end with a right turn or vice-versa. 
-Up to symmetry, we may as well assume that it begins left and ends right.
+
+One of two things is true of $\lambda$:  Either just after entering this sequence of triangles, it makes a left turn and to exit the sequence of triangles, it makes a right turn, or it enters with a right turn and leaves with a left turn.
+(If neither of these things is true, then an isotopy can remove the intersection with $B'$.)
+Suppose $\lambda$ enters left and leaves right.
 Since the intersection of $\lambda$ with $B$ was unavoidable for honest isotopy representatives of $\lambda$, we conclude that $B'$ begins with a right turn and ends with a left turn.
-Let $\alpha'_1, \alpha'_2,\ldots,\alpha'_\ell$ be the sequence of arcs in $T$ intersecting the relative interior of~$B'$.
-Analyzing the contributions to $\sum_{i=1}^\ell b_{\alpha'_i}(T,\lambda)$ as above, since $\lambda$ begins with a left turn and ends with a right turn, we see that the total contribution is $-1$, violating assertion (1) for $B'$ and $\lambda$.
+Let $\gamma'_1, \gamma'_2,\ldots,\gamma'_m$ be the sequence of arcs in $T$ intersecting the relative interior of~$B'$.
+Analyzing the contributions to $\sum_{i=1}^m b_{\gamma'_i}(T,\lambda)$ as above, since $\lambda$ begins with a left turn and ends with a right turn, we see that the total contribution is $-1$, violating assertion (1) for $B'$ and $\lambda$.
+(It is possible that other segments of $\lambda$ also intersect the arcs $\gamma'_1, \gamma'_2,\ldots,\gamma'_m$. 
+But since $\lambda$ cannot cross itself, any other such segment either makes a left turn after first intersecting an arc in $\gamma'_1, \gamma'_2,\ldots,\gamma'_m$ or makes a right turn after last intersecting an arc in $\gamma'_1, \gamma'_2,\ldots,\gamma'_m$, or both.
+Thus the contribution of any such other segment is $0$ or $-1$.)
+If instead $\lambda$ enters right and leaves left, we similarly find a violation of assertion (2).
 \end{proof}
 
 We can now prove Theorem~\ref{wall thm no punct}, except for the codimension assertion.
 
 \begin{prop}\label{all but codim no punct}
 Let $(\S,\M)$ be a marked surface \emph{with no punctures} and let $T$ be a triangulation.
-For any ring or I-beam $U$, the set $\Compat(U)$ is a polyhedral cone in the hyperplane normal to the vector described in Theorem~\ref{wall thm no punct}, defined by the inequalities given in that theorem.
+For any ring or I-beam $U$, the set $\Compat(U)$ is the polyhedral cone defined by the equality and inequalities given in Theorem~\ref{wall thm no punct}.
 \end{prop}
 \begin{proof}
-We show that a lamination $L$ is compatible with $U$ if and only if the vector $\sum_{\gamma\in T}b_\gamma(T,L)\gamma^*$ satisfies the given inequalities and is normal to the given vector.
+We show that a quasi-lamination $L$ is compatible with $U$ if and only if the vector $\sum_{\gamma\in T}b_\gamma(T,L)\gamma^*$ satisfies the given equality and inequalities.
+This is enough, by Theorem~\ref{q-lam bij} and because $\Compat(U)$ is defined as the closure of the set of shear coordinate vectors of compatible quasi-laminations.
 
-First, suppose $U$ is an I-beam.
-In this case, there is no difference between bars \emph{in} $U$ and bars \emph{along} $U$.
-Then Lemmas~\ref{nb bars} and~\ref{bar ineq} combine to show that a quasi-lamination $L$ is compatible with $U$ if and only if the given inequalities hold.
-Also, $U$ is a union of two bars, one starting with a right turn and ending with a left turn, the other starting with a left turn and ending with a right turn.
-The set of arcs of $T$ intersecting the relative interior of each of the two bars equals the set of arcs of $T$ intersecting the relative interior of $U$, and it follows that the given vector is normal to $\Compat(U)$.
+Suppose first that $L$ is compatible with $U$, meaning that every allowable curve~$\lambda$ in the support of $L$ is compatible with $U$.
+Then Lemmas~\ref{nb bars no punct} and~\ref{bar ineq no punct} combine to show that the inequalities of Lemma~\ref{bar ineq no punct} hold for every $\lambda$ in the support of $L$.
+In particular, $\sum_{\gamma\in T}b_\gamma(T,L)\gamma^*$ satisfies the inequalities in Theorem~\ref{wall thm no punct}, and it remains to show that $\sum_{i=1}^kb_{\alpha_i}(T,L)=0$.
+We consider separately the cases where $U$ is an I-beam or a ring.
 
-Next, suppose $U$ is a ring.
-Lemmas~\ref{nb bars} and~\ref{bar ineq} combine to show that a quasi-lamination $L$ is compatible with $U$ if and only if the inequalities of Lemma~\ref{bar ineq} (involving all bars \emph{along} $U$) hold.
-There is a bar $B$ in $U$ that starts with a right turn and ends with a left turn, because if all turns are in the same direction, then $U$ is contractible in $\S\setminus\M$ to a puncture.
-We can choose $B$ so that it traces less than a complete turn through $U$.
-Let $\alpha_1,\ldots,\alpha_\ell$ be the arc sequence of $B$.
-Then $\sum_{i=1}^\ell b_{\alpha_i}(T,\lambda)\geq 0$.
-Let $\gamma_1,\ldots,\gamma_m$ be such that $\alpha_1,\ldots,\alpha_\ell,\gamma_1,\ldots,\gamma_m$ is the full sequence of arcs crossed by the ring $U$.
-For any $k\ge0$, we can make a bar $B_k$ from $B$ by inserting $k$ circuits of the ring $U$ in the middle of $B$, and since this is a bar \emph{along} $U$, we conclude that $(k+1)\sum_{i=1}^\ell b_{\alpha_i}(T,\lambda)+{k\sum_{i=1}^m b_{\alpha_i}(T,\lambda)\geq 0}$.
-This is true for arbitrarily large $k$, and we conclude that $\sum_{i=1}^\ell b_{\alpha_i}(T,\lambda)+\sum_{i=1}^m b_{\alpha_i}(T,\lambda)\geq 0$.
-On the other hand, there is a bar $B'$ starting with a left turn and ending with a right turn such that $\gamma_m,\ldots,\gamma_1$ is the sequence of arcs intersected by the relative interior of $B'$.
+If $U$ is an I-beam, then $U$ is a union of two bars, one starting with a right turn and ending with a left turn, the other starting with a left turn and ending with a right turn.
+The arc sequence of each bar equals the arc sequence $\alpha_1,\ldots,\alpha_k$ of $U$, so by combining the two inequalities of Lemma~\ref{bar ineq no punct} for those two bars, we see that $\sum_{i=1}^kb_{\alpha_i}(T,L)=0$.
+
+If $U$ is a ring, then there is a bar $B$ in $U$ that starts with a right turn and ends with a left turn.
+(Supposing to the contrary that all turns in $U$ are in the same direction, then $U$ is contractible in $\S\setminus\M$ to a puncture.)
+We can choose $B$ so that it does not intersect itself, except perhaps at its endpoints.
+(That is, it wraps at most exactly once around the ring $U$.)
+Let $\gamma_1,\ldots,\gamma_\ell$ be the arc sequence of $B$.
+Then $\sum_{i=1}^\ell b_{\gamma_i}(T,\lambda)\geq 0$ by Lemma~\ref{bar ineq no punct}.
+
+By our choice of $B$ to wrap at most exactly once around the ring $U$, the sequence $\gamma_1,\ldots,\gamma_\ell$ omits at least one arc of the full arc sequence of $U$.
+Let $\gamma'_1,\ldots,\gamma'_m$ be such that $\gamma_1,\ldots,\gamma_\ell,\gamma'_1,\ldots,\gamma'_m$ is the arc sequence of $U$.
+For any $k\ge0$, we can make a bar $B_k$ from $B$ by inserting $k$ circuits of the ring $U$ before $B$, so that the arc sequence of $B_k$ is $k$ repetitions of $\gamma_1,\ldots,\gamma_\ell,\gamma'_1,\ldots,\gamma'_m$ followed by one more repetition of $\gamma_1,\ldots,\gamma_\ell$.
+Since this is a bar in $U$, we conclude that ${(k+1)\sum_{i=1}^m b_{\gamma'_i}(T,\lambda)}+{k\sum_{i=1}^\ell b_{\gamma_i}(T,\lambda)\geq 0}$.
+Since this is true for arbitrarily large~$k$, we see that $\sum_{i=1}^m b_{\gamma'_i}(T,\lambda)+{\sum_{i=1}^\ell b_{\gamma_i}(T,\lambda)\geq 0}$.
+On the other hand, there is a bar $B'$ starting with a left turn and ending with a right turn such that $\gamma'_m,\ldots,\gamma'_1$ is the sequence of arcs intersected by the relative interior of $B'$.
 (This bar starts by passing through the same triangle that $B$ starts with, but in the other direction, and traces along $U$ in the opposite direction.)
-Arguing as above, we see that $\sum_{i=1}^\ell b_{\alpha_i}(T,\lambda)+\sum_{i=1}^m b_{\alpha_i}(T,\lambda)\leq 0$ as well, so this sum equals $0$, and we have verified that the given vector is normal.
-Because the given vector is normal, every inequality arising from a bar \emph{along} $U$ is equivalent to an inequality arising from a bar \emph{in} $U$, so the inequalities given in Theorem~\ref{wall thm} suffice (together with knowing the normal vector) to describe $\Compat(U)$.
+Arguing as above, we see that $\sum_{i=1}^\ell b_{\gamma_i}(T,\lambda)+\sum_{i=1}^m b_{\gamma'_i}(T,\lambda)\leq 0$ as well, so this sum equals $0$.
+Since $\alpha_1,\ldots,\alpha_k$ and $\gamma_1,\ldots,\gamma_\ell,\gamma'_1,\ldots,\gamma'_m$ are both expressions for the arc sequence of $U$, we have verified that $\sum_{i=1}^kb_{\alpha_i}(T,L)=0$.
+
+On the other hand, suppose that $L$ is not compatible with $U$, meaning that there exists an allowable curve $\lambda$ in the support of $L$ that is not compatible with $U$.
+By Lemma~\ref{nb bars no punct}, there exists a bar $B$ in $U$ that begins with a right turn and ends with a left turn (or vice versa) and is incompatible with $\lambda$.
+We take $B$ to be minimal, under containment, of bars in $U$ that begin with a right turn and end with a left turn (or vice versa) and are incompatible with $\lambda$.
+Without loss of generality, up to reversing the orientation of the surface, we assume that $B$ begins with a right turn and ends with a left turn.
+Let $\gamma_1,\ldots,\gamma_\ell$ be the arc sequence of $B$.
+By our choice of $B$ to be minimal, Lemma~\ref{bar ineq no punct} says that $\sum_{i=1}^\ell b_{\gamma_i}(T,\lambda)<0$.
+(Any strictly smaller bar $B'$ is compatible with $\lambda$ and thus has $\sum_{i=1}^\ell b_{\gamma_i}(T,\lambda)\ge0$.)
+Thus some portion of $\lambda$ crosses the same triangles of $T$ that $B$ does, in the same order, but that portion starts with a left turn and ends with a right turn.
+
+Since $\sum_{i=1}^\ell b_{\gamma_i}(T,\lambda)<0$, the only way to have $\sum_{i=1}^\ell b_{\gamma_i}(T,L)\ge0$ is if at least one arc $\lambda'$ in the support of $L$ has $\sum_{i=1}^\ell b_{\gamma_i}(T,L)>0$.
+However, since $\lambda'$ is compatible with $\lambda$ (and thus does not cross $\lambda$), any segment of $\lambda'$ that crosses some arcs in $\gamma_1,\ldots,\gamma_\ell$ either makes a left turn after first intersecting an arc in $\gamma_1,\ldots,\gamma_\ell$ or makes a right turn after last intersecting an arc in $\gamma_1,\ldots,\gamma_\ell$, or both.
+Thus the contribution of $\lambda'$ to $\sum_{i=1}^\ell b_{\gamma_i}(T,\lambda)$ is nonpositive.
 \end{proof}
 
-\marginN{Move these definitions to the surfaces background section?}
-A \newword{near (tagged) triangulation} is a set of tagged arcs that is one short of the cardinality of a triangulation.
-Given a near triangulation $T'$, there exist exactly two tagged arcs that can be adjoined to $T'$ to make a triangulation.  \margin{cite this?  I think it is in cats1}
-These two arcs form an exchangeable pair.
-This map from near triangulations to exchangeable pairs is typically not one-to-one.
+The key to completing the proof of Theorem~\ref{wall thm no punct} is the following proposition.
 
-Given a pairwise compatible collection $\Lambda$ of allowable curves, let $C_\Lambda$ be the set
+\begin{prop}\label{basic wall}
+Suppose $U$ is an I-beam or ring with arc sequence $\alpha_1,\ldots,\alpha_k$.
+Then $-p^*_\uf(\sum_{i=1}^k\alpha_i)$ is in the relative interior of $\Compat(U)$ (its interior as a subset of the hyperplane $\bigl(\sum_{i=1}^k\alpha_i\bigr)^\perp$ in $V^*$).
+Furthermore, the following are equivalent:
+\begin{enumerate}[\quad\rm(i)]
+\item $\Compat(U)$ is the entire hyperplane $\bigl(\sum_{i=1}^k\alpha_i\bigr)^\perp$.
+\item $k=1$ 
+\item $p^*(\sum_{i=1}^k\alpha_k)\in\Compat(U)$.
+\end{enumerate}
+When these equivalent conditions hold, $U$ is an I-beam.
+For each arc $\alpha\in T$, there is a unique I-beam $U$ whose arc sequence is the singleton $\alpha$, so that in particular $\Compat(U)$ is the hyperplane $\alpha^\perp$.
+\end{prop}
+\begin{proof}
+To prove that $-p^*_\uf(\sum_{i=1}^k\alpha_i)$ is in the relative interior of $\Compat(U)$, we will show that $\brr{-p^*_\uf(\sum_{i=1}^k\alpha_i),\sum_{j=1}^k\alpha_j}=0$ and that $-p^*_\uf(\sum_{i=1}^k\alpha_i)$ satisfies the inequalities in the statement of Theorem~\ref{wall thm no punct} \emph{with strict inequality} (except for the two inequalities that combine to say that $\brr{-p^*_\uf(\sum_{i=1}^k\alpha_i),\sum_{j=1}^k\alpha_j}=0$)
+This suffices, in light of Proposition~\ref{all but codim no punct}.
+
+We compute
+\begin{equation}\label{minus p*}
+\brrr{-p^*_\uf\Bigl(\sum_{i=1}^k\alpha_i\Bigr),\sum_{j=1}^k\alpha_i}=\sum_{i=1}^k\sum_{j=1}^kb_{\alpha_i\alpha_j}.
+\end{equation}
+For each $1\le\ell\le k-1$, the skew-symmetry of $B$ says that $b_{\alpha_\ell,\alpha_{\ell+1}}+b_{\alpha_{\ell+1},\alpha_\ell}$.
+If $U$ is a ring, then also $b_{\alpha_k,\alpha_1}+b_{\alpha_i,\alpha_k}$.
+The right side of \eqref{minus p*} decomposes into $k-1$ or $k$ of these pairs, so it is zero, as desired.
+
+Suppose now the $B$ is a bar in $U$ that begins with a right turn and ends with a left turn.
+Since we already know that $\brr{-p^*_\uf(\sum_{i=1}^k\alpha_i),\sum_{i=1}^k\alpha_i}=0$, we may as well assume that the arc sequence of $B$ is a proper subsequence $\alpha_p,\ldots,\alpha_q$ of $\alpha_1,\ldots,\alpha_k$.
+We want to show that 
+$\brr{-p^*_\uf(\sum_{i=1}^k\alpha_i),\sum_{j=p}^q\alpha_i}>0$.
+Similarly to \eqref{minus p*}, we have 
+\begin{equation}\label{minus p* 2}
+\brrr{-p^*_\uf\Bigl(\sum_{i=1}^k\alpha_i\Bigr),\sum_{j=p}^q\alpha_i}=\sum_{i=1}^k\sum_{j=p}^\ell b_{\alpha_i\alpha_j}.
+\end{equation}
+Since $B$ begins with a right turn, if $p>1$, then $b_{\alpha_{p-1}\alpha_p}=-1$  WRONG?
+
+HERE
+
+
+
+
+
+
+If $k=1$, then $U$ must be an I-beam, because if it is a ring, then this ring is contractible to a puncture, which is not allowed.
+In this case, every bar in $U$ has either empty arc sequence or arc sequence $\alpha_1$, and Theorem~\ref{wall thm} implies that $\Compat(U)$ is a hyperplane.
+If $k>1$, then we claim that there exists a bar in $U$ starting with a left turn and ending with a right turn whose arc sequence has only one term.
+If $U$ is a ring with only right turns or only left turns, then it is contractible to a puncture.
+Thus $U$ has a right turn immediately followed by a left turn, so we can construct the desired bar.
+If $U$ is an I-beam, then following $U$ from $\alpha_1$ to $\alpha_2$ is either a right turn or a left turn.
+Choosing the appropriate leaf of $U$ in the triangle before $\alpha_1$, we can construct the desired bar.
+
+Proposition~\ref{encirc prop}\eqref{-p relint}, says that $-p^*(\sum_{i=1}^k\alpha_k)$ is in the relative interior of $\Compat(U)$.
+Since $\Compat(U)$ is convex, easy convexity arguments imply that if $\Compat(U)$ contains $p^*(\sum_{i=1}^k\alpha_k)$, then it contains a relatively open (relative to the hyperplane) neighborhood of the origin.
+Since it is a cone, it is therefore the entire hyperplane.
+
+Given $\gamma\in T$, we easily construct the desired I-beam, which is degenerate or degenerate tagged plain or notched, depending on whether $\gamma$ is not in a self-folded triangle, is the non-fold edge of a self-folded triangle, or is the fold edge of a self-folded triangle.
+\end{proof}
+
+
+
+
+
+Given a pairwise compatible collection $\Lambda$ of allowable curves, let $C_\Lambda$ be closure of the set
 \[\settt{\sum_{\gamma\in T}b_\gamma(T,L)\gamma^*:\,L\text{ is a quasi-lamination with support contained in }\Lambda}\subset V^*.\]
 This is a pointed rational cone, and as a consequence of Theorem~\ref{q-lam bij}, it has dimension~$|\Lambda|$.
 Theorem~\ref{q-lam bij} implies that the cones $C_\Lambda$ are dense in $V^*$.
@@ -1133,13 +1237,7 @@ The uniqueness (and ruling our an I-beam $U'$) holds by Proposition~\ref{arc seq
 \section{A holding place for the rest of the material that I want to clean up in the no-punctures case}
 
 
-Theorem~\ref{wall thm no punct} also lets us prove some useful facts about $\Compat(U)$.
-\begin{prop}\label{basic wall}
-If $U$ is an I-beam or ring with arc sequence $\alpha_1,\ldots,\alpha_k$, then $\Compat(U)$ is a hyperplane if and only if $k=1$ if and only if $p^*(\sum_{i=1}^k\alpha_k)$ is in $\Compat(U)$.
-In this case, $U$ is an I-beam.
-For each arc $\gamma\in T$, there is a unique I-beam $U$ whose arc sequence has only the term~$\gamma$ so that in particular $\Compat(U)$ is the hyperplane $\gamma^\perp$.
-\end{prop}
-\begin{proof}  \marginN{We may eventually decide that this proof is easy enough to omit.}
+\begin{proof}[An old proof of Proposition~\ref{basic wall}]  \marginN{We may eventually decide that this proof is easy enough to omit.  ADDED LATER:  Easily modulo some other things that we couldn't prove.}
 If $k=1$, then $U$ must be an I-beam, because if it is a ring, then this ring is contractible to a puncture, which is not allowed.
 In this case, every bar in $U$ has either empty arc sequence or arc sequence $\alpha_1$, and Theorem~\ref{wall thm} implies that $\Compat(U)$ is a hyperplane.
 If $k>1$, then we claim that there exists a bar in $U$ starting with a left turn and ending with a right turn whose arc sequence has only one term.
@@ -1197,7 +1295,7 @@ If $U$ is a ring, then $L^\circ(U)$ is $U$ itself with a weight of $2$.
 \begin{prop}\label{encirc prop}
 Suppose $U$ is an I-beam or ring with arc sequence $\alpha_1,\ldots,\alpha_k$ and encircling lamination $L^\circ(U)$.  \marginN{This is a bit of a laundry list.  Separate it?}
 Then 
-\begin{enumerate}[\rm(i)]
+\begin{enumerate}[\quad\rm(i)]
 \item \label{encirc completed}
 $L^\circ(U)$ can be completed to a quasi-lamination with $|T|-1$ curves, compatible with $U$.
 \item \label{encirc codim}
@@ -1377,6 +1475,7 @@ We consider bars up to isotopy equivalences (in $\S\setminus\M$) that don't chan
 We will be most interested in bars contained in some I-beam or ring.
 
 \marginN{Made a change in here to reflect Greg's correction (embedded or immersed).  This is going to worsen one of the things Greg complained about:  an over-abundance of terms.  I think he's probably right, but I want to get a complete mathematical story written before we think hard about how to fix the problem.}
+\marginN{If I keep this later material, make sure I get rid of ``bar along $U$''}
 Given a ring or I-beam $U$, a \newword{bar in $U$} is a bar contained in $U$ that, if its endpoint is a puncture (necessarily a degenerate leaf of $U$), has the same tagging as $U$ at that point.
 A \newword{bar along $U$} is a bar $B$ such that there exists a homotopy (in $\S\setminus\M$) from $B$ to a (possibly self-intersecting) curve contained in $U$, that don't change which arc of $T$ contains each endpoint (or don't move the endpoint if it is a puncture), with the same condition on tagging.
 Since a bar is required to be honest, there exist bars \emph{along $B$} that are not (up to homotopy) \emph{in $B$} only when $U$ is a ring.
@@ -1524,7 +1623,7 @@ Suppose $B$ begins with a right turn and ends with a left turn, and consider the
 \begin{figure}
 \scalebox{0.7}{\includegraphics{triseq}}
 \caption{The triangles crossed by $B$}
-\label{tri seq}
+\label{tri seq again}
 \end{figure}
 The triangles shown may not be distinct.
 
@@ -1878,7 +1977,7 @@ The result is one, two, or three allowable curves, as shown in Figure~\ref{encir
 If $U$ is a ring, then $L^\circ(U)$ is $U$ itself with a weight of $2$.
 (We take one curve on each side of $U$, but each of the two curves is isotopic to $U$.)
 \end{definition}
-\begin{prop}\label{encirc prop}
+\begin{prop}\label{encirc prop AGAIN}
 Suppose $U$ is an I-beam or ring with arc sequence $\alpha_1,\ldots,\alpha_k$ and encircling lamination $L^\circ(U)$.  \marginN{This is a bit of a laundry list.  Separate it?}
 Then 
 \begin{enumerate}[\rm(i)]
