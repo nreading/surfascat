@@ -335,9 +335,9 @@ An \newword{arc} in $(\S,\M)$ is a differentiable \marginN{I am putting in the a
 curve in $\S$ with endpoints in $\M$.
 The arc may not intersect itself and, except at its endpoints, must be contained in the interior of $\S\setminus\M$.
 The arc may not bound an unpunctured monogon and may not define, together with a boundary segment connecting the endpoints, an unpunctured digon.
-Throughout, we consider arcs up to isotopy equivalence.
+Throughout, we consider arcs up to topological equivalence:  Two arcs are equivalent if and only if they are related by a homeomorphism from $\S$ to itself, fixing each point in $\M$.
 
-Two arcs are \newword{compatible} if there is an isotopy representative of each such that the representatives do not intersect, except possibly at their endpoints.
+Two arcs are \newword{compatible} if there is a topological-equivalence representative of each such that the representatives do not intersect, except possibly at their endpoints.
 A \newword{triangulation} $T$ is a maximal collection of distinct pairwise compatible arcs.
 The connected components of $\S\setminus\cup T$ are \newword{triangles}, which have one, two or three distinct vertices (in $\M$) and two or three distinct sides (in $T$).
 A triangle is called \newword{self-folded} if it has only two distinct sides.
@@ -388,7 +388,10 @@ that
 \item does not have both endpoints on the same boundary segment and, together with the portion of the boundary between its endpoints, cut out a once-punctured disk, and 
 \item does not spiral at both ends into the same marked point and cut out an unpunctured or once-punctured disk.
 \end{itemize}
-There are countably many allowable curves, up to isotopy.  \marginN{I don't think this is written down anywhere, but there is an easy argument.  Do we need to write down that argument?}
+Every allowable curve can be embedded honestly, and for simplicity we fix a triangulation $T$ and assume that every allowable curve is embedded honestly.  
+Thus in particular, we can take a natural notion of topological equivalence of (honest) allowable curves:
+Two honest allowable curves are equivalent if and only if they are related by a homeomorphism from $\S$ to itself, fixing each point in $\M$ and fixing setwise each arc of $T$.
+There are countably many allowable curves, up to topological equivalence.  \marginN{I don't think this is written down anywhere, but there is an easy argument.  Do we need to write down that argument?}
 %The requirement that an allowable curve is honest is not made in \cite{unisurface} or in the analogous definition in \cite{cats2}.  
 %However, we may as well require honesty because when defining shear coordinates of an allowable curve $\lambda$ (as below in Definition~\ref{shear def}), one passes to a curve isotopic to $\lambda$ that is honest.
 \end{definition}
@@ -400,8 +403,8 @@ Two allowable curves are \newword{compatible} if
 they are nonintersecting, or 
 \item they are identical except that, at exactly one end of the curve, they spiral opposite directions into the same marked point.
 \end{itemize}
-A \newword{(rational) quasi-lamination} $L$ in $(\S,\M)$ is a collection of pairwise compatible allowable curves in $\S$, distinct up to isotopy, with each curve $\lambda\in L$ carrying a positive rational weight $w_\lambda$.
-Every quasi-lamination can be realized with pairwise compatible curves embedded honestly.  \marginN{I don't think we need to argue that.}
+A \newword{(rational) quasi-lamination} $L$ in $(\S,\M)$ is a collection of pairwise compatible allowable curves in $\S$, distinct up to topological equivalence, with each curve $\lambda\in L$ carrying a positive rational weight $w_\lambda$.
+Every quasi-lamination can be realized with simultaneous honest embeddings of its curves.  \marginN{I don't think we need to argue that.}
 The \newword{support} of a quasi-lamination $L$ is the underlying pairwise compatible set of allowable curves.
 Thus we say that $L$ has \newword{maximal support} if there does not exist a quasi-lamination $L'$ whose support strictly contains the support of $L$.
 A \newword{multi-lamination} is a finite collection $\L$ of quasi-laminations.
@@ -424,8 +427,8 @@ The spiral is clockwise into $p$ if $\alpha$ is tagged plain at $p$ or countercl
 
 Two arcs $\alpha$ and $\gamma$ are \newword{compatible} if and only if $\kappa(\alpha)$ and $\kappa(\gamma)$ are compatible.
 Thus they are compatible if and only if one of the following conditions holds:
-the corresponding untagged arcs are nonisotopic and compatible and any shared endpoints have the same tagging, or
-the corresponding untagged arcs are the isotopic and their tagging agrees at one endpoint but not the other.
+the corresponding untagged arcs are not topologically equivalent but are compatible, with any shared endpoints having the same tagging, or
+the corresponding untagged arcs are topologically equivalent and their tagging agrees at one endpoint but not the other.
 
 A \newword{tagged triangulation} is a maximal collection of distinct pairwise compatible tagged arcs.
 Two tagged arcs $\alpha$ and $\beta$ are \newword{exchangeable} if and only if there exists a set $\widetilde T$ of tagged arcs such that $\widetilde T\cup\set{\alpha}$ is a tagged triangulation and $\widetilde T\cup\set{\beta}$ is a tagged triangulation.
@@ -459,7 +462,7 @@ Triangulations of $(\S,\M)$ consist of five arcs, but quasi-laminations containi
 
 \begin{proposition}\label{closed card thm}
 Suppose $T$ is a triangulation and $L$ is a lamination whose support consists of exactly $k$ closed, non-shielding allowable curves, exactly $\ell$ closed shielding allowable curves, and some number of non-closed allowable curves.
-Then the total number of curves in the support of $L$ is at most $|T|-k-3\ell$.  \marginN{Originally, we had $2\ell$ here, but I think this is right.  It is $3\ell$ that is correct for the dread torus (plus, I think this proof is correct).}
+Then the total number of curves in the support of $L$ is at most $|T|-k-3\ell$.  \marginN{Originally, we had $2\ell$ here, but I think this is right.  It is $3\ell$ that is correct for the dread torus (plus, I think this proof is correct).  But this is very consequential (as it lets us rule out ``joints'' formed by two I-beams whose union covers a non-shielding closed curve).  So, did I get this right?}
 If $\ell=0$ and $L$ has maximal support, then it attains the bound.
 \end{proposition}
 It will also be apparent, from the following proof, how to write down a sharp bound when $\ell>0$, in terms of the genus of pieces of $\S$ cut off by the shielding curves, but we will not need it.
@@ -478,7 +481,7 @@ In this case, we replace $\alpha$ by a pair $\beta,\beta'$ of arcs, tagged plain
 The arc $\alpha$ (or each of $\beta$ and $\beta'$) is compatible with every other arc in $T'$ because $T'$ came from a collection of curves all compatible with $\lambda$.
 Since we $L$ has maximal support, we see that $\alpha$ is either in $T'$ or is isotopic to a boundary segment (or $\beta$ and $\beta'$ are both in in $T'$).
 
-For each non-shielding curve $\lambda\in L$, we have shown that $T'$ contains two tagged arcs or boundary segments (possibly coinciding up to isotopy if they are arcs) that trace out an annulus surrounding $U$.
+For each non-shielding curve $\lambda\in L$, we have shown that $T'$ contains two tagged arcs or boundary segments (possibly coinciding up to topological equivalence, if they are arcs) that trace out an annulus surrounding $U$.
 (If we constructed a pair $\beta,\beta'$ on one or both sides of $\lambda$, we understand this ``tracing out of an annulus'' in the usual sense in which the pair $\beta,\beta'$ corresponds to a self-folded triangle.)
 Since $\S$ is compact and orientable, at each shielding $\lambda$, the surface $\S$ is a direct sum along $\lambda$ of a direct sum of tori with some other summand.
 We have shown that $T'$ contains one tagged arc $\alpha$ that traces along $\lambda$, with both endpoints at a point $p$.
@@ -517,10 +520,10 @@ Therefore the support of $L$ has at most $|T|-k-3\ell$ curves, with equality whe
 
 
 \begin{proposition}\label{exch char}
-Two tagged arcs $\alpha$ and $\beta$ are exchangeable if and only if (when isotopy representatives of each are chosen so as to minimize intersections) either
+Two tagged arcs $\alpha$ and $\beta$ are exchangeable if and only if (when topological-equivalence representatives of each are chosen so as to minimize intersections) either
 \begin{itemize}
 \item they intersect exactly once in their relative interiors and their taggings agree at all shared endpoints, or
-\item they each have distinct endpoints, they share one or more endpoint, with their tagging disagreeing at exactly one endpoint, they are not isotopic to each other, and they have disjoint relative interiors.
+\item they each have distinct endpoints, they share one or more endpoint, with their tagging disagreeing at exactly one endpoint, they are not topologically equivalent, and they have disjoint relative interiors.
 \end{itemize}
 \end{proposition}
 \begin{proof}
@@ -529,7 +532,7 @@ There are two possibilities for $\alpha$.
 If $\alpha$ is an edge shared between two triangles (including in the notion of ``triangle'' a once-punctured digon formed by arcs of $T$), then $\beta$ is an arc intersecting $\alpha$ exactly once, with taggings agreeing at any shared endpoints.
 Otherwise, $\alpha$ is an arc, with distinct endpoints, namely the vertex and the puncture $p$ of a once-punctured monogon, which is itself contained in a digon.
 The other arc inside the digon either coincides with $\alpha$ except for the tagging at $p$ or is disjoint (in its relative interior) from $\alpha$ and has tagging agreeing with $\alpha$ at $p$.
-In either case, $\beta$ is an arc with distinct endpoints, disjoint from $\alpha$ in its relative interior, disagreeing in tagging at the puncture $p$ (but not at the other endpoint if $\alpha$ and $\beta$ share another endpoint), and not isotopic with $\alpha$.
+In either case, $\beta$ is an arc with distinct endpoints, disjoint from $\alpha$ in its relative interior, disagreeing in tagging at the puncture $p$ (but not at the other endpoint if $\alpha$ and $\beta$ share another endpoint), and not topologically equivalent to $\alpha$.
 
 Conversely, suppose first that $\alpha$ and $\beta$ intersect exactly once in their relative interiors and their taggings agree at all shared endpoints.
 In particular, $\alpha$ and $\beta$ are incompatible.
@@ -540,7 +543,7 @@ Taking $T'$ to be the set of tagged arcs produced in this way, the set $T'\cup\s
 Furthermore, a tagged arc not in $T'\cup\set{\alpha,\beta}$ is compatible with $T'\cup\set{\alpha}$ if and only if it is compatible with $T'\cup\set{\beta}$.
 Thus, completing $T'\cup\set{\alpha}$ to a tagged triangulation $T$, we see that $(T\setminus\set{\alpha})\cup\set{\beta}$ is also a tagged triangulation, so that $\alpha$ and $\beta$ are exchangeable.
 
-To complete the proof of the converse, suppose $\alpha$ and $\beta$ are arcs each having distinct endpoints, sharing one or more endpoint, with their tagging disagreeing at exactly one endpoint, having disjoint relative interiors, and not isotopic to each other.
+To complete the proof of the converse, suppose $\alpha$ and $\beta$ are arcs each having distinct endpoints, sharing one or more endpoint, with their tagging disagreeing at exactly one endpoint, having disjoint relative interiors, and not topologically equivalent to each other.
 Again, $\alpha$ and $\beta$ are incompatible.
 We construct arcs by starting at an endpoint of $\alpha$ (not the point where the taggings disagree), taking the tagging of alpha at that point, following $\alpha$ toward the point where their taggings disagree, missing that point on one side or the other, continuing along $\beta$, and taking the tagging of $\beta$ at that point.
 There are two ways to do that.
@@ -559,8 +562,8 @@ Given a quasi-lamination $L$, a triangulation $T$, and an arc $\gamma\in T$,  we
 This is $b_\gamma(T,L)=\sum_{\lambda\in L}w_\lambda b_\gamma(T,\lambda)$, a weighted sum over curves $\lambda$ in $L$ of quantities $b_\gamma(T,\lambda)$ that we now define.
 First, if $\gamma$ is \emph{not} the fold edge of a self-folded triangle of $T$, then it is contained in a quadrilateral.
 (Possibly, the edges of this quadrilateral are fewer than four distinct arcs of $T$ and the vertices are fewer than four distinct points in $\M$.)
-We choose an honest isotopy representative of $\lambda$ (in the sense of Definition~\ref{honest def}) and we reuse the symbol $\lambda$ for the representative.
-\marginN{Unless I'm mistaken, this condition on an allowable curve is exactly the condition of minimizing the number of intersections with the arcs of $T$.  This way of saying it seems so much more clear to me.}
+Recall from Definition~\ref{allowable def} that we are assuming that $\lambda$ is embedded honestly (in the sense of Definition~\ref{honest def}).
+\marginN{Unless I'm mistaken, the condition of honesty on an allowable curve is exactly the condition of minimizing the number of intersections with the arcs of $T$.  This way of saying it seems so much more clear to me.}
 (The caveat in Definition~\ref{honest def} about opposite directions is present in order to allow honest embeddings of allowable curves with spirals:
 An allowable curve that spirals into the puncture in a self-folded triangle crosses the fold edge of the triangle infinitely many times in succession, but can be embedded honestly, because these crossings can be all in the same direction.)
 Each intersection of $\lambda$ with $\gamma$ contributes $-1$, $0$, or $1$ to $b_\gamma(T,\lambda)$, and only finitely many contributions will be nonzero.
@@ -802,6 +805,45 @@ The \newword{cluster scattering diagram} $\Scat(T,\L)$ is the unique (up to equi
 The existence and uniqueness of the cluster scattering diagram is the fundamental result of \cite{GHKK} (specifically \cite[Theorem~1.12]{GHKK}).
 \end{definition}
 
+The first \marginN{only?  Depends on whether we do theta functions.} 
+main point of this paper is to construct the cluster scattering diagram in the surfaces case.
+We will construct a set of walls, show that it contains $(\alpha^\perp,1+\zeta_\alpha)$ for each $\alpha\in T$, show that every other wall is outgoing, and check consistency.
+In checking consistency, we will use Proposition~\ref{loop}, below.  \marginN{Coordinate this with the affscat paper.}
+In preparation for stating the proposition, we make a definition.
+\marginN{We have been taking for granted a proposition like Proposition~\ref{loop}, but since we know very little, a priori, about an arbitrary scattering diagram, it occurred to me that we need \emph{some} hypothesis to be able to check consistency locally.}
+
+Let $F$ be the intersection of two walls of a scattering diagram $\D$, and suppose $F$ has codimension $2$.
+A \newword{generic point in $F$} is a point $x$ that is in the relative interior of $F$ such that every wall of $\D$ containing $x$ is in a hyperplane that contains $F$.
+Generic points are dense in $F$ when $\D$ is countable.
+We say that $\D$ has the \newword{generic intersection property} \marginN{A terrible name that maybe one of you can help me replace} 
+if for every intersection $F$ of two walls of $\D$, the set $\set{(\d,f_\d)\in\D:x\in\d}$, for $x$ generic in $F$, depends only on $F$, not on the choice of generic point $x$.
+(In any case, if $x$ is generic in $F$, the set $\set{(\d,f_\d)\in\D:x\in\d}$ consists of walls contained in hyperplanes that contain $F$.)
+A \newword{small loop about $F$} is a continuous family of directed circles limiting to a single generic point of $F$, such that each circle wrap around the codimension-$2$ subspace spanned by $F$, without intersecting that subspace.
+
+We think of a small loop about $F$ as an ``infinitessimally small path around $F$''.
+This way of thinking is justified because a small loop has a well-defined path-ordered product.
+Given a small loop about $F$, for each $k\ge 1$, as the loop approaches a single generic point in $F$, at some point the set of walls of order $\le k$ that the loop passes through stabilizes at at finite set.  
+We compute the path-ordered product up to order $k$ as the composition of wall-crossing automorphisms for those wall along the loop
+Except for reversing direction, this path-ordered product depends only on $x$, not on the precise choice of a small loop.
+
+\begin{prop}\label{loop}
+If $\D$ is a countable scattering diagram with the generic intersection property, then $\D$ is consistent if and only if, for every intersection $F$ of two walls of $\D$, there exists a small loop $\gamma$ about $F$ such that the path-ordered product $\p_{\gamma,\D}$ is trivial.
+\end{prop}
+\begin{proof}
+Suppose that, for every intersection $F$ of two walls of $\D$, there exists a small loop about $F$ chose path-ordered product is trivial.
+Then, given any generic point $x\in F$, since $\D$ has the generic intersection property, a small loop about $F$ converging to $x$ crosses the same sequence of walls, and thus has the same path-ordered product, which is therefore trivial.
+We see that every small loop about every $F$ has trivial path-ordered product.
+
+The scattering diagram $D$ is consistent if and only if each generic closed path defines a trivial path-ordered product.  
+Fix a generic closed path $\gamma'$ and fix $k\ge 1$.
+We need to check that $\gamma'$ is trivial up to order $k$.
+Since there are only finitely many walls of order $\le k$, we can continuously deform $\gamma'$ to a single point so that every intermediate path is generic, except at finitely many times when the path intersects a codimension-$2$ intersection $F$ of walls in a single point that is generic in $F$.
+Since every small loop about every such $F$ has a trivial path-ordered product, the path-ordered product does not change in the course of the deformation, so that $\p_{\gamma',\D}$ is trivial.
+
+Conversely, if there exists $F$ such that no small loop about $F$ has trivial path-ordered product, starting from a small loop about some generic point in $F$, for some $k$, we can construct a path whose path-ordered product is non-trivial up to order $k$, and thus non-trivial.
+\end{proof}
+
+
 \marginN{We might give the theorem showing cluster monomials in terms of path-ordered products.
 This gives a formula for a cluster monomial in terms of any sequence of flips that relates it to an initial cluster monomial, and I'm really curious to see what that formula is.}
 
@@ -818,7 +860,7 @@ These cones will eventually be the walls of the cluster scattering diagram.
 
 \begin{definition}[\emph{Ring}]\label{ring def}
 A \newword{ring} in $(\S,\M)$ is an \emph{honest} \emph{non-sheilding} closed allowable curve in the sense of Definitions~\ref{allowable def}.
-We consider rings up to isotopy equivalence (in $\S\setminus\M$).
+We consider rings up to topological equivalence, with two rings equivalent if and only if they are related by a homeomorphism from $\S$ to itself fixing $\M$ pointwise, and fixing each arc in $T$ setwise.
 \end{definition}
 
 \begin{definition}[\emph{I-beam}]\label{def: i-beam no punct}
@@ -831,8 +873,10 @@ An \newword{I-beam} in $(\S,\M)$ is an embedded tree with two non-leaves, each c
 The two leaves connected to $v$ are in the relative interiors of two distinct sides of the triangle, and the edge from $v$ to the other non-leaf passes through the third side when leaving the triangle.
 \item The two non-leaves are in two distinct triangles.
 \end{itemize}
-We consider I-beams up to isotopy equivalences (in $\S\setminus\M$) of the embedding that don't change which triangle each non-leaf is in, and don't change which arc of $T$ or boundary segment of $(\S,\M)$ or puncture contains each leaf.
-(If two leaves are in the interior of the same arc of $T$, necessarily connected to two different non-leaves in two different triangles, we allow isotopies that move them past each other.)  The \newword{relative interior} of an I-beam is the I-beam minus its leaves.
+We consider I-beams up to a slightly weaker notion of topologocal equivalence.
+As with rings, two I-beams are equivalent if they are related by a homeomorphism from $\S$ to itself fixing $\M$ pointwise, and fixing each arc in $T$ setwise.
+However, if two leaves are in the interior of the same arc of $T$, necessarily connected to two different non-leaves in two different triangles, we allow the leaves to be moved past each other on that arc.
+The \newword{relative interior} of an I-beam is the I-beam minus its leaves.
 \end{definition}
 
 Each I-beam or ring, as a set, is a finite union of curves that we will call bars.
@@ -840,7 +884,8 @@ Each I-beam or ring, as a set, is a finite union of curves that we will call bar
 \begin{definition}[\emph{Bar}]\label{bar def no punct}
 Let $(\S,\M)$ be a marked surface \emph{with no punctures} and let $T$ be a triangulation.
 A \newword{bar} in $(\S,\M)$ is an \emph{honest} curve $\gamma:[0,1]\to\S$ each of whose endpoints is on the relative interior of an arc of $T$ or a boundary segment of $(\S,\M)$.
-We consider bars up to homotopy equivalences (in $\S\setminus\M$) that don't change which arc of $T$ contains each endpoint.
+We consider bars up to topological equivalence similar to that for I-beams:
+Two bars are equivalent if they are related by a homeomorphism from $\S$ to itself fixing $\M$ pointwise, and fixing each arc in $T$ setwise, but also, if the two endpoints are in the interior of the same arc of $T$, they may be moved past each other or made to coincide.
 We will be most interested in bars contained in some I-beam or ring.
 
 Given a ring or I-beam $U$, a \newword{bar in $U$} is a bar contained in $U$.  \marginN{Got rid of "bar along $U$" notion here.  Letting bars have self-intersections lets us make "bar along" basically a special case of "bar in".  Here is the old language:  A \newword{bar along $U$} is a bar $B$ such that there exists a homotopy (in $\S\setminus\M$) from $B$ to a (possibly self-intersecting) curve contained in $U$, that doesn't change which arc of $T$ contains each endpoint.  Since a bar is required to be honest, there exist bars \emph{along $B$} that are not (up to homotopy) \emph{in $B$} only when $U$ is a ring.}
@@ -865,7 +910,7 @@ The \newword{arc sequence of a ring} $U$ is obtained from the cycle of arcs of $
 Suppose $U$ is an I-beam or ring and $U'$ is an I-beam or ring.
 If $U$ and $U'$ have the same arc sequence (as multisets), then $U=U'$.
 \end{prop}
-The conclusion of Proposition~\ref{arc seq determines no punct} is that $U$ equals $U'$ up to isotopy equivalence as specified in Definitions~\ref{ring def} and~\ref{def: i-beam no punct}.
+The conclusion of Proposition~\ref{arc seq determines no punct} is that $U$ equals $U'$ up to topological equivalence as specified in Definitions~\ref{ring def} and~\ref{def: i-beam no punct}.
 
 \begin{proof}
 For each arc $\alpha$ in an arc sequence, draw a curve crossing $\alpha$, connecting the interiors of the two adjacent triangles that share $\alpha$.
@@ -877,12 +922,16 @@ Since the result is not allowed to cross itself, there is at most one way to do 
 
 \begin{definition}[\emph{Compatibility of quasi-laminations with I-beams, rings, and bars}]\label{ibeam compat def}
 Let $(\S,\M)$ be a marked surface \emph{with no punctures} and let $T$ be a triangulation.
-An allowable curve $\lambda$ is \newword{compatible} with a given I-beam, ring, or bar $U$ if and only if there is an isotopy representative of $U$ (up to the isotopies/homotopies allowed in the definitions of ring, I-beam, and bar) and an \emph{honest} isotopy representative of $\lambda$ such that the representatives do not intersect each other.
+An allowable curve $\lambda$ is \newword{compatible} with a given I-beam, ring, or bar $U$ if and only if there is an topological-equivalence representative of $U$ and a representative of $\lambda$ (required to be \emph{honest} as usual) such that the representatives do not intersect each other.
 A quasi-lamination is \newword{compatible} with an I-beam/ring/bar if and only if every curve in the quasi-lamination is compatible with the I-beam/ring/bar.
+This phrasing of the definition of compatibility is most suitable for proving compatibility.
+If one is proving incompatibility, there is a more useful phrasing:  
+An allowable curve $\lambda$ is \newword{compatible} with a given I-beam, ring, or bar $U$ if and only \emph{for every} topological-equivalence representative of $U$, there exists a representative of $\lambda$ (honest as usual) such that the representatives do not intersect each other.
+This alternate phrasing is equivalent to the original phrasing because the essential notion of topological compatibility is the same for all of the objects involved (and the weakening that allows for moving leaves or endpoints past each other does not affect compatibility because $\lambda$ is required to be honest).
 \end{definition}
 
 \begin{remark}\label{subtlety}
-The definition of compatibility in terms of existence of isotopy/homotopy representatives introduces a subtlety when bars are involved (precisely because there is no global prohibition against self-intersections for bars).
+The definition of compatibility in terms of existence of topological-equivalence representatives introduces a subtlety when bars are involved (precisely because there is no global prohibition against self-intersections for bars).
 Specifically, a bar $B$ in a ring $U$ can wrap multiple times around $U$, so that the union of the points in $B$ is $U$.
 Thus one might assume that an allowable curve $\lambda$ that is incompatible with $U$ is also not compatible with $B$.
 However, one can perform a homotopy on $B$ to remove its self-intersections, making it compatible with curves $\lambda$ that are not compatible with $U$.
@@ -931,11 +980,11 @@ $\lambda$ is compatible with every bar in $U$ that begins with a right turn and 
 \begin{proof}
 It is immediate that \eqref{U nb}$\implies$\eqref{bar nb}$\implies$\eqref{special bar nb}.
 Suppose $\lambda$ is not compatible with $U$.
-Thus there is an honest curve isotopic to $\lambda$ (and we re-use the name $\lambda$ for this honest curve) that intersects $U$ at a point $p$, in a way that can't be removed by passing to a different honest isotopy representative.
+Thus $\lambda$ intersects $U$ at a point $p$, in a way that can't be removed by passing to a different (honest) topological-equivalence representative.
 From $p$, in each direction, $\lambda$ passes from triangle to triangle (stopping when and if it hits the boundary of $\S$).
 Following $U$ from $p$, for a while $U$ passes through the same triangles, until it passes into a different triangle than $\lambda$ or until a degree-$3$ vertex is reached and $U$ continues to no further triangles.
 In either case, in each direction there is a part of $U$ that leaves the interior of a triangle from a different side than $\lambda$ does.
-The bar in $U$ connecting these two exit points from interiors of triangles is not compatible with $\lambda$ and either starts with a left turn and ends with a right turn or vice versa, because otherwise, we could pass to an isotopy representative of $\lambda$ that removes the intersection.
+The bar in $U$ connecting these two exit points from interiors of triangles is not compatible with $\lambda$ and either starts with a left turn and ends with a right turn or vice versa, because otherwise, we could pass to an honest curve equivalent to $\lambda$ that removes the intersection.
 We have supposed that \eqref{U nb} fails and concluded that \eqref{special bar nb} fails also, and thus we have proved that \eqref{special bar nb}$\implies$\eqref{U nb}.
 \end{proof}
 
@@ -968,14 +1017,14 @@ Similarly, $\lambda$ picks up a negative contribution exactly when it has a left
 Following $\lambda$ in the direction that keeps $B$ to the right of $\lambda$, we see that the first turn that $\lambda$ makes as it passes through the sequence of triangles can be right or left, but the last turn must be left (because $B$ begins with a right turn and ends with a left turn).
 We conclude that the total contribution (for each pass through the triangles) is $0$ or $1$, and Assertion 1 follows.
 
-On the other hand, suppose $\lambda$ is an allowable curve such that every honest isotopy representative of $\lambda$ intersects $B$.
+On the other hand, suppose $\lambda$ is an allowable curve such that every (honest) curve equivalent to $\lambda$ intersects $B$.
 Then $\lambda$ enters a triangle crossed by $B$ and passes through some other triangles crossed by $B$, intersecting $B$ (unavoidably) at some point, and finally leaves the sequence of triangles crossed by $B$.
 Let $B'$ be the restriction of $B$ to the sequence of triangles that $\lambda$ passes through. 
 
 One of two things is true of $\lambda$:  Either just after entering this sequence of triangles, it makes a left turn and to exit the sequence of triangles, it makes a right turn, or it enters with a right turn and leaves with a left turn.
-(If neither of these things is true, then an isotopy can remove the intersection with $B'$.)
+(If neither of these things is true, then a topological equivalence can remove the intersection with $B'$.)
 Suppose $\lambda$ enters left and leaves right.
-Since the intersection of $\lambda$ with $B$ was unavoidable for honest isotopy representatives of $\lambda$, we conclude that $B'$ begins with a right turn and ends with a left turn.
+Since the intersection of $\lambda$ with $B$ was unavoidable for honest representatives of $\lambda$, we conclude that $B'$ begins with a right turn and ends with a left turn.
 Let $\gamma'_1, \gamma'_2,\ldots,\gamma'_m$ be the sequence of arcs in $T$ intersecting the relative interior of~$B'$.
 Analyzing the contributions to $\sum_{i=1}^m b_{\gamma'_i}(T,\lambda)$ as above, since $\lambda$ begins with a left turn and ends with a right turn, we see that the total contribution is $-1$, violating Assertion 1 for $B'$ and $\lambda$.
 (It is possible that other segments of $\lambda$ also intersect the arcs $\gamma'_1, \gamma'_2,\ldots,\gamma'_m$. 
@@ -1141,11 +1190,12 @@ The following corollaries of Theorem~\ref{wall thm no punct} make more specific 
 Let $(\S,\M)$ be a marked surface with no punctures and let $T$ be a triangulation.
 \begin{enumerate}[\qquad\rm1.]
 \item \label{U to T'}
-For any I-beam $U$, $\Compat(U)$ is the closure of a nonempty countable union of cones $C_{\kappa(T')}$ for near triangulations $T'$.
+For any I-beam $U$, $\Compat(U)$ is the closure of the union of all cones $C_{\Lambda}$ for pairwise compatible sets $\Lambda$ of allowable curves compatible with $U$.
+This is a nonempty countable union, and the sets $\Lambda$ appearing are precisely the sets $\kappa(T')$ such that $T'$ is a near triangulation with $\kappa(T')$ compatible with~$U$.
 \item \label{T' to U}
 For every near triangulation $T'$, there exists a unique I-beam $U$ (and there is no ring $U$) such that $C_{\kappa(T')}\subseteq\Compat(U)$.
 \item \label{U to exch}
-For any I-beam $U$, there exist exchangeable arcs $\alpha$ and $\beta$ and isotopy representatives of $\kappa(\alpha)$ and $\kappa(\beta)$ whose union contains $U$.
+For any I-beam $U$, there exist exchangeable arcs $\alpha$ and $\beta$ and representatives of $\kappa(\alpha)$ and $\kappa(\beta)$ whose union contains $U$.
 \end{enumerate}
 \end{cor}
 \begin{proof}
@@ -1173,7 +1223,7 @@ For each vertex $v$ in a triangle $t$, the edge $e$ first leaves $t$ through an 
 We have constructed an $I$-beam $U$.
 
 By our choice of $\alpha$ and $\beta$, each of $\kappa(\alpha)$ and $\kappa(\beta)$ is compatible with every curve in $\kappa(T')$.
-We can choose a subset of $\kappa(\alpha)$ that is a bar $B_\alpha$ and a subset of $\kappa(\beta)$ that is a bar $B_\beta$ such that there are isotopy representatives of $B_\alpha$ and $B_\beta$ whose union is $U$.
+We can choose a subset of $\kappa(\alpha)$ that is a bar $B_\alpha$ and a subset of $\kappa(\beta)$ that is a bar $B_\beta$ such that there are representatives of $B_\alpha$ and $B_\beta$ whose union is $U$.
 Thus any allowable curve compatible with $\kappa(\alpha)$ and $\kappa(\beta)$ is also compatible with~$U$, so that $C_{\kappa(T')}\subseteq\Compat(U)$.
 
 Theorem~\ref{card thm} implies that $C_{\kappa(T')}$ has codimension $1$, so by Proposition~\ref{arc seq determines no punct}, there is at most one ring or I-beam such that $C_{\kappa(T')}\subseteq\Compat(U)$.
@@ -1182,7 +1232,7 @@ We have proved Asserion~\ref{T' to U}.
 
 Finally, we prove Assertion~\ref{U to exch}.
 If $U$ is an I-beam, then Assertion~\ref{U to T'} implies that there is a near triangulation $T'$ with $C_{\kappa(T')}\subseteq\Compat(U)$.
-The argument for Assertion~\ref{T' to U} constructs a pair $\alpha,\beta$ of exchangeable arcs and isotopy representatives of $\kappa(\alpha)$ and $\kappa(\beta)$ whose union contains an I-beam $U'$ with $C_{\kappa(T')}\subseteq\Compat(U')$.
+The argument for Assertion~\ref{T' to U} constructs a pair $\alpha,\beta$ of exchangeable arcs and representatives of $\kappa(\alpha)$ and $\kappa(\beta)$ whose union contains an I-beam $U'$ with $C_{\kappa(T')}\subseteq\Compat(U')$.
 The uniqueness in Assertion~\ref{T' to U} implies that $U'=U$, and thus we have proved Assertion~\ref{U to exch}.
 \end{proof}
 
@@ -1190,9 +1240,11 @@ The uniqueness in Assertion~\ref{T' to U} implies that $U'=U$, and thus we have 
 \begin{cor}\label{wall union ring no punct} \marginN{Make sure I changed this from prop to cor throughout.}
 Let $(\S,\M)$ be a marked surface no punctures and let $T$ be a triangulation.
 \begin{enumerate}[\qquad\rm1.]
-\item For any ring $U$, $\Compat(U)$ is the closure of a nonempty countable union of cones $C_{\set{U}\cup\kappa(T')}$ for pairwise compatible sets $T'$ of tagged arcs, compatible with $U$, with $|T'|=|T|-2$.
 \item
-Given a ring $U$ and a pairwise compatible sets $T'$ of tagged arcs compatible with $U$ with $|T'|=|T|-2$, the ring $U$ is the unique ring $U'$ (and there is no I-beam $U'$) such that $C_{\set{U}\cup\kappa(T')}\subseteq\Compat(U')$.
+For any ring $U$, $\Compat(U)$ is the closure of the union of all cones $C_{\Lambda}$ for pairwise compatible sets $\Lambda$ of allowable curves compatible with $U$.
+This is a nonempty countable union, and the sets $\Lambda$ appearing are precisely the sets $\set{U}\cup\kappa(T')$ such that $T'$ is a pairwise compatible set of tagged arcs, compatible with $U$, with $|T'|=|T|-2$.
+\item
+Given a ring $U$ and a pairwise compatible set $T'$ of tagged arcs compatible with $U$ and having $|T'|=|T|-2$, the ring $U$ is the unique ring $U'$ (and there is no I-beam $U'$) such that $C_{\set{U}\cup\kappa(T')}\subseteq\Compat(U')$.
 \end{enumerate}
 \end{cor}
 \begin{proof}
@@ -1211,7 +1263,7 @@ The uniqueness (and ruling out of an I-beam $U'$) holds by Proposition~\ref{arc 
 \section{Cluster scattering diagrams for surfaces without punctures}
 Recall from Definition~\ref{clus scat def} that the cluster scattering diagram is the unique (up to equivalence) consistent scattering diagram having a wall $(\alpha^\perp,1+\zeta_\alpha)$ for each $\alpha\in T$, such that every other wall is outgoing.
 %In this section, we define a scattering diagram using the cones $\Compat(U)$ discussed in the previous section and show that it is (i.e.is equivalent to) $\Scat(T,\L)$.
-Given an I-beam or ring $U$, let $\arcs(U)$ be the arc sequence of $U$.
+Given an I-beam or ring $U$, let $\arcs(U)$ be the arc sequence of $U$.  \marginN{Do we want this notation earlier?}
 
 
 \begin{theorem}\label{scat diag}
@@ -1220,11 +1272,61 @@ Given an I-beam or ring $U$, let $\arcs(U)$ be the arc sequence of $U$.
 \end{multline*}
 \end{theorem}
 
-Proposition~\ref{basic wall} implies that the right side of Theorem~\ref{scat diag} lists the wall $(\alpha^\perp,1+\zeta_\alpha)$ exactly once for each $\alpha\in T$, and that every other wall is outgoing.
+Let $\D_{T,\L}$ be the set (or, a priori, multiset) of walls on the right side of Theorem~\ref{scat diag}.
+(This is a temporary notation.  
+Once we have proved Theorem~\ref{scat diag}, the notation $\Scat(T,\L)$ will be preferred.)
+Proposition~\ref{arc seq determines no punct} implies that for each element $n\in N^+$, there is at most one wall in~$\D_{T,\L}$ whose normal vector is $n$.  
+In particular, for each $k\ge1$, there are only finitely many walls of $\D_{T,\L}$ of degree $\le k$, so $\D_{T,\L}$ is a scattering diagram.
+Proposition~\ref{basic wall} implies that $\D_{T,\L}$ has the wall $(\alpha^\perp,1+\zeta_\alpha)$ exactly once for each $\alpha\in T$, and that every other wall is outgoing.
 Thus it remains only to show that the scattering diagram proposed in Theorem~\ref{scat diag} is indeed consistent.
+We will use Proposition~\ref{loop}.
+We need to check that $\D_{T,\L}$ has the generic intersection property and that path-ordered products about small loops around codimension-$2$ intersections are trivial.
 
-DO THAT!
+As a first step, we classify the codimension-$2$ intersections of I-beams and rings.
+We begin with a simple lemma which we use throughout, and then establish results that show that certain intersections have codimension $>2$, before finally listing all possible codimension-$2$ intersections.
 
+\begin{lemma}\label{DTL gen int prop}
+Suppose each of $U$ and $U'$ is an I-beam or a ring.  
+Then $\Compat(U)\cap\Compat(U')$ is the closure of the set 
+\[\settt{\sum_{\gamma\in T}b_\gamma(T,L)\gamma^*:\,L\text{ is a quasi-lamination compatible with }U\cup U'},\]
+Where the union $U\cup U'$ can be taken with independently chosen equivalence representatives of $U$ and $U'$.	
+Also, $\Compat(U)\cap\Compat(U')$ is the closure of the union of all cones $C_{\Lambda}$ for pairwise compatible sets $\Lambda$ (all of the same size) of allowable curves compatible with both $U$ and $U'$.
+This union is nonempty and countable.
+\end{lemma}
+\begin{proof}
+Since $\Compat(U)$ and $\Compat(U')$ are both closed rational polyhedral cones (by Theorem~\ref{wall union no punct}), $\Compat(U)\cap\Compat(U')$ is a closed rational polyhedral cone, and is thus the closure of the set of rational points it contains.
+By the definition of $\Compat(U)$ and $\Compat(U')$, these are precisely the shear coordinate vectors of the rational quasi-laminations compatible with both $U$ and $U'$, taking arbitrary representatives of $U$ and $U'$ up to topological equivalence.
+Given a rational quasi-lamination $\L$ compatible with both $U$ and $U'$, every curve in the support of $\L$ is also compatible with both $U$ and $U'$, so $\Compat(U)\cap\Compat(U')$ is the closure of a (necessarily countable and nonempty) union of cones of $\F_\rationals(T)$.
+We can write it as a union of cones all of which are full-dimensional in $\Compat(U)\cap\Compat(U')$.
+\end{proof}
+
+\begin{definition}\label{Ibeam cross def}
+Two I-beams $U$ and $U'$ \newword{cross} if the edge between the non-leaves of $U$ intersects the edge between the non-leaves of $U'$, neither of these edges is contained in the other, and this intersection cannot be removed by passing (independently) to topologically equivalent I-beams.
+\end{definition}
+
+
+\begin{prop}\label{crossing Ibeams}
+If $U$ and $U'$ are I-beams that cross, then $\Compat(U)\cap\Compat(U')$ has codimension $>2$.
+\end{prop}
+\begin{proof}
+If $U$ and $U'$ cross, then up to independent topological equivalence, then $U\cup U'$ is of the form shown in Figure~\ref{Ib cross}.
+(The dotted edges shown might be absent or might be replaced by a single edge.)
+In particular, $U\cup U'$ contains three I-beams whose arc sequences, as marked in Figure~\ref{Ib cross}, are $\alpha_k,\ldots,\alpha_1$ and $\beta_1,\ldots,\beta_\ell$ and $\gamma_1,\ldots,\gamma_m$.
+Writing $\sum\alpha$ as shorthand for $\sum_{i=1}^k\alpha_i$ and so forth, Theorem~\ref{wall thm no punct} implies in particular that $\Compat(U)\cap\Compat(U')$ is contained in the hyperplanes $(\sum\alpha)^\perp$, $(\sum\beta)^\perp$, and $(\sum\gamma)^\perp$.
+
+Write $n_\alpha,n_\beta,n_\gamma$ for these three normal vectors and write $\alpha,\beta,\gamma$ for $\alpha_1,\beta_1,\gamma_1$.
+To see that $n_\alpha,n_\beta,n_\gamma$ are linearly independent, consider their projections to the coordinate subspace spanned by $\alpha$, $\beta$, and $\gamma$.
+The topology of $\S$ might be much more interesting than what is pictured, so any of the three branches pictured might pass through the triangle defined by $\alpha$, $\beta$, and $\gamma$ many times.  
+In doing so, it picks up some nonnegative integer combination of the vectors $\alpha+\beta$, $\alpha+\gamma$, and $\beta+\gamma$ (which are linearly independent because $\alpha,\beta,\gamma$ are).
+Thus the projections of $n_\alpha$, $n_\beta$, and $n_\gamma$ are 
+\begin{align*}
+n'_\alpha&=\alpha+x_\alpha(\alpha+\beta)+y_\alpha(\alpha+\gamma)+z_\alpha(\beta+\gamma)&\text{ for }x_\alpha\ge0,y_\alpha\ge0,z_\alpha\ge0\\
+n'_\beta&=\beta+x_\beta(\alpha+\beta)+y_\beta(\alpha+\gamma)+z_\beta(\beta+\gamma)&\text{ for }x_\beta\ge0,y_\beta\ge0,z_\beta\ge0\\
+n'_\gamma&=\gamma+x_\gamma(\alpha+\beta)+y_\gamma(\alpha+\gamma)+z_\gamma(\beta+\gamma)&\text{ for }x_\gamma\ge0,y_\gamma\ge0,z_\gamma\ge0
+\end{align*}
+
+
+\end{proof}
 
 
 
@@ -1232,7 +1334,7 @@ DO THAT!
 \section{Walls for general marked surfaces}\label{general walls sec}
 We now give the construction of, and the relevant results on, walls for a general surface $(\S,\M)$ (i.e.\ surfaces where punctures are allowed).
 The basic objects are still I-beams and rings, but in the presence of punctures, we must allow the branches of I-beams to degenerate.
-The definition of rings is unchanged from Definition~\ref{ring def}:  A ring in $(\S,\M)$ is an \emph{honest} \emph{non-sheilding} closed allowable curve, considered up to isotopy in $\S\setminus\M$.
+The definition of rings is unchanged from Definition~\ref{ring def}:  A ring in $(\S,\M)$ is an \emph{honest} \emph{non-shielding} closed allowable curve, considered up to isotopy in $\S\setminus\M$.
 
 \begin{definition}[\emph{I-beam, for surfaces allowing punctures}]\label{def: i-beam}
 Let $(\S,\M)$ be a marked surface with triangulation $T$.  
@@ -2304,7 +2406,7 @@ The joints of $\mathfrak{D}$ are as follows.%are $C_B$, as $B$ runs over the min
 	\item If $B$ is a tree with 5 short leaves, then $C_B$ is a joint which is contained in the 3 walls: the 3 I-beams contained in $B$.
 	\item If $B$ is a cycle with 2 short leaves on different sides, then $C_B$ is a joint which is contained in infinitely many walls: the cycle and the infinitely-many I-beams contained in $B$.\footnote{Note that the cycle in this case must be non-shielding.}
 	\item If $B$ is a non-shielding cycle with 2 short leaves on the same side, then $C_B$ is a joint which is contained in 3 walls: the cycle and the 2 I-beams contained in $B$.
-	\item If $B$ is a shielding cycle with 2 short leaves on the same side, then $C_B$ is a joint which is contained in 2 walls: the 2 I-beams contained in $B$.
+	\item If $B$ is a shielding cycle with 2 short leaves on the same side, then $C_B$ is a joint which is contained in 2 walls: the 2 I-beams contained in $B$.  \marginN{I think the correction to Proposition~\ref{closed card thm} means that this case isn't real.}
 	\item If $B$ is a disjoint union of 2 I-beams or non-shielding loops, then $C_B$ is a joint contained in 2 walls.
 \end{itemize}
 \end{lemma}
