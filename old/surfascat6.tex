@@ -312,8 +312,6 @@
 
 %\marginN{Of course, it's not time to write this yet, but I'm recording some decisions explicitly, so that we can follow through with them (and mention them explicitly in the paper) or change them.}
 
-Comment from Fan Qin on my OCAS talk:
-Qin and (Mandel?) have theta functions for the surfaces case (and theta=bracelets) in a paper that will be out soon.  
 
 
 \section{Triangulated marked surfaces}\label{surface sec}
@@ -460,7 +458,7 @@ Otherwise it is called \newword{non-shielding}.
 
 \begin{example}\label{shield ex}
 Consider a torus from which an open disk has been removed, with one marked point on the boundary of the disk.
-This marked surface $(\S,\M)$ is sometimes called the \newword{dread torus}.\footnote{The term ``dreaded torus'' for this surface was coined by Gregg Musiker, off the cuff during a talk, and the variation ``dread torus'' arose later.}
+This marked surface $(\S,\M)$ is sometimes called the \newword{dread torus}.\footnote{The term ``dreaded torus'' for this surface was coined, off the cuff during a talk, but Gregg Musiker, and the variation ``dread torus'' arose later.}
 The closed curve in the interior of $\S$ that encircles the removed  the boundary is a shielding curve.
 Triangulations of $(\S,\M)$ consist of five arcs, but quasi-laminations containing $\lambda$ contain at most three allowable curves. 
 \end{example}
@@ -854,7 +852,7 @@ Conversely, if there exists $F$ such that no small loop about $F$ has trivial pa
 This gives a formula for a cluster monomial in terms of any sequence of flips that relates it to an initial cluster monomial, and I'm really curious to see what that formula is.}
 
 \section{Walls for surfaces without punctures}\label{walls no punct sec}
-Building cluster scattering diagrams for marked surfaces is considerably more complicated in the presence of punctures.
+Building cluster scattering diagrams for marked surfaces if considerably more complicated in the presence of punctures.
 For that reason, we first make the complete construction in the case of surfaces without punctures.
 The ideas behind the proof for punctured surfaces are the same, but the combinatorics becomes more complicated.
 
@@ -1094,7 +1092,7 @@ Thus the closure in the definition of $\Compat(U)$ serves only to bring non-rati
 
 The key to completing the proof of Theorem~\ref{wall thm no punct} is the following proposition.
 
-\begin{prop}\label{basic wall no punct}
+\begin{prop}\label{basic wall}
 Let $(\S,\M)$ be a marked surface \emph{with no punctures} and let $T$ be a triangulation.
 Suppose $U$ is an I-beam or ring with arc sequence $\alpha_1,\ldots,\alpha_k$.
 Then $-p^*_\uf(\sum_{i=1}^k\alpha_i)$ is in the relative interior of $\Compat(U)$ (its interior as a subset of the hyperplane $\bigl(\sum_{i=1}^k\alpha_i\bigr)^\perp$ in $V^*$).
@@ -1169,7 +1167,7 @@ Finally, given any arc $\alpha\in T$, we easily construct the desired unique I-b
 \end{proof}
 
 We already proved, in Proposition~\ref{all but codim no punct}, all of Theorem~\ref{wall thm no punct} except the assertion that the codimension of $\Compat(U)$ in $V^*$ is $1$.
-Proposition~\ref{basic wall no punct} completes the proof, because $\Compat(U)$ has nonempty relative interior (i.e.\ interior as a subset of the hyperplane containing it).
+Proposition~\ref{basic wall} completes the proof, because $\Compat(U)$ has nonempty relative interior (i.e.\ interior as a subset of the hyperplane containing it).
 We now collect some additional consequences of Theorem~\ref{wall thm no punct}.
 
 Given a pairwise compatible collection $\Lambda$ of allowable curves, let $C_\Lambda$ be closure of the set
@@ -1190,7 +1188,7 @@ We conclude that $\Compat(U)$ is the closure of a union of cones in the rational
 (Since $\F_\rationals(T)$ has countably many cones, this is a countable union.)
 The following corollaries of Theorem~\ref{wall thm no punct} make more specific statements.
 
-\begin{cor}\label{wall union no punct}
+\begin{cor}\label{wall union no punct}  \marginN{Make sure I changed this from prop to cor throughout.}
 Let $(\S,\M)$ be a marked surface with no punctures and let $T$ be a triangulation.
 \begin{enumerate}[\quad\rm\bf1.]
 \item \label{U to T'}
@@ -1204,7 +1202,7 @@ For any I-beam $U$, there exist exchangeable arcs $\alpha$ and $\beta$ and repre
 \end{cor}
 \begin{proof}
 Let $U$ be an I-beam.
-Since $\Compat(U)$ is the closure of a union of countably many cones in $\F_\rationals(T)$ and has codimension $1$ in $V^*$, it can be written as the closure of a nonempty countable union of cones in $\F_\rationals(T)$ of codimension $1$ in $V^*$.  \marginN{Is that really right??}
+Since $\Compat(U)$ is the closure of a union of countably many cones in $\F_\rationals(T)$ and has codimension $1$ in $V^*$, it can be written as the closure of a nonempty countable union of cones in $\F_\rationals(T)$ of codimension $1$ in $V^*$.
 By Proposition~\ref{closed card thm}, if $C_\Lambda$ has codimension~$1$, then $\Lambda$ consists either of $|T|-1$ non-closed allowable curves or of $|T|-2$ non-closed allowable curves and $1$ non-shielding closed allowable curve.
 
 Suppose that $C_\Lambda\subseteq\Compat(U)$ for some $\Lambda$ containing a non-shielding closed curve $U'$.
@@ -1241,8 +1239,8 @@ The uniqueness in Assertion~\ref{T' to U} implies that $U'=U$, and thus we have 
 \end{proof}
 
 
-\begin{cor}\label{wall union ring no punct} 
-Let $(\S,\M)$ be a marked surface with no punctures and let $T$ be a triangulation.
+\begin{cor}\label{wall union ring no punct} \marginN{Make sure I changed this from prop to cor throughout.}
+Let $(\S,\M)$ be a marked surface no punctures and let $T$ be a triangulation.
 \begin{enumerate}[\quad\rm\bf1.]
 \item
 For any ring $U$, $\Compat(U)$ is the closure of the union of all cones $C_{\Lambda}$ for pairwise compatible sets $\Lambda$ of allowable curves compatible with $U$.
@@ -1281,7 +1279,7 @@ Let $\D_{T,\L}$ be the set (or, a priori, multiset) of walls on the right side o
 Once we have proved Theorem~\ref{scat diag}, the notation $\Scat(T,\L)$ will be preferred.)
 Proposition~\ref{arc seq determines no punct} implies that for each element $n\in N^+$, there is at most one wall in~$\D_{T,\L}$ whose normal vector is $n$.  
 In particular, for each $k\ge1$, there are only finitely many walls of $\D_{T,\L}$ of degree $\le k$, so $\D_{T,\L}$ is a scattering diagram.
-Proposition~\ref{basic wall no punct} implies that $\D_{T,\L}$ has the wall $(\alpha^\perp,1+\zeta_\alpha)$ exactly once for each $\alpha\in T$, and that every other wall is outgoing.
+Proposition~\ref{basic wall} implies that $\D_{T,\L}$ has the wall $(\alpha^\perp,1+\zeta_\alpha)$ exactly once for each $\alpha\in T$, and that every other wall is outgoing.
 Thus it remains only to show that the scattering diagram proposed in Theorem~\ref{scat diag} is indeed consistent.
 We will use Proposition~\ref{loop}.
 We need to check that $\D_{T,\L}$ has the generic intersection property and that path-ordered products about small loops around codimension-$2$ intersections are trivial.
@@ -1293,35 +1291,16 @@ We begin with a simple lemma which we use throughout, and then establish results
 Suppose each of $U$ and $U'$ is an I-beam or a ring.  
 Then $\Compat(U)\cap\Compat(U')$ is the closure of the set 
 \[\settt{\sum_{\gamma\in T}b_\gamma(T,L)\gamma^*:\,L\text{ is a quasi-lamination compatible with }U\cup U'},\]
-where the union $U\cup U'$ can be taken with independently chosen isotopy representatives of $U$ and $U'$.	
+Where the union $U\cup U'$ can be taken with independently chosen isotopy of $U$ and $U'$.	
 Also, $\Compat(U)\cap\Compat(U')$ is the closure of the union of all cones $C_{\Lambda}$ for pairwise compatible sets $\Lambda$ (all of the same size) of allowable curves compatible with both $U$ and $U'$.
 This union is nonempty and countable.
 \end{lemma}
 \begin{proof}
-Since $\Compat(U)$ and $\Compat(U')$ are both closed rational polyhedral cones (by Corollary~\ref{wall union no punct}), $\Compat(U)\cap\Compat(U')$ is a closed rational polyhedral cone, and is thus the closure of the set of rational points it contains.
+Since $\Compat(U)$ and $\Compat(U')$ are both closed rational polyhedral cones (by Theorem~\ref{wall union no punct}), $\Compat(U)\cap\Compat(U')$ is a closed rational polyhedral cone, and is thus the closure of the set of rational points it contains.
 By the definition of $\Compat(U)$ and $\Compat(U')$, these are precisely the shear coordinate vectors of the rational quasi-laminations compatible with both $U$ and $U'$, taking arbitrary representatives of $U$ and $U'$ up to isotopy.
 Given a rational quasi-lamination $\L$ compatible with both $U$ and $U'$, every curve in the support of $\L$ is also compatible with both $U$ and $U'$, so $\Compat(U)\cap\Compat(U')$ is the closure of a (necessarily countable and nonempty) union of cones of $\F_\rationals(T)$.
 We can write it as a union of cones all of which are full-dimensional in $\Compat(U)\cap\Compat(U')$.
 \end{proof}
-
-\begin{proposition}\label{int shielding}
-If $U$ and $U'$ are I-beams or rings whose union contains a shielding closed curve, then 
-$\Compat(U)\cap\Compat(U')$ has codimension $>2$.
-\end{proposition}
-\begin{proof}
-Lemma~\ref{DTL gen int prop} says that $\Compat(U)\cap\Compat(U')$ is the closure of a countable union of cones $C_{\Lambda}$ for pairwise compatible sets $\Lambda$ of allowable curves compatible with both $U$ and $U'$.
-Each allowable curve compatible with both $U$ and $U'$ is also compatible with the shielding closed curve $\lambda$ contained in $U\cup U'$.
-Thus any maximal pairwise compatible set $\Lambda$ of allowable curves compatible with both $U$ and $U'$ has $\lambda\in\Lambda$.
-Proposition~\ref{closed card thm} implies that $|\Lambda|\le|T|-3$.
-We see that $\Compat(U)\cap\Compat(U')$ is the closure of a countable union of cones of codimension at least $3$.
-
-
-
-NO!  That doesn't prove anything!
-
-\end{proof}
-
-
 
 \begin{definition}\label{Ibeam cross def}
 Two I-beams $U$ and $U'$ \newword{cross} if the edge between the non-leaves of $U$ intersects the edge between the non-leaves of $U'$, neither of these edges can by made, by isotopy, to be contained in the other, and this intersection cannot be removed by passing (independently) to isotopic I-beams.
@@ -1333,33 +1312,25 @@ If $U$ and $U'$ are I-beams that cross, then $\Compat(U)\cap\Compat(U')$ has cod
 \end{prop}
 \begin{proof}
 If $U$ and $U'$ cross, then up to independent isotopy, $U\cup U'$ is of the form shown in Figure~\ref{Ib cross}.
-(The dotted edges shown might be absent or might be replaced by a single edge.
-Also, the topology of $\S$ might be much more interesting than what is pictured, so there may be additional crossings, and the different I-beams may pass through the same triangles, perhaps multiple times.)
+(The dotted edges shown might be absent or might be replaced by a single edge.)
+In particular, $U\cup U'$ contains three I-beams whose arc sequences, as marked in Figure~\ref{Ib cross}, are $\alpha_k,\ldots,\alpha_1$ and $\beta_1,\ldots,\beta_\ell$ and $\gamma_1,\ldots,\gamma_m$.
+Writing $\sum\alpha$ as shorthand for $\sum_{i=1}^k\alpha_i$ and so forth, Theorem~\ref{wall thm no punct} implies in particular that $\Compat(U)\cap\Compat(U')$ is contained in the hyperplanes $(\sum\alpha)^\perp$, $(\sum\beta)^\perp$, and $(\sum\gamma)^\perp$.
 
-The union $U\cup U'$ contains three I-beams whose arc sequences, as marked in Figure~\ref{Ib cross}, are $\alpha_k,\ldots,\alpha_1$ and $\beta_1,\ldots,\beta_\ell$ and $\gamma_1,\ldots,\gamma_m$.
-%Writing $\sum\alpha$ as shorthand for $\sum_{i=1}^k\alpha_i$ and so forth, 
-Theorem~\ref{wall thm no punct} implies in particular that $\Compat(U)\cap\Compat(U')$ is contained in the three hyperplanes normal to the vectors $\sum_{i=1}^k\alpha_i$, $\sum_{i=1}^\ell\beta_i$, and $\sum_{i=m}^k\gamma_i$.
-We complete the proof by showing that these three normal vectors are linearly independent.
-
-Since each vector is a positive integer combination of arcs, if they are dependent then without loss of generality $\sum_{i=1}^k\alpha_i$ is a nonnegative, rational linear combination of the other two.
-Clearing denominators, we can write $x\sum_{i=1}^k\alpha_i=y\sum_{i=1}^\ell\beta_i+z\sum_{i=m}^k\gamma_i$ for nonnegative integers $x$, $y$, and $z$.
-
-
-
-
+Write $n_\alpha,n_\beta,n_\gamma$ for these three normal vectors and write $\alpha,\beta,\gamma$ for $\alpha_1,\beta_1,\gamma_1$.
+To see that $n_\alpha,n_\beta,n_\gamma$ are linearly independent, consider their projections to the coordinate subspace spanned by $\alpha$, $\beta$, and $\gamma$.
+The topology of $\S$ might be much more interesting than what is pictured, so any of the three branches pictured might pass through the triangle defined by $\alpha$, $\beta$, and $\gamma$ many times.  
+In doing so, it picks up some nonnegative integer combination of the vectors $\alpha+\beta$, $\alpha+\gamma$, and $\beta+\gamma$ (which are linearly independent because $\alpha,\beta,\gamma$ are).
+Thus the projections of $n_\alpha$, $n_\beta$, and $n_\gamma$ are 
+\begin{align*}
+n'_\alpha&=\alpha+x_\alpha(\alpha+\beta)+y_\alpha(\alpha+\gamma)+z_\alpha(\beta+\gamma)&\text{ for }x_\alpha\ge0,y_\alpha\ge0,z_\alpha\ge0\\
+n'_\beta&=\beta+x_\beta(\alpha+\beta)+y_\beta(\alpha+\gamma)+z_\beta(\beta+\gamma)&\text{ for }x_\beta\ge0,y_\beta\ge0,z_\beta\ge0\\
+n'_\gamma&=\gamma+x_\gamma(\alpha+\beta)+y_\gamma(\alpha+\gamma)+z_\gamma(\beta+\gamma)&\text{ for }x_\gamma\ge0,y_\gamma\ge0,z_\gamma\ge0
+\end{align*}
 
 
 \end{proof}
 
-\newpage
 
-\quad
-
-\newpage
-
-\quad
-
-\newpage
 
 
 \section{Walls for general marked surfaces}\label{general walls sec}
@@ -2437,7 +2408,7 @@ The joints of $\mathfrak{D}$ are as follows.%are $C_B$, as $B$ runs over the min
 	\item If $B$ is a tree with 5 short leaves, then $C_B$ is a joint which is contained in the 3 walls: the 3 I-beams contained in $B$.
 	\item If $B$ is a cycle with 2 short leaves on different sides, then $C_B$ is a joint which is contained in infinitely many walls: the cycle and the infinitely-many I-beams contained in $B$.\footnote{Note that the cycle in this case must be non-shielding.}
 	\item If $B$ is a non-shielding cycle with 2 short leaves on the same side, then $C_B$ is a joint which is contained in 3 walls: the cycle and the 2 I-beams contained in $B$.
-	\item If $B$ is a shielding cycle with 2 short leaves on the same side, then $C_B$ is a joint which is contained in 2 walls: the 2 I-beams contained in $B$.  \marginN{I think the correction to Proposition~\ref{closed card thm} means that this case isn't real.  UPDATE:  Maybe it is real?}
+	\item If $B$ is a shielding cycle with 2 short leaves on the same side, then $C_B$ is a joint which is contained in 2 walls: the 2 I-beams contained in $B$.  \marginN{I think the correction to Proposition~\ref{closed card thm} means that this case isn't real.}
 	\item If $B$ is a disjoint union of 2 I-beams or non-shielding loops, then $C_B$ is a joint contained in 2 walls.
 \end{itemize}
 \end{lemma}
